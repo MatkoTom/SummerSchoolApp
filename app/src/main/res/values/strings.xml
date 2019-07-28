@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">SummerSchoolApp</string>
+    <string name="app_info">Aplikacija je namijenjena građanima, kako bi mogli prijaviti kvarove, izraziti svoje mišljenje i informirati se o aktualnim temama.</string>
+    <string name="app_info_login">Prijava putem OIB-a</string>
+    <string name="button_continue">Nastavi</string>
+    <string name="sign_in">Prijavi se</string>
+    <string name="register_with_oib">Registriraj se putem OIB-a</string>
+    <string name="please_enter_info">Molimo upišite tražene podatke kako biste pristupili usluzi koju nudimo.</string>
+    <string name="password">Lozinka:</string>
+    <string name="email">email:</string>
+    <string name="welcome_back">Dobro došli nazad!</string>
+    <string name="enter_data">Molimo vas upišite tražene podatke kako bi vas uspješno spojili sa servisom.</string>
+    <string name="welcome">Dobrodošli i još se bolje snašli!</string>
+    <string name="oib">OIB:</string>
+    <string name="button_register">Registriraj me</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
