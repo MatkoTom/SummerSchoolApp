@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.RegisterFragment">
+    android:background="#FFFFFF"
+    tools:context=".view.login.signup.SignupFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,7 +13,7 @@
         tools:context=".view.RegisterScreen">
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/image"
             android:layout_width="198dp"
             android:layout_height="144dp"
             android:layout_marginStart="101dp"
@@ -58,7 +59,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/et_oib"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -78,13 +79,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/email"
-            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText3" />
+            app:layout_constraintTop_toBottomOf="@+id/et_oib" />
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/et_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -105,32 +105,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/password"
-            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/et_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:ems="10"
+            android:hint="@string/hide_password"
             android:inputType="textPassword"
+            android:textSize="12sp"
+            android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
         <Button
-            android:id="@+id/btnRegister"
+            android:id="@+id/btn_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/button_layout"
@@ -145,8 +146,8 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline11"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText5"
-            app:layout_constraintVertical_bias="0.466" />
+            app:layout_constraintTop_toBottomOf="@+id/et_password"
+            app:layout_constraintVertical_bias="0.242" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline9"
@@ -162,7 +163,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="20dp"
-            app:layout_constraintGuide_percent="0.7" />
+            app:layout_constraintGuide_percent="0.69" />
 
         <TextView
             android:id="@+id/textView5"
@@ -171,10 +172,20 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/oib"
-            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline12" />
+
+        <ImageButton
+            android:id="@+id/ibtn_hide_show"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:background="@null"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="@+id/et_password"
+            app:layout_constraintEnd_toEndOf="@+id/et_password"
+            app:layout_constraintTop_toTopOf="@+id/et_password"
+            app:layout_constraintVertical_bias="0.48" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline11"
@@ -188,9 +199,26 @@
             android:id="@+id/guideline12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.41"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="20dp" />
+            app:layout_constraintGuide_begin="20dp"
+            app:layout_constraintGuide_percent="0.41" />
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="@string/app_info_login"
+            android:textColor="#5E6DFF"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline11"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_signup" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.LoginFragment">
+    tools:context=".view.login.login.LoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout2"
@@ -14,7 +14,7 @@
         tools:context=".view.LoginScreen">
 
         <TextView
-            android:id="@+id/tvWelocme"
+            android:id="@+id/tv_welcome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -22,7 +22,7 @@
             android:layout_marginEnd="16dp"
             android:gravity="center"
             android:text="@string/welcome_back"
-            android:textSize="18sp"
+            android:textSize="21sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -37,6 +37,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/email"
             app:layout_constraintEnd_toEndOf="parent"
+            android:textStyle="bold"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -49,13 +50,15 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="@string/password"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText2" />
+            app:layout_constraintTop_toBottomOf="@+id/et_email" />
+
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/et_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -77,12 +80,13 @@
             android:gravity="center"
             android:text="@string/please_enter_info"
             android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvWelocme" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/et_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -95,7 +99,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btn_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="161dp"
@@ -115,7 +119,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline7" />
 
         <TextView
-            android:id="@+id/tvRegister"
+            android:id="@+id/tv_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="176dp"
@@ -176,6 +180,17 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="1.0"
             app:layout_constraintGuide_begin="20dp" />
+
+        <ImageButton
+            android:id="@+id/ibtn_hide_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@null"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="@+id/et_password"
+            app:layout_constraintEnd_toEndOf="@+id/et_password"
+            app:layout_constraintTop_toTopOf="@+id/et_password" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

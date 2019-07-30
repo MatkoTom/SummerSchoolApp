@@ -9,10 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".view.LoginActivity"></activity>
-        <activity android:name=".view.RegisterScreen" />
-        <activity android:name=".view.LoginScreen" />
-        <activity android:name=".view.FirstLogin">
+        <activity android:name=".view.main.MainScreenActivity"></activity>
+        <activity android:name=".view.login.onboarding.OnboardingActivity" />
+        <activity android:name=".view.login.onboarding.FirstLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

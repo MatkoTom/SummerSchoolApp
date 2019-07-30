@@ -1,4 +1,4 @@
-package com.example.summerschoolapp.view;
+package com.example.summerschoolapp.view.main;
 
 
 import android.os.Bundle;
@@ -14,10 +14,10 @@ import com.example.summerschoolapp.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegisterFragment extends Fragment {
+public class RequestsFragment extends Fragment {
 
 
-    public RegisterFragment() {
+    public RequestsFragment() {
         // Required empty public constructor
     }
 
@@ -25,7 +25,8 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_register, container, false);
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_requests, container, false);
         return rootView;
     }
 
