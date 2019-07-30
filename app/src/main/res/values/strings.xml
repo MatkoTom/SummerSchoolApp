@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SummerSchoolApp</string>
     <string name="app_info">Aplikacija je namijenjena građanima, kako bi mogli prijaviti kvarove, izraziti svoje mišljenje i informirati se o aktualnim temama.</string>
-    <string name="app_info_login">Prijava putem OIB-a</string>
+    <string name="app_info_login">Prijava putem email-a</string>
     <string name="button_continue">Nastavi</string>
     <string name="sign_in">Prijavi se</string>
     <string name="register_with_oib">Registriraj se putem OIB-a</string>

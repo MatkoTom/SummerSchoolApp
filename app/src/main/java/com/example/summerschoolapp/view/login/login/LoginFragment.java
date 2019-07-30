@@ -3,13 +3,18 @@ package com.example.summerschoolapp.view.login.login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -28,10 +33,27 @@ public class LoginFragment extends Fragment {
 
     private OnFragmentLoginClickListener listener;
 
-    @BindView(R.id.et_password)
+    @BindView(R.id.et_signup_password)
     EditText etPassword;
 
+    @BindView(R.id.et_signup_email)
+    EditText etEmail;
+
+    @BindView(R.id.tv_wrong_password)
+    TextView tvWrongPassword;
+
+    @BindView(R.id.tv_login_mail)
+    TextView tvLoginMail;
+
+    @BindView(R.id.tv_wrong_email)
+    TextView tvWrongEmail;
+
+    @BindView(R.id.tv_login_password)
+    TextView tvLoginPassword;
+
     private boolean isVisible = false;
+    private boolean isValidMail = false;
+    private boolean isValidPassword = false;
 
     public interface OnFragmentLoginClickListener {
         void onLoginItemClicked();
@@ -59,9 +81,31 @@ public class LoginFragment extends Fragment {
 
     @OnClick(R.id.btn_login)
     public void logInUser() {
-        Intent i = new Intent(getActivity(), MainScreenActivity.class);
-        startActivity(i);
+        if (etPassword.length() == 0) {
+            tvLoginPassword.setTextColor(Color.RED);
+            tvWrongPassword.setText("Kriva lozinka!");
+            tvWrongPassword.setTextColor(Color.RED);
+        } else {
+            isValidPassword = true;
+
+        }
+
+        if (!isValidEmail(etEmail.getText().toString().trim())) {
+            tvLoginMail.setTextColor(Color.RED);
+            tvWrongEmail.setText("Korisnik ne postoji!");
+            tvWrongEmail.setTextColor(Color.RED);
+
+        } else {
+            isValidMail = true;
+        }
+
+        if (isValidPassword && isValidMail) {
+            Intent i = new Intent(getActivity(), MainScreenActivity.class);
+            startActivity(i);
+        }
+
     }
+
 
     @OnClick(R.id.tv_register)
     public void registerUser() {
@@ -77,5 +121,9 @@ public class LoginFragment extends Fragment {
             etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
             isVisible = false;
         }
+    }
+
+    private static boolean isValidEmail(CharSequence target) {  // Email validator, checks if field has correct input
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 }

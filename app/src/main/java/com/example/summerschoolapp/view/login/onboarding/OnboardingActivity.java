@@ -12,7 +12,7 @@ import com.example.summerschoolapp.view.login.signup.SignupFragment;
 
 import butterknife.ButterKnife;
 
-public class OnboardingActivity extends AppCompatActivity implements LoginFragment.OnFragmentLoginClickListener, SignupFragment.OnSignupFragmentClicListener {
+public class OnboardingActivity extends AppCompatActivity implements LoginFragment.OnFragmentLoginClickListener, SignupFragment.OnSignupFragmentClicListener, FirstLoginFragment.OnFirstLoginFragmentRegisterListener, FirstLoginFragment.OnFirstLoginFragmentLoginListener {
 
     private FragmentManager manager;
     private FragmentTransaction transaction;
@@ -24,15 +24,14 @@ public class OnboardingActivity extends AppCompatActivity implements LoginFragme
 
         ButterKnife.bind(this);
 
-        runLoginFragment();
+        runFirstLoginFragment();
     }
 
-    public void runLoginFragment() {
+    public void runFirstLoginFragment() {
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
-        manager.popBackStack();
         transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-        transaction.replace(R.id.fragment_container, new LoginFragment(), "login");
+        transaction.add(R.id.fragment_container, new FirstLoginFragment(), "login");
         transaction.addToBackStack("login");
         transaction.commit();
     }
@@ -56,6 +55,28 @@ public class OnboardingActivity extends AppCompatActivity implements LoginFragme
         transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
         transaction.replace(R.id.fragment_container, new LoginFragment(), "login");
         transaction.addToBackStack("login");
+        transaction.commit();
+    }
+
+    @Override
+    public void onFirstLoginItemClicked() {
+        manager = getSupportFragmentManager();
+        transaction = manager.beginTransaction();
+        manager.popBackStack();
+        transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+        transaction.replace(R.id.fragment_container, new LoginFragment(), "login");
+        transaction.addToBackStack("login");
+        transaction.commit();
+    }
+
+    @Override
+    public void onFirstLoginRegister() {
+        manager = getSupportFragmentManager();
+        transaction = manager.beginTransaction();
+        manager.popBackStack();
+        transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+        transaction.replace(R.id.fragment_container, new SignupFragment(), "register");
+        transaction.addToBackStack("register");
         transaction.commit();
     }
 }
