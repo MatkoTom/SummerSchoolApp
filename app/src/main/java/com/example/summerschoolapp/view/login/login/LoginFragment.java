@@ -3,16 +3,18 @@ package com.example.summerschoolapp.view.login.login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -55,6 +57,7 @@ public class LoginFragment extends Fragment {
     @BindView(R.id.ibtn_hide_show)
     ImageButton ibtnHideShow;
 
+    private ColorStateList oldColor;
     private boolean isVisible = false;
     private boolean isValidMail = false;
     private boolean isValidPassword = false;
@@ -73,6 +76,8 @@ public class LoginFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, rootView);
+        textChangedListener();
+        oldColor = tvLoginMail.getTextColors();
         return rootView;
     }
 
@@ -125,6 +130,44 @@ public class LoginFragment extends Fragment {
             ibtnHideShow.setImageDrawable(getResources().getDrawable(R.drawable.log_in_lozinka_hiden_icon));
             isVisible = false;
         }
+    }
+
+    private void textChangedListener() {
+        etEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                tvLoginMail.setTextColor(oldColor);
+                tvWrongEmail.setText("");
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        etPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                tvLoginPassword.setTextColor(oldColor);
+                tvWrongPassword.setText("");
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     private static boolean isValidEmail(CharSequence target) {  // Email validator, checks if field has correct input

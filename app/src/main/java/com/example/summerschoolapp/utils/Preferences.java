@@ -18,9 +18,8 @@ public class Preferences {
 
     public Boolean getBoolean() {
         editor = preferences.edit();
-        Boolean b = preferences.getBoolean(BOOLEAN_SHARED_KEY, false);
 
-        return b;
+        return preferences.getBoolean(BOOLEAN_SHARED_KEY, false);
     }
 
     public void setBoolean(Boolean b) {
