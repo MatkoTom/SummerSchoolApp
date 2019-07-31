@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.utils.Preferences;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
 
 import butterknife.BindView;
@@ -33,6 +34,8 @@ import butterknife.OnClick;
  * A simple {@link Fragment} subclass.
  */
 public class LoginFragment extends Fragment {
+
+    private static final String TAG = "STASEDOGADJA";
 
     private OnFragmentLoginClickListener listener;
 
@@ -62,6 +65,8 @@ public class LoginFragment extends Fragment {
     private boolean isValidMail = false;
     private boolean isValidPassword = false;
 
+    private Preferences preferences;
+
     public interface OnFragmentLoginClickListener {
         void onLoginItemClicked();
     }
@@ -76,6 +81,8 @@ public class LoginFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, rootView);
+        preferences = new Preferences(getActivity());
+        fetchStoredUser();
         textChangedListener();
         oldColor = tvLoginMail.getTextColors();
         return rootView;
@@ -172,5 +179,12 @@ public class LoginFragment extends Fragment {
 
     private static boolean isValidEmail(CharSequence target) {  // Email validator, checks if field has correct input
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
+
+    private void fetchStoredUser() {
+        if (!preferences.getEmail().equals("") && !preferences.getPassword().equals("") ) {
+            etEmail.setText(preferences.getEmail());
+            etPassword.setText(preferences.getPassword());
+        }
     }
 }

@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.utils.Preferences;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
 
 import butterknife.BindView;
@@ -72,6 +73,8 @@ public class SignupFragment extends Fragment {
     private boolean isValidOib = false;
     private boolean isValidPassword = false;
 
+    private Preferences preferences;
+
     public interface OnSignupFragmentClicListener {
         void onSignupItemClicked();
     }
@@ -85,6 +88,7 @@ public class SignupFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_signup, container, false);
         ButterKnife.bind(this, rootView);
+        preferences = new Preferences(getActivity());
         oldColor = tvSignupOib.getTextColors();
         textChangedListener();
         return rootView;
@@ -143,6 +147,8 @@ public class SignupFragment extends Fragment {
         }
 
         if (isValidOib && isValidMail && isValidPassword) {
+            preferences.setEmail(etEmail.getText().toString());
+            preferences.setPassword(etPassword.getText().toString());
             Intent i = new Intent(getActivity(), MainScreenActivity.class);
             startActivity(i);
         }
