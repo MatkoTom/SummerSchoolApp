@@ -2,7 +2,6 @@ package com.example.summerschoolapp.view.login.login;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -23,8 +22,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.utils.Preferences;
-import com.example.summerschoolapp.view.main.MainScreenActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +37,7 @@ public class LoginFragment extends Fragment {
     private static final String TAG = "STASEDOGADJA";
 
     private OnFragmentLoginClickListener listener;
+    private OnFragmentLoginNextActivity loginListener;
 
     @BindView(R.id.et_signup_password)
     EditText etPassword;
@@ -71,6 +71,10 @@ public class LoginFragment extends Fragment {
         void onLoginItemClicked();
     }
 
+    public interface OnFragmentLoginNextActivity {
+        void onLoginClicked();
+    }
+
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -93,6 +97,7 @@ public class LoginFragment extends Fragment {
         super.onAttach(context);
 
         listener = (OnFragmentLoginClickListener) context;
+        loginListener = (OnFragmentLoginNextActivity) context;
     }
 
     @OnClick(R.id.btn_login)
@@ -116,8 +121,7 @@ public class LoginFragment extends Fragment {
         }
 
         if (isValidPassword && isValidMail) {
-            Intent i = new Intent(getActivity(), MainScreenActivity.class);
-            startActivity(i);
+            loginListener.onLoginClicked();
         }
     }
 
@@ -182,7 +186,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void fetchStoredUser() {
-        if (!preferences.getEmail().equals("") && !preferences.getPassword().equals("") ) {
+        if (!preferences.getEmail().equals("") && !preferences.getPassword().equals("")) {
             etEmail.setText(preferences.getEmail());
             etPassword.setText(preferences.getPassword());
         }

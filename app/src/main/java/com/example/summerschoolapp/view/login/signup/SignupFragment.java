@@ -2,7 +2,6 @@ package com.example.summerschoolapp.view.login.signup;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -24,7 +23,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.utils.Preferences;
-import com.example.summerschoolapp.view.main.MainScreenActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,6 +64,7 @@ public class SignupFragment extends Fragment {
     ImageButton ibtnHideShow;
 
     OnSignupFragmentClicListener listener;
+    OnSignupLogin loginListener;
 
     private boolean isVisible = false;
     private ColorStateList oldColor;
@@ -77,6 +76,10 @@ public class SignupFragment extends Fragment {
 
     public interface OnSignupFragmentClicListener {
         void onSignupItemClicked();
+    }
+
+    public interface OnSignupLogin {
+        void onSignupClicked();
     }
 
     public SignupFragment() {
@@ -99,6 +102,7 @@ public class SignupFragment extends Fragment {
         super.onAttach(context);
 
         listener = (OnSignupFragmentClicListener) context;
+        loginListener = (OnSignupLogin) context;
     }
 
     @OnClick(R.id.ibtn_hide_show)
@@ -130,7 +134,7 @@ public class SignupFragment extends Fragment {
             isValidMail = true;
         }
 
-        if (etOib.length() == 0) {
+        if (etOib.length() == 0 || etOib.length() > 11 || etOib.length() < 11) {
             tvSignupOib.setTextColor(Color.RED);
             tvOibInUse.setTextColor(Color.RED);
             tvOibInUse.setText("OIB se već koristi");
@@ -149,8 +153,7 @@ public class SignupFragment extends Fragment {
         if (isValidOib && isValidMail && isValidPassword) {
             preferences.setEmail(etEmail.getText().toString());
             preferences.setPassword(etPassword.getText().toString());
-            Intent i = new Intent(getActivity(), MainScreenActivity.class);
-            startActivity(i);
+            loginListener.onSignupClicked();
         }
     }
 

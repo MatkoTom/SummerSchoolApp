@@ -18,13 +18,14 @@
         android:indeterminateOnly="true"/>
         <!--android:indeterminateTint="@color/gray_creme"/>-->
 
-    <com.baldreecapital.aluma.views.TextViewGothamBook
+    <TextView
         android:id="@+id/tv_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/progress_bar"
         android:gravity="center"
         android:padding="10dp"
+        android:text="Loading..."
         android:textColor="@android:color/white"
         android:textSize="13sp" />
 </RelativeLayout>

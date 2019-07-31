@@ -1,21 +1,26 @@
 package com.example.summerschoolapp.view.login.onboarding;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 
+import com.example.summerschoolapp.BaseActivity;
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.view.login.login.LoginFragment;
 import com.example.summerschoolapp.view.login.signup.SignupFragment;
+import com.example.summerschoolapp.view.main.MainScreenActivity;
 
 import butterknife.ButterKnife;
 
-public class OnboardingActivity extends AppCompatActivity implements LoginFragment.OnFragmentLoginClickListener, SignupFragment.OnSignupFragmentClicListener, FirstLoginFragment.OnFirstLoginFragmentRegisterListener, FirstLoginFragment.OnFirstLoginFragmentLoginListener {
+public class OnboardingActivity extends BaseActivity implements SignupFragment.OnSignupLogin, LoginFragment.OnFragmentLoginNextActivity, LoginFragment.OnFragmentLoginClickListener, SignupFragment.OnSignupFragmentClicListener, FirstLoginFragment.OnFirstLoginFragmentRegisterListener, FirstLoginFragment.OnFirstLoginFragmentLoginListener {
 
     private FragmentManager manager;
     private FragmentTransaction transaction;
+    private OnboardingViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,7 @@ public class OnboardingActivity extends AppCompatActivity implements LoginFragme
         setContentView(R.layout.activity_onboarding);
 
         ButterKnife.bind(this);
+        viewModel = ViewModelProviders.of(this).get(OnboardingViewModel.class);
 
         runFirstLoginFragment();
     }
@@ -76,5 +82,29 @@ public class OnboardingActivity extends AppCompatActivity implements LoginFragme
         transaction.replace(R.id.fragment_container, new SignupFragment(), "register");
         transaction.addToBackStack("register");
         transaction.commit();
+    }
+
+    @Override
+    public void onLoginClicked() {
+        showProgress();
+        try {
+            Intent i = new Intent(this, MainScreenActivity.class);
+            startActivity(i);
+        } catch (Exception e) {
+            ErrorDialog dialog = new ErrorDialog();
+            dialog.show(getSupportFragmentManager(), "error");
+        }
+    }
+
+    @Override
+    public void onSignupClicked() {
+        showProgress();
+        try {
+            Intent i = new Intent(this, MainScreenActivity.class);
+            startActivity(i);
+        } catch (Exception e) {
+            ErrorDialog dialog = new ErrorDialog();
+            dialog.show(getSupportFragmentManager(), "error");
+        }
     }
 }
