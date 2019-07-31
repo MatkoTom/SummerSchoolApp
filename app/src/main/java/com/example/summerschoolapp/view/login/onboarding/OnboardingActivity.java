@@ -31,8 +31,8 @@ public class OnboardingActivity extends AppCompatActivity implements LoginFragme
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
         transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-        transaction.add(R.id.fragment_container, new FirstLoginFragment(), "login");
-        transaction.addToBackStack("login");
+        transaction.add(R.id.fragment_container, new FirstLoginFragment(), "firstLogin");
+        transaction.addToBackStack("firstLogin");
         transaction.commit();
     }
 
@@ -54,7 +54,6 @@ public class OnboardingActivity extends AppCompatActivity implements LoginFragme
         manager.popBackStack();
         transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
         transaction.replace(R.id.fragment_container, new LoginFragment(), "login");
-        transaction.addToBackStack("login");
         transaction.commit();
     }
 
@@ -65,7 +64,6 @@ public class OnboardingActivity extends AppCompatActivity implements LoginFragme
         manager.popBackStack();
         transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
         transaction.replace(R.id.fragment_container, new LoginFragment(), "login");
-        transaction.addToBackStack("login");
         transaction.commit();
     }
 

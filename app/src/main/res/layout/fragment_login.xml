@@ -155,7 +155,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/image" />
+            app:srcCompat="@drawable/moj_grad_medium_logo" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline6"
@@ -187,7 +187,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:background="@null"
-            android:src="@drawable/ic_close"
+            android:src="@drawable/log_in_lozinka_hiden_icon"
             app:layout_constraintBottom_toBottomOf="@+id/et_signup_password"
             app:layout_constraintEnd_toEndOf="@+id/et_signup_password"
             app:layout_constraintTop_toTopOf="@+id/et_signup_password" />

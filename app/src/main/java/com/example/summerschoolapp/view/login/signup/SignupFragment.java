@@ -12,8 +12,8 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -52,6 +52,9 @@ public class SignupFragment extends Fragment {
     @BindView(R.id.tv_oib_in_use)
     TextView tvOibInUse;
 
+    @BindView(R.id.ibtn_hide_show)
+    ImageButton ibtnHideShow;
+
     OnSignupFragmentClicListener listener;
 
     private Boolean isVisible = false;
@@ -85,9 +88,11 @@ public class SignupFragment extends Fragment {
     public void hideShowPassword() {
         if (!isVisible) {
             etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            ibtnHideShow.setImageDrawable(getResources().getDrawable(R.drawable.log_in_lozinka_icon));
             isVisible = true;
         } else {
             etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            ibtnHideShow.setImageDrawable(getResources().getDrawable(R.drawable.log_in_lozinka_hiden_icon));
             isVisible = false;
         }
     }

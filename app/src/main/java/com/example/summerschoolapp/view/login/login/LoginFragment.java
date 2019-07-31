@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -50,6 +51,9 @@ public class LoginFragment extends Fragment {
 
     @BindView(R.id.tv_login_password)
     TextView tvLoginPassword;
+
+    @BindView(R.id.ibtn_hide_show)
+    ImageButton ibtnHideShow;
 
     private boolean isVisible = false;
     private boolean isValidMail = false;
@@ -103,9 +107,7 @@ public class LoginFragment extends Fragment {
             Intent i = new Intent(getActivity(), MainScreenActivity.class);
             startActivity(i);
         }
-
     }
-
 
     @OnClick(R.id.tv_register)
     public void registerUser() {
@@ -116,9 +118,11 @@ public class LoginFragment extends Fragment {
     public void hideShowPassword() {
         if (!isVisible) {
             etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            ibtnHideShow.setImageDrawable(getResources().getDrawable(R.drawable.log_in_lozinka_icon));
             isVisible = true;
         } else {
             etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            ibtnHideShow.setImageDrawable(getResources().getDrawable(R.drawable.log_in_lozinka_hiden_icon));
             isVisible = false;
         }
     }

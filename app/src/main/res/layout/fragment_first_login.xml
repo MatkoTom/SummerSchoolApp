@@ -65,7 +65,7 @@
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="225dp"
-            android:layout_height="320dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="101dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="102dp"
@@ -75,7 +75,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline3"
-            app:srcCompat="@drawable/image" />
+            app:srcCompat="@drawable/moj_grad_big_logo" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"

@@ -24,7 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/image" />
+            app:srcCompat="@drawable/moj_grad_small_logo" />
 
         <TextView
             android:id="@+id/textView4"
@@ -181,7 +181,7 @@
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:background="@null"
-            android:src="@drawable/ic_close"
+            android:src="@drawable/log_in_lozinka_hiden_icon"
             app:layout_constraintBottom_toBottomOf="@+id/et_signup_password"
             app:layout_constraintEnd_toEndOf="@+id/et_signup_password"
             app:layout_constraintTop_toTopOf="@+id/et_signup_password"
