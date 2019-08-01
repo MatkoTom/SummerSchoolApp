@@ -10,24 +10,38 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
-import com.example.summerschoolapp.dialog.ErrorDialog;
+import com.example.summerschoolapp.model.User;
+import com.example.summerschoolapp.network.retrofit.RetrofitAdapter;
 import com.example.summerschoolapp.utils.Preferences;
+import com.example.summerschoolapp.view.login.onboarding.OnboardingViewModel;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,6 +74,11 @@ public class LoginFragment extends Fragment {
     @BindView(R.id.ibtn_hide_show)
     ImageButton ibtnHideShow;
 
+    @BindView(R.id.btn_login)
+    Button btnLogin;
+
+    private OnboardingViewModel viewModel;
+
     private ColorStateList oldColor;
     private boolean isVisible = false;
     private boolean isValidMail = false;
@@ -87,6 +106,7 @@ public class LoginFragment extends Fragment {
         ButterKnife.bind(this, rootView);
         preferences = new Preferences(getActivity());
         fetchStoredUser();
+        canUserLogIn();
         textChangedListener();
         oldColor = tvLoginMail.getTextColors();
         return rootView;
@@ -102,7 +122,7 @@ public class LoginFragment extends Fragment {
 
     @OnClick(R.id.btn_login)
     public void logInUser() {
-        if (etPassword.length() == 0) {
+        if (etPassword.length() == 0 || !(etPassword.getText().toString().equals(preferences.getPassword()))) {
             tvLoginPassword.setTextColor(Color.RED);
             tvWrongPassword.setText("Kriva lozinka!");
             tvWrongPassword.setTextColor(Color.RED);
@@ -111,17 +131,17 @@ public class LoginFragment extends Fragment {
 
         }
 
-        if (!isValidEmail(etEmail.getText().toString().trim())) {
+        if (!isValidEmail(etEmail.getText().toString().trim()) || !(etEmail.getText().toString().equals(preferences.getEmail()))) {
             tvLoginMail.setTextColor(Color.RED);
             tvWrongEmail.setText("Korisnik ne postoji!");
             tvWrongEmail.setTextColor(Color.RED);
-
         } else {
             isValidMail = true;
         }
 
         if (isValidPassword && isValidMail) {
             loginListener.onLoginClicked();
+            sendUserData();
         }
     }
 
@@ -152,13 +172,13 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                canUserLogIn();
                 tvLoginMail.setTextColor(oldColor);
                 tvWrongEmail.setText("");
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
 
@@ -170,6 +190,7 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                canUserLogIn();
                 tvLoginPassword.setTextColor(oldColor);
                 tvWrongPassword.setText("");
             }
@@ -190,5 +211,39 @@ public class LoginFragment extends Fragment {
             etEmail.setText(preferences.getEmail());
             etPassword.setText(preferences.getPassword());
         }
+    }
+
+    private void canUserLogIn() {
+        if (!isValidEmail(etEmail.getText().toString().trim()) ||
+                !(etEmail.getText().toString().equals(preferences.getEmail())) ||
+                !(etPassword.getText().toString().equals(preferences.getPassword()))) {
+            btnLogin.setEnabled(false);
+            btnLogin.setAlpha(0.5f);
+        } else {
+            btnLogin.setEnabled(true);
+            btnLogin.setAlpha(1.0f);
+        }
+    }
+
+    private void sendUserData() {
+        Map<String, String> userData = new HashMap<>();
+        userData.put("title", etEmail.getText().toString().trim());
+        userData.put("text", etPassword.getText().toString());
+
+        Call<User> call = RetrofitAdapter.getRequestAPI().createUser(userData);
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                User userResponse = response.body();
+
+                Log.d(TAG, "onResponse: " + response.code() + "  " + userResponse.getEmail() + " " + userResponse.getPassword());
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+            }
+        });
     }
 }

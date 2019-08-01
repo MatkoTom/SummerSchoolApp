@@ -1,27 +1,17 @@
 package com.example.summerschoolapp.service;
 
-import android.app.IntentService;
-import android.content.Intent;
+import android.os.AsyncTask;
 
-import androidx.annotation.Nullable;
+public class SleeperService extends AsyncTask<Void, Void, Void> {
 
-import static com.example.summerschoolapp.utils.Const.SLEEP_DONE;
-
-public class SleeperService extends IntentService {
-
-    public SleeperService(String name) {
-        super(name);
-    }
 
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
+    protected Void doInBackground(Void... voids) {
         try {
-            Thread.sleep(15000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        Intent i = new Intent(SLEEP_DONE);
-        sendBroadcast(i);
+        return null;
     }
 }

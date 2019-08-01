@@ -14,6 +14,7 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -63,6 +64,9 @@ public class SignupFragment extends Fragment {
     @BindView(R.id.ibtn_hide_show)
     ImageButton ibtnHideShow;
 
+    @BindView(R.id.btn_signup)
+    Button btnSignup;
+
     OnSignupFragmentClicListener listener;
     OnSignupLogin loginListener;
 
@@ -93,6 +97,7 @@ public class SignupFragment extends Fragment {
         ButterKnife.bind(this, rootView);
         preferences = new Preferences(getActivity());
         oldColor = tvSignupOib.getTextColors();
+        canUserSignup();
         textChangedListener();
         return rootView;
     }
@@ -166,8 +171,14 @@ public class SignupFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                tvSignupOib.setTextColor(oldColor);
-                tvOibInUse.setText("");
+                canUserSignup();
+                if (etOib.length() == 0 || etOib.length() > 11 || etOib.length() < 11) {
+                    tvSignupOib.setTextColor(Color.RED);
+                    tvOibInUse.setTextColor(Color.RED);
+                    tvOibInUse.setText("OIB se već koristi");
+                } else { tvSignupOib.setTextColor(oldColor);
+                    tvOibInUse.setText("");}
+
             }
 
             @Override
@@ -184,8 +195,16 @@ public class SignupFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                tvSignupMail.setTextColor(oldColor);
-                tvEmailInUse.setText("");
+                canUserSignup();
+                if (!isValidEmail(etEmail.getText().toString().trim())) {
+                    tvEmailInUse.setTextColor(Color.RED);
+                    tvEmailInUse.setText("Nije email!");
+                    tvSignupMail.setTextColor(Color.RED);
+                } else {
+                    tvSignupMail.setTextColor(oldColor);
+                    tvEmailInUse.setText("");
+                }
+
             }
 
             @Override
@@ -202,8 +221,16 @@ public class SignupFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                tvSignupPassword.setTextColor(oldColor);
-                tvWrongPassword.setText("");
+                canUserSignup();
+                if (etPassword.length() == 0) {
+                    tvSignupPassword.setTextColor(Color.RED);
+                    tvWrongPassword.setTextColor(Color.RED);
+                    tvWrongPassword.setText("Kriva lozinka");
+                } else {
+                    tvSignupPassword.setTextColor(oldColor);
+                    tvWrongPassword.setText("");
+                }
+
             }
 
             @Override
@@ -215,5 +242,15 @@ public class SignupFragment extends Fragment {
 
     private static boolean isValidEmail(CharSequence target) {  // Email validator, checks if field has correct input
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
+
+    private void canUserSignup() {
+        if (!isValidEmail(etEmail.getText().toString().trim()) || etPassword.length() == 0 || etOib.length() < 11 || etOib.length() > 11) {
+            btnSignup.setEnabled(false);
+            btnSignup.setAlpha(0.5f);
+        } else {
+            btnSignup.setEnabled(true);
+            btnSignup.setAlpha(1.0f);
+        }
     }
 }
