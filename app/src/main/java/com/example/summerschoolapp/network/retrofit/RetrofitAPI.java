@@ -22,6 +22,6 @@ public interface RetrofitAPI {
     @POST(Const.Network.API_LOGIN)
     Flowable<User> login(@Body RequestLogin user);
 
-    @POST("register")
+    @POST(Const.Network.API_REGISTER)
     Flowable<User> register(@Body RequestRegister register);
 }
