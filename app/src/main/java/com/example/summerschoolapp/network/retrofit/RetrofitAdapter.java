@@ -6,7 +6,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitAdapter {
-    public static final String URL = "https://jsonplaceholder.typicode.com/";
+    public static final String URL = "https://172.26.11.26/";
 
     private static Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
             .baseUrl(URL)

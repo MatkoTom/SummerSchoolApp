@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +24,19 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.model.RequestRegister;
+import com.example.summerschoolapp.utils.MD5;
 import com.example.summerschoolapp.utils.Preferences;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
+import static com.example.summerschoolapp.utils.MD5.md5;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,8 +76,8 @@ public class SignupFragment extends Fragment {
     @BindView(R.id.btn_signup)
     Button btnSignup;
 
-    OnSignupFragmentClicListener listener;
-    OnSignupLogin loginListener;
+    private OnSignupFragmentClicListener listener;
+    private OnSignupLogin loginListener;
 
     private boolean isVisible = false;
     private ColorStateList oldColor;
@@ -83,7 +92,7 @@ public class SignupFragment extends Fragment {
     }
 
     public interface OnSignupLogin {
-        void onSignupClicked();
+        void onSignupClicked(RequestRegister user);
     }
 
     public SignupFragment() {
@@ -135,6 +144,7 @@ public class SignupFragment extends Fragment {
             tvEmailInUse.setTextColor(Color.RED);
             tvEmailInUse.setText("Nije email!");
             tvSignupMail.setTextColor(Color.RED);
+            isValidMail = false;
         } else {
             isValidMail = true;
         }
@@ -143,6 +153,7 @@ public class SignupFragment extends Fragment {
             tvSignupOib.setTextColor(Color.RED);
             tvOibInUse.setTextColor(Color.RED);
             tvOibInUse.setText("OIB se već koristi");
+            isValidOib = false;
         } else {
             isValidOib = true;
         }
@@ -151,6 +162,7 @@ public class SignupFragment extends Fragment {
             tvSignupPassword.setTextColor(Color.RED);
             tvWrongPassword.setTextColor(Color.RED);
             tvWrongPassword.setText("Kriva lozinka");
+            isValidPassword = false;
         } else {
             isValidPassword = true;
         }
@@ -158,7 +170,7 @@ public class SignupFragment extends Fragment {
         if (isValidOib && isValidMail && isValidPassword) {
             preferences.setEmail(etEmail.getText().toString());
             preferences.setPassword(etPassword.getText().toString());
-            loginListener.onSignupClicked();
+            loginListener.onSignupClicked(sendData());
         }
     }
 
@@ -175,9 +187,11 @@ public class SignupFragment extends Fragment {
                 if (etOib.length() == 0 || etOib.length() > 11 || etOib.length() < 11) {
                     tvSignupOib.setTextColor(Color.RED);
                     tvOibInUse.setTextColor(Color.RED);
-                    tvOibInUse.setText("OIB se već koristi");
-                } else { tvSignupOib.setTextColor(oldColor);
-                    tvOibInUse.setText("");}
+                    tvOibInUse.setText("OIB mora imati 11 znakova");
+                } else {
+                    tvSignupOib.setTextColor(oldColor);
+                    tvOibInUse.setText("");
+                }
 
             }
 
@@ -252,5 +266,14 @@ public class SignupFragment extends Fragment {
             btnSignup.setEnabled(true);
             btnSignup.setAlpha(1.0f);
         }
+    }
+
+    private RequestRegister sendData() {
+        RequestRegister user = new RequestRegister();
+        user.oib = etOib.getText().toString();
+        user.email = etEmail.getText().toString();
+        user.password = md5(etPassword.getText().toString());
+
+        return user;
     }
 }

@@ -23,25 +23,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.User;
-import com.example.summerschoolapp.network.retrofit.RetrofitAdapter;
 import com.example.summerschoolapp.utils.Preferences;
 import com.example.summerschoolapp.view.login.onboarding.OnboardingViewModel;
 
-import java.util.HashMap;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
+import static com.example.summerschoolapp.utils.MD5.md5;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,9 +47,6 @@ import retrofit2.Response;
 public class LoginFragment extends Fragment {
 
     private static final String TAG = "STASEDOGADJA";
-
-    private OnFragmentLoginClickListener listener;
-    private OnFragmentLoginNextActivity loginListener;
 
     @BindView(R.id.et_signup_password)
     EditText etPassword;
@@ -79,6 +74,9 @@ public class LoginFragment extends Fragment {
 
     private OnboardingViewModel viewModel;
 
+    private OnFragmentLoginClickListener listener;
+    private OnFragmentLoginNextActivity loginListener;
+
     private ColorStateList oldColor;
     private boolean isVisible = false;
     private boolean isValidMail = false;
@@ -91,7 +89,7 @@ public class LoginFragment extends Fragment {
     }
 
     public interface OnFragmentLoginNextActivity {
-        void onLoginClicked();
+        void onLoginClicked(RequestLogin user);
     }
 
     public LoginFragment() {
@@ -108,6 +106,8 @@ public class LoginFragment extends Fragment {
         fetchStoredUser();
         canUserLogIn();
         textChangedListener();
+        viewModel = ViewModelProviders.of(this).get(OnboardingViewModel.class);
+        getData();
         oldColor = tvLoginMail.getTextColors();
         return rootView;
     }
@@ -126,6 +126,7 @@ public class LoginFragment extends Fragment {
             tvLoginPassword.setTextColor(Color.RED);
             tvWrongPassword.setText("Kriva lozinka!");
             tvWrongPassword.setTextColor(Color.RED);
+            isValidPassword = false;
         } else {
             isValidPassword = true;
 
@@ -135,13 +136,15 @@ public class LoginFragment extends Fragment {
             tvLoginMail.setTextColor(Color.RED);
             tvWrongEmail.setText("Korisnik ne postoji!");
             tvWrongEmail.setTextColor(Color.RED);
+            isValidMail = false;
         } else {
             isValidMail = true;
         }
 
         if (isValidPassword && isValidMail) {
-            loginListener.onLoginClicked();
-            sendUserData();
+            logInUserData();
+            loginListener.onLoginClicked(logInUserData());
+//            sendUserData();
         }
     }
 
@@ -225,25 +228,22 @@ public class LoginFragment extends Fragment {
         }
     }
 
-    private void sendUserData() {
-        Map<String, String> userData = new HashMap<>();
-        userData.put("title", etEmail.getText().toString().trim());
-        userData.put("text", etPassword.getText().toString());
-
-        Call<User> call = RetrofitAdapter.getRequestAPI().createUser(userData);
-
-        call.enqueue(new Callback<User>() {
+    private void getData() {
+        viewModel.makeQuery().observe(this, new Observer<List<User>>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                User userResponse = response.body();
-
-                Log.d(TAG, "onResponse: " + response.code() + "  " + userResponse.getEmail() + " " + userResponse.getPassword());
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-
+            public void onChanged(List<User> users) {
+                for (User juzer : users) {
+                    Log.d(TAG, "onChanged: " + juzer.getEmail());
+                }
             }
         });
+    }
+
+    private RequestLogin logInUserData(){
+        RequestLogin user = new RequestLogin();
+        user.email = etEmail.getText().toString();
+        user.password = md5(etPassword.getText().toString());
+
+        return user;
     }
 }

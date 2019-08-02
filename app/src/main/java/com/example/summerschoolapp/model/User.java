@@ -5,15 +5,15 @@ import com.google.gson.annotations.SerializedName;
 public class User {
 
     @SerializedName("oib")
-    private int oib;
+    private String oib;
 
-    @SerializedName("title")
+    @SerializedName("email")
     private String email;
 
-    @SerializedName("text")
+    @SerializedName("password")
     private String password;
 
-    public User(int oib, String email, String password) {
+    public User(String oib, String email, String password) {
         this.oib = oib;
         this.email = email;
         this.password = password;
@@ -24,11 +24,11 @@ public class User {
         this.password = password;
     }
 
-    public int getOib() {
+    public String getOib() {
         return oib;
     }
 
-    public void setOib(int oib) {
+    public void setOib(String oib) {
         this.oib = oib;
     }
 

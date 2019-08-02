@@ -11,17 +11,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".BaseActivity"></activity>
-        <activity android:name=".view.main.MainScreenActivity" />
-        <activity android:name=".view.login.onboarding.OnboardingActivity">
+        <activity
+            android:name=".BaseActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".view.main.MainScreenActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.login.onboarding.OnboardingActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <service android:name=".service.SleeperService" />
     </application>
 
 </manifest>

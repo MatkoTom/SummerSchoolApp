@@ -12,12 +12,15 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.summerschoolapp.BaseActivity;
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.dialog.ErrorDialog;
+import com.example.summerschoolapp.model.RequestLogin;
+import com.example.summerschoolapp.model.RequestRegister;
 import com.example.summerschoolapp.model.User;
 import com.example.summerschoolapp.view.login.login.LoginFragment;
 import com.example.summerschoolapp.view.login.signup.SignupFragment;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.ButterKnife;
@@ -91,7 +94,9 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
     }
 
     @Override
-    public void onLoginClicked() {
+    public void onLoginClicked(RequestLogin user) {
+        Log.d(TAG, "onLoginClicked: " + user.password + " " + user.email);
+        viewModel.makeLogin(user).observe(this, user1 -> Log.d(TAG, "onChanged: " + user1.getEmail() + " " + user1.getPassword()));
         showProgress();
         try {
             Intent i = new Intent(this, MainScreenActivity.class);
@@ -104,7 +109,11 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
     }
 
     @Override
-    public void onSignupClicked() {
+    public void onSignupClicked(RequestRegister user) {
+        Log.d(TAG, "onSignupClicked: " + user.oib + " " + user.email + " " + user.password);
+        viewModel.makeRegistry(user).observe(this, user1 -> {
+            Log.d(TAG, "onSignupClicked: " + user1.getOib() + " " + user1.getEmail() + " " + user1.getPassword());
+        });
         showProgress();
         try {
             Intent i = new Intent(this, MainScreenActivity.class);
