@@ -6,8 +6,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent"/>
-        <!--android:background="@color/black_80_transp" />-->
+        android:background="@color/black_80_transp" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -16,7 +15,6 @@
         android:layout_centerInParent="true"
         android:indeterminateTint="@color/colorPrimary"
         android:indeterminateOnly="true"/>
-        <!--android:indeterminateTint="@color/gray_creme"/>-->
 
     <TextView
         android:id="@+id/tv_status"

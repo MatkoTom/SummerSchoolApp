@@ -3,6 +3,8 @@ package com.example.summerschoolapp.utils;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+// TODO @Matko
+// add this method to Tools class
 public class MD5 {
 
     public static String md5(String s) {

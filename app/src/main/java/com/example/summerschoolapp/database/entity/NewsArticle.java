@@ -7,6 +7,9 @@ import androidx.room.PrimaryKey;
 @Entity
 public class NewsArticle {
 
+    // TODO @Matko
+    // column info aka name should be the same as variable name
+
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "article_id")
     private int id = 0;

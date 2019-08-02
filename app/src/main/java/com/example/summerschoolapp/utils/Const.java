@@ -2,10 +2,13 @@ package com.example.summerschoolapp.utils;
 
 public final class Const {
 
-    private Const()
+    private Const() {
+    }
 
-    {
+    public static class Network {
+        public static final String BASE_URL = "https://172.26.11.26/";
 
+        public static final String API_LOGIN = "login";
     }
 
     public static final String BOOLEAN_SHARED_KEY = "BOOLEAN_SHARED_KEY";

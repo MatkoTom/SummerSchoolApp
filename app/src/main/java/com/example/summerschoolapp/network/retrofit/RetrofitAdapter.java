@@ -1,24 +1,68 @@
 package com.example.summerschoolapp.network.retrofit;
 
+import com.example.summerschoolapp.utils.Const;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitAdapter {
-    public static final String URL = "https://172.26.11.26/";
 
-    private static Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
-            .baseUrl(URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
+    private static Retrofit retrofitInstance = null;
 
-    private static Retrofit retrofit = retrofitBuilder.build();
+    public static RetrofitAPI getRetrofitClient() {
 
-    private static RetrofitAPI requestAPI = retrofit.create(RetrofitAPI.class);
+        if (retrofitInstance == null) {
 
-    public static RetrofitAPI getRequestAPI() {
-        return  requestAPI;
+            OkHttpClient.Builder okHttpBuilder;
+            okHttpBuilder = new OkHttpClient.Builder();
+
+            okHttpBuilder.readTimeout(25, TimeUnit.SECONDS);
+            okHttpBuilder.connectTimeout(25, TimeUnit.SECONDS);
+
+            // debuging options for api calls
+//            if (BuildConfig.BUILD_TYPE.equals("debug")
+//                    || BuildConfig.BUILD_TYPE.equals("dev")
+//                    || BuildConfig.BUILD_TYPE.equals("previewDebug")
+//                    || BuildConfig.BUILD_TYPE.equals("preview")
+//                    || BuildConfig.BUILD_TYPE.equals("releaseDebug")) {
+//                HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+//                interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//                okHttpBuilder.addInterceptor(interceptor);
+//            }
+
+            // add global auth header adding
+//            httpClient.addInterceptor(chain -> {
+//                Request original = chain.request();
+//                Request.Builder requestBuilder = original.newBuilder()
+//                        .addHeader("Accept", "application/json");
+//
+//                // Adding Authorization token (API Key)
+//                // Requests will be denied without API key
+//                if (!TextUtils.isEmpty(Preferences.getInstance(context).getCustomString(Const.Preferences.AUTH_TOKEN))) {
+//                    requestBuilder.addHeader("Authorization", "JWT " + Preferences.getInstance(context).getCustomString(Const.Preferences.AUTH_TOKEN));
+//                }
+//
+//                Request request = requestBuilder.build();
+//                return chain.proceed(request);
+//            });
+
+            OkHttpClient okHttpClient = okHttpBuilder.build();
+
+            Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
+                    .baseUrl(Const.Network.BASE_URL)
+                    .client(okHttpClient)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                    .addConverterFactory(ScalarsConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create());
+
+            retrofitInstance = retrofitBuilder.build();
+        }
+
+        return retrofitInstance.create(RetrofitAPI.class);
     }
 
 }

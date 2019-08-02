@@ -1,4 +1,4 @@
-package com.example.summerschoolapp.dialog;
+package com.example.summerschoolapp.common;
 
 import android.content.Context;
 

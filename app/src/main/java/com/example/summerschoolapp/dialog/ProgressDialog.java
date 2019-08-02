@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.common.BaseDialog;
 import com.example.summerschoolapp.utils.CustomAnimationUtils;
 
 import butterknife.BindView;
