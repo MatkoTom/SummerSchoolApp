@@ -11,7 +11,14 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.summerschoolapp.R;
 
+// TODO @Matko
+// there should be no hardcoded values like strings
+// probably should add an ability to add custom title and error description
 public class ErrorDialog extends DialogFragment {
+
+    public static ErrorDialog CreateInstance(String title, String description) {
+        return new ErrorDialog();
+    }
 
     @NonNull
     @Override

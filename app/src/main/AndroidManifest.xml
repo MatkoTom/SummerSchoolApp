@@ -12,13 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".BaseActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name=".view.main.MainScreenActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".view.login.onboarding.OnboardingActivity"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -27,6 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.main.MainScreenActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

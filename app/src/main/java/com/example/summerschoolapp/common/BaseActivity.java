@@ -1,14 +1,12 @@
-package com.example.summerschoolapp;
+package com.example.summerschoolapp.common;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.summerschoolapp.dialog.ProgressDialog;
-
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -62,9 +60,4 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
     // hide: global progress handle
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 }

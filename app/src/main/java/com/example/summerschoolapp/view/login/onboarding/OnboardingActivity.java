@@ -6,22 +6,16 @@ import android.util.Log;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.summerschoolapp.BaseActivity;
+import com.example.summerschoolapp.common.BaseActivity;
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestRegister;
-import com.example.summerschoolapp.model.User;
 import com.example.summerschoolapp.view.login.login.LoginFragment;
 import com.example.summerschoolapp.view.login.signup.SignupFragment;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import butterknife.ButterKnife;
 
@@ -120,8 +114,7 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
             finish();
             startActivity(i);
         } catch (Exception e) {
-            ErrorDialog dialog = new ErrorDialog();
-            dialog.show(getSupportFragmentManager(), "error");
+            ErrorDialog.CreateInstance("Title", null).show(getSupportFragmentManager(), "error");
         }
     }
 }
