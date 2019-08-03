@@ -74,8 +74,6 @@ public class LoginFragment extends Fragment {
     private boolean isValidMail = false;
     private boolean isValidPassword = false;
 
-    private Preferences preferences;
-
     public interface OnFragmentLoginClickListener {
         void onLoginItemClicked();
     }
@@ -94,7 +92,6 @@ public class LoginFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, rootView);
-        preferences = new Preferences(getActivity());
         fetchStoredUser();
         canUserLogIn();
         textChangedListener();
@@ -113,7 +110,7 @@ public class LoginFragment extends Fragment {
 
     @OnClick(R.id.btn_login)
     public void logInUser() {
-        if (etPassword.length() == 0 || !(etPassword.getText().toString().equals(preferences.getPassword()))) {
+        if (etPassword.length() == 0 || !(etPassword.getText().toString().equals(Tools.getSharedPreferences(getActivity()).getPassword()))) {
             tvLoginPassword.setTextColor(Color.RED);
             tvWrongPassword.setText("Kriva lozinka!");
             tvWrongPassword.setTextColor(Color.RED);
@@ -123,7 +120,7 @@ public class LoginFragment extends Fragment {
 
         }
 
-        if (!isValidEmail(etEmail.getText().toString().trim()) || !(etEmail.getText().toString().equals(preferences.getEmail()))) {
+        if (!isValidEmail(etEmail.getText().toString().trim()) || !(etEmail.getText().toString().equals(Tools.getSharedPreferences(getActivity()).getEmail()))) {
             tvLoginMail.setTextColor(Color.RED);
             tvWrongEmail.setText("Korisnik ne postoji!");
             tvWrongEmail.setTextColor(Color.RED);
@@ -201,16 +198,18 @@ public class LoginFragment extends Fragment {
     }
 
     private void fetchStoredUser() {
-        if (!preferences.getEmail().equals("") && !preferences.getPassword().equals("")) {
-            etEmail.setText(preferences.getEmail());
-            etPassword.setText(preferences.getPassword());
+        if (!Tools.getSharedPreferences(getActivity()).getEmail().equals("") && !Tools.getSharedPreferences(getActivity()).getPassword().equals("")) {
+            etEmail.setText(Tools.getSharedPreferences(getActivity()).getEmail());
+            etPassword.setText(Tools.getSharedPreferences(getActivity()).getPassword());
+//            etEmail.setText(preferences.getEmail());
+//            etPassword.setText(preferences.getPassword());
         }
     }
 
     private void canUserLogIn() {
         if (!isValidEmail(etEmail.getText().toString().trim()) ||
-                !(etEmail.getText().toString().equals(preferences.getEmail())) ||
-                !(etPassword.getText().toString().equals(preferences.getPassword()))) {
+                !(etEmail.getText().toString().equals(Tools.getSharedPreferences(getActivity()).getEmail())) ||
+                !(etPassword.getText().toString().equals(Tools.getSharedPreferences(getActivity()).getPassword()))) {
             btnLogin.setEnabled(false);
             btnLogin.setAlpha(0.5f);
         } else {
