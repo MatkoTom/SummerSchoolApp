@@ -160,8 +160,6 @@ public class SignupFragment extends Fragment {
         if (isValidOib && isValidMail && isValidPassword) {
             Tools.getSharedPreferences(getActivity()).setEmail(etEmail.getText().toString());
             Tools.getSharedPreferences(getActivity()).setPassword(etPassword.getText().toString());
-//            preferences.setEmail(etEmail.getText().toString());
-//            preferences.setPassword(etPassword.getText().toString());
             loginListener.onSignupClicked(sendData());
         }
     }

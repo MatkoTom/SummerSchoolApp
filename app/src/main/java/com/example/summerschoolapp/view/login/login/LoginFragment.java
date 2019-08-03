@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.utils.Preferences;
 import com.example.summerschoolapp.utils.Tools;
@@ -132,7 +133,6 @@ public class LoginFragment extends Fragment {
         if (isValidPassword && isValidMail) {
             logInUserData();
             loginListener.onLoginClicked(logInUserData());
-//            sendUserData();
         }
     }
 
@@ -201,8 +201,6 @@ public class LoginFragment extends Fragment {
         if (!Tools.getSharedPreferences(getActivity()).getEmail().equals("") && !Tools.getSharedPreferences(getActivity()).getPassword().equals("")) {
             etEmail.setText(Tools.getSharedPreferences(getActivity()).getEmail());
             etPassword.setText(Tools.getSharedPreferences(getActivity()).getPassword());
-//            etEmail.setText(preferences.getEmail());
-//            etPassword.setText(preferences.getPassword());
         }
     }
 

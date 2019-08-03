@@ -8,8 +8,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.summerschoolapp.common.BaseActivity;
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.common.BaseActivity;
 import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestRegister;
@@ -114,7 +114,7 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
             finish();
             startActivity(i);
         } catch (Exception e) {
-            ErrorDialog.CreateInstance("Title", null).show(getSupportFragmentManager(), "error");
+            ErrorDialog.CreateInstance(this, "Error", e.toString(), "Ok");
         }
     }
 }
