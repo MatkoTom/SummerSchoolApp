@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,24 +21,17 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.model.RequestLogin;
-import com.example.summerschoolapp.model.User;
 import com.example.summerschoolapp.utils.Preferences;
+import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.view.login.onboarding.OnboardingViewModel;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.example.summerschoolapp.utils.MD5.md5;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -227,10 +219,10 @@ public class LoginFragment extends Fragment {
         }
     }
 
-    private RequestLogin logInUserData(){
+    private RequestLogin logInUserData() {
         RequestLogin user = new RequestLogin();
         user.email = etEmail.getText().toString();
-        user.password = md5(etPassword.getText().toString());
+        user.password = Tools.md5(etPassword.getText().toString());
 
         return user;
     }

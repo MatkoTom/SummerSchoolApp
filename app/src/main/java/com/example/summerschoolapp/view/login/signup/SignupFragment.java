@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,18 +24,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.model.RequestRegister;
-import com.example.summerschoolapp.utils.MD5;
 import com.example.summerschoolapp.utils.Preferences;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import com.example.summerschoolapp.utils.Tools;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
-import static com.example.summerschoolapp.utils.MD5.md5;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -272,7 +265,7 @@ public class SignupFragment extends Fragment {
         RequestRegister user = new RequestRegister();
         user.oib = etOib.getText().toString();
         user.email = etEmail.getText().toString();
-        user.password = md5(etPassword.getText().toString());
+        user.password = Tools.md5(etPassword.getText().toString());
 
         return user;
     }
