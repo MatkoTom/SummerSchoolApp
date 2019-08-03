@@ -107,7 +107,6 @@ public class LoginFragment extends Fragment {
         canUserLogIn();
         textChangedListener();
         viewModel = ViewModelProviders.of(this).get(OnboardingViewModel.class);
-        getData();
         oldColor = tvLoginMail.getTextColors();
         return rootView;
     }
@@ -226,17 +225,6 @@ public class LoginFragment extends Fragment {
             btnLogin.setEnabled(true);
             btnLogin.setAlpha(1.0f);
         }
-    }
-
-    private void getData() {
-        viewModel.makeQuery().observe(this, new Observer<List<User>>() {
-            @Override
-            public void onChanged(List<User> users) {
-                for (User juzer : users) {
-                    Log.d(TAG, "onChanged: " + juzer.getEmail());
-                }
-            }
-        });
     }
 
     private RequestLogin logInUserData(){

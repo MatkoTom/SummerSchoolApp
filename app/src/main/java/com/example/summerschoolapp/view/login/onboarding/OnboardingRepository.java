@@ -26,20 +26,14 @@ public class OnboardingRepository {
 
     }
 
-    public LiveData<List<User>> makeReactiveQuery() {
-        return LiveDataReactiveStreams.fromPublisher(RetrofitAdapter.getRequestAPI()
-        .getSomething()
-        .subscribeOn(Schedulers.io()));
-    }
-
     public LiveData<User> postLoginQuery(RequestLogin user) {
-        return LiveDataReactiveStreams.fromPublisher(RetrofitAdapter.getRequestAPI()
+        return LiveDataReactiveStreams.fromPublisher(RetrofitAdapter.getRetrofitClient()
         .login(user)
         .subscribeOn(Schedulers.io()));
     }
 
     public LiveData<User> postRegisterQuery(RequestRegister user) {
-        return LiveDataReactiveStreams.fromPublisher(RetrofitAdapter.getRequestAPI()
+        return LiveDataReactiveStreams.fromPublisher(RetrofitAdapter.getRetrofitClient()
         .register(user)
         .subscribeOn(Schedulers.io()));
     }

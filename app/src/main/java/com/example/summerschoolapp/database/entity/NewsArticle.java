@@ -7,53 +7,50 @@ import androidx.room.PrimaryKey;
 @Entity
 public class NewsArticle {
 
-    // TODO @Matko
-    // column info aka name should be the same as variable name
-
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "article_id")
-    private int id = 0;
+    private int article_id = 0;
 
     @ColumnInfo(name = "title_log")
-    private String title;
+    private String title_log;
 
     @ColumnInfo(name = "content_log")
-    private String newsContent;
+    private String content_log;
 
-    public NewsArticle(String title, String newsContent) {
-        this.title = title;
-        this.newsContent = newsContent;
+    public NewsArticle(String title_log, String content_log) {
+        this.title_log = title_log;
+        this.content_log = content_log;
     }
 
-    public int getId() {
-        return id;
+    public int getArticle_id() {
+        return article_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setArticle_id(int article_id) {
+        this.article_id = article_id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTitle_log() {
+        return title_log;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitle_log(String title_log) {
+        this.title_log = title_log;
     }
 
-    public String getNewsContent() {
-        return newsContent;
+    public String getContent_log() {
+        return content_log;
     }
 
-    public void setNewsContent(String newsContent) {
-        this.newsContent = newsContent;
+    public void setContent_log(String content_log) {
+        this.content_log = content_log;
     }
 
     @Override
     public String toString() {
         return "NewsArticle{" +
-                "title='" + title + '\'' +
-                ", newsContent='" + newsContent + '\'' +
+                "title='" + title_log + '\'' +
+                ", newsContent='" + content_log + '\'' +
                 '}';
     }
 }

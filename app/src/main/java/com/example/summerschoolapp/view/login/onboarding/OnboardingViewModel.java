@@ -16,10 +16,6 @@ public class OnboardingViewModel extends ViewModel {
         repository = OnboardingRepository.getInstance();
     }
 
-    public LiveData<List<User>> makeQuery() {
-        return repository.makeReactiveQuery();
-    }
-
     public LiveData<User> makeLogin(RequestLogin user) {
         return repository.postLoginQuery(user);
     }

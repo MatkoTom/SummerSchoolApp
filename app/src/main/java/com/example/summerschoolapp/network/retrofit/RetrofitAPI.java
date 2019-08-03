@@ -14,11 +14,6 @@ import retrofit2.http.POST;
 
 public interface RetrofitAPI {
 
-    // TODO @Matko
-    // move endpoints to Const class
-    @GET("/posts")
-    Flowable<List<User>> getSomething();
-
     @POST(Const.Network.API_LOGIN)
     Flowable<User> login(@Body RequestLogin user);
 
