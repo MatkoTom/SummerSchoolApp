@@ -50,9 +50,7 @@ public class MainScreenActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.custom_tab, null);
-                ImageView img = v.findViewById(R.id.imgView);
-                img.setImageResource(imageResId[position]);
+
             }
 
             @Override

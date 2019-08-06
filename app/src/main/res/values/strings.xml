@@ -18,4 +18,7 @@
     <string name="btn_try_again">Pokušaj ponovno</string>
     <string name="text_try_again">Oo ne, nešto je krenulo po krivom, pokušajte ponovno!</string>
     <string name="remember_me">Zapamti me?</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

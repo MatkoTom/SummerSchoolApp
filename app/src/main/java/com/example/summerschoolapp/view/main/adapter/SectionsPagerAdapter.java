@@ -18,13 +18,14 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.view.main.NewsFragment;
 import com.example.summerschoolapp.view.main.RequestsFragment;
-import com.example.summerschoolapp.view.main.UserFragment;
+import com.example.summerschoolapp.view.main.ProfileFragment;
+import com.example.summerschoolapp.view.main.UsersFragment;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     private Context context;
-    private String tabTitles[] = new String[] { "Vijesti", "Nalozi", "Profil" };
-    private int[] imageResId = { R.drawable.nav_news_icon, R.drawable.nav_requests_icon, R.drawable.nav_users_icon };
+    private String tabTitles[] = new String[] { "Vijesti", "Nalozi", "Profil", "Korisnici" };
+    private int[] imageResId = { R.drawable.nav_news_icon, R.drawable.nav_requests_icon, R.drawable.nav_users_icon, R.drawable.nav_users_icon };
 
     public SectionsPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
@@ -38,15 +39,17 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         } else if (position == 1) {
             return new RequestsFragment();
         } else if (position == 2) {
-            return new UserFragment();
-        } else {
+            return new ProfileFragment();
+        } else if (position == 3) {
+            return new UsersFragment();
+        }else {
             return null;
         }
     }
-
+    //TODO get user from SharedPref and check role. Change number of pages accordingly
     @Override
     public int getCount() {
-        return 3; // Show 3 total pages.
+        return 4; // Show 3 total pages.
     }
 
     @Nullable
