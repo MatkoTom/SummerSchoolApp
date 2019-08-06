@@ -13,15 +13,27 @@ public class User {
     @SerializedName("password")
     private String password;
 
-    public User(String oib, String email, String password) {
+    @SerializedName("role")
+    private String role;
+
+    public User(String oib, String email, String password, String role) {
         this.oib = oib;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public User(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getOib() {

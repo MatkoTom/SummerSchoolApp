@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -64,6 +66,9 @@ public class LoginFragment extends Fragment {
 
     @BindView(R.id.btn_login)
     Button btnLogin;
+
+    @BindView(R.id.cb_remember_user)
+    CheckBox rememberUser;
 
     private OnboardingViewModel viewModel;
 
@@ -222,5 +227,14 @@ public class LoginFragment extends Fragment {
         user.password = Tools.md5(etPassword.getText().toString());
 
         return user;
+    }
+
+    private void rememberUser() {
+        rememberUser.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+            }
+        });
     }
 }

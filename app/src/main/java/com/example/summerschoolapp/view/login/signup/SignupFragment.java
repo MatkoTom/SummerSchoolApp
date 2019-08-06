@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -68,6 +69,9 @@ public class SignupFragment extends Fragment {
 
     @BindView(R.id.btn_signup)
     Button btnSignup;
+
+    @BindView(R.id.cb_remember_signup)
+    CheckBox rememberSignup;
 
     private OnSignupFragmentClicListener listener;
     private OnSignupLogin loginListener;

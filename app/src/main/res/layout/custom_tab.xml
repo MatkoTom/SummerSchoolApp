@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imgView"
-        android:layout_width="40dp"
-        android:layout_height="20dp"
+        android:layout_width="27dp"
+        android:layout_height="34dp"
         app:srcCompat="@drawable/moj_grad_small_logo" />
 
     <TextView
