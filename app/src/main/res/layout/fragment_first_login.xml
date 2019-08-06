@@ -37,7 +37,7 @@
             android:fontFamily="@font/avenir_medium"
             android:gravity="center"
             android:text="@string/app_info_login"
-            android:textColor="#5E6DFF"
+            android:textColor="@color/color1"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/tv_app_info"
             app:layout_constraintHorizontal_bias="0.0"

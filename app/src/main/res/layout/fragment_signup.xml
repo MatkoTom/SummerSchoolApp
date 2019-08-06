@@ -223,7 +223,7 @@
             android:fontFamily="@font/avenir_medium"
             android:gravity="center"
             android:text="@string/app_info_login"
-            android:textColor="#5E6DFF"
+            android:textColor="@color/color1"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline11"
             app:layout_constraintEnd_toEndOf="parent"
