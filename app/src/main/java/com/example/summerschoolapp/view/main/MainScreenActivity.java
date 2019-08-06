@@ -1,6 +1,9 @@
 package com.example.summerschoolapp.view.main;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -47,7 +50,9 @@ public class MainScreenActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                tabLayout.getTabAt(position).setIcon(imageResId[position]);
+                View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.custom_tab, null);
+                ImageView img = v.findViewById(R.id.imgView);
+                img.setImageResource(imageResId[position]);
             }
 
             @Override
