@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,18 +24,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.model.RequestRegister;
-import com.example.summerschoolapp.utils.MD5;
 import com.example.summerschoolapp.utils.Preferences;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import com.example.summerschoolapp.utils.Tools;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
-import static com.example.summerschoolapp.utils.MD5.md5;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -85,8 +78,6 @@ public class SignupFragment extends Fragment {
     private boolean isValidOib = false;
     private boolean isValidPassword = false;
 
-    private Preferences preferences;
-
     public interface OnSignupFragmentClicListener {
         void onSignupItemClicked();
     }
@@ -104,7 +95,6 @@ public class SignupFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_signup, container, false);
         ButterKnife.bind(this, rootView);
-        preferences = new Preferences(getActivity());
         oldColor = tvSignupOib.getTextColors();
         canUserSignup();
         textChangedListener();
@@ -168,8 +158,8 @@ public class SignupFragment extends Fragment {
         }
 
         if (isValidOib && isValidMail && isValidPassword) {
-            preferences.setEmail(etEmail.getText().toString());
-            preferences.setPassword(etPassword.getText().toString());
+            Tools.getSharedPreferences(getActivity()).setEmail(etEmail.getText().toString());
+            Tools.getSharedPreferences(getActivity()).setPassword(etPassword.getText().toString());
             loginListener.onSignupClicked(sendData());
         }
     }
@@ -272,7 +262,7 @@ public class SignupFragment extends Fragment {
         RequestRegister user = new RequestRegister();
         user.oib = etOib.getText().toString();
         user.email = etEmail.getText().toString();
-        user.password = md5(etPassword.getText().toString());
+        user.password = Tools.md5(etPassword.getText().toString());
 
         return user;
     }

@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,24 +21,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.model.RequestLogin;
-import com.example.summerschoolapp.model.User;
 import com.example.summerschoolapp.utils.Preferences;
+import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.view.login.onboarding.OnboardingViewModel;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.example.summerschoolapp.utils.MD5.md5;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,8 +75,6 @@ public class LoginFragment extends Fragment {
     private boolean isValidMail = false;
     private boolean isValidPassword = false;
 
-    private Preferences preferences;
-
     public interface OnFragmentLoginClickListener {
         void onLoginItemClicked();
     }
@@ -102,12 +93,10 @@ public class LoginFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, rootView);
-        preferences = new Preferences(getActivity());
         fetchStoredUser();
         canUserLogIn();
         textChangedListener();
         viewModel = ViewModelProviders.of(this).get(OnboardingViewModel.class);
-        getData();
         oldColor = tvLoginMail.getTextColors();
         return rootView;
     }
@@ -122,7 +111,7 @@ public class LoginFragment extends Fragment {
 
     @OnClick(R.id.btn_login)
     public void logInUser() {
-        if (etPassword.length() == 0 || !(etPassword.getText().toString().equals(preferences.getPassword()))) {
+        if (etPassword.length() == 0 || !(etPassword.getText().toString().equals(Tools.getSharedPreferences(getActivity()).getPassword()))) {
             tvLoginPassword.setTextColor(Color.RED);
             tvWrongPassword.setText("Kriva lozinka!");
             tvWrongPassword.setTextColor(Color.RED);
@@ -132,7 +121,7 @@ public class LoginFragment extends Fragment {
 
         }
 
-        if (!isValidEmail(etEmail.getText().toString().trim()) || !(etEmail.getText().toString().equals(preferences.getEmail()))) {
+        if (!isValidEmail(etEmail.getText().toString().trim()) || !(etEmail.getText().toString().equals(Tools.getSharedPreferences(getActivity()).getEmail()))) {
             tvLoginMail.setTextColor(Color.RED);
             tvWrongEmail.setText("Korisnik ne postoji!");
             tvWrongEmail.setTextColor(Color.RED);
@@ -144,7 +133,6 @@ public class LoginFragment extends Fragment {
         if (isValidPassword && isValidMail) {
             logInUserData();
             loginListener.onLoginClicked(logInUserData());
-//            sendUserData();
         }
     }
 
@@ -210,16 +198,16 @@ public class LoginFragment extends Fragment {
     }
 
     private void fetchStoredUser() {
-        if (!preferences.getEmail().equals("") && !preferences.getPassword().equals("")) {
-            etEmail.setText(preferences.getEmail());
-            etPassword.setText(preferences.getPassword());
+        if (!Tools.getSharedPreferences(getActivity()).getEmail().equals("") && !Tools.getSharedPreferences(getActivity()).getPassword().equals("")) {
+            etEmail.setText(Tools.getSharedPreferences(getActivity()).getEmail());
+            etPassword.setText(Tools.getSharedPreferences(getActivity()).getPassword());
         }
     }
 
     private void canUserLogIn() {
         if (!isValidEmail(etEmail.getText().toString().trim()) ||
-                !(etEmail.getText().toString().equals(preferences.getEmail())) ||
-                !(etPassword.getText().toString().equals(preferences.getPassword()))) {
+                !(etEmail.getText().toString().equals(Tools.getSharedPreferences(getActivity()).getEmail())) ||
+                !(etPassword.getText().toString().equals(Tools.getSharedPreferences(getActivity()).getPassword()))) {
             btnLogin.setEnabled(false);
             btnLogin.setAlpha(0.5f);
         } else {
@@ -228,21 +216,10 @@ public class LoginFragment extends Fragment {
         }
     }
 
-    private void getData() {
-        viewModel.makeQuery().observe(this, new Observer<List<User>>() {
-            @Override
-            public void onChanged(List<User> users) {
-                for (User juzer : users) {
-                    Log.d(TAG, "onChanged: " + juzer.getEmail());
-                }
-            }
-        });
-    }
-
-    private RequestLogin logInUserData(){
+    private RequestLogin logInUserData() {
         RequestLogin user = new RequestLogin();
         user.email = etEmail.getText().toString();
-        user.password = md5(etPassword.getText().toString());
+        user.password = Tools.md5(etPassword.getText().toString());
 
         return user;
     }

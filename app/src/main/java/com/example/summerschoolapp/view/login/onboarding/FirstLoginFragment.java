@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.utils.Preferences;
+import com.example.summerschoolapp.utils.Tools;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -25,8 +26,6 @@ public class FirstLoginFragment extends Fragment {
 
     private OnFirstLoginFragmentLoginListener loginListener;
     private OnFirstLoginFragmentRegisterListener registerListener;
-
-    private Preferences preferences;
 
     public FirstLoginFragment() {
         // Required empty public constructor
@@ -47,7 +46,6 @@ public class FirstLoginFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_first_login, container, false);
         ButterKnife.bind(this, rootView);
 
-        preferences = new Preferences(getActivity());
         checkIfFirstEntry();
         return rootView;
     }
@@ -62,18 +60,18 @@ public class FirstLoginFragment extends Fragment {
 
     @OnClick(R.id.tv_login_oib)
     public void goToSignupFragment() {
-        preferences.setBoolean(true);
+        Tools.getSharedPreferences(getActivity()).setBoolean(true);
         loginListener.onFirstLoginItemClicked();
     }
 
     @OnClick(R.id.btn_continue)
     public void goToLoginFragment() {
-        preferences.setBoolean(true);
+        Tools.getSharedPreferences(getActivity()).setBoolean(true);
         registerListener.onFirstLoginRegister();
     }
 
     private void checkIfFirstEntry() {
-        Boolean b = preferences.getBoolean();
+        Boolean b = Tools.getSharedPreferences(getActivity()).getBoolean();
         if (b) {
             loginListener.onFirstLoginItemClicked();
         }

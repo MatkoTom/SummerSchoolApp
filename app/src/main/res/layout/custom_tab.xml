@@ -10,7 +10,7 @@
         android:id="@+id/imgView"
         android:layout_width="40dp"
         android:layout_height="20dp"
-        app:srcCompat="@drawable/image" />
+        app:srcCompat="@drawable/moj_grad_small_logo" />
 
     <TextView
         android:id="@+id/textView"
