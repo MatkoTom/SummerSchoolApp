@@ -70,8 +70,8 @@ public class SignupFragment extends Fragment {
     @BindView(R.id.btn_signup)
     Button btnSignup;
 
-    @BindView(R.id.cb_remember_signup)
-    CheckBox rememberSignup;
+    @BindView(R.id.btn_remember_me)
+    Button btnRememberMe;
 
     private OnSignupFragmentClicListener listener;
     private OnSignupLogin loginListener;
@@ -81,6 +81,7 @@ public class SignupFragment extends Fragment {
     private boolean isValidMail = false;
     private boolean isValidOib = false;
     private boolean isValidPassword = false;
+    private boolean isPressed = false;
 
     public interface OnSignupFragmentClicListener {
         void onSignupItemClicked();
@@ -256,9 +257,13 @@ public class SignupFragment extends Fragment {
         if (!isValidEmail(etEmail.getText().toString().trim()) || etPassword.length() == 0 || etOib.length() < 11 || etOib.length() > 11) {
             btnSignup.setEnabled(false);
             btnSignup.setAlpha(0.5f);
+            btnRememberMe.setEnabled(false);
+            btnRememberMe.setAlpha(0.5f);
         } else {
             btnSignup.setEnabled(true);
             btnSignup.setAlpha(1.0f);
+            btnRememberMe.setEnabled(true);
+            btnRememberMe.setAlpha(1.0f);
         }
     }
 
@@ -269,5 +274,18 @@ public class SignupFragment extends Fragment {
         user.password = Tools.md5(etPassword.getText().toString());
 
         return user;
+    }
+
+    @OnClick(R.id.btn_remember_me)
+    public void rememberMeButton() {
+        if (!isPressed) {
+            btnRememberMe.setText(getString(R.string.forget_me));
+            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_x_icon), null);
+            isPressed = true;
+        } else {
+            btnRememberMe.setText(R.string.remember_me);
+            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_checkmark_icon), null);
+            isPressed = false;
+        }
     }
 }

@@ -81,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/avenir_black"
             android:text="@string/email"
             android:textStyle="bold"
@@ -111,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/avenir_black"
             android:text="@string/password"
             android:textStyle="bold"
@@ -137,7 +137,7 @@
 
         <Button
             android:id="@+id/btn_signup"
-            android:layout_width="wrap_content"
+            android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -178,7 +178,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/avenir_black"
             android:text="@string/oib"
             android:textStyle="bold"
@@ -258,18 +258,29 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
-        <CheckBox
-            android:id="@+id/cb_remember_signup"
-            android:layout_width="0dp"
+        <Button
+            android:id="@+id/btn_remember_me"
+            android:layout_width="260dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:fontFamily="@font/avenir_medium"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_remember_me_layout"
+            android:drawableEnd="@drawable/remember_me_checkmark_icon"
+            android:fontFamily="@font/american_typewriter_bold"
+            android:padding="16dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
             android:text="@string/remember_me"
+            android:textColor="@color/color_text"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/guideline10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_signup_password" />
+            app:layout_constraintTop_toBottomOf="@+id/et_signup_password"
+            tools:text="@string/remember_me" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

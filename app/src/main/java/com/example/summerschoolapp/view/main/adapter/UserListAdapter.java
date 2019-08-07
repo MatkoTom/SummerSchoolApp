@@ -15,6 +15,8 @@ import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.model.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.CustomVievHolder> implements Filterable {
@@ -24,6 +26,12 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
 
     public void setData(List<User> newData) {
         if (newData != null && !newData.isEmpty()) {
+            Collections.sort(newData, new Comparator<User>() {
+                @Override
+                public int compare(User user, User t1) {
+                    return user.getEmail().compareTo(t1.getEmail());
+                }
+            });
             this.data.clear();
             this.data.addAll(newData);
             userListFull = new ArrayList<>(data);
