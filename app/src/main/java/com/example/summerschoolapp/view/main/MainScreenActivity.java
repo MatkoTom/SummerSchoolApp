@@ -1,9 +1,6 @@
 package com.example.summerschoolapp.view.main;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -16,7 +13,10 @@ import butterknife.ButterKnife;
 
 public class MainScreenActivity extends AppCompatActivity {
 
-    private int[] imageResId = { R.drawable.nav_news_selected_icon, R.drawable.nav_requests_selected_icon, R.drawable.nav_users_selected_icon };
+    private int[] imageResId = {R.drawable.nav_news_selected_icon,
+            R.drawable.nav_requests_selected_icon,
+            R.drawable.nav_users_selected_icon,
+            R.drawable.nav_users_selected_icon};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
