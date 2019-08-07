@@ -7,10 +7,12 @@ import android.text.SpannableString;
 import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -26,6 +28,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     private Context context;
     private String tabTitles[] = new String[] { "Vijesti", "Nalozi", "Profil", "Korisnici" };
     private int[] imageResId = { R.drawable.nav_news_icon, R.drawable.nav_requests_icon, R.drawable.nav_users_icon, R.drawable.nav_users_icon };
+//    private Drawable[] drawableAssets = {ContextCompat.getDrawable(context, R.drawable.nav_news_icon), ContextCompat.getDrawable(context, R.drawable.nav_requests_icon), ContextCompat.getDrawable(context, R.drawable.nav_users_icon), ContextCompat.getDrawable(context, R.drawable.nav_users_icon) };
 
     public SectionsPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
@@ -79,6 +82,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         tv.setText(tabTitles[position]);
         ImageView img = v.findViewById(R.id.imgView);
         img.setImageResource(imageResId[position]);
+//        Button btnTab = v.findViewById(R.id.btn_tab_icon);
+//        btnTab.setCompoundDrawablesWithIntrinsicBounds(null, imageResId[position], null, null);
         return v;
     }
 }

@@ -5,8 +5,8 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="black_80_transp">#33000000</color>
-    <color name="color1">#0076FF</color>
-    <color name="color2">#E7E7E7</color>
-    <color name="color3">#D0021B</color>
+    <color name="color_text">#0076FF</color>
+    <color name="color_background">#E7E7E7</color>
+    <color name="color_error_highlight">#D0021B</color>
 
 </resources>
