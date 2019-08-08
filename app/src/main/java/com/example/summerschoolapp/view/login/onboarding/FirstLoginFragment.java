@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.summerschoolapp.R;
-import com.example.summerschoolapp.utils.Preferences;
 import com.example.summerschoolapp.utils.Tools;
 
 import butterknife.ButterKnife;
@@ -71,6 +70,8 @@ public class FirstLoginFragment extends Fragment {
     }
 
     private void checkIfFirstEntry() {
+        // TODO @Matko
+        // avoid using one letter names for variables, variable has to have some level of context
         Boolean b = Tools.getSharedPreferences(getActivity()).getBoolean();
         if (b) {
             loginListener.onFirstLoginItemClicked();

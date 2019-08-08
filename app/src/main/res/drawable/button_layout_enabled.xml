@@ -2,6 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle" android:padding="10dp">
     <!-- you can use any color you want I used here gray color-->
+    <!-- TODO @Matko all colors should be defined in colors.xml-->
     <solid android:color="#ABABAB"/>
     <corners android:radius="10dp"/>
     <gradient

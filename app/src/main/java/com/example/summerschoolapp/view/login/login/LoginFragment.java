@@ -237,12 +237,22 @@ public class LoginFragment extends Fragment {
     @OnClick(R.id.btn_remember_me)
     public void rememberMeButton() {
         if (!isPressed) {
+            // TODO @Matko
+            // there should be no hardcoded text in the app
+            // everything should be in strings.xml
+            // check this in the entire project
             btnRememberMe.setText("Zaboravi me");
-            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_x_icon), null);
+            // TODO @Matko
+            // R.drawable.remember_me_x_icon is missing, I have the latest code
+            // probably forgot to add it in git
+//            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_x_icon), null);
             isPressed = true;
         } else {
             btnRememberMe.setText(R.string.remember_me);
-            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_checkmark_icon), null);
+            // TODO @Matko
+            // R.drawable.remember_me_checkmark_icon is missing, I have the latest code
+            // probably forgot to add it in git
+//            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_checkmark_icon), null);
             isPressed = false;
         }
     }

@@ -163,6 +163,9 @@ public class SignupFragment extends Fragment {
         }
 
         if (isValidOib && isValidMail && isValidPassword) {
+            // TODO @Matko
+            // saving to shared prefs is not necessary since we should store user object
+            // delete after implementing the above
             Tools.getSharedPreferences(getActivity()).setEmail(etEmail.getText().toString());
             Tools.getSharedPreferences(getActivity()).setPassword(etPassword.getText().toString());
             loginListener.onSignupClicked(sendData());
@@ -280,11 +283,17 @@ public class SignupFragment extends Fragment {
     public void rememberMeButton() {
         if (!isPressed) {
             btnRememberMe.setText(getString(R.string.forget_me));
-            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_x_icon), null);
+            // TODO @Matko
+            // R.drawable.remember_me_x_icon is missing, I have the latest code
+            // probably forgot to add it in git
+//            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_x_icon), null);
             isPressed = true;
         } else {
             btnRememberMe.setText(R.string.remember_me);
-            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_checkmark_icon), null);
+            // TODO @Matko
+            // R.drawable.remember_me_checkmark_icon is missing, I have the latest code
+            // probably forgot to add it in git
+//            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_checkmark_icon), null);
             isPressed = false;
         }
     }

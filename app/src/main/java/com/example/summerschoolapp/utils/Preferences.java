@@ -4,66 +4,69 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import static com.example.summerschoolapp.utils.Const.BOOLEAN_SHARED_KEY;
-import static com.example.summerschoolapp.utils.Const.STRING_SHARED_KEY;
-import static com.example.summerschoolapp.utils.Const.STRING_USER_EMAIL;
-import static com.example.summerschoolapp.utils.Const.STRING_USER_PASSWORD;
-
 public class Preferences {
-    private Context context;
     private SharedPreferences preferences;
-    private SharedPreferences.Editor editor;
 
     public Preferences(Context context) {
-        this.context = context;
         this.preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
+    // TODO @Matko
+    // method name is not saying anything about its use
+    // should be something like shouldShowFirstLogin()
     public Boolean getBoolean() {
-        editor = preferences.edit();
-
-        return preferences.getBoolean(BOOLEAN_SHARED_KEY, false);
+        return preferences.getBoolean(Const.BOOLEAN_SHARED_KEY, false);
     }
 
+    // TODO @Matko
+    // method name is not saying anything about its use
+    // should be something like setShouldShowFirstLogin(Boolean shouldShow)
     public void setBoolean(Boolean b) {
-        editor = preferences.edit();
-        editor.putBoolean(BOOLEAN_SHARED_KEY, b);
-        editor.apply();
+        preferences.edit()
+                .putBoolean(Const.BOOLEAN_SHARED_KEY, b)
+                .apply();
     }
 
+    // TODO @Matko
+    // method name is ambiguous
     public String getString() {
-        editor = preferences.edit();
-
-        return preferences.getString(STRING_SHARED_KEY, "");
+        return preferences.getString(Const.STRING_SHARED_KEY, "");
     }
 
+    // TODO @Matko
+    // method name is ambiguous
     public void setString(String s) {
-        editor = preferences.edit();
-        editor.putString(STRING_SHARED_KEY, s);
-        editor.apply();
+        preferences.edit()
+                .putString(Const.STRING_SHARED_KEY, s)
+                .apply();
     }
 
+    // TODO @Matko
+    // is this necessary since we should save user object
     public String getEmail() {
-        editor = preferences.edit();
-
-        return preferences.getString(STRING_USER_EMAIL, "");
+        return preferences.getString(Const.STRING_USER_EMAIL, "");
     }
 
+    // TODO @Matko
+    // is this necessary since we should save user object
     public void setEmail(String s) {
-        editor = preferences.edit();
-        editor.putString(STRING_USER_EMAIL, s);
-        editor.apply();
+        preferences.edit()
+                .putString(Const.STRING_USER_EMAIL, s)
+                .apply();
     }
 
+    // TODO @Matko
+    // is this necessary since we should save user object
     public String getPassword() {
-        editor = preferences.edit();
-
-        return preferences.getString(STRING_USER_PASSWORD, "");
+        return preferences.getString(Const.STRING_USER_PASSWORD, "");
     }
 
+    // TODO @Matko
+    // is this necessary since we should save user object
+    // password should not be saved to phone under any circumstances
     public void setPassword(String s) {
-        editor = preferences.edit();
-        editor.putString(STRING_USER_PASSWORD, s);
-        editor.apply();
+        preferences.edit()
+                .putString(Const.STRING_USER_PASSWORD, s)
+                .apply();
     }
 }

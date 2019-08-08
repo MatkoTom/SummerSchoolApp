@@ -23,6 +23,8 @@ import com.example.summerschoolapp.view.main.UsersFragment;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     private Context context;
+    // TODO @Matko
+    // hardcoded values
     private String tabTitles[] = new String[]{"Vijesti", "Zahtjevi", "Profil", "Korisnici"};
     private int[] imageResId = {R.drawable.nav_news_icon, R.drawable.nav_requests_icon, R.drawable.nav_users_icon, R.drawable.nav_users_icon};
     private int[] imageResIdChecked = {R.drawable.nav_news_selected_icon,
