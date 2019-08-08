@@ -15,10 +15,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.summerschoolapp.R;
-import com.example.summerschoolapp.view.main.NewsFragment;
-import com.example.summerschoolapp.view.main.ProfileFragment;
-import com.example.summerschoolapp.view.main.RequestsFragment;
-import com.example.summerschoolapp.view.main.UsersFragment;
+import com.example.summerschoolapp.view.main.fragmentNews.NewsFragment;
+import com.example.summerschoolapp.view.main.fragmentProfile.ProfileFragment;
+import com.example.summerschoolapp.view.main.fragmentRequests.RequestsFragment;
+import com.example.summerschoolapp.view.main.fragmentsUsers.UsersFragment;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 

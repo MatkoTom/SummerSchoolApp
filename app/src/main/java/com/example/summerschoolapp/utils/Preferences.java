@@ -15,7 +15,7 @@ public class Preferences {
     // method name is not saying anything about its use
     // should be something like shouldShowFirstLogin()
     public Boolean getBoolean() {
-        return preferences.getBoolean(Const.BOOLEAN_SHARED_KEY, false);
+        return preferences.getBoolean(Const.Preferences.BOOLEAN_SHARED_KEY, false);
     }
 
     // TODO @Matko
@@ -23,42 +23,42 @@ public class Preferences {
     // should be something like setShouldShowFirstLogin(Boolean shouldShow)
     public void setBoolean(Boolean b) {
         preferences.edit()
-                .putBoolean(Const.BOOLEAN_SHARED_KEY, b)
+                .putBoolean(Const.Preferences.BOOLEAN_SHARED_KEY, b)
                 .apply();
     }
 
     // TODO @Matko
     // method name is ambiguous
     public String getString() {
-        return preferences.getString(Const.STRING_SHARED_KEY, "");
+        return preferences.getString(Const.Preferences.STRING_SHARED_KEY, "");
     }
 
     // TODO @Matko
     // method name is ambiguous
     public void setString(String s) {
         preferences.edit()
-                .putString(Const.STRING_SHARED_KEY, s)
+                .putString(Const.Preferences.STRING_SHARED_KEY, s)
                 .apply();
     }
 
     // TODO @Matko
     // is this necessary since we should save user object
     public String getEmail() {
-        return preferences.getString(Const.STRING_USER_EMAIL, "");
+        return preferences.getString(Const.Preferences.STRING_USER_EMAIL, "");
     }
 
     // TODO @Matko
     // is this necessary since we should save user object
     public void setEmail(String s) {
         preferences.edit()
-                .putString(Const.STRING_USER_EMAIL, s)
+                .putString(Const.Preferences.STRING_USER_EMAIL, s)
                 .apply();
     }
 
     // TODO @Matko
     // is this necessary since we should save user object
     public String getPassword() {
-        return preferences.getString(Const.STRING_USER_PASSWORD, "");
+        return preferences.getString(Const.Preferences.STRING_USER_PASSWORD, "");
     }
 
     // TODO @Matko
@@ -66,7 +66,7 @@ public class Preferences {
     // password should not be saved to phone under any circumstances
     public void setPassword(String s) {
         preferences.edit()
-                .putString(Const.STRING_USER_PASSWORD, s)
+                .putString(Const.Preferences.STRING_USER_PASSWORD, s)
                 .apply();
     }
 }

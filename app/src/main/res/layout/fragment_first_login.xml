@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.login.onboarding.FirstLoginFragment">
+    tools:context=".view.onboarding.fragments.FirstLoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
-        tools:context=".view.login.onboarding.FirstLogin">
+        tools:context=".view.onboarding.onboarding.FirstLogin">
 
         <TextView
             android:id="@+id/tv_app_info"

@@ -1,4 +1,4 @@
-package com.example.summerschoolapp.view.main;
+package com.example.summerschoolapp.view.main.fragmentsUsers;
 
 
 import android.os.Bundle;
@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.model.User;
-import com.example.summerschoolapp.view.main.adapter.UserListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

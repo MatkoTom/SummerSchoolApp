@@ -15,6 +15,9 @@ public class ErrorDialog extends DialogFragment {
         builder.setTitle(title)
                 .setIcon(activity.getResources().getDrawable(R.drawable.log_in_error_icon))
                 .setMessage(description)
+                // TODO @Matko
+                // lets avoid this kid of testing expression, they usually are left and forgotten causing a bug
+                // implement a listener interface
                 .setPositiveButton(positiveButton, (dialogInterface, i) -> activity.finish());
         builder.create().show();
     }

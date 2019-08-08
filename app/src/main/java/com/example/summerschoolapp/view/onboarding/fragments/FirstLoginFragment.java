@@ -1,4 +1,4 @@
-package com.example.summerschoolapp.view.login.onboarding;
+package com.example.summerschoolapp.view.onboarding.fragments;
 
 
 import android.content.Context;

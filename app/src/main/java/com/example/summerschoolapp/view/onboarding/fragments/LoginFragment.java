@@ -1,4 +1,4 @@
-package com.example.summerschoolapp.view.login.login;
+package com.example.summerschoolapp.view.onboarding.fragments;
 
 
 import android.content.Context;
@@ -15,8 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -26,11 +24,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
-import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.model.RequestLogin;
-import com.example.summerschoolapp.utils.Preferences;
 import com.example.summerschoolapp.utils.Tools;
-import com.example.summerschoolapp.view.login.onboarding.OnboardingViewModel;
+import com.example.summerschoolapp.view.onboarding.OnboardingViewModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

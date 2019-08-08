@@ -1,4 +1,4 @@
-package com.example.summerschoolapp.view.main;
+package com.example.summerschoolapp.view.main.fragmentRequests;
 
 
 import android.os.Bundle;

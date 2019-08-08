@@ -1,4 +1,4 @@
-package com.example.summerschoolapp.view.login.signup;
+package com.example.summerschoolapp.view.onboarding.fragments;
 
 
 import android.content.Context;
@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -25,7 +24,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.model.RequestRegister;
-import com.example.summerschoolapp.utils.Preferences;
 import com.example.summerschoolapp.utils.Tools;
 
 import butterknife.BindView;

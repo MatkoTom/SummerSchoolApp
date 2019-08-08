@@ -1,4 +1,4 @@
-package com.example.summerschoolapp.view.login.onboarding;
+package com.example.summerschoolapp.view.onboarding;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,9 @@ import com.example.summerschoolapp.common.BaseActivity;
 import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestRegister;
-import com.example.summerschoolapp.view.login.login.LoginFragment;
-import com.example.summerschoolapp.view.login.signup.SignupFragment;
+import com.example.summerschoolapp.view.onboarding.fragments.LoginFragment;
+import com.example.summerschoolapp.view.onboarding.fragments.FirstLoginFragment;
+import com.example.summerschoolapp.view.onboarding.fragments.SignupFragment;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
 
 import butterknife.ButterKnife;

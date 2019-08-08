@@ -1,4 +1,4 @@
-package com.example.summerschoolapp.view.main.adapter;
+package com.example.summerschoolapp.view.main.fragmentsUsers;
 
 import android.view.LayoutInflater;
 import android.view.View;

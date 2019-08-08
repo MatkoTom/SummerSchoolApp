@@ -1,4 +1,4 @@
-package com.example.summerschoolapp.view.main;
+package com.example.summerschoolapp.view.main.fragmentProfile;
 
 
 import android.os.Bundle;
@@ -14,10 +14,10 @@ import com.example.summerschoolapp.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewsFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
 
-    public NewsFragment() {
+    public ProfileFragment() {
         // Required empty public constructor
     }
 
@@ -26,7 +26,7 @@ public class NewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_news, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         return rootView;
     }
 
