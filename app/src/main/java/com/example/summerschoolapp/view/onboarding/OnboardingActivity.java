@@ -107,10 +107,11 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
         }
     }
 
+    //TODO initialize vievmodel on activity created to listen all the time
     @Override
     public void onSignupClicked(RequestRegister user) {
         Timber.tag(TAG).d("onSignupClicked: " + user.oib + " " + user.email + " " + user.password);
-        viewModel.makeRegistry(user).observe(this, user1 -> Timber.tag(TAG).d("onSignupClicked: " + user1.getOib() + " " + user1.getEmail() + " " + user1.getPassword()));
+        viewModel.registerUser(user).observe(this, user1 -> Timber.tag(TAG).d("onSignupClicked: " + user1.getOib() + " " + user1.getEmail() + " " + user1.getPassword()));
         showProgress();
         try {
             Intent i = new Intent(this, MainScreenActivity.class);

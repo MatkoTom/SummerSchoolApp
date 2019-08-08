@@ -1,6 +1,7 @@
 package com.example.summerschoolapp.view.main.fragmentsUsers;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,18 +13,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.summerschoolapp.R;
-import com.example.summerschoolapp.model.User;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.summerschoolapp.view.CreateNewUserActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class UsersFragment extends Fragment {
+
+    @BindView(R.id.fab_create_new_user)
+    FloatingActionButton fabCreateNewUser;
 
     @BindView(R.id.rv_user_list)
     RecyclerView rvUserList;
@@ -65,5 +68,11 @@ public class UsersFragment extends Fragment {
                 return false;
             }
         });
+    }
+
+    @OnClick(R.id.fab_create_new_user)
+    public void startCreateUserActivity() {
+        Intent i = new Intent(getActivity(), CreateNewUserActivity.class);
+        startActivity(i);
     }
 }

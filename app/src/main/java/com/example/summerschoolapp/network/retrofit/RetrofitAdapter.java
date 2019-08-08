@@ -23,6 +23,7 @@ public class RetrofitAdapter {
             okHttpBuilder.readTimeout(25, TimeUnit.SECONDS);
             okHttpBuilder.connectTimeout(25, TimeUnit.SECONDS);
 
+            //TODO check out this code, interceptor
             // debuging options for api calls
 //            if (BuildConfig.BUILD_TYPE.equals("debug")
 //                    || BuildConfig.BUILD_TYPE.equals("dev")

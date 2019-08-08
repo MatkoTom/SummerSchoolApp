@@ -23,7 +23,7 @@ public class OnboardingViewModel extends BaseViewModel {
         return authRepo.postLoginQuery(user);
     }
 
-    public LiveData<User> makeRegistry(RequestRegister user) {
+    public LiveData<User> registerUser(RequestRegister user) {
         return authRepo.postRegisterQuery(user);
     }
 }

@@ -20,9 +20,9 @@ public class Preferences {
         return preferences.getBoolean(Const.Preferences.BOOLEAN_SHARED_KEY, false);
     }
 
-    public void setShouldShowFirstLogin(Boolean b) {
+    public void setShouldShowFirstLogin(Boolean firstLogin) {
         preferences.edit()
-                .putBoolean(Const.Preferences.BOOLEAN_SHARED_KEY, b)
+                .putBoolean(Const.Preferences.BOOLEAN_SHARED_KEY, firstLogin)
                 .apply();
     }
 

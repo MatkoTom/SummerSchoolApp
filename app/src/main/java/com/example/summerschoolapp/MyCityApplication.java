@@ -6,6 +6,8 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
+import com.example.summerschoolapp.utils.helpers.ReleaseTree;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,6 +28,8 @@ public class MyCityApplication extends Application implements LifecycleObserver 
                     return super.createStackElementTag(element) + " : " + element.getLineNumber();
                 }
             });
+        } else {
+            Timber.plant(new ReleaseTree());
         }
     }
 
