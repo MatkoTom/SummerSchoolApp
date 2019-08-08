@@ -19,12 +19,13 @@
 
     <ImageButton
         android:id="@+id/ibtn_new_user_picture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="168dp"
+        android:layout_height="168dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/circular_button_layout"
         android:src="@drawable/new_user_profile_icon"
         app:layout_constraintBottom_toTopOf="@+id/guideline13"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +44,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline13" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/et_new_user_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -65,10 +66,10 @@
         android:fontFamily="@font/avenir_medium"
         android:text="@string/oib"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/et_new_user_name" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/et_new_user_oib"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -90,10 +91,10 @@
         android:fontFamily="@font/avenir_medium"
         android:text="@string/email"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/et_new_user_oib" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/et_new_user_mail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -115,10 +116,10 @@
         android:fontFamily="@font/avenir_medium"
         android:text="@string/password"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+        app:layout_constraintTop_toBottomOf="@+id/et_new_user_mail" />
 
     <EditText
-        android:id="@+id/et_signup_password"
+        android:id="@+id/et_create_user_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -138,16 +139,17 @@
     <ImageButton
         android:id="@+id/ibtn_hide_show"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="8dp"
         android:background="@null"
         android:src="@drawable/log_in_lozinka_hiden_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/et_signup_password"
-        app:layout_constraintEnd_toEndOf="@+id/et_signup_password"
-        app:layout_constraintTop_toTopOf="@+id/et_signup_password"
-        app:layout_constraintVertical_bias="0.48" />
+        app:layout_constraintBottom_toBottomOf="@+id/et_create_user_password"
+        app:layout_constraintEnd_toEndOf="@+id/et_create_user_password"
+        app:layout_constraintTop_toTopOf="@+id/et_create_user_password"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_create_new_user"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="161dp"
