@@ -48,7 +48,6 @@ public class UsersFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvUserList.setLayoutManager(layoutManager);
         rvUserList.setAdapter(userListAdapter);
-        addUsers();
         searchUsers();
         return rootView;
     }
@@ -67,16 +66,4 @@ public class UsersFragment extends Fragment {
             }
         });
     }
-
-    private void addUsers() {
-        List<User> example = new ArrayList<>();
-        example.add(new User("sldjfsl.lsjdf@glkdg.com", "saasd"));
-        example.add(new User("bnvnvb.lsjdf@glkdg.com", "saasd"));
-        example.add(new User("dshreh.lsjdf@glkdg.com", "saasd"));
-        example.add(new User("popo.lsjdf@glkdg.com", "saasd"));
-        example.add(new User("oiuoiu.lsjdf@glkdg.com", "saasd"));
-
-        userListAdapter.setData(example);
-    }
-
 }

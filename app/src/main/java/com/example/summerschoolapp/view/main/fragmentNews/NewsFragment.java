@@ -32,8 +32,6 @@ public class NewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // TODO @Matko
-        // should be initialised in onCreateView or somewhere else
         mainScreenActivityViewModel = ViewModelProviders.of(this).get(MainScreenViewModel.class);
         newsFragmentViewModel = ViewModelProviders.of(this).get(NewsFragmentViewModel.class);
 

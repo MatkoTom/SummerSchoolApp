@@ -46,6 +46,9 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
+    //Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
     implementation "com.squareup.retrofit2:converter-gson:2.6.0"

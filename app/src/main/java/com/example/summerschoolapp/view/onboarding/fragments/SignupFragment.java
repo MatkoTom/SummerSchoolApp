@@ -21,10 +21,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.model.RequestRegister;
 import com.example.summerschoolapp.utils.Tools;
+import com.example.summerschoolapp.view.onboarding.OnboardingViewModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,6 +75,7 @@ public class SignupFragment extends Fragment {
 
     private OnSignupFragmentClicListener listener;
     private OnSignupLogin loginListener;
+    private OnboardingViewModel viewModel;
 
     private boolean isVisible = false;
     private ColorStateList oldColor;
@@ -98,6 +101,7 @@ public class SignupFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_signup, container, false);
         ButterKnife.bind(this, rootView);
+        viewModel = ViewModelProviders.of(this).get(OnboardingViewModel.class);
         oldColor = tvSignupOib.getTextColors();
         canUserSignup();
         textChangedListener();
@@ -108,6 +112,7 @@ public class SignupFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
+        viewModel = ViewModelProviders.of(this).get(OnboardingViewModel.class);
         listener = (OnSignupFragmentClicListener) context;
         loginListener = (OnSignupLogin) context;
     }
@@ -154,7 +159,7 @@ public class SignupFragment extends Fragment {
         if (etPassword.length() == 0) {
             tvSignupPassword.setTextColor(Color.RED);
             tvWrongPassword.setTextColor(Color.RED);
-            tvWrongPassword.setText("Kriva lozinka");
+            tvWrongPassword.setText(R.string.wrong_password);
             isValidPassword = false;
         } else {
             isValidPassword = true;
@@ -164,8 +169,6 @@ public class SignupFragment extends Fragment {
             // TODO @Matko
             // saving to shared prefs is not necessary since we should store user object
             // delete after implementing the above
-//            Tools.getSharedPreferences(getActivity()).setEmail(etEmail.getText().toString());
-//            Tools.getSharedPreferences(getActivity()).setPassword(etPassword.getText().toString());
             loginListener.onSignupClicked(sendData());
         }
     }

@@ -107,6 +107,7 @@ public class LoginFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
+        viewModel = ViewModelProviders.of(this).get(OnboardingViewModel.class);
         listener = (OnFragmentLoginClickListener) context;
         loginListener = (OnFragmentLoginNextActivity) context;
     }
@@ -229,8 +230,6 @@ public class LoginFragment extends Fragment {
     public void rememberMeButton() {
         if (!isPressed) {
             btnRememberMe.setText(R.string.forget_me);
-            // TODO @Matko
-
             btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_x_icon), null);
             isPressed = true;
         } else {

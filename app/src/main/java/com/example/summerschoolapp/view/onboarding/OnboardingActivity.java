@@ -2,7 +2,6 @@ package com.example.summerschoolapp.view.onboarding;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -13,12 +12,13 @@ import com.example.summerschoolapp.common.BaseActivity;
 import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestRegister;
-import com.example.summerschoolapp.view.onboarding.fragments.LoginFragment;
-import com.example.summerschoolapp.view.onboarding.fragments.FirstLoginFragment;
-import com.example.summerschoolapp.view.onboarding.fragments.SignupFragment;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
+import com.example.summerschoolapp.view.onboarding.fragments.FirstLoginFragment;
+import com.example.summerschoolapp.view.onboarding.fragments.LoginFragment;
+import com.example.summerschoolapp.view.onboarding.fragments.SignupFragment;
 
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 import static com.example.summerschoolapp.utils.Const.Fragments.FRAGMENT_TAG_FIRST_LOGIN;
 import static com.example.summerschoolapp.utils.Const.Fragments.FRAGMENT_TAG_LOGIN;
@@ -94,8 +94,8 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
 
     @Override
     public void onLoginClicked(RequestLogin user) {
-        Log.d(TAG, "onLoginClicked: " + user.password + " " + user.email);
-        viewModel.makeLogin(user).observe(this, user1 -> Log.d(TAG, "onChanged: " + user1.getEmail() + " " + user1.getPassword()));
+        Timber.tag(TAG).d("onLoginClicked: " + user.password + " " + user.email);
+        viewModel.makeLogin(user).observe(this, user1 -> Timber.tag(TAG).d("onChanged: " + user1.getEmail() + " " + user1.getPassword()));
         showProgress();
         try {
             Intent i = new Intent(this, MainScreenActivity.class);
@@ -109,10 +109,8 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
 
     @Override
     public void onSignupClicked(RequestRegister user) {
-        Log.d(TAG, "onSignupClicked: " + user.oib + " " + user.email + " " + user.password);
-        viewModel.makeRegistry(user).observe(this, user1 -> {
-            Log.d(TAG, "onSignupClicked: " + user1.getOib() + " " + user1.getEmail() + " " + user1.getPassword());
-        });
+        Timber.tag(TAG).d("onSignupClicked: " + user.oib + " " + user.email + " " + user.password);
+        viewModel.makeRegistry(user).observe(this, user1 -> Timber.tag(TAG).d("onSignupClicked: " + user1.getOib() + " " + user1.getEmail() + " " + user1.getPassword()));
         showProgress();
         try {
             Intent i = new Intent(this, MainScreenActivity.class);
