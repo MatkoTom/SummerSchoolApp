@@ -22,18 +22,6 @@ public class User {
     @SerializedName("role")
     private String role;
 
-    public User(String oib, String email, String password, String role) {
-        this.oib = oib;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
-
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
-
     public String getName() {
         return name;
     }

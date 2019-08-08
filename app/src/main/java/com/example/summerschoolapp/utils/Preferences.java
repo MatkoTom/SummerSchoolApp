@@ -4,6 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.example.summerschoolapp.model.User;
+import com.google.gson.Gson;
+
+import static com.example.summerschoolapp.utils.Const.Preferences.USER_SHARED_KEY;
+
 public class Preferences {
     private SharedPreferences preferences;
 
@@ -21,18 +26,20 @@ public class Preferences {
                 .apply();
     }
 
-    // TODO @Matko
-    // is this necessary since we should save user object
-    public String getPassword() {
-        return preferences.getString(Const.Preferences.STRING_USER_PASSWORD, "");
+    public User getSavedUserData() {
+        Gson gson = new Gson();
+        String json = preferences.getString(USER_SHARED_KEY, "");
+        return gson.fromJson(json, User.class);
     }
 
-    // TODO @Matko
-    // is this necessary since we should save user object
-    // password should not be saved to phone under any circumstances
-    public void setPassword(String s) {
+    public void saveUserToPreferences() {
+        User user = new User();
+        Gson gson = new Gson();
+        String json = gson.toJson(user);
+
         preferences.edit()
-                .putString(Const.Preferences.STRING_USER_PASSWORD, s)
+                .putString(USER_SHARED_KEY, json)
                 .apply();
+
     }
 }
