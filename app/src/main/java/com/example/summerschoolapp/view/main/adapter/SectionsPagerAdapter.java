@@ -58,18 +58,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         return 4; // Show 4 total pages.
     }
 
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        Drawable image = context.getResources().getDrawable(imageResId[position]);
-        image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
-        // Replace blank spaces with image icon
-        SpannableString sb = new SpannableString("   " + tabTitles[position]);
-        ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
-        sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return sb;
-    }
-
     public View getTabView(int position) {
         // Given you have a custom layout in `res/layout/custom_tab.xml` with a TextView and ImageView
         View v = LayoutInflater.from(context).inflate(R.layout.custom_tab, null);
