@@ -3,7 +3,7 @@
     <string name="app_info">Aplikacija je namijenjena građanima, kako bi mogli prijaviti kvarove, izraziti svoje mišljenje i informirati se o aktualnim temama.</string>
     <string name="app_info_login">Prijava putem email-a</string>
     <string name="button_continue">Nastavi</string>
-    <string name="sign_in">Prijavi se</string>
+    <string name="sign_in">Prijavi me</string>
     <string name="register_with_oib">Registriraj se putem OIB-a</string>
     <string name="please_enter_info">Molimo upišite tražene podatke kako biste pristupili usluzi koju nudimo.</string>
     <string name="password">Lozinka:</string>
@@ -17,4 +17,9 @@
     <string name="login_congrats">Čestitamo, uspješno ste se prijavili na sustav Moj Grad!</string>
     <string name="btn_try_again">Pokušaj ponovno</string>
     <string name="text_try_again">Oo ne, nešto je krenulo po krivom, pokušajte ponovno!</string>
+    <string name="remember_me">Zapamti me</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="forget_me">Zaboravi me</string>
 </resources>

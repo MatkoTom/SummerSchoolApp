@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -65,6 +67,9 @@ public class LoginFragment extends Fragment {
     @BindView(R.id.btn_login)
     Button btnLogin;
 
+    @BindView(R.id.btn_remember_me)
+    Button btnRememberMe;
+
     private OnboardingViewModel viewModel;
 
     private OnFragmentLoginClickListener listener;
@@ -74,6 +79,7 @@ public class LoginFragment extends Fragment {
     private boolean isVisible = false;
     private boolean isValidMail = false;
     private boolean isValidPassword = false;
+    private boolean isPressed = false;
 
     public interface OnFragmentLoginClickListener {
         void onLoginItemClicked();
@@ -210,9 +216,13 @@ public class LoginFragment extends Fragment {
                 !(etPassword.getText().toString().equals(Tools.getSharedPreferences(getActivity()).getPassword()))) {
             btnLogin.setEnabled(false);
             btnLogin.setAlpha(0.5f);
+            btnRememberMe.setEnabled(false);
+            btnRememberMe.setAlpha(0.5f);
         } else {
             btnLogin.setEnabled(true);
             btnLogin.setAlpha(1.0f);
+            btnRememberMe.setEnabled(true);
+            btnRememberMe.setAlpha(1.0f);
         }
     }
 
@@ -222,5 +232,18 @@ public class LoginFragment extends Fragment {
         user.password = Tools.md5(etPassword.getText().toString());
 
         return user;
+    }
+
+    @OnClick(R.id.btn_remember_me)
+    public void rememberMeButton() {
+        if (!isPressed) {
+            btnRememberMe.setText("Zaboravi me");
+            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_x_icon), null);
+            isPressed = true;
+        } else {
+            btnRememberMe.setText(R.string.remember_me);
+            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_checkmark_icon), null);
+            isPressed = false;
+        }
     }
 }

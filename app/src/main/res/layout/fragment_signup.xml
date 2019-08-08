@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="198dp"
-            android:layout_height="144dp"
+            android:layout_width="182dp"
+            android:layout_height="124dp"
             android:layout_marginStart="101dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="112dp"
@@ -33,6 +33,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/avenir_black"
             android:gravity="center"
             android:text="@string/welcome"
             android:textSize="21sp"
@@ -49,6 +50,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
+            android:fontFamily="@font/avenir_black"
             android:gravity="center"
             android:text="@string/enter_data"
             android:textSize="18sp"
@@ -66,8 +68,9 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:ems="10"
-            android:textStyle="bold"
+            android:fontFamily="@font/american_typewriter_bold"
             android:inputType="number"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +81,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/avenir_black"
             android:text="@string/email"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -93,6 +97,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:ems="10"
+            android:fontFamily="@font/american_typewriter"
             android:inputType="textEmailAddress"
             app:layout_constraintBottom_toTopOf="@+id/guideline10"
             app:layout_constraintEnd_toEndOf="parent"
@@ -106,11 +111,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/avenir_black"
             android:text="@string/password"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline10" />
+            app:layout_constraintTop_toBottomOf="@+id/et_signup_email" />
 
         <EditText
             android:id="@+id/et_signup_password"
@@ -120,6 +126,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:ems="10"
+            android:fontFamily="@font/american_typewriter"
             android:hint="@string/hide_password"
             android:inputType="textPassword"
             android:textSize="12sp"
@@ -130,13 +137,13 @@
 
         <Button
             android:id="@+id/btn_signup"
-            android:layout_width="wrap_content"
+            android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/button_layout_enabled"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/american_typewriter_bold"
             android:padding="16dp"
             android:paddingStart="40dp"
             android:paddingEnd="40dp"
@@ -148,7 +155,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_signup_password"
-            app:layout_constraintVertical_bias="0.242" />
+            app:layout_constraintVertical_bias="0.679" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline9"
@@ -156,7 +163,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="20dp"
-            app:layout_constraintGuide_percent="0.25" />
+            app:layout_constraintGuide_percent="0.20" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline10"
@@ -164,14 +171,15 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="20dp"
-            app:layout_constraintGuide_percent="0.69" />
+            app:layout_constraintGuide_percent="0.80" />
 
         <TextView
             android:id="@+id/tv_signup_oib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/avenir_black"
             android:text="@string/oib"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -202,7 +210,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="20dp"
-            app:layout_constraintGuide_percent="0.41" />
+            app:layout_constraintGuide_percent="0.35" />
 
         <TextView
             android:id="@+id/tv_login"
@@ -212,14 +220,16 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:fontFamily="@font/avenir_medium"
             android:gravity="center"
             android:text="@string/app_info_login"
-            android:textColor="#5E6DFF"
+            android:textColor="@color/color_text"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline11"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_signup" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_signup"
+            app:layout_constraintVertical_bias="0.736" />
 
         <TextView
             android:id="@+id/tv_oib_in_use"
@@ -247,6 +257,30 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline10" />
+
+        <Button
+            android:id="@+id/btn_remember_me"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_remember_me_layout"
+            android:drawableEnd="@drawable/remember_me_checkmark_icon"
+            android:fontFamily="@font/american_typewriter_bold"
+            android:padding="16dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:text="@string/remember_me"
+            android:textColor="@color/color_text"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/guideline10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_signup_password"
+            tools:text="@string/remember_me" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

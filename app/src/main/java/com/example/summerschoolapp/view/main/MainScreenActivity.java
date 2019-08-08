@@ -13,7 +13,10 @@ import butterknife.ButterKnife;
 
 public class MainScreenActivity extends AppCompatActivity {
 
-    private int[] imageResId = { R.drawable.nav_news_selected_icon, R.drawable.nav_requests_selected_icon, R.drawable.nav_users_selected_icon };
+    private int[] imageResId = {R.drawable.nav_news_selected_icon,
+            R.drawable.nav_requests_selected_icon,
+            R.drawable.nav_users_selected_icon,
+            R.drawable.nav_users_selected_icon};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,7 @@ public class MainScreenActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                tabLayout.getTabAt(position).setIcon(imageResId[position]);
+
             }
 
             @Override
