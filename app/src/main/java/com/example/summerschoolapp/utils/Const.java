@@ -6,7 +6,7 @@ public final class Const {
     }
 
     public static class Network {
-        public static final String BASE_URL = "https://172.26.14.119/";
+        public static final String BASE_URL = "http://172.26.14.119/";
 
         public static final String API_LOGIN = "users/login";
         public static final String API_REGISTER = "users/register";
@@ -18,6 +18,13 @@ public final class Const {
         public static final String STRING_SHARED_KEY = "STRING_SHARED_KEY";
         public static final String STRING_USER_EMAIL = "STRING_USER_EMAIL";
         public static final String STRING_USER_PASSWORD = "STRING_USER_PASSWORD";
+
+    }
+
+    public static class Fragments {
+        public static final String FRAGMENT_TAG_FIRST_LOGIN = "FRAGMENT_TAG_FIRST_LOGIN";
+        public static final String FRAGMENT_TAG_LOGIN = "FRAGMENT_TAG_LOGIN";
+        public static final String FRAGMENT_TAG_REGISTER = "FRAGMENT_TAG_REGISTER";
     }
 
     public enum ProgressStatus {

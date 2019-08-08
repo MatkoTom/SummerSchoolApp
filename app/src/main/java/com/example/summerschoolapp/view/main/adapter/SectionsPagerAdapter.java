@@ -2,14 +2,10 @@ package com.example.summerschoolapp.view.main.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -23,14 +19,6 @@ import com.example.summerschoolapp.view.main.fragmentsUsers.UsersFragment;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     private Context context;
-    // TODO @Matko
-    // hardcoded values
-    private String tabTitles[] = new String[]{"Vijesti", "Zahtjevi", "Profil", "Korisnici"};
-    private int[] imageResId = {R.drawable.nav_news_icon, R.drawable.nav_requests_icon, R.drawable.nav_users_icon, R.drawable.nav_users_icon};
-    private int[] imageResIdChecked = {R.drawable.nav_news_selected_icon,
-            R.drawable.nav_requests_selected_icon,
-            R.drawable.nav_users_selected_icon,
-            R.drawable.nav_users_selected_icon};
 
     public SectionsPagerAdapter(FragmentManager fm, Context context) {
         super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -60,6 +48,15 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     public View getTabView(int position) {
         // Given you have a custom layout in `res/layout/custom_tab.xml` with a TextView and ImageView
+        String[] tabTitles = new String[]{context.getString(R.string.news),
+                context.getString(R.string.requests),
+                context.getString(R.string.profile), context.getString(R.string.users)};
+        int[] imageResId = {R.drawable.nav_news_icon, R.drawable.nav_requests_icon, R.drawable.nav_users_icon, R.drawable.nav_users_icon};
+        int[] imageResIdChecked = {R.drawable.nav_news_selected_icon,
+                R.drawable.nav_requests_selected_icon,
+                R.drawable.nav_users_selected_icon,
+                R.drawable.nav_users_selected_icon};
+
         View v = LayoutInflater.from(context).inflate(R.layout.custom_tab, null);
         Drawable image = context.getResources().getDrawable(imageResId[position]);
         Button btnTab = v.findViewById(R.id.btn_tab_icon);

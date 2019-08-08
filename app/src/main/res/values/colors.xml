@@ -8,5 +8,8 @@
     <color name="color_text">#0076FF</color>
     <color name="color_background">#E7E7E7</color>
     <color name="color_error_highlight">#D0021B</color>
+    <color name="gradient_color_start">#123C9E</color>
+    <color name="gradient_color_end">#0C81DA</color>
+    <color name="basic_white">#FFFFFF</color>
 
 </resources>

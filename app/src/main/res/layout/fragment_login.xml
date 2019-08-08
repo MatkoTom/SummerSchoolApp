@@ -118,7 +118,7 @@
             android:paddingStart="40dp"
             android:paddingEnd="40dp"
             android:text="@string/sign_in"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/basic_white"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/tv_register"
@@ -228,6 +228,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/button_remember_me_layout"
+            android:drawableEnd="@drawable/remember_me_checkmark_icon"
             android:fontFamily="@font/american_typewriter_bold"
             android:padding="16dp"
             android:paddingStart="40dp"
@@ -240,7 +241,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_signup_password"
-            android:drawableEnd="@drawable/remember_me_checkmark_icon"
             tools:text="@string/remember_me" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

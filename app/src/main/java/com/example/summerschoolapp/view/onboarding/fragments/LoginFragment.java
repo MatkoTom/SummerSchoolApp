@@ -95,8 +95,8 @@ public class LoginFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, rootView);
-        fetchStoredUser();
-        canUserLogIn();
+//        fetchStoredUser();
+//        canUserLogIn();
         textChangedListener();
         viewModel = ViewModelProviders.of(this).get(OnboardingViewModel.class);
         oldColor = tvLoginMail.getTextColors();
@@ -113,9 +113,9 @@ public class LoginFragment extends Fragment {
 
     @OnClick(R.id.btn_login)
     public void logInUser() {
-        if (etPassword.length() == 0 || !(etPassword.getText().toString().equals(Tools.getSharedPreferences(getActivity()).getPassword()))) {
+        if (etPassword.length() == 0) {
             tvLoginPassword.setTextColor(Color.RED);
-            tvWrongPassword.setText("Kriva lozinka!");
+            tvWrongPassword.setText(getString(R.string.wrong_password));
             tvWrongPassword.setTextColor(Color.RED);
             isValidPassword = false;
         } else {
@@ -123,9 +123,9 @@ public class LoginFragment extends Fragment {
 
         }
 
-        if (!isValidEmail(etEmail.getText().toString().trim()) || !(etEmail.getText().toString().equals(Tools.getSharedPreferences(getActivity()).getEmail()))) {
+        if (!isValidEmail(etEmail.getText().toString().trim())) {
             tvLoginMail.setTextColor(Color.RED);
-            tvWrongEmail.setText("Korisnik ne postoji!");
+            tvWrongEmail.setText(getString(R.string.user_doesnt_exist));
             tvWrongEmail.setTextColor(Color.RED);
             isValidMail = false;
         } else {
@@ -165,7 +165,7 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                canUserLogIn();
+//                canUserLogIn();
                 tvLoginMail.setTextColor(oldColor);
                 tvWrongEmail.setText("");
             }
@@ -183,7 +183,7 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                canUserLogIn();
+//                canUserLogIn();
                 tvLoginPassword.setTextColor(oldColor);
                 tvWrongPassword.setText("");
             }
@@ -200,16 +200,11 @@ public class LoginFragment extends Fragment {
     }
 
     private void fetchStoredUser() {
-        if (!Tools.getSharedPreferences(getActivity()).getEmail().equals("") && !Tools.getSharedPreferences(getActivity()).getPassword().equals("")) {
-            etEmail.setText(Tools.getSharedPreferences(getActivity()).getEmail());
-            etPassword.setText(Tools.getSharedPreferences(getActivity()).getPassword());
-        }
+
     }
 
     private void canUserLogIn() {
-        if (!isValidEmail(etEmail.getText().toString().trim()) ||
-                !(etEmail.getText().toString().equals(Tools.getSharedPreferences(getActivity()).getEmail())) ||
-                !(etPassword.getText().toString().equals(Tools.getSharedPreferences(getActivity()).getPassword()))) {
+        if (!isValidEmail(etEmail.getText().toString().trim())) {
             btnLogin.setEnabled(false);
             btnLogin.setAlpha(0.5f);
             btnRememberMe.setEnabled(false);
@@ -233,22 +228,15 @@ public class LoginFragment extends Fragment {
     @OnClick(R.id.btn_remember_me)
     public void rememberMeButton() {
         if (!isPressed) {
+            btnRememberMe.setText(R.string.forget_me);
             // TODO @Matko
-            // there should be no hardcoded text in the app
-            // everything should be in strings.xml
-            // check this in the entire project
-            btnRememberMe.setText("Zaboravi me");
-            // TODO @Matko
-            // R.drawable.remember_me_x_icon is missing, I have the latest code
-            // probably forgot to add it in git
-//            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_x_icon), null);
+
+            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_x_icon), null);
             isPressed = true;
         } else {
             btnRememberMe.setText(R.string.remember_me);
-            // TODO @Matko
-            // R.drawable.remember_me_checkmark_icon is missing, I have the latest code
-            // probably forgot to add it in git
-//            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_checkmark_icon), null);
+
+            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_checkmark_icon), null);
             isPressed = false;
         }
     }

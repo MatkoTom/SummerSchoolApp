@@ -148,7 +148,7 @@
             android:paddingStart="40dp"
             android:paddingEnd="40dp"
             android:text="@string/button_register"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/basic_white"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline11"

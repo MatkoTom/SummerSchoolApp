@@ -20,6 +20,10 @@ import com.example.summerschoolapp.view.main.MainScreenActivity;
 
 import butterknife.ButterKnife;
 
+import static com.example.summerschoolapp.utils.Const.Fragments.FRAGMENT_TAG_FIRST_LOGIN;
+import static com.example.summerschoolapp.utils.Const.Fragments.FRAGMENT_TAG_LOGIN;
+import static com.example.summerschoolapp.utils.Const.Fragments.FRAGMENT_TAG_REGISTER;
+
 public class OnboardingActivity extends BaseActivity implements SignupFragment.OnSignupLogin, LoginFragment.OnFragmentLoginNextActivity, LoginFragment.OnFragmentLoginClickListener, SignupFragment.OnSignupFragmentClicListener, FirstLoginFragment.OnFirstLoginFragmentRegisterListener, FirstLoginFragment.OnFirstLoginFragmentLoginListener {
 
     private static final String TAG = "STASEDOGADJA";
@@ -41,8 +45,8 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
         transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-        transaction.add(R.id.fragment_container, new FirstLoginFragment(), "firstLogin");
-        transaction.addToBackStack("firstLogin");
+        transaction.add(R.id.fragment_container, new FirstLoginFragment(), FRAGMENT_TAG_FIRST_LOGIN);
+        transaction.addToBackStack(FRAGMENT_TAG_FIRST_LOGIN);
         transaction.commit();
     }
 
@@ -52,8 +56,8 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
         transaction = manager.beginTransaction();
         manager.popBackStack();
         transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-        transaction.replace(R.id.fragment_container, new SignupFragment(), "register");
-        transaction.addToBackStack("register");
+        transaction.replace(R.id.fragment_container, new SignupFragment(), FRAGMENT_TAG_REGISTER);
+        transaction.addToBackStack(FRAGMENT_TAG_REGISTER);
         transaction.commit();
     }
 
@@ -63,7 +67,7 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
         transaction = manager.beginTransaction();
         manager.popBackStack();
         transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-        transaction.replace(R.id.fragment_container, new LoginFragment(), "login");
+        transaction.replace(R.id.fragment_container, new LoginFragment(), FRAGMENT_TAG_LOGIN);
         transaction.commit();
     }
 
@@ -73,7 +77,7 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
         transaction = manager.beginTransaction();
         manager.popBackStack();
         transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-        transaction.replace(R.id.fragment_container, new LoginFragment(), "login");
+        transaction.replace(R.id.fragment_container, new LoginFragment(), FRAGMENT_TAG_LOGIN);
         transaction.commit();
     }
 
@@ -83,8 +87,8 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
         transaction = manager.beginTransaction();
         manager.popBackStack();
         transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-        transaction.replace(R.id.fragment_container, new SignupFragment(), "register");
-        transaction.addToBackStack("register");
+        transaction.replace(R.id.fragment_container, new SignupFragment(), FRAGMENT_TAG_REGISTER);
+        transaction.addToBackStack(FRAGMENT_TAG_REGISTER);
         transaction.commit();
     }
 
