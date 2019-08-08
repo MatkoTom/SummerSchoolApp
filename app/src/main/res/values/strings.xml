@@ -36,4 +36,6 @@
     <string name="profile_picture">Profilna slika:</string>
     <string name="name_surname">Ime i prezime:</string>
     <string name="create_user">Kreiraj korisnika</string>
+    <string name="new_user">Novi korisnik</string>
+    <string name="back">Nazad</string>
 </resources>

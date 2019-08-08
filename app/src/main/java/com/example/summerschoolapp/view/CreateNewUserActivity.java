@@ -3,11 +3,14 @@ package com.example.summerschoolapp.view;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.summerschoolapp.R;
 
@@ -41,6 +44,10 @@ public class CreateNewUserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_user);
+//        View customToolbar = LayoutInflater.from(this).inflate(R.layout.new_user_toolbar, null);
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        toolbar.addView(customToolbar);
+//        setSupportActionBar(toolbar);
         ButterKnife.bind(this);
     }
 
