@@ -3,14 +3,16 @@ package com.example.summerschoolapp.dialog;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.summerschoolapp.R;
 
 public class ErrorDialog extends DialogFragment {
 
-    public static void CreateInstance(Activity activity, String title, String description, String positiveButton) {
+    public static void CreateInstance(Activity activity, String title, String description, @NonNull String positiveButton, String negativeButton, OnErrorDilogInteraction listener) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(title)
@@ -19,8 +21,24 @@ public class ErrorDialog extends DialogFragment {
                 // TODO @Matko
                 // implement a listener interface
                 .setPositiveButton(positiveButton, (dialogInterface, i) -> {
-
+                    if(listener != null){
+                        listener.onPositiveInteraction();
+                    }
                 });
+
+        if(!TextUtils.isEmpty(negativeButton)){
+            builder.setNegativeButton(negativeButton, (dialogInterface, i) -> {
+                if(listener != null){
+                    listener.onNegativeInteraction();
+                }
+            });
+        }
+
         builder.create().show();
+    }
+
+    public interface OnErrorDilogInteraction {
+        void onPositiveInteraction();
+        void onNegativeInteraction();
     }
 }

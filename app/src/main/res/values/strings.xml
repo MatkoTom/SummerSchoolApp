@@ -38,4 +38,6 @@
     <string name="create_user">Kreiraj korisnika</string>
     <string name="new_user">Novi korisnik</string>
     <string name="back">Nazad</string>
+    <string name="ok">Ok</string>
+    <string name="error">Error</string>
 </resources>

@@ -10,8 +10,8 @@ public class User {
     @SerializedName("firstName")
     private String name;
 
-    @SerializedName("token")
-    private String token;
+    @SerializedName("jwt")
+    private String jwt;
 
     @SerializedName("email")
     private String email;
@@ -30,12 +30,12 @@ public class User {
         this.name = name;
     }
 
-    public String getToken() {
-        return token;
+    public String getJwt() {
+        return jwt;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setJwt(String jwt) {
+        this.jwt = jwt;
     }
 
 

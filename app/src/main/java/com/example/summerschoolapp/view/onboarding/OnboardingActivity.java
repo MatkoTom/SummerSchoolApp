@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
@@ -13,7 +12,6 @@ import com.example.summerschoolapp.common.BaseActivity;
 import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestRegister;
-import com.example.summerschoolapp.model.UserBigResponse;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
 import com.example.summerschoolapp.view.onboarding.fragments.FirstLoginFragment;
@@ -118,7 +116,7 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
     public void onSignupClicked(RequestRegister user) {
         Timber.tag(TAG).d("onSignupClicked: " + user.oib + " " + user.email + " " + user.password);
         viewModel.registerUser(user).observe(this, userBigResponse -> {
-            Timber.tag(TAG).d("onSignupClicked: " + userBigResponse.user.getEmail() + " " + userBigResponse.user.getRole() + " " + userBigResponse.user.getToken() + " " + userBigResponse.user.getName());
+            Timber.tag(TAG).d("onSignupClicked: " + userBigResponse.user.getEmail() + " " + userBigResponse.user.getRole() + " " + userBigResponse.user.getJwt() + " " + userBigResponse.user.getName());
             Tools.getSharedPreferences(getApplicationContext()).saveUserToPreferences(userBigResponse);
         });
         showProgress();
@@ -127,7 +125,17 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
             finish();
             startActivity(i);
         } catch (Exception e) {
-            ErrorDialog.CreateInstance(this, "Error", e.toString(), "Ok");
+            ErrorDialog.CreateInstance(this, getString(R.string.error), e.toString(), getString(R.string.ok), null, new ErrorDialog.OnErrorDilogInteraction() {
+                @Override
+                public void onPositiveInteraction() {
+                    // TODO implement behaviour
+                }
+
+                @Override
+                public void onNegativeInteraction() {
+                    // ignored
+                }
+            });
         }
     }
 }
