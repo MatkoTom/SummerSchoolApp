@@ -39,16 +39,19 @@ public class CreateNewUserActivity extends AppCompatActivity {
     EditText etCreateUserOib;
 
     private boolean isVisible = false;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_user);
-//        View customToolbar = LayoutInflater.from(this).inflate(R.layout.new_user_toolbar, null);
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        toolbar.addView(customToolbar);
-//        setSupportActionBar(toolbar);
         ButterKnife.bind(this);
+        View customToolbar = LayoutInflater.from(this).inflate(R.layout.new_user_toolbar, null);
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.addView(customToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
     }
 
     @OnClick(R.id.ibtn_hide_show)
