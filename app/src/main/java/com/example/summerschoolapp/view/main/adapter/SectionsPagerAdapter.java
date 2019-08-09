@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.view.main.fragmentNews.NewsFragment;
 import com.example.summerschoolapp.view.main.fragmentProfile.ProfileFragment;
 import com.example.summerschoolapp.view.main.fragmentRequests.RequestsFragment;
@@ -43,7 +44,15 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     //TODO get user from SharedPref and check role. Change number of pages accordingly
     @Override
     public int getCount() {
-        return 4; // Show 4 total pages.
+        if (Tools.getSharedPreferences(context).getSavedUserData().user.getRole() != null) {
+            if (Integer.parseInt(Tools.getSharedPreferences(context).getSavedUserData().user.getRole()) == 2) {
+                return 3;
+            } else {
+                return 4; // Show 4 total pages.
+            }
+        } else {
+            return 4;
+        }
     }
 
     public View getTabView(int position) {

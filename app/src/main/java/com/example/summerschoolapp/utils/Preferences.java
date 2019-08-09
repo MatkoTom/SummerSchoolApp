@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.example.summerschoolapp.model.User;
+import com.example.summerschoolapp.model.UserBigResponse;
 import com.google.gson.Gson;
 
 import static com.example.summerschoolapp.utils.Const.Preferences.USER_SHARED_KEY;
@@ -26,20 +27,18 @@ public class Preferences {
                 .apply();
     }
 
-    public User getSavedUserData() {
+    public UserBigResponse getSavedUserData() {
         Gson gson = new Gson();
         String json = preferences.getString(USER_SHARED_KEY, "");
-        return gson.fromJson(json, User.class);
+        return gson.fromJson(json, UserBigResponse.class);
     }
 
-    public void saveUserToPreferences() {
-        User user = new User();
+    public void saveUserToPreferences(UserBigResponse user) {
         Gson gson = new Gson();
         String json = gson.toJson(user);
 
         preferences.edit()
                 .putString(USER_SHARED_KEY, json)
                 .apply();
-
     }
 }
