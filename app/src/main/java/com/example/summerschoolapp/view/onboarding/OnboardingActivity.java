@@ -106,19 +106,24 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
             finish();
             startActivity(i);
         } catch (Exception e) {
-            ErrorDialog dialog = new ErrorDialog();
-            dialog.show(getSupportFragmentManager(), "error");
+            ErrorDialog.CreateInstance(this, getString(R.string.error), e.toString(), getString(R.string.ok), null, new ErrorDialog.OnErrorDilogInteraction() {
+                @Override
+                public void onPositiveInteraction() {
+
+                }
+
+                @Override
+                public void onNegativeInteraction() {
+
+                }
+            });
         }
     }
 
-    //TODO initialize vievmodel on activity created to listen all the time
+    //TODO initialize viewmodel in activity created to listen all the time
     @Override
     public void onSignupClicked(RequestRegister user) {
-        Timber.tag(TAG).d("onSignupClicked: " + user.oib + " " + user.email + " " + user.password);
-        viewModel.registerUser(user).observe(this, userBigResponse -> {
-            Timber.tag(TAG).d("onSignupClicked: " + userBigResponse.user.getEmail() + " " + userBigResponse.user.getRole() + " " + userBigResponse.user.getJwt() + " " + userBigResponse.user.getName());
-            Tools.getSharedPreferences(getApplicationContext()).saveUserToPreferences(userBigResponse);
-        });
+        viewModel.registerUser(user);
         showProgress();
         try {
             Intent i = new Intent(this, MainScreenActivity.class);

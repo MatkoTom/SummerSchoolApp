@@ -11,8 +11,11 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.model.RequestNewUser;
+import com.example.summerschoolapp.utils.Tools;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,17 +43,21 @@ public class CreateNewUserActivity extends AppCompatActivity {
 
     private boolean isVisible = false;
     private Toolbar toolbar;
+    private CreateNewUserViewModel newUserViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_user);
         ButterKnife.bind(this);
+
         View customToolbar = LayoutInflater.from(this).inflate(R.layout.new_user_toolbar, null);
         toolbar = findViewById(R.id.toolbar);
         toolbar.addView(customToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        newUserViewModel = ViewModelProviders.of(this).get(CreateNewUserViewModel.class);
 
     }
 
@@ -70,5 +77,22 @@ public class CreateNewUserActivity extends AppCompatActivity {
     @OnClick(R.id.ibtn_new_user_picture)
     public void setNewUserPicture() {
 
+    }
+
+    @OnClick(R.id.btn_create_new_user)
+    public void createNewUser() {
+        newUserViewModel.createNewUser(sendData());
+    }
+
+    private RequestNewUser sendData() {
+        RequestNewUser user = new RequestNewUser();
+        user.email = etCreateUserEmail.getText().toString();
+        String[] splitString = etCreateUserName.getText().toString().trim().split(" ");
+        user.firstName = splitString[0];
+        user.lastName = splitString[1];
+        user.oib = etCreateUserOib.getText().toString();
+        user.password = Tools.md5(etCreateUserPassword.getText().toString());
+
+        return user;
     }
 }
