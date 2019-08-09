@@ -6,7 +6,7 @@ public final class Const {
     }
 
     public static class Network {
-        public static final String BASE_URL = "http://172.26.14.119/";
+        public static final String BASE_URL = "https://intern2019dev.clover.studio/";
 
         public static final String API_LOGIN = "users/login";
         public static final String API_REGISTER = "users/register";
