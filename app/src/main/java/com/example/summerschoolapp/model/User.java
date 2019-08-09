@@ -7,7 +7,7 @@ public class User {
     @SerializedName("oib")
     private String oib;
 
-    @SerializedName("name")
+    @SerializedName("firstName")
     private String name;
 
     @SerializedName("token")
@@ -19,7 +19,7 @@ public class User {
     @SerializedName("password")
     private String password;
 
-    @SerializedName("role")
+    @SerializedName("personsRoleId")
     private String role;
 
     public String getName() {

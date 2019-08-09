@@ -9,6 +9,7 @@ import com.example.summerschoolapp.common.BaseViewModel;
 import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestRegister;
 import com.example.summerschoolapp.model.User;
+import com.example.summerschoolapp.model.UserBigResponse;
 import com.example.summerschoolapp.repositories.AuthorisationRepository;
 
 public class OnboardingViewModel extends BaseViewModel {
@@ -23,7 +24,7 @@ public class OnboardingViewModel extends BaseViewModel {
         return authRepo.postLoginQuery(user);
     }
 
-    public LiveData<User> registerUser(RequestRegister user) {
+    public LiveData<UserBigResponse> registerUser(RequestRegister user) {
         return authRepo.postRegisterQuery(user);
     }
 }

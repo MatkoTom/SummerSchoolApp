@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveDataReactiveStreams;
 import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestRegister;
 import com.example.summerschoolapp.model.User;
+import com.example.summerschoolapp.model.UserBigResponse;
 import com.example.summerschoolapp.network.retrofit.RetrofitAdapter;
 
 import io.reactivex.schedulers.Schedulers;
@@ -21,7 +22,7 @@ public class AuthorisationRepository {
                 .subscribeOn(Schedulers.io()));
     }
 
-    public LiveData<User> postRegisterQuery(RequestRegister user) {
+    public LiveData<UserBigResponse> postRegisterQuery(RequestRegister user) {
         return LiveDataReactiveStreams.fromPublisher(RetrofitAdapter.getRetrofitClient()
                 .register(user)
                 .subscribeOn(Schedulers.io()));

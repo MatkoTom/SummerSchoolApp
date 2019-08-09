@@ -111,7 +111,7 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
     @Override
     public void onSignupClicked(RequestRegister user) {
         Timber.tag(TAG).d("onSignupClicked: " + user.oib + " " + user.email + " " + user.password);
-        viewModel.registerUser(user).observe(this, user1 -> Timber.tag(TAG).d("onSignupClicked: " + user1.getOib() + " " + user1.getEmail() + " " + user1.getPassword()));
+        viewModel.registerUser(user).observe(this, user1 -> Timber.tag(TAG).d("onSignupClicked: " + user1.user.getEmail() + " " + user1.user.getRole() + " " + user1.user.getToken() + " " + user1.user.getName()));
         showProgress();
         try {
             Intent i = new Intent(this, MainScreenActivity.class);
