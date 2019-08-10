@@ -99,7 +99,7 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
     @Override
     public void onLoginClicked(RequestLogin user) {
         Timber.tag(TAG).d("onLoginClicked: " + user.password + " " + user.email);
-        viewModel.makeLogin(user).observe(this, user1 -> Timber.tag(TAG).d("onChanged: " + user1.getEmail() + " " + user1.getPassword()));
+        viewModel.makeLogin(user);
         showProgress();
         try {
             Intent i = new Intent(this, MainScreenActivity.class);

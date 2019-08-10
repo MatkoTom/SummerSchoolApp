@@ -134,7 +134,6 @@ public class LoginFragment extends Fragment {
         }
 
         if (isValidPassword && isValidMail) {
-            logInUserData();
             loginListener.onLoginClicked(logInUserData());
         }
     }
