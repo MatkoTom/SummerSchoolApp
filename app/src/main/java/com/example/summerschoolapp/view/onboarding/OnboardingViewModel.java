@@ -9,8 +9,13 @@ import com.example.summerschoolapp.model.BigDataResponse;
 import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestRegister;
 import com.example.summerschoolapp.repositories.AuthorisationRepository;
+import com.example.summerschoolapp.utils.JWTUtils;
+
+import java.security.Key;
 
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -62,8 +67,8 @@ public class OnboardingViewModel extends BaseViewModel {
                     public void onSuccess(BigDataResponse newUser) {
                         Timber.d("Big response: " + newUser.data.user.getEmail() + " " + newUser.data.user.getJwt());
                         try {
-                            String name = Jwts.parser().parseClaimsJws(newUser.data.user.getJwt()).getBody().get("name", String.class);
-                            Timber.d("JWT PARSED: %s", name);
+                            String userJWT = newUser.data.user.getJwt();
+                            JWTUtils.decoded(userJWT);
                         } catch (Throwable e) {
                             Timber.e(e.toString());
                         }
