@@ -5,12 +5,12 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 
 import com.example.summerschoolapp.common.BaseViewModel;
-import com.example.summerschoolapp.model.Data;
+import com.example.summerschoolapp.model.BigDataResponse;
 import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestRegister;
-import com.example.summerschoolapp.model.User;
 import com.example.summerschoolapp.repositories.AuthorisationRepository;
 
+import io.jsonwebtoken.Jwts;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -30,9 +30,9 @@ public class OnboardingViewModel extends BaseViewModel {
         authRepo.postLoginQuery(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<User>() {
+                .subscribe(new DisposableSingleObserver<BigDataResponse>() {
                     @Override
-                    public void onSuccess(User user) {
+                    public void onSuccess(BigDataResponse user) {
                         Timber.d("BigUserResponse: %s", user.toString());
                         stopProgress();
                         dispose();
@@ -57,10 +57,17 @@ public class OnboardingViewModel extends BaseViewModel {
         authRepo.postRegisterQuery(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<User>() {
+                .subscribe(new DisposableSingleObserver<BigDataResponse>() {
                     @Override
-                    public void onSuccess(User newUser) {
-                        Timber.d("BigUserResponse: %s", newUser.toString());
+                    public void onSuccess(BigDataResponse newUser) {
+                        Timber.d("Big response: " + newUser.data.user.getEmail() + " " + newUser.data.user.getJwt());
+                        try {
+                            String name = Jwts.parser().parseClaimsJws(newUser.data.user.getJwt()).getBody().get("name", String.class);
+                            Timber.d("JWT PARSED: %s", name);
+                        } catch (Throwable e) {
+                            Timber.e(e.toString());
+                        }
+
                         stopProgress();
                         dispose();
                     }

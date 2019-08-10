@@ -70,4 +70,11 @@ dependencies {
 
     //Logging interceptor
     implementation("com.squareup.okhttp3:logging-interceptor:4.0.1")
+
+    //JJWT
+    api 'io.jsonwebtoken:jjwt-api:0.10.7'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.10.7'
+    runtimeOnly('io.jsonwebtoken:jjwt-orgjson:0.10.7') {
+        exclude group: 'org.json', module: 'json' //provided by Android natively
+    }
 }

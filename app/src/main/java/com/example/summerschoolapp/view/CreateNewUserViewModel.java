@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import com.example.summerschoolapp.common.BaseViewModel;
 import com.example.summerschoolapp.model.BigDataResponse;
 import com.example.summerschoolapp.model.RequestNewUser;
-import com.example.summerschoolapp.model.User;
 import com.example.summerschoolapp.repositories.NewUserRepository;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -29,11 +28,10 @@ public class CreateNewUserViewModel extends BaseViewModel {
         newUserRepo.postNewUser(newUser)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<User>() {
+                .subscribe(new DisposableSingleObserver<BigDataResponse>() {
                     @Override
-                    public void onSuccess(User user) {
+                    public void onSuccess(BigDataResponse user) {
                         Timber.d("createdNewUser");
-//                        String name = Jwts.parser().setSigningKey(keyUsedWhenSigningJwt).parseClaimsJws("base64EncodedJwtHere").getBody().get("name", String.class);
                         stopProgress();
                         dispose();
                     }
