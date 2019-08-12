@@ -204,7 +204,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void canUserLogIn() {
-        if (!isValidEmail(etEmail.getText().toString().trim())) {
+        if (!isValidEmail(etEmail.getText().toString().trim()) || etPassword.length() == 0) {
             btnLogin.setEnabled(false);
             btnLogin.setAlpha(0.5f);
             btnRememberMe.setEnabled(false);
