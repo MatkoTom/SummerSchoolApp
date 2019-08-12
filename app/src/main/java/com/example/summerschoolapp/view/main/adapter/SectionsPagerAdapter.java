@@ -41,7 +41,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         }
     }
 
-    //TODO get user from SharedPref and check role. Change number of pages accordingly
     @Override
     public int getCount() {
 //        if (Tools.getSharedPreferences(context).getSavedUserData().user.getRole() != null) {

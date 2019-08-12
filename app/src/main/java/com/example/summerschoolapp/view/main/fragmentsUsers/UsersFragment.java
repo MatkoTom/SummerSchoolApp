@@ -56,18 +56,18 @@ public class UsersFragment extends Fragment {
     }
 
     private void searchUsers() {
-        svUserSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                userListAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
+//        svUserSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                userListAdapter.getFilter().filter(newText);
+//                return false;
+//            }
+//        });
     }
 
     @OnClick(R.id.fab_create_new_user)

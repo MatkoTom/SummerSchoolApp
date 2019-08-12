@@ -96,7 +96,7 @@ public class LoginFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, rootView);
 //        fetchStoredUser();
-//        canUserLogIn();
+        canUserLogIn();
         textChangedListener();
         viewModel = ViewModelProviders.of(this).get(OnboardingViewModel.class);
         oldColor = tvLoginMail.getTextColors();
@@ -107,7 +107,6 @@ public class LoginFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        viewModel = ViewModelProviders.of(this).get(OnboardingViewModel.class);
         listener = (OnFragmentLoginClickListener) context;
         loginListener = (OnFragmentLoginNextActivity) context;
     }
@@ -165,7 +164,7 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                canUserLogIn();
+                canUserLogIn();
                 tvLoginMail.setTextColor(oldColor);
                 tvWrongEmail.setText("");
             }
@@ -183,7 +182,7 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                canUserLogIn();
+                canUserLogIn();
                 tvLoginPassword.setTextColor(oldColor);
                 tvWrongPassword.setText("");
             }
@@ -199,6 +198,7 @@ public class LoginFragment extends Fragment {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 
+    //TODO fetch stored token for auto-login
     private void fetchStoredUser() {
 
     }

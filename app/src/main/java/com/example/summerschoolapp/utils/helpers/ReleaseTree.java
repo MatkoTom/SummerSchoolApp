@@ -8,7 +8,6 @@ import org.jetbrains.annotations.NotNull;
 
 import timber.log.Timber;
 
-//TODO check out release tree
 public class ReleaseTree extends Timber.Tree {
 
     @Override

@@ -130,14 +130,20 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
     }
 
     //TODO initialize viewmodel in activity created to listen all the time
+
+    //TODO doesn't work right, need to fix
     @Override
     public void onSignupClicked(RequestRegister user) {
         try {
             viewModel.registerUser(user);
-            showProgress();
-            Intent i = new Intent(this, MainScreenActivity.class);
-            finish();
-            startActivity(i);
+
+            if (Tools.getSharedPreferences(this).getUserCanRegister()) {
+                showProgress();
+                Intent i = new Intent(this, MainScreenActivity.class);
+                finish();
+                startActivity(i);
+                Tools.getSharedPreferences(this).setUserCanRegister(false);
+            }
         } catch (Exception e) {
             ErrorDialog.CreateInstance(this, getString(R.string.error), e.toString(), getString(R.string.ok), null, new ErrorDialog.OnErrorDilogInteraction() {
                 @Override

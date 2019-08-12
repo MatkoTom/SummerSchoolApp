@@ -18,8 +18,6 @@ public class ErrorDialog extends DialogFragment {
         builder.setTitle(title)
                 .setIcon(activity.getResources().getDrawable(R.drawable.log_in_error_icon))
                 .setMessage(description)
-                // TODO @Matko
-                // implement a listener interface
                 .setPositiveButton(positiveButton, (dialogInterface, i) -> {
                     if(listener != null){
                         listener.onPositiveInteraction();

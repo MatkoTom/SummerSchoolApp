@@ -18,17 +18,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.CustomVievHolder> implements Filterable {
+public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.CustomVievHolder> {
 
     private List<User> data = new ArrayList<>();
-    private List<User> userListFull;
+//    private List<User> userListFull;
 
     public void setData(List<User> newData) {
         if (newData != null && !newData.isEmpty()) {
             Collections.sort(newData, (user, t1) -> user.getEmail().compareTo(t1.getEmail()));
             this.data.clear();
             this.data.addAll(newData);
-            userListFull = new ArrayList<>(data);
+//            userListFull = new ArrayList<>(data);
             notifyDataSetChanged();
         }
     }
@@ -52,41 +52,41 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
         return data.size();
     }
 
-    @Override
-    public Filter getFilter() {
-        return exampleFilter;
-    }
+//    @Override
+//    public Filter getFilter() {
+//        return exampleFilter;
+//    }
 
-    private Filter exampleFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence charSequence) {
-            List<User> filteredList = new ArrayList<>();
-
-            if (charSequence == null || charSequence.length() == 0) {
-                filteredList.addAll(userListFull);
-            } else {
-                String filterPattern = charSequence.toString().toLowerCase().trim();
-
-                for (User user : userListFull) {
-                    if (user.getEmail().toLowerCase().contains(filterPattern)) {
-                        filteredList.add(user);
-                    }
-                }
-            }
-
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
-
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            data.clear();
-            data.addAll((List) filterResults.values);
-            notifyDataSetChanged();
-        }
-    };
+//    private Filter exampleFilter = new Filter() {
+//        @Override
+//        protected FilterResults performFiltering(CharSequence charSequence) {
+//            List<User> filteredList = new ArrayList<>();
+//
+//            if (charSequence == null || charSequence.length() == 0) {
+//                filteredList.addAll(userListFull);
+//            } else {
+//                String filterPattern = charSequence.toString().toLowerCase().trim();
+//
+//                for (User user : userListFull) {
+//                    if (user.getEmail().toLowerCase().contains(filterPattern)) {
+//                        filteredList.add(user);
+//                    }
+//                }
+//            }
+//
+//            FilterResults results = new FilterResults();
+//            results.values = filteredList;
+//
+//            return results;
+//        }
+//
+//        @Override
+//        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+//            data.clear();
+//            data.addAll((List) filterResults.values);
+//            notifyDataSetChanged();
+//        }
+//    };
 
     class CustomVievHolder extends RecyclerView.ViewHolder {
 

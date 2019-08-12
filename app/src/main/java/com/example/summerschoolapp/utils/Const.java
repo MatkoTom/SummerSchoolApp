@@ -21,6 +21,8 @@ public final class Const {
         public static final String STRING_USER_PASSWORD = "STRING_USER_PASSWORD";
         public static final String USER_SHARED_KEY = "USER_SHARED_KEY";
         public static final String BOOLEAN_REMEMBERME_SHARED_KEY = "BOOLEAN_REMEMBERME_SHARED_KEY";
+        public static final String ERROR_REGISTER_SHARED_KEY = "ERROR_REGISTER_SHARED_KEY";
+        public static final String BOOLEAN_USERCANREGISTER_KEY = "BOOLEAN_USERCANREGISTER_KEY";
 
     }
 

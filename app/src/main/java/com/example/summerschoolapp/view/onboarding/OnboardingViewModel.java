@@ -57,6 +57,8 @@ public class OnboardingViewModel extends BaseViewModel {
 
 
     //TODO create error package, make loginerror class and implement code here, in fragments, and activity hosting fragments
+
+    //TODO doesn't work right, will need a rework
     public void registerUser(RequestRegister user) {
         startProgress();
         authRepo.postRegisterQuery(user)
@@ -64,12 +66,21 @@ public class OnboardingViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<BigDataResponse>() {
                     @Override
-                    public void onSuccess(BigDataResponse newUser) {
+                    public void onSuccess(BigDataResponse newResponse) {
                         try {
-                            Timber.d("Big response: %s", newUser.data.user.getJwt());
-                            Tools.getSharedPreferences(getApplication()).saveUserToPreferences(newUser);
+                            if (newResponse.data.error == null) {
+                                Timber.d("Big response: %s", newResponse.data.user.getJwt());
+                                Tools.getSharedPreferences(getApplication()).setUserCanRegister(true);
+                                Tools.getSharedPreferences(getApplication()).saveUserToPreferences(newResponse);
+
+                            } else {
+                                Timber.d("Big response: %s", newResponse.data.error.getError_code() + " " + newResponse.data.error.getError_description());
+                                Tools.getSharedPreferences(getApplication()).setUserCanRegister(false);
+                                Tools.getSharedPreferences(getApplication()).setRegisterError(newResponse);
+                            }
+
                         } catch (Throwable e) {
-                            Timber.e("Error: " + newUser.data.error.getError_code() + " " + newUser.data.error.getError_description());
+                            Timber.e("Error: %s", e);
                             onError(e);
                             Timber.e(e.toString());
                         }
@@ -92,7 +103,7 @@ public class OnboardingViewModel extends BaseViewModel {
                         } else if (throwable instanceof IOException) {
                             error = RegisterError.Create(RegisterError.Error.SOMETHING_WENT_WRONG);
                         } else {
-                            error = RegisterError.Create(RegisterError.Error.ERROR_WHILE_REGISTERING);
+                            error = RegisterError.Create(RegisterError.Error.ERROR_WHILE_REGISTERING_OIB_IN_USE);
                             error.setExtraInfo(throwable.getMessage());
                         }
 

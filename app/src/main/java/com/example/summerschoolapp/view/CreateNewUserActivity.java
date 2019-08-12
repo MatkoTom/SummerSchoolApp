@@ -3,14 +3,12 @@ package com.example.summerschoolapp.view;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
@@ -42,7 +40,6 @@ public class CreateNewUserActivity extends AppCompatActivity {
     EditText etCreateUserOib;
 
     private boolean isVisible = false;
-    private Toolbar toolbar;
     private CreateNewUserViewModel newUserViewModel;
 
     @Override
@@ -50,12 +47,6 @@ public class CreateNewUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_user);
         ButterKnife.bind(this);
-
-        View customToolbar = LayoutInflater.from(this).inflate(R.layout.new_user_toolbar, null);
-        toolbar = findViewById(R.id.toolbar);
-        toolbar.addView(customToolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         newUserViewModel = ViewModelProviders.of(this).get(CreateNewUserViewModel.class);
 
@@ -81,7 +72,15 @@ public class CreateNewUserActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_create_new_user)
     public void createNewUser() {
-        newUserViewModel.createNewUser(sendData());
+        if (!(etCreateUserEmail.getText().toString().length() == 0 ||
+                etCreateUserPassword.getText().toString().length() == 0 ||
+                etCreateUserName.getText().toString().length() == 0 ||
+                etCreateUserOib.getText().toString().length() == 0)) {
+            newUserViewModel.createNewUser(sendData());
+        } else {
+            Toast.makeText(this, getString(R.string.plsea_fill_out_all_fields), Toast.LENGTH_LONG).show();
+        }
+
     }
 
     private RequestNewUser sendData() {
@@ -92,7 +91,17 @@ public class CreateNewUserActivity extends AppCompatActivity {
         user.lastName = splitString[1];
         user.oib = etCreateUserOib.getText().toString();
         user.password = Tools.md5(etCreateUserPassword.getText().toString());
-
+        user.adminEmail = getString(R.string.admin_email_test);
         return user;
+    }
+
+    @OnClick(R.id.ibtn_back)
+    public void imageButtonBack() {
+        finish();
+    }
+
+    @OnClick(R.id.tv_back)
+    public void textViewBack() {
+        finish();
     }
 }
