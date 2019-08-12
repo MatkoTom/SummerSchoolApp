@@ -12,10 +12,8 @@ import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.common.BaseActivity;
 import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.dialog.ErrorDialog;
-import com.example.summerschoolapp.model.BigDataResponse;
 import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestRegister;
-import com.example.summerschoolapp.utils.JWTUtils;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.Event;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
@@ -54,8 +52,6 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
         });
 
         Timber.d("IsUserSaved: %s", Tools.getSharedPreferences(this).getRememberMeStatus());
-
-        isUserRemembered();
     }
 
     public void runFirstLoginFragment() {
