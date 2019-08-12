@@ -7,4 +7,8 @@ public class Data {
     @SerializedName("user")
     @Expose
     public User user;
+
+    @SerializedName("error")
+    @Expose
+    public Error error;
 }

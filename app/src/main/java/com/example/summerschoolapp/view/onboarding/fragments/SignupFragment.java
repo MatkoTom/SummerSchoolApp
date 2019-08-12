@@ -24,7 +24,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestRegister;
+import com.example.summerschoolapp.utils.JWTUtils;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.view.onboarding.OnboardingViewModel;
 
@@ -82,7 +84,7 @@ public class SignupFragment extends Fragment {
     private boolean isValidMail = false;
     private boolean isValidOib = false;
     private boolean isValidPassword = false;
-    private boolean isPressed = false;
+    private boolean isSaved = false;
 
     public interface OnSignupFragmentClicListener {
         void onSignupItemClicked();
@@ -282,15 +284,17 @@ public class SignupFragment extends Fragment {
 
     @OnClick(R.id.btn_remember_me)
     public void rememberMeButton() {
-        if (!isPressed) {
+        if (!isSaved) {
             btnRememberMe.setText(getString(R.string.forget_me));
             btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_x_icon), null);
-            isPressed = true;
+            isSaved = true;
+            Tools.getSharedPreferences(getActivity()).setRememberMeStatus(isSaved);
         } else {
             btnRememberMe.setText(R.string.remember_me);
 
             btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_checkmark_icon), null);
-            isPressed = false;
+            isSaved = false;
+            Tools.getSharedPreferences(getActivity()).setRememberMeStatus(isSaved);
         }
     }
 }

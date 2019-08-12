@@ -4,21 +4,25 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 
+import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.common.BaseViewModel;
+import com.example.summerschoolapp.errors.RegisterError;
 import com.example.summerschoolapp.model.BigDataResponse;
 import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestRegister;
 import com.example.summerschoolapp.repositories.AuthorisationRepository;
 import com.example.summerschoolapp.utils.JWTUtils;
+import com.example.summerschoolapp.utils.Tools;
+import com.example.summerschoolapp.utils.helpers.Event;
+import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 
-import java.security.Key;
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
 import timber.log.Timber;
 
 public class OnboardingViewModel extends BaseViewModel {
@@ -39,6 +43,7 @@ public class OnboardingViewModel extends BaseViewModel {
                     @Override
                     public void onSuccess(BigDataResponse user) {
                         Timber.d("BigUserResponse: %s", user.toString());
+                        Tools.getSharedPreferences(getApplication()).saveUserToPreferences(user);
                         stopProgress();
                         dispose();
                     }
@@ -51,10 +56,6 @@ public class OnboardingViewModel extends BaseViewModel {
                 });
     }
 
-//    public LiveData<Data> registerUser(RequestRegister user) {
-//        return authRepo.postRegisterQuery(user);
-//    }
-
 
     //TODO create error package, make loginerror class and implement code here, in fragments, and activity hosting fragments
     public void registerUser(RequestRegister user) {
@@ -65,21 +66,43 @@ public class OnboardingViewModel extends BaseViewModel {
                 .subscribe(new DisposableSingleObserver<BigDataResponse>() {
                     @Override
                     public void onSuccess(BigDataResponse newUser) {
-                        Timber.d("Big response: " + newUser.data.user.getEmail() + " " + newUser.data.user.getJwt());
                         try {
+                            Timber.d("Big response: %s", newUser.data.user.getJwt());
+                            Tools.getSharedPreferences(getApplication()).saveUserToPreferences(newUser);
                             String userJWT = newUser.data.user.getJwt();
                             JWTUtils.decoded(userJWT);
                         } catch (Throwable e) {
+                            Timber.e("Error: " + newUser.data.error.getError_code() + " " + newUser.data.error.getError_description());
+                            onError(e);
                             Timber.e(e.toString());
                         }
-
                         stopProgress();
                         dispose();
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-                        Timber.d("Failed: %s", e.toString());
+                    public void onError(Throwable throwable) {
+                        Timber.d("Failed: %s", throwable.toString());
+
+                        BaseError error;
+                        if (throwable instanceof HttpException) {
+                            ResponseBody responseBody = ((HttpException) throwable).response().errorBody();
+                            String extraInfo = responseBody.toString();
+                            error = RegisterError.Create(RegisterError.Error.SOMETHING_WENT_WRONG);
+                            error.setExtraInfo(extraInfo);
+                        } else if (throwable instanceof SocketTimeoutException) {
+                            error = RegisterError.Create(RegisterError.Error.SOMETHING_WENT_WRONG);
+                        } else if (throwable instanceof IOException) {
+                            error = RegisterError.Create(RegisterError.Error.SOMETHING_WENT_WRONG);
+                        } else {
+                            error = RegisterError.Create(RegisterError.Error.ERROR_WHILE_REGISTERING);
+                            error.setExtraInfo(throwable.getMessage());
+                        }
+
+                        stopProgress();
+                        getBaseErrors().setValue(new Event<>(error));
+                        Timber.d("Error: %s", error.toString());
+
                         stopProgress();
                         dispose();
                     }

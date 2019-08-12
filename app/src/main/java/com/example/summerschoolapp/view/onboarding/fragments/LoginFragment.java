@@ -75,7 +75,7 @@ public class LoginFragment extends Fragment {
     private boolean isVisible = false;
     private boolean isValidMail = false;
     private boolean isValidPassword = false;
-    private boolean isPressed = false;
+    private boolean isSaved = false;
 
     public interface OnFragmentLoginClickListener {
         void onLoginItemClicked();
@@ -227,15 +227,16 @@ public class LoginFragment extends Fragment {
 
     @OnClick(R.id.btn_remember_me)
     public void rememberMeButton() {
-        if (!isPressed) {
+        if (!isSaved) {
             btnRememberMe.setText(R.string.forget_me);
             btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_x_icon), null);
-            isPressed = true;
+            isSaved = true;
+            Tools.getSharedPreferences(getActivity()).setRememberMeStatus(isSaved);
         } else {
             btnRememberMe.setText(R.string.remember_me);
-
             btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_checkmark_icon), null);
-            isPressed = false;
+            isSaved = false;
+            Tools.getSharedPreferences(getActivity()).setRememberMeStatus(isSaved);
         }
     }
 }

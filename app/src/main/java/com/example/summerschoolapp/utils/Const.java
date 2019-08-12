@@ -20,6 +20,7 @@ public final class Const {
         public static final String STRING_USER_EMAIL = "STRING_USER_EMAIL";
         public static final String STRING_USER_PASSWORD = "STRING_USER_PASSWORD";
         public static final String USER_SHARED_KEY = "USER_SHARED_KEY";
+        public static final String BOOLEAN_REMEMBERME_SHARED_KEY = "BOOLEAN_REMEMBERME_SHARED_KEY";
 
     }
 

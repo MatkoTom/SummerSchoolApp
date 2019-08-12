@@ -5,14 +5,19 @@ import android.os.Bundle;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.common.BaseActivity;
+import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.dialog.ErrorDialog;
+import com.example.summerschoolapp.model.BigDataResponse;
 import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestRegister;
+import com.example.summerschoolapp.utils.JWTUtils;
 import com.example.summerschoolapp.utils.Tools;
+import com.example.summerschoolapp.utils.helpers.Event;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
 import com.example.summerschoolapp.view.onboarding.fragments.FirstLoginFragment;
 import com.example.summerschoolapp.view.onboarding.fragments.LoginFragment;
@@ -40,9 +45,17 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
         ButterKnife.bind(this);
         viewModel = ViewModelProviders.of(this).get(OnboardingViewModel.class);
         runFirstLoginFragment();
-        if (Tools.getSharedPreferences(getApplicationContext()).getSavedUserData() != null) {
-            Timber.tag(TAG).d("savedUser: %s", Tools.getSharedPreferences(getApplicationContext()).getSavedUserData().user.getEmail());
-        }
+
+        viewModel.getBaseErrors().observe(this, new Observer<Event<BaseError>>() {
+            @Override
+            public void onChanged(Event<BaseError> baseErrorEvent) {
+
+            }
+        });
+
+        Timber.d("IsUserSaved: %s", Tools.getSharedPreferences(this).getRememberMeStatus());
+
+        isUserRemembered();
     }
 
     public void runFirstLoginFragment() {
@@ -99,9 +112,9 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
     @Override
     public void onLoginClicked(RequestLogin user) {
         Timber.tag(TAG).d("onLoginClicked: " + user.password + " " + user.email);
-        viewModel.makeLogin(user);
-        showProgress();
         try {
+            viewModel.makeLogin(user);
+            showProgress();
             Intent i = new Intent(this, MainScreenActivity.class);
             finish();
             startActivity(i);
@@ -123,9 +136,9 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
     //TODO initialize viewmodel in activity created to listen all the time
     @Override
     public void onSignupClicked(RequestRegister user) {
-        viewModel.registerUser(user);
-        showProgress();
         try {
+            viewModel.registerUser(user);
+            showProgress();
             Intent i = new Intent(this, MainScreenActivity.class);
             finish();
             startActivity(i);
