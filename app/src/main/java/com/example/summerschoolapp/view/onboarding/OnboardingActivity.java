@@ -13,10 +13,9 @@ import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.errors.LoginError;
 import com.example.summerschoolapp.errors.SignupError;
 import com.example.summerschoolapp.model.RequestLogin;
-import com.example.summerschoolapp.model.RequestRegister;
+import com.example.summerschoolapp.model.RequestSignup;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
-import com.example.summerschoolapp.utils.helpers.SingleLiveEvent;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
 import com.example.summerschoolapp.view.onboarding.fragments.FirstLoginFragment;
 import com.example.summerschoolapp.view.onboarding.fragments.LoginFragment;
@@ -27,7 +26,7 @@ import timber.log.Timber;
 
 import static com.example.summerschoolapp.utils.Const.Fragments.FRAGMENT_TAG_FIRST_LOGIN;
 import static com.example.summerschoolapp.utils.Const.Fragments.FRAGMENT_TAG_LOGIN;
-import static com.example.summerschoolapp.utils.Const.Fragments.FRAGMENT_TAG_REGISTER;
+import static com.example.summerschoolapp.utils.Const.Fragments.FRAGMENT_TAG_SIGNUP;
 
 public class OnboardingActivity extends BaseActivity implements SignupFragment.OnSignupLogin, LoginFragment.OnFragmentLoginNextActivity, LoginFragment.OnFragmentLoginClickListener, SignupFragment.OnSignupFragmentClicListener, FirstLoginFragment.OnFirstLoginFragmentRegisterListener, FirstLoginFragment.OnFirstLoginFragmentLoginListener {
 
@@ -99,8 +98,8 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
         transaction = manager.beginTransaction();
         manager.popBackStack();
         transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-        transaction.replace(R.id.fragment_container, new SignupFragment(), FRAGMENT_TAG_REGISTER);
-        transaction.addToBackStack(FRAGMENT_TAG_REGISTER);
+        transaction.replace(R.id.fragment_container, new SignupFragment(), FRAGMENT_TAG_SIGNUP);
+        transaction.addToBackStack(FRAGMENT_TAG_SIGNUP);
         transaction.commit();
     }
 
@@ -125,13 +124,13 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
     }
 
     @Override
-    public void onFirstLoginRegister() {
+    public void onFirstLoginSignup() {
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
         manager.popBackStack();
         transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-        transaction.replace(R.id.fragment_container, new SignupFragment(), FRAGMENT_TAG_REGISTER);
-        transaction.addToBackStack(FRAGMENT_TAG_REGISTER);
+        transaction.replace(R.id.fragment_container, new SignupFragment(), FRAGMENT_TAG_SIGNUP);
+        transaction.addToBackStack(FRAGMENT_TAG_SIGNUP);
         transaction.commit();
     }
 
@@ -142,7 +141,7 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
     }
 
     @Override
-    public void onSignupClicked(RequestRegister user) {
+    public void onSignupClicked(RequestSignup user) {
         viewModel.registerUser(user);
     }
 

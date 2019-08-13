@@ -9,7 +9,7 @@ public final class Const {
         public static final String BASE_URL = "https://intern2019dev.clover.studio/";
 
         public static final String API_LOGIN = "users/login";
-        public static final String API_REGISTER = "users/register";
+        public static final String API_SIGNUP = "users/register";
         public static final String API_CREATE_NEW_USER = "users/newUser";
         public static final String API_FETCH_USER_LIST = "users/allUsers/1233";
     }
@@ -28,7 +28,7 @@ public final class Const {
     public static class Fragments {
         public static final String FRAGMENT_TAG_FIRST_LOGIN = "FRAGMENT_TAG_FIRST_LOGIN";
         public static final String FRAGMENT_TAG_LOGIN = "FRAGMENT_TAG_LOGIN";
-        public static final String FRAGMENT_TAG_REGISTER = "FRAGMENT_TAG_REGISTER";
+        public static final String FRAGMENT_TAG_SIGNUP = "FRAGMENT_TAG_SIGNUP";
     }
 
     public enum ProgressStatus {

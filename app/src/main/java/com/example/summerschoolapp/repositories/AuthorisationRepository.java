@@ -1,7 +1,7 @@
 package com.example.summerschoolapp.repositories;
 
 import com.example.summerschoolapp.model.RequestLogin;
-import com.example.summerschoolapp.model.RequestRegister;
+import com.example.summerschoolapp.model.RequestSignup;
 import com.example.summerschoolapp.model.ResponseLogin;
 import com.example.summerschoolapp.model.ResponseSignup;
 import com.example.summerschoolapp.network.retrofit.RetrofitAdapter;
@@ -20,13 +20,7 @@ public class AuthorisationRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-//    public LiveData<Data> postRegisterQuery(RequestRegister user) {
-//        return LiveDataReactiveStreams.fromPublisher(RetrofitAdapter.getRetrofitClient()
-//                .register(user)
-//                .subscribeOn(Schedulers.io()));
-//    }
-
-    public Single<ResponseSignup> postRegisterQuery(RequestRegister user) {
+    public Single<ResponseSignup> postSignupQuery(RequestSignup user) {
         return RetrofitAdapter.getRetrofitClient()
                 .register(user)
                 .subscribeOn(Schedulers.io());

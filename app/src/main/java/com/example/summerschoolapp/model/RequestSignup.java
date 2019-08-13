@@ -2,7 +2,7 @@ package com.example.summerschoolapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RequestRegister {
+public class RequestSignup {
 
     @SerializedName("oib")
     public String oib;

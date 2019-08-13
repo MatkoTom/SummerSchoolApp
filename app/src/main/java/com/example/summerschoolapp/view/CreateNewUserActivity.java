@@ -141,7 +141,6 @@ public class CreateNewUserActivity extends BaseActivity {
         user.lastName = splitString[1];
         user.oib = etCreateUserOib.getText().toString();
         user.password = Tools.md5(etCreateUserPassword.getText().toString());
-//        user.token = Tools.getSharedPreferences(this).getSavedUserData().data.user.getJwt();
         return user;
     }
 

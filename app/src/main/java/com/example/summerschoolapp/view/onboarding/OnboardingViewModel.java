@@ -9,7 +9,7 @@ import com.example.summerschoolapp.common.BaseViewModel;
 import com.example.summerschoolapp.errors.LoginError;
 import com.example.summerschoolapp.errors.SignupError;
 import com.example.summerschoolapp.model.RequestLogin;
-import com.example.summerschoolapp.model.RequestRegister;
+import com.example.summerschoolapp.model.RequestSignup;
 import com.example.summerschoolapp.model.ResponseLogin;
 import com.example.summerschoolapp.model.ResponseSignup;
 import com.example.summerschoolapp.repositories.AuthorisationRepository;
@@ -106,9 +106,9 @@ public class OnboardingViewModel extends BaseViewModel {
                 });
     }
 
-    public void registerUser(RequestRegister user) {
+    public void registerUser(RequestSignup user) {
         startProgress();
-        authRepo.postRegisterQuery(user)
+        authRepo.postSignupQuery(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<ResponseSignup>() {
@@ -122,9 +122,9 @@ public class OnboardingViewModel extends BaseViewModel {
                         } else {
                             Timber.d("Big response: %s", newResponse.data.error.getError_code() + " " + newResponse.data.error.getError_description());
                             if (Const.Errors.EMAIL_IN_USE == Integer.parseInt(newResponse.data.error.getError_code())) {
-                                getBaseErrors().setValue(new Event<>(SignupError.Create(SignupError.Error.ERROR_WHILE_REGISTERING_EMAIL_IN_USE)));
+                                getBaseErrors().setValue(new Event<>(SignupError.Create(SignupError.Error.ERROR_WHILE_SIGNUP_EMAIL_IN_USE)));
                             } else if (Const.Errors.OIB_IN_USE == Integer.parseInt(newResponse.data.error.getError_code())) {
-                                getBaseErrors().setValue(new Event<>(SignupError.Create(SignupError.Error.ERROR_WHILE_REGISTERING_OIB_IN_USE)));
+                                getBaseErrors().setValue(new Event<>(SignupError.Create(SignupError.Error.ERROR_WHILE_SIGNUP_OIB_IN_USE)));
                             } else {
                                 getBaseErrors().setValue(new Event<>(SignupError.Create(SignupError.Error.SOMETHING_WENT_WRONG)));
                             }

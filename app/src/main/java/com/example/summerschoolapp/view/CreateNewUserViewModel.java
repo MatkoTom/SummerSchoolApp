@@ -49,8 +49,6 @@ public class CreateNewUserViewModel extends BaseViewModel {
     public void createNewUser(RequestNewUser newUser, String token) {
 
         startProgress();
-        // TODO @Matko
-        // create success dialog and navigate back
         newUserRepo.postNewUser(newUser, token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
