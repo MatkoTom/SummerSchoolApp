@@ -18,8 +18,4 @@ public class RequestNewUser {
 
     @SerializedName("password")
     public String password;
-
-    //TODO remove this line, only for testing purposes, will pass JWT of stored user
-    @SerializedName("token")
-    public String token;
 }

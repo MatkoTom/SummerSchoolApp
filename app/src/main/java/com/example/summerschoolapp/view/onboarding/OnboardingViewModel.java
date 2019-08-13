@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.common.BaseViewModel;
+import com.example.summerschoolapp.errors.LoginError;
 import com.example.summerschoolapp.errors.SignupError;
 import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestRegister;
@@ -54,17 +55,52 @@ public class OnboardingViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<ResponseLogin>() {
                     @Override
-                    public void onSuccess(ResponseLogin user) {
-                        Timber.d("BigUserResponse: %s", user.toString());
-                        // TODO @Matko
-//                        Tools.getSharedPreferences(getApplication()).saveUserToPreferences(user);
+                    public void onSuccess(ResponseLogin newResponse) {
                         stopProgress();
+                        if (newResponse.data.error == null) {
+                            Timber.d("Big response: %s", newResponse.data.user.getJwt());
+                            Tools.getSharedPreferences(getApplication()).saveUserToPreferences(newResponse.data.user);
+                            getNavigation().setValue(OnboardingViewModel.Navigation.MAIN);
+                        } else {
+                            Timber.d("Big response: %s", newResponse.data.error.getError_code() + " " + newResponse.data.error.getError_description());
+                            if (Const.Errors.WRONG_EMAIL == Integer.parseInt(newResponse.data.error.getError_code())) {
+                                getBaseErrors().setValue(new Event<>(LoginError.Create(LoginError.Error.ERROR_WHILE_LOGIN_WRONG_EMAIL)));
+                            } else if (Const.Errors.WRONG_PASSWORD == Integer.parseInt(newResponse.data.error.getError_code())) {
+                                getBaseErrors().setValue(new Event<>(LoginError.Create(LoginError.Error.ERROR_WHILE_WHILE_LOGIN_WRONG_PASSWORD)));
+                            } else {
+                                getBaseErrors().setValue(new Event<>(LoginError.Create(LoginError.Error.SOMETHING_WENT_WRONG)));
+                            }
+                        }
                         dispose();
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(Throwable throwable) {
+                        Timber.d("Failed: %s", throwable.toString());
+
+                        BaseError error;
+                        if (throwable instanceof HttpException) {
+                            if (((HttpException) throwable).response().code() == 401) {
+                                error = SignupError.Create(SignupError.Error.UNATUHORISED);
+                            } else {
+                                ResponseBody responseBody = ((HttpException) throwable).response().errorBody();
+                                String extraInfo = responseBody.toString();
+                                error = SignupError.Create(SignupError.Error.SOMETHING_WENT_WRONG);
+                                error.setExtraInfo(extraInfo);
+                            }
+                        } else if (throwable instanceof SocketTimeoutException) {
+                            error = SignupError.Create(SignupError.Error.SOMETHING_WENT_WRONG);
+                        } else if (throwable instanceof IOException) {
+                            error = SignupError.Create(SignupError.Error.SOMETHING_WENT_WRONG);
+                        } else {
+                            error = SignupError.Create(SignupError.Error.SOMETHING_WENT_WRONG);
+                            error.setExtraInfo(throwable.getMessage());
+                        }
+
                         stopProgress();
+                        getBaseErrors().setValue(new Event<>(error));
+                        Timber.d("Error: %s", error.toString());
+
                         dispose();
                     }
                 });
@@ -87,9 +123,9 @@ public class OnboardingViewModel extends BaseViewModel {
                             Timber.d("Big response: %s", newResponse.data.error.getError_code() + " " + newResponse.data.error.getError_description());
                             if (Const.Errors.EMAIL_IN_USE == Integer.parseInt(newResponse.data.error.getError_code())) {
                                 getBaseErrors().setValue(new Event<>(SignupError.Create(SignupError.Error.ERROR_WHILE_REGISTERING_EMAIL_IN_USE)));
-                            } else if(Const.Errors.OIB_IN_USE == Integer.parseInt(newResponse.data.error.getError_code())) {
+                            } else if (Const.Errors.OIB_IN_USE == Integer.parseInt(newResponse.data.error.getError_code())) {
                                 getBaseErrors().setValue(new Event<>(SignupError.Create(SignupError.Error.ERROR_WHILE_REGISTERING_OIB_IN_USE)));
-                            }else {
+                            } else {
                                 getBaseErrors().setValue(new Event<>(SignupError.Create(SignupError.Error.SOMETHING_WENT_WRONG)));
                             }
                         }

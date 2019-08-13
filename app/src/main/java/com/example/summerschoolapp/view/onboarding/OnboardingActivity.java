@@ -10,6 +10,7 @@ import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.common.BaseActivity;
 import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.dialog.ErrorDialog;
+import com.example.summerschoolapp.errors.LoginError;
 import com.example.summerschoolapp.errors.SignupError;
 import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestRegister;
@@ -61,7 +62,9 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
                 String message = getString(R.string.text_try_again);
                 if (value instanceof SignupError) {
                     message = getString(((SignupError.Error) value.getError()).getValue());
-                } else {
+                } else if(value instanceof LoginError) {
+                    message = getString(((LoginError.Error) value.getError()).getValue());
+                }else {
                     message = String.format("%s \n --- \n %s", message, value.getExtraInfo());
                 }
                 ErrorDialog.CreateInstance(OnboardingActivity.this, getString(R.string.error), message, getString(R.string.ok), null, null);

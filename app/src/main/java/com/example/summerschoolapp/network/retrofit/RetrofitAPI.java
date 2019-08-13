@@ -4,6 +4,7 @@ import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestNewUser;
 import com.example.summerschoolapp.model.RequestRegister;
 import com.example.summerschoolapp.model.ResponseLogin;
+import com.example.summerschoolapp.model.ResponseNewUser;
 import com.example.summerschoolapp.model.ResponseSignup;
 import com.example.summerschoolapp.utils.Const;
 
@@ -22,5 +23,5 @@ public interface RetrofitAPI {
     // TODO @Matko
     // implement response object
     @POST(Const.Network.API_CREATE_NEW_USER)
-    Single<ResponseSignup> createNew(@Body RequestNewUser requestNew);
+    Single<ResponseNewUser> createNew(@Body RequestNewUser requestNew);
 }

@@ -40,5 +40,6 @@ public final class Const {
         public static final int EMAIL_IN_USE = 1003;
         public static final int OIB_IN_USE = 1002;
         public static final int WRONG_PASSWORD = 1001;
+        public static final int WRONG_EMAIL = 1000;
     }
 }
