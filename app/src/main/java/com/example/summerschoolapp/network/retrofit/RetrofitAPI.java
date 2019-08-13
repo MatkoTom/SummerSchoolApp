@@ -8,6 +8,8 @@ import com.example.summerschoolapp.utils.Const;
 
 import io.reactivex.Single;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface RetrofitAPI {
@@ -19,5 +21,9 @@ public interface RetrofitAPI {
     Single<BigDataResponse> register(@Body RequestRegister register);
 
     @POST(Const.Network.API_CREATE_NEW_USER)
-    Single<BigDataResponse> createNew(@Body RequestNewUser requestNew);
+    Single<BigDataResponse> createNew(@Header("token") String token,
+                                      @Body RequestNewUser requestNew);
+
+    @GET(Const.Network.API_FETCH_USER_LIST)
+    Single<BigDataResponse> fetchUserList(@Header("token") String token);
 }

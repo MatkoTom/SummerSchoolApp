@@ -40,4 +40,5 @@
     <string name="plsea_fill_out_all_fields">Please fill out all fields!</string>
     <string name="admin_email_test">ivici22i@gmail.com</string>
     <string name="email_in_use">Email se već koristi</string>
+    <string name="token">token</string>
 </resources>

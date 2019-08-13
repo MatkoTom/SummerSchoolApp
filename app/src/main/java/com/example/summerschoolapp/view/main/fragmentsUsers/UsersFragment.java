@@ -7,12 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.view.CreateNewUserActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -35,6 +36,7 @@ public class UsersFragment extends Fragment {
     androidx.appcompat.widget.SearchView svUserSearch;
 
     private UserListAdapter userListAdapter;
+    private UsersFragmentViewModel viewModel;
 
     public UsersFragment() {
         // Required empty public constructor
@@ -51,6 +53,8 @@ public class UsersFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvUserList.setLayoutManager(layoutManager);
         rvUserList.setAdapter(userListAdapter);
+        viewModel = ViewModelProviders.of(this).get(UsersFragmentViewModel.class);
+        getUserList();
         searchUsers();
         return rootView;
     }
@@ -74,5 +78,10 @@ public class UsersFragment extends Fragment {
     public void startCreateUserActivity() {
         Intent i = new Intent(getActivity(), CreateNewUserActivity.class);
         startActivity(i);
+    }
+
+    public void getUserList() {
+        String token = Tools.getSharedPreferences(getActivity()).getSavedUserData().data.user.getJwt();
+        viewModel.getUserList(token);
     }
 }

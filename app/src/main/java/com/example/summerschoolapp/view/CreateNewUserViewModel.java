@@ -23,9 +23,9 @@ public class CreateNewUserViewModel extends BaseViewModel {
         newUserRepo = new NewUserRepository();
     }
 
-    public void createNewUser(RequestNewUser newUser) {
+    public void createNewUser(RequestNewUser newUser, String token) {
         startProgress();
-        newUserRepo.postNewUser(newUser)
+        newUserRepo.postNewUser(newUser, token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<BigDataResponse>() {

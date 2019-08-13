@@ -11,6 +11,7 @@ public final class Const {
         public static final String API_LOGIN = "users/login";
         public static final String API_REGISTER = "users/register";
         public static final String API_CREATE_NEW_USER = "users/newUser";
+        public static final String API_FETCH_USER_LIST = "users/allUsers/1233";
     }
 
     public static class Preferences {

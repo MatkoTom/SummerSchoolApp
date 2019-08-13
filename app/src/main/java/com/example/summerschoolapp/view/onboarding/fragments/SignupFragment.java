@@ -139,7 +139,7 @@ public class SignupFragment extends Fragment {
     @OnClick(R.id.btn_signup)
     public void signUpUser() {
 
-        somethingWentWrong();
+//        somethingWentWrong();
 
         if (!isValidEmail(etEmail.getText().toString().trim())) {
             tvEmailInUse.setTextColor(Color.RED);

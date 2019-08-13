@@ -76,7 +76,7 @@ public class CreateNewUserActivity extends AppCompatActivity {
                 etCreateUserPassword.getText().toString().length() == 0 ||
                 etCreateUserName.getText().toString().length() == 0 ||
                 etCreateUserOib.getText().toString().length() == 0)) {
-            newUserViewModel.createNewUser(sendData());
+            newUserViewModel.createNewUser(sendData(), Tools.getSharedPreferences(this).getSavedUserData().data.user.getJwt());
         } else {
             Toast.makeText(this, getString(R.string.plsea_fill_out_all_fields), Toast.LENGTH_LONG).show();
         }
@@ -91,7 +91,7 @@ public class CreateNewUserActivity extends AppCompatActivity {
         user.lastName = splitString[1];
         user.oib = etCreateUserOib.getText().toString();
         user.password = Tools.md5(etCreateUserPassword.getText().toString());
-        user.adminEmail = getString(R.string.admin_email_test);
+        user.token = Tools.getSharedPreferences(this).getSavedUserData().data.user.getJwt();
         return user;
     }
 

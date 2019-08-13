@@ -1,21 +1,20 @@
 package com.example.summerschoolapp.repositories;
 
 import com.example.summerschoolapp.model.BigDataResponse;
-import com.example.summerschoolapp.model.RequestNewUser;
 import com.example.summerschoolapp.network.retrofit.RetrofitAdapter;
 
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
-public class NewUserRepository {
+public class MainScreenRepository {
 
-    public NewUserRepository() {
+    public MainScreenRepository() {
 
     }
 
-    public Single<BigDataResponse> postNewUser(RequestNewUser newUser, String token) {
+    public Single<BigDataResponse> getUserList(String token) {
         return RetrofitAdapter.getRetrofitClient()
-                .createNew(token, newUser)
+                .fetchUserList(token)
                 .subscribeOn(Schedulers.io());
     }
 }
