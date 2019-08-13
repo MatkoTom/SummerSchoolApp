@@ -37,7 +37,8 @@ public final class Const {
     }
 
     public static class Errors {
-        public static final int EMAIL_IN_USE = 1000;
+        public static final int EMAIL_IN_USE = 1003;
+        public static final int OIB_IN_USE = 1002;
         public static final int WRONG_PASSWORD = 1001;
     }
 }

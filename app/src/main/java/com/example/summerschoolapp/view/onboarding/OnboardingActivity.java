@@ -1,11 +1,9 @@
 package com.example.summerschoolapp.view.onboarding;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
@@ -16,7 +14,6 @@ import com.example.summerschoolapp.errors.SignupError;
 import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestRegister;
 import com.example.summerschoolapp.utils.Tools;
-import com.example.summerschoolapp.utils.helpers.Event;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
 import com.example.summerschoolapp.view.onboarding.fragments.FirstLoginFragment;
@@ -133,30 +130,10 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
         transaction.commit();
     }
 
-    // TODO @Matko
-    // review in same way as signup
     @Override
     public void onLoginClicked(RequestLogin user) {
-        Timber.tag(TAG).d("onLoginClicked: " + user.password + " " + user.email);
-        try {
-            viewModel.makeLogin(user);
-            showProgress();
-            Intent i = new Intent(this, MainScreenActivity.class);
-            finish();
-            startActivity(i);
-        } catch (Exception e) {
-            ErrorDialog.CreateInstance(this, getString(R.string.error), e.toString(), getString(R.string.ok), null, new ErrorDialog.OnErrorDilogInteraction() {
-                @Override
-                public void onPositiveInteraction() {
+        viewModel.makeLogin(user);
 
-                }
-
-                @Override
-                public void onNegativeInteraction() {
-
-                }
-            });
-        }
     }
 
     @Override

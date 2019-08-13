@@ -89,7 +89,9 @@ public class OnboardingViewModel extends BaseViewModel {
                             Timber.d("Big response: %s", newResponse.data.error.getError_code() + " " + newResponse.data.error.getError_description());
                             if (Const.Errors.EMAIL_IN_USE == Integer.parseInt(newResponse.data.error.getError_code())) {
                                 getBaseErrors().setValue(new Event<>(SignupError.Create(SignupError.Error.ERROR_WHILE_REGISTERING_EMAIL_IN_USE)));
-                            } else {
+                            } else if(Const.Errors.OIB_IN_USE == Integer.parseInt(newResponse.data.error.getError_code())) {
+                                getBaseErrors().setValue(new Event<>(SignupError.Create(SignupError.Error.ERROR_WHILE_REGISTERING_OIB_IN_USE)));
+                            }else {
                                 getBaseErrors().setValue(new Event<>(SignupError.Create(SignupError.Error.SOMETHING_WENT_WRONG)));
                             }
                         }
