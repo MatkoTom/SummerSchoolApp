@@ -84,8 +84,6 @@ public class OnboardingViewModel extends BaseViewModel {
                             Tools.getSharedPreferences(getApplication()).saveUserToPreferences(newResponse.data.user);
                             getNavigation().setValue(OnboardingViewModel.Navigation.MAIN);
                         } else {
-                            // TODO @Matko
-                            // implement rest of errors
                             Timber.d("Big response: %s", newResponse.data.error.getError_code() + " " + newResponse.data.error.getError_description());
                             if (Const.Errors.EMAIL_IN_USE == Integer.parseInt(newResponse.data.error.getError_code())) {
                                 getBaseErrors().setValue(new Event<>(SignupError.Create(SignupError.Error.ERROR_WHILE_REGISTERING_EMAIL_IN_USE)));
@@ -95,7 +93,6 @@ public class OnboardingViewModel extends BaseViewModel {
                                 getBaseErrors().setValue(new Event<>(SignupError.Create(SignupError.Error.SOMETHING_WENT_WRONG)));
                             }
                         }
-
                         dispose();
                     }
 

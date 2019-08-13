@@ -16,9 +16,6 @@ public class User {
     @SerializedName("email")
     private String email;
 
-    @SerializedName("password")
-    private String password;
-
     @SerializedName("personsRoleId")
     private String role;
 
@@ -37,7 +34,6 @@ public class User {
     public void setJwt(String jwt) {
         this.jwt = jwt;
     }
-
 
     public String getRole() {
         return role;
@@ -63,11 +59,4 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

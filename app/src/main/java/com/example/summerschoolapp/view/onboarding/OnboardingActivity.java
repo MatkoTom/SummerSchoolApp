@@ -15,6 +15,7 @@ import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestRegister;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
+import com.example.summerschoolapp.utils.helpers.SingleLiveEvent;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
 import com.example.summerschoolapp.view.onboarding.fragments.FirstLoginFragment;
 import com.example.summerschoolapp.view.onboarding.fragments.LoginFragment;
@@ -77,6 +78,7 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
 
         Timber.d("IsUserSaved: %s", Tools.getSharedPreferences(this).getRememberMeStatus());
         runFirstLoginFragment();
+        autoLogin();
     }
 
     public void runFirstLoginFragment() {
@@ -139,5 +141,11 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
     @Override
     public void onSignupClicked(RequestRegister user) {
         viewModel.registerUser(user);
+    }
+
+    public void autoLogin() {
+        if (Tools.getSharedPreferences(this).getRememberMeStatus()) {
+            viewModel.getNavigation().setValue(OnboardingViewModel.Navigation.MAIN);
+        }
     }
 }
