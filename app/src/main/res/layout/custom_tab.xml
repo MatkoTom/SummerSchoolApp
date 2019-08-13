@@ -5,14 +5,12 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <!-- TODO Button instead, state selected to change img-->
-
     <Button
         android:id="@+id/btn_tab_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
         android:drawableTop="@drawable/nav_news_icon"
-        android:text="placeholder"
+        android:text="@string/placeholder"
         android:textSize="12sp" />
 </LinearLayout>

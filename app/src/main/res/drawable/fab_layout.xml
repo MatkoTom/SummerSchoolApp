@@ -3,20 +3,19 @@
 
 
     <item>
-        <shape xmlns:android="http://schemas.android.com/apk/res/android"
-            android:shape="oval">
+        <shape android:shape="oval">
             <gradient
-                android:type="linear"
                 android:angle="0"
+                android:endColor="#0C81DA"
                 android:startColor="#123C9E"
-                android:endColor="#0C81DA" />
+                android:type="linear" />
         </shape>
 
     </item>
-    <item android:gravity="center"
-        >
-        <bitmap android:src="@drawable/add_new_user_icon"
-            android:gravity="fill_horizontal" />
+    <item android:gravity="center">
+        <bitmap
+            android:gravity="fill_horizontal"
+            android:src="@drawable/add_new_user_icon" />
 
     </item>
 

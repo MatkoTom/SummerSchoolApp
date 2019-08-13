@@ -7,11 +7,11 @@ public class User {
     @SerializedName("oib")
     private String oib;
 
-    @SerializedName("name")
+    @SerializedName("firstName")
     private String name;
 
-    @SerializedName("token")
-    private String token;
+    @SerializedName("jwt")
+    private String jwt;
 
     @SerializedName("email")
     private String email;
@@ -19,20 +19,8 @@ public class User {
     @SerializedName("password")
     private String password;
 
-    @SerializedName("role")
+    @SerializedName("personsRoleId")
     private String role;
-
-    public User(String oib, String email, String password, String role) {
-        this.oib = oib;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
-
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
 
     public String getName() {
         return name;
@@ -42,12 +30,12 @@ public class User {
         this.name = name;
     }
 
-    public String getToken() {
-        return token;
+    public String getJwt() {
+        return jwt;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setJwt(String jwt) {
+        this.jwt = jwt;
     }
 
 

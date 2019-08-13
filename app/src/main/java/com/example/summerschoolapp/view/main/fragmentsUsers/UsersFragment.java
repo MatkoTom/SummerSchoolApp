@@ -1,6 +1,7 @@
 package com.example.summerschoolapp.view.main.fragmentsUsers;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,18 +13,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.summerschoolapp.R;
-import com.example.summerschoolapp.model.User;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.summerschoolapp.view.CreateNewUserActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class UsersFragment extends Fragment {
+
+    @BindView(R.id.fab_create_new_user)
+    FloatingActionButton fabCreateNewUser;
 
     @BindView(R.id.rv_user_list)
     RecyclerView rvUserList;
@@ -48,35 +51,28 @@ public class UsersFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvUserList.setLayoutManager(layoutManager);
         rvUserList.setAdapter(userListAdapter);
-        addUsers();
         searchUsers();
         return rootView;
     }
 
     private void searchUsers() {
-        svUserSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                userListAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
+//        svUserSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                userListAdapter.getFilter().filter(newText);
+//                return false;
+//            }
+//        });
     }
 
-    private void addUsers() {
-        List<User> example = new ArrayList<>();
-        example.add(new User("sldjfsl.lsjdf@glkdg.com", "saasd"));
-        example.add(new User("bnvnvb.lsjdf@glkdg.com", "saasd"));
-        example.add(new User("dshreh.lsjdf@glkdg.com", "saasd"));
-        example.add(new User("popo.lsjdf@glkdg.com", "saasd"));
-        example.add(new User("oiuoiu.lsjdf@glkdg.com", "saasd"));
-
-        userListAdapter.setData(example);
+    @OnClick(R.id.fab_create_new_user)
+    public void startCreateUserActivity() {
+        Intent i = new Intent(getActivity(), CreateNewUserActivity.class);
+        startActivity(i);
     }
-
 }

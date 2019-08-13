@@ -46,6 +46,9 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
+    //Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
     implementation "com.squareup.retrofit2:converter-gson:2.6.0"
@@ -65,4 +68,13 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
+    //Logging interceptor
+    implementation("com.squareup.okhttp3:logging-interceptor:4.0.1")
+
+    //JJWT
+    api 'io.jsonwebtoken:jjwt-api:0.10.7'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.10.7'
+    runtimeOnly('io.jsonwebtoken:jjwt-orgjson:0.10.7') {
+        exclude group: 'org.json', module: 'json' //provided by Android natively
+    }
 }

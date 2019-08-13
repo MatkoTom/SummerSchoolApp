@@ -13,8 +13,8 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_centerInParent="true"
-        android:indeterminateTint="@color/colorPrimary"
-        android:indeterminateOnly="true"/>
+        android:indeterminateOnly="true"
+        android:indeterminateTint="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/tv_status"
@@ -23,7 +23,7 @@
         android:layout_below="@+id/progress_bar"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Loading..."
+        android:text="@string/loading"
         android:textColor="@android:color/white"
         android:textSize="13sp" />
 </RelativeLayout>

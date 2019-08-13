@@ -1,11 +1,13 @@
 package com.example.summerschoolapp.network.retrofit;
 
+import com.example.summerschoolapp.BuildConfig;
 import com.example.summerschoolapp.utils.Const;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -23,16 +25,16 @@ public class RetrofitAdapter {
             okHttpBuilder.readTimeout(25, TimeUnit.SECONDS);
             okHttpBuilder.connectTimeout(25, TimeUnit.SECONDS);
 
-            // debuging options for api calls
-//            if (BuildConfig.BUILD_TYPE.equals("debug")
-//                    || BuildConfig.BUILD_TYPE.equals("dev")
-//                    || BuildConfig.BUILD_TYPE.equals("previewDebug")
-//                    || BuildConfig.BUILD_TYPE.equals("preview")
-//                    || BuildConfig.BUILD_TYPE.equals("releaseDebug")) {
-//                HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-//                interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-//                okHttpBuilder.addInterceptor(interceptor);
-//            }
+             //debuging options for api calls
+            if (BuildConfig.BUILD_TYPE.equals("debug")
+                    || BuildConfig.BUILD_TYPE.equals("dev")
+                    || BuildConfig.BUILD_TYPE.equals("previewDebug")
+                    || BuildConfig.BUILD_TYPE.equals("preview")
+                    || BuildConfig.BUILD_TYPE.equals("releaseDebug")) {
+                HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+                interceptor.level(HttpLoggingInterceptor.Level.BODY);
+                okHttpBuilder.addInterceptor(interceptor);
+            }
 
             // add global auth header adding
 //            httpClient.addInterceptor(chain -> {
@@ -64,5 +66,4 @@ public class RetrofitAdapter {
 
         return retrofitInstance.create(RetrofitAPI.class);
     }
-
 }

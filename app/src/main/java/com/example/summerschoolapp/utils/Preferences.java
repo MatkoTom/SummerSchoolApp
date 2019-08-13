@@ -4,6 +4,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.example.summerschoolapp.model.BigDataResponse;
+import com.example.summerschoolapp.model.Error;
+import com.google.gson.Gson;
+
+import static com.example.summerschoolapp.utils.Const.Preferences.BOOLEAN_USERCANREGISTER_KEY;
+import static com.example.summerschoolapp.utils.Const.Preferences.ERROR_REGISTER_SHARED_KEY;
+import static com.example.summerschoolapp.utils.Const.Preferences.USER_SHARED_KEY;
+
 public class Preferences {
     private SharedPreferences preferences;
 
@@ -11,62 +19,62 @@ public class Preferences {
         this.preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    // TODO @Matko
-    // method name is not saying anything about its use
-    // should be something like shouldShowFirstLogin()
-    public Boolean getBoolean() {
+    public Boolean shouldShowFirstLogin() {
         return preferences.getBoolean(Const.Preferences.BOOLEAN_SHARED_KEY, false);
     }
 
-    // TODO @Matko
-    // method name is not saying anything about its use
-    // should be something like setShouldShowFirstLogin(Boolean shouldShow)
-    public void setBoolean(Boolean b) {
+    public void setShouldShowFirstLogin(Boolean firstLogin) {
         preferences.edit()
-                .putBoolean(Const.Preferences.BOOLEAN_SHARED_KEY, b)
+                .putBoolean(Const.Preferences.BOOLEAN_SHARED_KEY, firstLogin)
                 .apply();
     }
 
-    // TODO @Matko
-    // method name is ambiguous
-    public String getString() {
-        return preferences.getString(Const.Preferences.STRING_SHARED_KEY, "");
+    public BigDataResponse getSavedUserData() {
+        Gson gson = new Gson();
+        String json = preferences.getString(USER_SHARED_KEY, "");
+        return gson.fromJson(json, BigDataResponse.class);
     }
 
-    // TODO @Matko
-    // method name is ambiguous
-    public void setString(String s) {
+    public void saveUserToPreferences(BigDataResponse user) {
+        Gson gson = new Gson();
+        String json = gson.toJson(user);
+
         preferences.edit()
-                .putString(Const.Preferences.STRING_SHARED_KEY, s)
+                .putString(USER_SHARED_KEY, json)
                 .apply();
     }
 
-    // TODO @Matko
-    // is this necessary since we should save user object
-    public String getEmail() {
-        return preferences.getString(Const.Preferences.STRING_USER_EMAIL, "");
+    public Boolean getRememberMeStatus() {
+        return preferences.getBoolean(Const.Preferences.BOOLEAN_REMEMBERME_SHARED_KEY, false);
     }
 
-    // TODO @Matko
-    // is this necessary since we should save user object
-    public void setEmail(String s) {
+    public void setRememberMeStatus(Boolean userRemembered) {
         preferences.edit()
-                .putString(Const.Preferences.STRING_USER_EMAIL, s)
+                .putBoolean(Const.Preferences.BOOLEAN_REMEMBERME_SHARED_KEY, userRemembered)
                 .apply();
     }
 
-    // TODO @Matko
-    // is this necessary since we should save user object
-    public String getPassword() {
-        return preferences.getString(Const.Preferences.STRING_USER_PASSWORD, "");
+    public Boolean getUserCanRegister() {
+        return preferences.getBoolean(BOOLEAN_USERCANREGISTER_KEY, false);
     }
 
-    // TODO @Matko
-    // is this necessary since we should save user object
-    // password should not be saved to phone under any circumstances
-    public void setPassword(String s) {
+    public void setUserCanRegister(Boolean userCanRegister) {
         preferences.edit()
-                .putString(Const.Preferences.STRING_USER_PASSWORD, s)
+                .putBoolean(BOOLEAN_USERCANREGISTER_KEY, userCanRegister)
                 .apply();
+    }
+
+    public void setRegisterError(BigDataResponse error) {
+        Gson gson = new Gson();
+        String json = gson.toJson(error);
+        preferences.edit()
+                .putString(ERROR_REGISTER_SHARED_KEY, json)
+                .apply();
+    }
+
+    public BigDataResponse getRegisterError() {
+        Gson gson = new Gson();
+        String json = preferences.getString(ERROR_REGISTER_SHARED_KEY, "");
+        return gson.fromJson(json, BigDataResponse.class);
     }
 }

@@ -27,7 +27,6 @@ public class SingleLiveEvent<T> extends MutableLiveData<T> {
 
         if (hasActiveObservers()) {
             // TODO @Matko
-            // add Timber lib for logging purposes
 //            Timber.w("Multiple observers registered but only one will be notified of changes.");
         }
 

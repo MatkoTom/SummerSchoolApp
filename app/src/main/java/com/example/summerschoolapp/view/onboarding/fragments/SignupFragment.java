@@ -21,14 +21,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.model.BigDataResponse;
 import com.example.summerschoolapp.model.RequestRegister;
 import com.example.summerschoolapp.utils.Tools;
+import com.example.summerschoolapp.view.onboarding.OnboardingViewModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,13 +77,14 @@ public class SignupFragment extends Fragment {
 
     private OnSignupFragmentClicListener listener;
     private OnSignupLogin loginListener;
+    private OnboardingViewModel viewModel;
 
     private boolean isVisible = false;
     private ColorStateList oldColor;
     private boolean isValidMail = false;
     private boolean isValidOib = false;
     private boolean isValidPassword = false;
-    private boolean isPressed = false;
+    private boolean isSaved = false;
 
     public interface OnSignupFragmentClicListener {
         void onSignupItemClicked();
@@ -98,6 +103,7 @@ public class SignupFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_signup, container, false);
         ButterKnife.bind(this, rootView);
+        viewModel = ViewModelProviders.of(this).get(OnboardingViewModel.class);
         oldColor = tvSignupOib.getTextColors();
         canUserSignup();
         textChangedListener();
@@ -133,9 +139,11 @@ public class SignupFragment extends Fragment {
     @OnClick(R.id.btn_signup)
     public void signUpUser() {
 
+        somethingWentWrong();
+
         if (!isValidEmail(etEmail.getText().toString().trim())) {
             tvEmailInUse.setTextColor(Color.RED);
-            tvEmailInUse.setText("Nije email!");
+            tvEmailInUse.setText(getString(R.string.not_an_email));
             tvSignupMail.setTextColor(Color.RED);
             isValidMail = false;
         } else {
@@ -145,7 +153,7 @@ public class SignupFragment extends Fragment {
         if (etOib.length() == 0 || etOib.length() > 11 || etOib.length() < 11) {
             tvSignupOib.setTextColor(Color.RED);
             tvOibInUse.setTextColor(Color.RED);
-            tvOibInUse.setText("OIB se već koristi");
+            tvOibInUse.setText(getString(R.string.oib_already_in_use));
             isValidOib = false;
         } else {
             isValidOib = true;
@@ -154,18 +162,13 @@ public class SignupFragment extends Fragment {
         if (etPassword.length() == 0) {
             tvSignupPassword.setTextColor(Color.RED);
             tvWrongPassword.setTextColor(Color.RED);
-            tvWrongPassword.setText("Kriva lozinka");
+            tvWrongPassword.setText(R.string.wrong_password);
             isValidPassword = false;
         } else {
             isValidPassword = true;
         }
 
         if (isValidOib && isValidMail && isValidPassword) {
-            // TODO @Matko
-            // saving to shared prefs is not necessary since we should store user object
-            // delete after implementing the above
-            Tools.getSharedPreferences(getActivity()).setEmail(etEmail.getText().toString());
-            Tools.getSharedPreferences(getActivity()).setPassword(etPassword.getText().toString());
             loginListener.onSignupClicked(sendData());
         }
     }
@@ -183,7 +186,7 @@ public class SignupFragment extends Fragment {
                 if (etOib.length() == 0 || etOib.length() > 11 || etOib.length() < 11) {
                     tvSignupOib.setTextColor(Color.RED);
                     tvOibInUse.setTextColor(Color.RED);
-                    tvOibInUse.setText("OIB mora imati 11 znakova");
+                    tvOibInUse.setText(getString(R.string.oib_error_11_characters));
                 } else {
                     tvSignupOib.setTextColor(oldColor);
                     tvOibInUse.setText("");
@@ -208,7 +211,7 @@ public class SignupFragment extends Fragment {
                 canUserSignup();
                 if (!isValidEmail(etEmail.getText().toString().trim())) {
                     tvEmailInUse.setTextColor(Color.RED);
-                    tvEmailInUse.setText("Nije email!");
+                    tvEmailInUse.setText(R.string.not_an_email);
                     tvSignupMail.setTextColor(Color.RED);
                 } else {
                     tvSignupMail.setTextColor(oldColor);
@@ -235,7 +238,7 @@ public class SignupFragment extends Fragment {
                 if (etPassword.length() == 0) {
                     tvSignupPassword.setTextColor(Color.RED);
                     tvWrongPassword.setTextColor(Color.RED);
-                    tvWrongPassword.setText("Kriva lozinka");
+                    tvWrongPassword.setText(R.string.wrong_password);
                 } else {
                     tvSignupPassword.setTextColor(oldColor);
                     tvWrongPassword.setText("");
@@ -279,20 +282,41 @@ public class SignupFragment extends Fragment {
 
     @OnClick(R.id.btn_remember_me)
     public void rememberMeButton() {
-        if (!isPressed) {
+        if (!isSaved) {
             btnRememberMe.setText(getString(R.string.forget_me));
-            // TODO @Matko
-            // R.drawable.remember_me_x_icon is missing, I have the latest code
-            // probably forgot to add it in git
-//            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_x_icon), null);
-            isPressed = true;
+            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_x_icon), null);
+            isSaved = true;
+            Tools.getSharedPreferences(getActivity()).setRememberMeStatus(isSaved);
         } else {
             btnRememberMe.setText(R.string.remember_me);
-            // TODO @Matko
-            // R.drawable.remember_me_checkmark_icon is missing, I have the latest code
-            // probably forgot to add it in git
-//            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_checkmark_icon), null);
-            isPressed = false;
+
+            btnRememberMe.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.remember_me_checkmark_icon), null);
+            isSaved = false;
+            Tools.getSharedPreferences(getActivity()).setRememberMeStatus(isSaved);
         }
+    }
+
+    //TODO temporary error testing, should change
+
+    private void somethingWentWrong() {
+        if (!Tools.getSharedPreferences(getActivity()).getUserCanRegister()) {
+            BigDataResponse response = Tools.getSharedPreferences(getActivity()).getRegisterError();
+            Timber.d("Error: %s", response.data.error.getError_description());
+            String errorCode = response.data.error.getError_code();
+            String errorDescription = response.data.error.getError_description();
+
+            switch (errorCode) {
+                case "1002":
+                    tvOibInUse.setText(errorDescription);
+                    break;
+                case "1003":
+                    tvEmailInUse.setText(errorDescription);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        Tools.getSharedPreferences(getActivity()).setRegisterError(null);
     }
 }

@@ -59,21 +59,19 @@ public class FirstLoginFragment extends Fragment {
 
     @OnClick(R.id.tv_login_oib)
     public void goToSignupFragment() {
-        Tools.getSharedPreferences(getActivity()).setBoolean(true);
+        Tools.getSharedPreferences(getActivity()).setShouldShowFirstLogin(true);
         loginListener.onFirstLoginItemClicked();
     }
 
     @OnClick(R.id.btn_continue)
     public void goToLoginFragment() {
-        Tools.getSharedPreferences(getActivity()).setBoolean(true);
+        Tools.getSharedPreferences(getActivity()).setShouldShowFirstLogin(true);
         registerListener.onFirstLoginRegister();
     }
 
     private void checkIfFirstEntry() {
-        // TODO @Matko
-        // avoid using one letter names for variables, variable has to have some level of context
-        Boolean b = Tools.getSharedPreferences(getActivity()).getBoolean();
-        if (b) {
+        Boolean showFirstLogin = Tools.getSharedPreferences(getActivity()).shouldShowFirstLogin();
+        if (showFirstLogin) {
             loginListener.onFirstLoginItemClicked();
         }
     }

@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle" android:padding="10dp">
-    <!-- you can use any color you want I used here gray color-->
-    <!-- TODO @Matko all colors should be defined in colors.xml-->
-    <solid android:color="#ABABAB"/>
-    <corners android:radius="10dp"/>
+    android:padding="10dp"
+    android:shape="rectangle">
+    <solid android:color="@color/basic_white" />
+    <corners android:radius="10dp" />
     <gradient
-        android:endColor="#0C81DA"
+        android:endColor="@color/gradient_color_end"
         android:gradientRadius="300dp"
-        android:startColor="#123C9E"
-        android:type="linear" >
-    </gradient>
+        android:startColor="@color/gradient_color_start"
+        android:type="linear"/>
 </shape>

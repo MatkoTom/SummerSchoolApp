@@ -18,8 +18,26 @@
     <string name="btn_try_again">Pokušaj ponovno</string>
     <string name="text_try_again">Oo ne, nešto je krenulo po krivom, pokušajte ponovno!</string>
     <string name="remember_me">Zapamti me</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="forget_me">Zaboravi me</string>
+    <string name="news">Vijesti</string>
+    <string name="requests">Zahtjevi</string>
+    <string name="profile">Profil</string>
+    <string name="users">Korisnici</string>
+    <string name="wrong_password">Kriva lozinka!</string>
+    <string name="user_doesnt_exist">Korisnik ne postoji!</string>
+    <string name="not_an_email">Nije email!</string>
+    <string name="oib_already_in_use">OIB se već koristi!</string>
+    <string name="oib_error_11_characters">OIB mora imati 11 znakova</string>
+    <string name="placeholder">placeholder</string>
+    <string name="loading">Loading...</string>
+    <string name="profile_picture">Profilna slika:</string>
+    <string name="name_surname">Ime i prezime:</string>
+    <string name="create_user">Kreiraj korisnika</string>
+    <string name="new_user">Novi korisnik</string>
+    <string name="back">Nazad</string>
+    <string name="ok">Ok</string>
+    <string name="error">Error</string>
+    <string name="plsea_fill_out_all_fields">Please fill out all fields!</string>
+    <string name="admin_email_test">ivici22i@gmail.com</string>
+    <string name="email_in_use">Email se već koristi</string>
 </resources>
