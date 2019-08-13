@@ -8,18 +8,23 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.common.BaseActivity;
+import com.example.summerschoolapp.common.BaseError;
+import com.example.summerschoolapp.dialog.ErrorDialog;
+import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.model.RequestNewUser;
 import com.example.summerschoolapp.utils.Tools;
+import com.example.summerschoolapp.utils.helpers.EventObserver;
+import com.example.summerschoolapp.view.main.MainScreenActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CreateNewUserActivity extends AppCompatActivity {
+public class CreateNewUserActivity extends BaseActivity {
 
     @BindView(R.id.btn_create_new_user)
     Button btnCreateNewUser;
@@ -40,7 +45,7 @@ public class CreateNewUserActivity extends AppCompatActivity {
     EditText etCreateUserOib;
 
     private boolean isVisible = false;
-    private CreateNewUserViewModel newUserViewModel;
+    private CreateNewUserViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +53,41 @@ public class CreateNewUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_new_user);
         ButterKnife.bind(this);
 
-        newUserViewModel = ViewModelProviders.of(this).get(CreateNewUserViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(CreateNewUserViewModel.class);
+
+        viewModel.getProgressStatus().observe(this, progressStatus -> {
+            switch (progressStatus) {
+                case START_PROGRESS:
+                    showProgress();
+                    break;
+                case STOP_PROGRESS:
+                    hideProgress();
+                    break;
+            }
+        });
+
+        viewModel.getBaseErrors().observe(this, new EventObserver<BaseError>() {
+            @Override
+            public void onEventUnhandledContent(BaseError value) {
+                super.onEventUnhandledContent(value);
+                String message = getString(R.string.text_try_again);
+                if (value instanceof NewUserError) {
+                    message = getString(((NewUserError.Error) value.getError()).getValue());
+                } else {
+                    message = String.format("%s \n --- \n %s", message, value.getExtraInfo());
+                }
+                ErrorDialog.CreateInstance(CreateNewUserActivity.this, getString(R.string.error), message, getString(R.string.ok), null, null);
+            }
+        });
+
+//        viewModel.getNavigation().observeEvent(this, navigation -> {
+//            switch (navigation) {
+//                case MAIN:
+//                    MainScreenActivity.StartActivity(CreateNewUserActivity.this);
+//                    break;
+//            }
+//        });
+
 
     }
 
@@ -76,7 +115,7 @@ public class CreateNewUserActivity extends AppCompatActivity {
                 etCreateUserPassword.getText().toString().length() == 0 ||
                 etCreateUserName.getText().toString().length() == 0 ||
                 etCreateUserOib.getText().toString().length() == 0)) {
-//            newUserViewModel.createNewUser(sendData(), Tools.getSharedPreferences(this).getSavedUserData().data.user.getJwt());
+            viewModel.createNewUser(sendData(), Tools.getSharedPreferences(this).getSavedUserData().getJwt());
         } else {
             Toast.makeText(this, getString(R.string.plsea_fill_out_all_fields), Toast.LENGTH_LONG).show();
         }

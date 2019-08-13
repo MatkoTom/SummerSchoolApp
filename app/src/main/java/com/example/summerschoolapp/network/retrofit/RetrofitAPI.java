@@ -10,6 +10,7 @@ import com.example.summerschoolapp.utils.Const;
 
 import io.reactivex.Single;
 import retrofit2.http.Body;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface RetrofitAPI {
@@ -23,5 +24,6 @@ public interface RetrofitAPI {
     // TODO @Matko
     // implement response object
     @POST(Const.Network.API_CREATE_NEW_USER)
-    Single<ResponseNewUser> createNew(@Body RequestNewUser requestNew);
+    Single<ResponseNewUser> createNew(@Header ("token") String token,
+                                      @Body RequestNewUser requestNew);
 }
