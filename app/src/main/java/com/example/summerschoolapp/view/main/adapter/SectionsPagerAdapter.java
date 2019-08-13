@@ -43,16 +43,15 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-//        if (Tools.getSharedPreferences(context).getSavedUserData().user.getRole() != null) {
-//            if (Integer.parseInt(Tools.getSharedPreferences(context).getSavedUserData().user.getRole()) == 2) {
-//                return 3;
-//            } else {
-//                return 4; // Show 4 total pages.
-//            }
-//        } else {
-//            return 4;
-//        }
-        return 4;
+        if (Tools.getSharedPreferences(context).getSavedUserData().getRole() != null) {
+            if (Integer.parseInt(Tools.getSharedPreferences(context).getSavedUserData().getRole()) == 2) {
+                return 3;
+            } else {
+                return 4; // Show 4 total pages.
+            }
+        } else {
+            return 3;
+        }
     }
 
     public View getTabView(int position) {
