@@ -12,10 +12,12 @@ import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.common.BaseActivity;
 import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.dialog.ErrorDialog;
+import com.example.summerschoolapp.errors.SignupError;
 import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestRegister;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.Event;
+import com.example.summerschoolapp.utils.helpers.EventObserver;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
 import com.example.summerschoolapp.view.onboarding.fragments.FirstLoginFragment;
 import com.example.summerschoolapp.view.onboarding.fragments.LoginFragment;
@@ -39,19 +41,45 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding);
-
         ButterKnife.bind(this);
+
         viewModel = ViewModelProviders.of(this).get(OnboardingViewModel.class);
-        runFirstLoginFragment();
 
-        viewModel.getBaseErrors().observe(this, new Observer<Event<BaseError>>() {
+        viewModel.getProgressStatus().observe(this, progressStatus -> {
+            switch (progressStatus) {
+                case START_PROGRESS:
+                    showProgress();
+                    break;
+                case STOP_PROGRESS:
+                    hideProgress();
+                    break;
+            }
+        });
+
+        viewModel.getBaseErrors().observe(this, new EventObserver<BaseError>() {
             @Override
-            public void onChanged(Event<BaseError> baseErrorEvent) {
+            public void onEventUnhandledContent(BaseError value) {
+                super.onEventUnhandledContent(value);
+                String message = getString(R.string.text_try_again);
+                if (value instanceof SignupError) {
+                    message = getString(((SignupError.Error) value.getError()).getValue());
+                } else {
+                    message = String.format("%s \n --- \n %s", message, value.getExtraInfo());
+                }
+                ErrorDialog.CreateInstance(OnboardingActivity.this, getString(R.string.error), message, getString(R.string.ok), null, null);
+            }
+        });
 
+        viewModel.getNavigation().observeEvent(this, navigation -> {
+            switch (navigation) {
+                case MAIN:
+                    MainScreenActivity.StartActivity(OnboardingActivity.this);
+                    break;
             }
         });
 
         Timber.d("IsUserSaved: %s", Tools.getSharedPreferences(this).getRememberMeStatus());
+        runFirstLoginFragment();
     }
 
     public void runFirstLoginFragment() {
@@ -105,6 +133,8 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
         transaction.commit();
     }
 
+    // TODO @Matko
+    // review in same way as signup
     @Override
     public void onLoginClicked(RequestLogin user) {
         Timber.tag(TAG).d("onLoginClicked: " + user.password + " " + user.email);
@@ -129,33 +159,8 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
         }
     }
 
-    //TODO initialize viewmodel in activity created to listen all the time
-
-    //TODO doesn't work right, need to fix
     @Override
     public void onSignupClicked(RequestRegister user) {
-        try {
-            viewModel.registerUser(user);
-
-            if (Tools.getSharedPreferences(this).getUserCanRegister()) {
-                showProgress();
-                Intent i = new Intent(this, MainScreenActivity.class);
-                finish();
-                startActivity(i);
-                Tools.getSharedPreferences(this).setUserCanRegister(false);
-            }
-        } catch (Exception e) {
-            ErrorDialog.CreateInstance(this, getString(R.string.error), e.toString(), getString(R.string.ok), null, new ErrorDialog.OnErrorDilogInteraction() {
-                @Override
-                public void onPositiveInteraction() {
-                    // TODO implement behaviour
-                }
-
-                @Override
-                public void onNegativeInteraction() {
-                    // ignored
-                }
-            });
-        }
+        viewModel.registerUser(user);
     }
 }

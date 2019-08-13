@@ -5,7 +5,6 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 
 import com.example.summerschoolapp.common.BaseViewModel;
-import com.example.summerschoolapp.model.BigDataResponse;
 import com.example.summerschoolapp.model.RequestNewUser;
 import com.example.summerschoolapp.repositories.NewUserRepository;
 
@@ -23,25 +22,27 @@ public class CreateNewUserViewModel extends BaseViewModel {
         newUserRepo = new NewUserRepository();
     }
 
-    public void createNewUser(RequestNewUser newUser, String token) {
+    public void createNewUser(RequestNewUser newUser) {
         startProgress();
-        newUserRepo.postNewUser(newUser, token)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<BigDataResponse>() {
-                    @Override
-                    public void onSuccess(BigDataResponse user) {
-                        Timber.d("createdNewUser");
-                        stopProgress();
-                        dispose();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Timber.d("Failed: %s", e.toString());
-                        stopProgress();
-                        dispose();
-                    }
-                });
+        // TODO @Matko
+        // implement
+//        newUserRepo.postNewUser(newUser)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new DisposableSingleObserver<BigDataResponse>() {
+//                    @Override
+//                    public void onSuccess(BigDataResponse user) {
+//                        Timber.d("createdNewUser");
+//                        stopProgress();
+//                        dispose();
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        Timber.d("Failed: %s", e.toString());
+//                        stopProgress();
+//                        dispose();
+//                    }
+//                });
     }
 }

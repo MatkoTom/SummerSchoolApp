@@ -4,12 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.example.summerschoolapp.model.BigDataResponse;
-import com.example.summerschoolapp.model.Error;
+import com.example.summerschoolapp.model.User;
 import com.google.gson.Gson;
 
-import static com.example.summerschoolapp.utils.Const.Preferences.BOOLEAN_USERCANREGISTER_KEY;
-import static com.example.summerschoolapp.utils.Const.Preferences.ERROR_REGISTER_SHARED_KEY;
 import static com.example.summerschoolapp.utils.Const.Preferences.USER_SHARED_KEY;
 
 public class Preferences {
@@ -29,13 +26,13 @@ public class Preferences {
                 .apply();
     }
 
-    public BigDataResponse getSavedUserData() {
+    public User getSavedUserData() {
         Gson gson = new Gson();
         String json = preferences.getString(USER_SHARED_KEY, "");
-        return gson.fromJson(json, BigDataResponse.class);
+        return gson.fromJson(json, User.class);
     }
 
-    public void saveUserToPreferences(BigDataResponse user) {
+    public void saveUserToPreferences(User user) {
         Gson gson = new Gson();
         String json = gson.toJson(user);
 
@@ -54,27 +51,4 @@ public class Preferences {
                 .apply();
     }
 
-    public Boolean getUserCanRegister() {
-        return preferences.getBoolean(BOOLEAN_USERCANREGISTER_KEY, false);
-    }
-
-    public void setUserCanRegister(Boolean userCanRegister) {
-        preferences.edit()
-                .putBoolean(BOOLEAN_USERCANREGISTER_KEY, userCanRegister)
-                .apply();
-    }
-
-    public void setRegisterError(BigDataResponse error) {
-        Gson gson = new Gson();
-        String json = gson.toJson(error);
-        preferences.edit()
-                .putString(ERROR_REGISTER_SHARED_KEY, json)
-                .apply();
-    }
-
-    public BigDataResponse getRegisterError() {
-        Gson gson = new Gson();
-        String json = preferences.getString(ERROR_REGISTER_SHARED_KEY, "");
-        return gson.fromJson(json, BigDataResponse.class);
-    }
 }
