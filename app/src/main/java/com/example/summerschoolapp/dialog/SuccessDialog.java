@@ -9,13 +9,12 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.summerschoolapp.R;
 
-public class ErrorDialog extends DialogFragment {
+public class SuccessDialog extends DialogFragment {
 
-    public static void CreateInstance(Activity activity, String title, String description, @NonNull String positiveButton, String negativeButton, OnErrorDialogInteraction listener) {
-
+    public static void CreateInstance(Activity activity, String title, String description, @NonNull String positiveButton, String negativeButton, OnSuccessDialogInteraction listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(title)
-                .setIcon(activity.getResources().getDrawable(R.drawable.log_in_error_icon))
+                .setIcon(activity.getResources().getDrawable(R.drawable.log_in_checkmark_icon))
                 .setMessage(description)
                 .setPositiveButton(positiveButton, (dialogInterface, i) -> {
                     if (listener != null) {
@@ -30,11 +29,10 @@ public class ErrorDialog extends DialogFragment {
                 }
             });
         }
-
         builder.create().show();
     }
 
-    public interface OnErrorDialogInteraction {
+    public interface OnSuccessDialogInteraction {
         void onPositiveInteraction();
 
         void onNegativeInteraction();

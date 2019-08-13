@@ -38,9 +38,11 @@
     <string name="back">Nazad</string>
     <string name="ok">Ok</string>
     <string name="error">Error</string>
-    <string name="plsea_fill_out_all_fields">Please fill out all fields!</string>
+    <string name="plsea_fill_out_all_fields">Molimo popunite sva polja!</string>
     <string name="admin_email_test">ivici22i@gmail.com</string>
     <string name="email_in_use">Email se već koristi</string>
     <string name="token">token</string>
     <string name="wrong_email">Krivi email!</string>
+    <string name="success">Uspjeh!</string>
+    <string name="user_successfully_created">Korisnik je uspješno stvoren!</string>
 </resources>

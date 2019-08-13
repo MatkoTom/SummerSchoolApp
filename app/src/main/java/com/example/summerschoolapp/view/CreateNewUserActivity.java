@@ -14,6 +14,7 @@ import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.common.BaseActivity;
 import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.dialog.ErrorDialog;
+import com.example.summerschoolapp.dialog.SuccessDialog;
 import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.model.RequestNewUser;
 import com.example.summerschoolapp.utils.Tools;
@@ -80,13 +81,23 @@ public class CreateNewUserActivity extends BaseActivity {
             }
         });
 
-//        viewModel.getNavigation().observeEvent(this, navigation -> {
-//            switch (navigation) {
-//                case MAIN:
-//                    MainScreenActivity.StartActivity(CreateNewUserActivity.this);
-//                    break;
-//            }
-//        });
+        viewModel.getNavigation().observeEvent(this, navigation -> {
+            switch (navigation) {
+                case MAIN:
+                    SuccessDialog.CreateInstance(this, getString(R.string.success), getString(R.string.user_successfully_created), getString(R.string.ok), null, new SuccessDialog.OnSuccessDialogInteraction() {
+                        @Override
+                        public void onPositiveInteraction() {
+                            MainScreenActivity.StartActivity(CreateNewUserActivity.this);
+                        }
+
+                        @Override
+                        public void onNegativeInteraction() {
+
+                        }
+                    });
+                    break;
+            }
+        });
 
 
     }

@@ -4,8 +4,10 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 
+import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.common.BaseViewModel;
+import com.example.summerschoolapp.dialog.SuccessDialog;
 import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.errors.SignupError;
 import com.example.summerschoolapp.model.RequestNewUser;
@@ -27,11 +29,11 @@ import timber.log.Timber;
 
 public class CreateNewUserViewModel extends BaseViewModel {
 
-//    public enum Navigation {
-//        MAIN
-//    }
-//
-//    private SingleLiveEvent<CreateNewUserViewModel.Navigation> navigation = new SingleLiveEvent<>();
+    public enum Navigation {
+        MAIN
+    }
+
+    private SingleLiveEvent<CreateNewUserViewModel.Navigation> navigation = new SingleLiveEvent<>();
 
     private NewUserRepository newUserRepo;
 
@@ -40,9 +42,9 @@ public class CreateNewUserViewModel extends BaseViewModel {
         newUserRepo = new NewUserRepository();
     }
 
-//    public SingleLiveEvent<CreateNewUserViewModel.Navigation> getNavigation() {
-//        return navigation;
-//    }
+    public SingleLiveEvent<CreateNewUserViewModel.Navigation> getNavigation() {
+        return navigation;
+    }
 
     public void createNewUser(RequestNewUser newUser, String token) {
 
@@ -58,7 +60,7 @@ public class CreateNewUserViewModel extends BaseViewModel {
                         stopProgress();
                         if (newResponse.data.error == null) {
                             Timber.d("createdNewUser");
-//                            getNavigation().setValue(Navigation.MAIN);
+                            getNavigation().setValue(Navigation.MAIN);
                         } else {
                             Timber.d("Big response: %s", newResponse.data.error.getError_code() + " " + newResponse.data.error.getError_description());
                             if (Const.Errors.EMAIL_IN_USE == Integer.parseInt(newResponse.data.error.getError_code())) {
