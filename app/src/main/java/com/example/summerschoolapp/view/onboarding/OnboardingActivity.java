@@ -79,6 +79,7 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
         });
 
         Timber.d("IsUserSaved: %s", Tools.getSharedPreferences(this).getRememberMeStatus());
+        Timber.d("ShowFirstLogin: %s", Tools.getSharedPreferences(this).getShouldShowFirstLogin());
         runFirstLoginFragment();
         autoLogin();
     }

@@ -70,7 +70,7 @@ public class FirstLoginFragment extends Fragment {
     }
 
     private void checkIfFirstEntry() {
-        Boolean showFirstLogin = Tools.getSharedPreferences(getActivity()).shouldShowFirstLogin();
+        Boolean showFirstLogin = Tools.getSharedPreferences(getActivity()).getShouldShowFirstLogin();
         if (showFirstLogin) {
             loginListener.onFirstLoginItemClicked();
         }

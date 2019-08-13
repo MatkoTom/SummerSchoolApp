@@ -65,11 +65,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 R.drawable.nav_users_selected_icon,
                 R.drawable.nav_users_selected_icon};
 
-        View v = LayoutInflater.from(context).inflate(R.layout.custom_tab, null);
+        View customTabView = LayoutInflater.from(context).inflate(R.layout.custom_tab, null);
         Drawable image = context.getResources().getDrawable(imageResId[position]);
-        Button btnTab = v.findViewById(R.id.btn_tab_icon);
+        Button btnTab = customTabView.findViewById(R.id.btn_tab_icon);
         btnTab.setCompoundDrawablesWithIntrinsicBounds(null, image, null, null);
         btnTab.setText(tabTitles[position]);
-        return v;
+        return customTabView;
     }
 }

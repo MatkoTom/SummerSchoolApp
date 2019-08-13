@@ -16,7 +16,7 @@ public class Preferences {
         this.preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public Boolean shouldShowFirstLogin() {
+    public Boolean getShouldShowFirstLogin() {
         return preferences.getBoolean(Const.Preferences.BOOLEAN_SHARED_KEY, false);
     }
 

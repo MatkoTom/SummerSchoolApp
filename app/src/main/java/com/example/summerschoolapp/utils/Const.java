@@ -16,10 +16,6 @@ public final class Const {
 
     public static class Preferences {
         public static final String BOOLEAN_SHARED_KEY = "BOOLEAN_SHARED_KEY";
-        public static final String SLEEP_DONE = "SLEEP_DONE";
-        public static final String STRING_SHARED_KEY = "STRING_SHARED_KEY";
-        public static final String STRING_USER_EMAIL = "STRING_USER_EMAIL";
-        public static final String STRING_USER_PASSWORD = "STRING_USER_PASSWORD";
         public static final String USER_SHARED_KEY = "USER_SHARED_KEY";
         public static final String BOOLEAN_REMEMBERME_SHARED_KEY = "BOOLEAN_REMEMBERME_SHARED_KEY";
 
