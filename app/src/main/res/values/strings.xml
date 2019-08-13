@@ -45,4 +45,5 @@
     <string name="wrong_email">Krivi email!</string>
     <string name="success">Uspjeh!</string>
     <string name="user_successfully_created">Korisnik je uspješno stvoren!</string>
+    <string name="password_more_than_1_char">Lozinka mora imati više od jednog znaka!</string>
 </resources>

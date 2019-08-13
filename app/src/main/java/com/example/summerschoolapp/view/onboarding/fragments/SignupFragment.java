@@ -234,7 +234,7 @@ public class SignupFragment extends Fragment {
                 if (etPassword.length() == 0) {
                     tvSignupPassword.setTextColor(Color.RED);
                     tvWrongPassword.setTextColor(Color.RED);
-                    tvWrongPassword.setText(R.string.wrong_password);
+                    tvWrongPassword.setText(getString(R.string.password_more_than_1_char));
                 } else {
                     tvSignupPassword.setTextColor(oldColor);
                     tvWrongPassword.setText("");
