@@ -1,5 +1,7 @@
 package com.example.summerschoolapp.view.main;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,11 @@ import com.google.android.material.tabs.TabLayout;
 import butterknife.ButterKnife;
 
 public class MainScreenActivity extends AppCompatActivity {
+
+    public static void StartActivity(Activity activity) {
+        activity.startActivity(new Intent(activity, MainScreenActivity.class));
+        activity.finish();
+    }
 
     private int[] imageResId = {R.drawable.nav_news_selected_icon,
             R.drawable.nav_requests_selected_icon,

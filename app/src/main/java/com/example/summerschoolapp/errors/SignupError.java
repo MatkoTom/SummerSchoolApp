@@ -3,16 +3,17 @@ package com.example.summerschoolapp.errors;
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.common.BaseError;
 
-public class RegisterError extends BaseError {
+public class SignupError extends BaseError {
 
-    public static RegisterError Create(RegisterError.Error error) {
-        return new RegisterError(error);
+    public static SignupError Create(SignupError.Error error) {
+        return new SignupError(error);
     }
 
     public enum Error {
         ERROR_WHILE_REGISTERING_OIB_IN_USE(R.string.oib_already_in_use),
         ERROR_WHILE_REGISTERING_EMAIL_IN_USE(R.string.email_in_use),
-        SOMETHING_WENT_WRONG(R.string.text_try_again);
+        SOMETHING_WENT_WRONG(R.string.text_try_again),
+        UNATUHORISED(R.string.error_unauthorised);
 
         private int value;
 
@@ -25,7 +26,7 @@ public class RegisterError extends BaseError {
         }
     }
 
-    private RegisterError(RegisterError.Error error) {
+    private SignupError(SignupError.Error error) {
         super(error);
     }
 }

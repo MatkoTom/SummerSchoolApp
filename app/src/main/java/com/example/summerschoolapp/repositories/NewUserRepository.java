@@ -1,6 +1,5 @@
 package com.example.summerschoolapp.repositories;
 
-import com.example.summerschoolapp.model.BigDataResponse;
 import com.example.summerschoolapp.model.RequestNewUser;
 import com.example.summerschoolapp.network.retrofit.RetrofitAdapter;
 
@@ -12,10 +11,11 @@ public class NewUserRepository {
     public NewUserRepository() {
 
     }
-
-    public Single<BigDataResponse> postNewUser(RequestNewUser newUser) {
-        return RetrofitAdapter.getRetrofitClient()
-                .createNew(newUser)
-                .subscribeOn(Schedulers.io());
-    }
+// TODO @Matko
+    //implement
+//    public Single<BigDataResponse> postNewUser(RequestNewUser newUser) {
+//        return RetrofitAdapter.getRetrofitClient()
+//                .createNew(newUser)
+//                .subscribeOn(Schedulers.io());
+//    }
 }

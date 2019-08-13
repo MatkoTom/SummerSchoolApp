@@ -24,7 +24,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
-import com.example.summerschoolapp.model.BigDataResponse;
 import com.example.summerschoolapp.model.RequestRegister;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.view.onboarding.OnboardingViewModel;
@@ -32,7 +31,6 @@ import com.example.summerschoolapp.view.onboarding.OnboardingViewModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -138,8 +136,6 @@ public class SignupFragment extends Fragment {
 
     @OnClick(R.id.btn_signup)
     public void signUpUser() {
-
-        somethingWentWrong();
 
         if (!isValidEmail(etEmail.getText().toString().trim())) {
             tvEmailInUse.setTextColor(Color.RED);
@@ -296,27 +292,4 @@ public class SignupFragment extends Fragment {
         }
     }
 
-    //TODO temporary error testing, should change
-
-    private void somethingWentWrong() {
-        if (!Tools.getSharedPreferences(getActivity()).getUserCanRegister()) {
-            BigDataResponse response = Tools.getSharedPreferences(getActivity()).getRegisterError();
-            Timber.d("Error: %s", response.data.error.getError_description());
-            String errorCode = response.data.error.getError_code();
-            String errorDescription = response.data.error.getError_description();
-
-            switch (errorCode) {
-                case "1002":
-                    tvOibInUse.setText(errorDescription);
-                    break;
-                case "1003":
-                    tvEmailInUse.setText(errorDescription);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        Tools.getSharedPreferences(getActivity()).setRegisterError(null);
-    }
 }

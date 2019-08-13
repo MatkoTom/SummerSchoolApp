@@ -6,13 +6,16 @@ import androidx.annotation.NonNull;
 
 import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.common.BaseViewModel;
-import com.example.summerschoolapp.errors.RegisterError;
-import com.example.summerschoolapp.model.BigDataResponse;
+import com.example.summerschoolapp.errors.SignupError;
 import com.example.summerschoolapp.model.RequestLogin;
 import com.example.summerschoolapp.model.RequestRegister;
+import com.example.summerschoolapp.model.ResponseLogin;
+import com.example.summerschoolapp.model.ResponseSignup;
 import com.example.summerschoolapp.repositories.AuthorisationRepository;
+import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.Event;
+import com.example.summerschoolapp.utils.helpers.SingleLiveEvent;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 
 import java.io.IOException;
@@ -25,11 +28,22 @@ import okhttp3.ResponseBody;
 import timber.log.Timber;
 
 public class OnboardingViewModel extends BaseViewModel {
+
+    public enum Navigation {
+        MAIN, SIGNUP, LOGIN;
+    }
+
+    private SingleLiveEvent<OnboardingViewModel.Navigation> navigation = new SingleLiveEvent<>();
+
     private AuthorisationRepository authRepo;
 
     public OnboardingViewModel(@NonNull Application application) {
         super(application);
         authRepo = new AuthorisationRepository();
+    }
+
+    public SingleLiveEvent<Navigation> getNavigation() {
+        return navigation;
     }
 
     public void makeLogin(RequestLogin user) {
@@ -38,11 +52,12 @@ public class OnboardingViewModel extends BaseViewModel {
         authRepo.postLoginQuery(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<BigDataResponse>() {
+                .subscribe(new DisposableSingleObserver<ResponseLogin>() {
                     @Override
-                    public void onSuccess(BigDataResponse user) {
+                    public void onSuccess(ResponseLogin user) {
                         Timber.d("BigUserResponse: %s", user.toString());
-                        Tools.getSharedPreferences(getApplication()).saveUserToPreferences(user);
+                        // TODO @Matko
+//                        Tools.getSharedPreferences(getApplication()).saveUserToPreferences(user);
                         stopProgress();
                         dispose();
                     }
@@ -55,36 +70,30 @@ public class OnboardingViewModel extends BaseViewModel {
                 });
     }
 
-
-    //TODO create error package, make loginerror class and implement code here, in fragments, and activity hosting fragments
-
-    //TODO doesn't work right, will need a rework
     public void registerUser(RequestRegister user) {
         startProgress();
         authRepo.postRegisterQuery(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<BigDataResponse>() {
+                .subscribe(new DisposableSingleObserver<ResponseSignup>() {
                     @Override
-                    public void onSuccess(BigDataResponse newResponse) {
-                        try {
-                            if (newResponse.data.error == null) {
-                                Timber.d("Big response: %s", newResponse.data.user.getJwt());
-                                Tools.getSharedPreferences(getApplication()).setUserCanRegister(true);
-                                Tools.getSharedPreferences(getApplication()).saveUserToPreferences(newResponse);
-
-                            } else {
-                                Timber.d("Big response: %s", newResponse.data.error.getError_code() + " " + newResponse.data.error.getError_description());
-                                Tools.getSharedPreferences(getApplication()).setUserCanRegister(false);
-                                Tools.getSharedPreferences(getApplication()).setRegisterError(newResponse);
-                            }
-
-                        } catch (Throwable e) {
-                            Timber.e("Error: %s", e);
-                            onError(e);
-                            Timber.e(e.toString());
-                        }
+                    public void onSuccess(ResponseSignup newResponse) {
                         stopProgress();
+                        if (newResponse.data.error == null) {
+                            Timber.d("Big response: %s", newResponse.data.user.getJwt());
+                            Tools.getSharedPreferences(getApplication()).saveUserToPreferences(newResponse.data.user);
+                            getNavigation().setValue(OnboardingViewModel.Navigation.MAIN);
+                        } else {
+                            // TODO @Matko
+                            // implement rest of errors
+                            Timber.d("Big response: %s", newResponse.data.error.getError_code() + " " + newResponse.data.error.getError_description());
+                            if (Const.Errors.EMAIL_IN_USE == Integer.parseInt(newResponse.data.error.getError_code())) {
+                                getBaseErrors().setValue(new Event<>(SignupError.Create(SignupError.Error.ERROR_WHILE_REGISTERING_EMAIL_IN_USE)));
+                            } else {
+                                getBaseErrors().setValue(new Event<>(SignupError.Create(SignupError.Error.SOMETHING_WENT_WRONG)));
+                            }
+                        }
+
                         dispose();
                     }
 
@@ -94,16 +103,20 @@ public class OnboardingViewModel extends BaseViewModel {
 
                         BaseError error;
                         if (throwable instanceof HttpException) {
-                            ResponseBody responseBody = ((HttpException) throwable).response().errorBody();
-                            String extraInfo = responseBody.toString();
-                            error = RegisterError.Create(RegisterError.Error.SOMETHING_WENT_WRONG);
-                            error.setExtraInfo(extraInfo);
+                            if (((HttpException) throwable).response().code() == 401) {
+                                error = SignupError.Create(SignupError.Error.UNATUHORISED);
+                            } else {
+                                ResponseBody responseBody = ((HttpException) throwable).response().errorBody();
+                                String extraInfo = responseBody.toString();
+                                error = SignupError.Create(SignupError.Error.SOMETHING_WENT_WRONG);
+                                error.setExtraInfo(extraInfo);
+                            }
                         } else if (throwable instanceof SocketTimeoutException) {
-                            error = RegisterError.Create(RegisterError.Error.SOMETHING_WENT_WRONG);
+                            error = SignupError.Create(SignupError.Error.SOMETHING_WENT_WRONG);
                         } else if (throwable instanceof IOException) {
-                            error = RegisterError.Create(RegisterError.Error.SOMETHING_WENT_WRONG);
+                            error = SignupError.Create(SignupError.Error.SOMETHING_WENT_WRONG);
                         } else {
-                            error = RegisterError.Create(RegisterError.Error.ERROR_WHILE_REGISTERING_OIB_IN_USE);
+                            error = SignupError.Create(SignupError.Error.SOMETHING_WENT_WRONG);
                             error.setExtraInfo(throwable.getMessage());
                         }
 
@@ -111,7 +124,6 @@ public class OnboardingViewModel extends BaseViewModel {
                         getBaseErrors().setValue(new Event<>(error));
                         Timber.d("Error: %s", error.toString());
 
-                        stopProgress();
                         dispose();
                     }
                 });
