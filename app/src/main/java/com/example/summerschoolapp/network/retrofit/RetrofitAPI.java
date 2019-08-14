@@ -31,7 +31,7 @@ public interface RetrofitAPI {
     @GET(Const.Network.API_FETCH_USER_LIST)
     Single<ResponseUsersList> fetchUserList(@Header("token") String token);
 
-    @GET("users/allUsers/{query}")
+    @GET(Const.Network.API_SEARCH_USER_QUERY)
     Single<ResponseUsersList> fetchSearchedUsers(@Header("token") String token,
                                                 @Path("query") String searchQuery);
 }
