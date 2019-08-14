@@ -54,8 +54,12 @@ public class UsersFragment extends Fragment {
         rvUserList.setLayoutManager(layoutManager);
         rvUserList.setAdapter(userListAdapter);
         viewModel = ViewModelProviders.of(this).get(UsersFragmentViewModel.class);
-//        getUserList();
+        getUserList();
         searchUsers();
+
+        viewModel.getRecyclerList().observeEvent(this, users -> {
+            userListAdapter.setData(users);
+        });
         return rootView;
     }
 
@@ -80,8 +84,8 @@ public class UsersFragment extends Fragment {
         startActivity(i);
     }
 
-//    public void getUserList() {
-//        String token = Tools.getSharedPreferences(getActivity()).getSavedUserData().data.user.getJwt();
-//        viewModel.getUserList(token);
-//    }
+    public void getUserList() {
+        String token = Tools.getSharedPreferences(getActivity()).getSavedUserData().getJwt();
+        viewModel.getUserList(token);
+    }
 }

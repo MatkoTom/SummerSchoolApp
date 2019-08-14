@@ -6,10 +6,12 @@ import com.example.summerschoolapp.model.signup.RequestSignup;
 import com.example.summerschoolapp.model.login.ResponseLogin;
 import com.example.summerschoolapp.model.newuser.ResponseNewUser;
 import com.example.summerschoolapp.model.signup.ResponseSignup;
+import com.example.summerschoolapp.model.userslist.ResponseUsersList;
 import com.example.summerschoolapp.utils.Const;
 
 import io.reactivex.Single;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 
@@ -25,6 +27,6 @@ public interface RetrofitAPI {
     Single<ResponseNewUser> createNew(@Header ("token") String token,
                                       @Body RequestNewUser requestNew);
 
-//    @GET(Const.Network.API_FETCH_USER_LIST)
-//    Single<> fetchUserList();
+    @GET(Const.Network.API_FETCH_USER_LIST)
+    Single<ResponseUsersList> fetchUserList(@Header("token") String token);
 }

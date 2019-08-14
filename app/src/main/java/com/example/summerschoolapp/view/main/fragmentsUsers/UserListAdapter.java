@@ -3,8 +3,6 @@ package com.example.summerschoolapp.view.main.fragmentsUsers;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,14 +19,12 @@ import java.util.List;
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.CustomVievHolder> {
 
     private List<User> data = new ArrayList<>();
-//    private List<User> userListFull;
 
     public void setData(List<User> newData) {
         if (newData != null && !newData.isEmpty()) {
             Collections.sort(newData, (user, t1) -> user.getEmail().compareTo(t1.getEmail()));
             this.data.clear();
             this.data.addAll(newData);
-//            userListFull = new ArrayList<>(data);
             notifyDataSetChanged();
         }
     }
@@ -44,6 +40,8 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
     @Override
     public void onBindViewHolder(@NonNull CustomVievHolder holder, int position) {
         User item = data.get(position);
+        holder.tvUserFirstName.setText(item.getFirstName());
+        holder.tvUserLastName.setText(item.getLastName());
         holder.tvUserEmail.setText(item.getEmail());
     }
 
@@ -52,52 +50,18 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
         return data.size();
     }
 
-//    @Override
-//    public Filter getFilter() {
-//        return exampleFilter;
-//    }
-
-//    private Filter exampleFilter = new Filter() {
-//        @Override
-//        protected FilterResults performFiltering(CharSequence charSequence) {
-//            List<User> filteredList = new ArrayList<>();
-//
-//            if (charSequence == null || charSequence.length() == 0) {
-//                filteredList.addAll(userListFull);
-//            } else {
-//                String filterPattern = charSequence.toString().toLowerCase().trim();
-//
-//                for (User user : userListFull) {
-//                    if (user.getEmail().toLowerCase().contains(filterPattern)) {
-//                        filteredList.add(user);
-//                    }
-//                }
-//            }
-//
-//            FilterResults results = new FilterResults();
-//            results.values = filteredList;
-//
-//            return results;
-//        }
-//
-//        @Override
-//        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-//            data.clear();
-//            data.addAll((List) filterResults.values);
-//            notifyDataSetChanged();
-//        }
-//    };
-
     class CustomVievHolder extends RecyclerView.ViewHolder {
 
-        TextView tvUserName;
+        TextView tvUserFirstName;
+        TextView tvUserLastName;
         TextView tvUserEmail;
         ImageView ivUSerImg;
 
         public CustomVievHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvUserName = itemView.findViewById(R.id.tv_user_name);
+            tvUserFirstName = itemView.findViewById(R.id.tv_user_firstname);
+            tvUserLastName = itemView.findViewById(R.id.tv_user_lastname);
             tvUserEmail = itemView.findViewById(R.id.tv_user_email);
             ivUSerImg = itemView.findViewById(R.id.iv_user_img);
         }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -17,19 +18,32 @@
         app:srcCompat="@drawable/new_user_profile_icon" />
 
     <TextView
-        android:id="@+id/tv_user_name"
+        android:id="@+id/tv_user_firstname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/placeholder"
         android:fontFamily="@font/american_typewriter_bold"
+        android:text="@string/placeholder"
         android:textSize="16sp"
-        app:layout_constraintVertical_weight="1"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_user_img"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="1" />
+
+    <TextView
+        android:id="@+id/tv_user_lastname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/american_typewriter_bold"
+        android:text="@string/placeholder"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/tv_user_firstname"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="1" />
 
     <TextView
         android:id="@+id/tv_user_email"
@@ -44,5 +58,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/iv_user_img"
-        app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_user_firstname" />
 </androidx.constraintlayout.widget.ConstraintLayout>

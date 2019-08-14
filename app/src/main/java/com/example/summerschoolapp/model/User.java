@@ -8,7 +8,10 @@ public class User {
     private String oib;
 
     @SerializedName("firstName")
-    private String name;
+    private String firstName;
+
+    @SerializedName("lastName")
+    private String lastName;
 
     @SerializedName("jwt")
     private String jwt;
@@ -18,14 +21,6 @@ public class User {
 
     @SerializedName("personsRoleId")
     private String role;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getJwt() {
         return jwt;
@@ -59,4 +54,31 @@ public class User {
         this.email = email;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "oib='" + oib + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", jwt='" + jwt + '\'' +
+                ", email='" + email + '\'' +
+                ", role='" + role + '\'' +
+                '}';
+    }
 }
