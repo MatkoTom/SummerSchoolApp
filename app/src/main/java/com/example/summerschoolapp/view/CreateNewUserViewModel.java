@@ -4,14 +4,12 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 
-import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.common.BaseViewModel;
-import com.example.summerschoolapp.dialog.SuccessDialog;
 import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.errors.SignupError;
-import com.example.summerschoolapp.model.RequestNewUser;
-import com.example.summerschoolapp.model.ResponseNewUser;
+import com.example.summerschoolapp.model.newuser.RequestNewUser;
+import com.example.summerschoolapp.model.newuser.ResponseNewUser;
 import com.example.summerschoolapp.repositories.NewUserRepository;
 import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.helpers.Event;

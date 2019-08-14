@@ -1,7 +1,7 @@
 package com.example.summerschoolapp.repositories;
 
-import com.example.summerschoolapp.model.RequestNewUser;
-import com.example.summerschoolapp.model.ResponseNewUser;
+import com.example.summerschoolapp.model.newuser.RequestNewUser;
+import com.example.summerschoolapp.model.newuser.ResponseNewUser;
 import com.example.summerschoolapp.network.retrofit.RetrofitAdapter;
 
 import io.reactivex.Single;

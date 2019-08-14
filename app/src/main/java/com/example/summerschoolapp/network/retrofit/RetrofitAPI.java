@@ -1,11 +1,11 @@
 package com.example.summerschoolapp.network.retrofit;
 
-import com.example.summerschoolapp.model.RequestLogin;
-import com.example.summerschoolapp.model.RequestNewUser;
-import com.example.summerschoolapp.model.RequestSignup;
-import com.example.summerschoolapp.model.ResponseLogin;
-import com.example.summerschoolapp.model.ResponseNewUser;
-import com.example.summerschoolapp.model.ResponseSignup;
+import com.example.summerschoolapp.model.login.RequestLogin;
+import com.example.summerschoolapp.model.newuser.RequestNewUser;
+import com.example.summerschoolapp.model.signup.RequestSignup;
+import com.example.summerschoolapp.model.login.ResponseLogin;
+import com.example.summerschoolapp.model.newuser.ResponseNewUser;
+import com.example.summerschoolapp.model.signup.ResponseSignup;
 import com.example.summerschoolapp.utils.Const;
 
 import io.reactivex.Single;
@@ -24,4 +24,7 @@ public interface RetrofitAPI {
     @POST(Const.Network.API_CREATE_NEW_USER)
     Single<ResponseNewUser> createNew(@Header ("token") String token,
                                       @Body RequestNewUser requestNew);
+
+//    @GET(Const.Network.API_FETCH_USER_LIST)
+//    Single<> fetchUserList();
 }

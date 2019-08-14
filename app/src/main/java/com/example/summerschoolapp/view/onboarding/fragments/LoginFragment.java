@@ -24,7 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
-import com.example.summerschoolapp.model.RequestLogin;
+import com.example.summerschoolapp.model.login.RequestLogin;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.view.onboarding.OnboardingViewModel;
 

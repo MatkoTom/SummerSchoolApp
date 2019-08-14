@@ -1,4 +1,4 @@
-package com.example.summerschoolapp.model;
+package com.example.summerschoolapp.model.signup;
 
 import com.google.gson.annotations.SerializedName;
 

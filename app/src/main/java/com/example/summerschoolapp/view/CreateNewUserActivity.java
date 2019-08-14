@@ -16,7 +16,7 @@ import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.dialog.SuccessDialog;
 import com.example.summerschoolapp.errors.NewUserError;
-import com.example.summerschoolapp.model.RequestNewUser;
+import com.example.summerschoolapp.model.newuser.RequestNewUser;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
 import com.example.summerschoolapp.view.main.MainScreenActivity;

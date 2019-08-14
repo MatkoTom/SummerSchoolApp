@@ -1,11 +1,11 @@
-package com.example.summerschoolapp.model;
+package com.example.summerschoolapp.model.newuser;
 
 import com.example.summerschoolapp.common.BaseModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ResponseLogin extends BaseModel {
+public class ResponseNewUser extends BaseModel {
     @SerializedName("data")
     @Expose
-    public SignupInnerResponse data;
+    public NewUserInnerResponse data;
 }
