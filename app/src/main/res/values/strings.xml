@@ -50,6 +50,7 @@
     <string name="publish_news">Objavi vijest</string>
     <string name="no_request_sent">Niti jedan zahtjev\njoš nije poslan!</string>
     <string name="new_request">Novi zahtjev</string>
+    <string name="logout">Odjavi se</string>
 
     <string-array name="testArray">
         <item>jedan</item>

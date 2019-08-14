@@ -276,7 +276,6 @@
             android:text="@string/remember_me"
             android:textColor="@color/color_text"
             android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

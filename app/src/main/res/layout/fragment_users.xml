@@ -38,7 +38,7 @@
         android:id="@+id/fab_create_new_user"
         android:layout_marginBottom="44dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:src="@drawable/fab_layout"
+        android:src="@drawable/fab_layout_new_user"
         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
