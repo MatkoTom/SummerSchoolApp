@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -49,33 +50,37 @@ public class UsersFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_users, container, false);
         ButterKnife.bind(this, rootView);
+
         userListAdapter = new UserListAdapter();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvUserList.setLayoutManager(layoutManager);
         rvUserList.setAdapter(userListAdapter);
+
         viewModel = ViewModelProviders.of(this).get(UsersFragmentViewModel.class);
-        getUserList();
-        searchUsers();
 
         viewModel.getRecyclerList().observeEvent(this, users -> {
             userListAdapter.setData(users);
         });
+
+        getUserList();
+        searchUsers();
         return rootView;
     }
 
     private void searchUsers() {
-//        svUserSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                userListAdapter.getFilter().filter(newText);
-//                return false;
-//            }
-//        });
+        svUserSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                String token = Tools.getSharedPreferences(getActivity()).getSavedUserData().getJwt();
+                viewModel.getSearchedUsersList(token, newText);
+                return false;
+            }
+        });
     }
 
     @OnClick(R.id.fab_create_new_user)

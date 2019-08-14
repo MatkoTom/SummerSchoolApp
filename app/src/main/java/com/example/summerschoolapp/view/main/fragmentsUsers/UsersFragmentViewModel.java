@@ -55,4 +55,27 @@ public class UsersFragmentViewModel extends BaseViewModel {
                     }
                 });
     }
+
+    public void getSearchedUsersList(String token, String searchQuery) {
+        startProgress();
+        mainRepo.getSearchedUsersList(token, searchQuery)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<ResponseUsersList>() {
+                    @Override
+                    public void onSuccess(ResponseUsersList response) {
+                        Timber.d("SearchedUsers: %s", response.data.user);
+                        getRecyclerList().setValue(response.data.user);
+                        stopProgress();
+                        dispose();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.d("Failed: %s", e.toString());
+                        stopProgress();
+                        dispose();
+                    }
+                });
+    }
 }

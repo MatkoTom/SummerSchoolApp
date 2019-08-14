@@ -46,4 +46,15 @@
     <string name="success">Uspjeh!</string>
     <string name="user_successfully_created">Korisnik je uspješno stvoren!</string>
     <string name="password_more_than_1_char">Lozinka mora imati više od jednog znaka!</string>
+    <string name="no_news_published">Niti jedna vijest još\nnije objavljena!</string>
+    <string name="publish_news">Objavi vijest</string>
+    <string name="no_request_sent">Niti jedan zahtjev\njoš nije poslan!</string>
+    <string name="new_request">Novi zahtjev</string>
+
+    <string-array name="testArray">
+        <item>jedan</item>
+        <item>dva</item>
+        <item>tri</item>
+        <item>četiri</item>
+    </string-array>
 </resources>

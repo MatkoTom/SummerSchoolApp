@@ -17,4 +17,10 @@ public class MainScreenRepository {
                 .fetchUserList(token)
                 .subscribeOn(Schedulers.io());
     }
+
+    public Single<ResponseUsersList> getSearchedUsersList(String token, String searchQuery) {
+        return RetrofitAdapter.getRetrofitClient()
+                .fetchSearchedUsers(token, searchQuery)
+                .subscribeOn(Schedulers.io());
+    }
 }

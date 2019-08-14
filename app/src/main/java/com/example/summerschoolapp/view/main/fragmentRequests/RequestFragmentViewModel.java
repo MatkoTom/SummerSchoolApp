@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 
 import com.example.summerschoolapp.common.BaseViewModel;
 
-public class requestFragmentViewModel extends BaseViewModel {
-    public requestFragmentViewModel(@NonNull Application application) {
+public class RequestFragmentViewModel extends BaseViewModel {
+    public RequestFragmentViewModel(@NonNull Application application) {
         super(application);
     }
 }
