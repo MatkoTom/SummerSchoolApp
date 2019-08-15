@@ -13,5 +13,6 @@
         android:drawableTop="@drawable/nav_news_icon"
         android:text="@string/placeholder"
         android:textColor="@drawable/button_text_color_states"
-        android:textSize="12sp" />
+        android:fontFamily="@font/american_typewriter_bold"
+        android:textSize="11sp" />
 </LinearLayout>
