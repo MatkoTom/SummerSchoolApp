@@ -25,11 +25,6 @@ public class MainScreenActivity extends BaseActivity {
         activity.finish();
     }
 
-    private int[] imageResId = {R.drawable.nav_news_selected_icon,
-            R.drawable.nav_requests_selected_icon,
-            R.drawable.nav_users_selected_icon,
-            R.drawable.nav_users_selected_icon};
-
     private MainScreenViewModel viewModel;
 
     @Override
