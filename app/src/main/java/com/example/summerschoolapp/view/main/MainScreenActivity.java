@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
@@ -14,9 +13,7 @@ import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
-import com.example.summerschoolapp.view.CreateNewUserActivity;
 import com.example.summerschoolapp.view.main.adapter.SectionsPagerAdapter;
-import com.example.summerschoolapp.view.onboarding.OnboardingViewModel;
 import com.google.android.material.tabs.TabLayout;
 
 import butterknife.ButterKnife;
@@ -84,22 +81,5 @@ public class MainScreenActivity extends BaseActivity {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             tab.setCustomView(mSectionsPagerAdapter.getTabView(i));
         }
-
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 }

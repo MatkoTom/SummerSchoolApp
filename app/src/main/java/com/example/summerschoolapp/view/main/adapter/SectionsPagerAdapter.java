@@ -59,14 +59,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         String[] tabTitles = new String[]{context.getString(R.string.news),
                 context.getString(R.string.requests),
                 context.getString(R.string.profile), context.getString(R.string.users)};
-        int[] imageResId = {R.drawable.nav_news_icon, R.drawable.nav_requests_icon, R.drawable.nav_users_icon, R.drawable.nav_users_icon};
-        int[] imageResIdChecked = {R.drawable.nav_news_selected_icon,
-                R.drawable.nav_requests_selected_icon,
-                R.drawable.nav_users_selected_icon,
-                R.drawable.nav_users_selected_icon};
+        int[] imageResources = {R.drawable.button_news_states, R.drawable.button_requests_states, R.drawable.button_users_states, R.drawable.button_users_states};
 
         View customTabView = LayoutInflater.from(context).inflate(R.layout.custom_tab, null);
-        Drawable image = context.getResources().getDrawable(imageResId[position]);
+        Drawable image = context.getResources().getDrawable(imageResources[position]);
         Button btnTab = customTabView.findViewById(R.id.btn_tab_icon);
         btnTab.setCompoundDrawablesWithIntrinsicBounds(null, image, null, null);
         btnTab.setText(tabTitles[position]);

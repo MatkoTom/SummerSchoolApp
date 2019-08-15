@@ -11,5 +11,6 @@
     <color name="gradient_color_start">#123C9E</color>
     <color name="gradient_color_end">#0C81DA</color>
     <color name="basic_white">#FFFFFF</color>
+    <color name="default_text_color">#737373</color>
 
 </resources>
