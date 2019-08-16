@@ -51,7 +51,7 @@
     <string name="no_request_sent">Niti jedan zahtjev\njoš nije poslan!</string>
     <string name="new_request">Novi zahtjev</string>
     <string name="logout">Odjavi se</string>
-    <string name="forgotten_password_text">U slučaju da ste zaboravili lozinku, ovdje ju možete resetirati ili promijeniti.</string>
+    <string name="forgotten_password_text">U slučaju da ste zaboravili lozinku, ovdje\n ju možete resetirati ili promijeniti.</string>
     <string name="button_forgotten_password">Zaboravio/la sam lozinku</string>
     <string name="new_password">Nova lozinka:</string>
     <string name="repaet_new_password">Ponovite novu lozinku:</string>

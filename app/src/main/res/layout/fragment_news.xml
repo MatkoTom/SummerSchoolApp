@@ -48,6 +48,7 @@
         android:paddingStart="40dp"
         android:paddingEnd="40dp"
         android:text="@string/publish_news"
+        android:textAllCaps="false"
         android:textColor="@color/basic_white"
         android:textSize="18sp"
         android:textStyle="bold"
