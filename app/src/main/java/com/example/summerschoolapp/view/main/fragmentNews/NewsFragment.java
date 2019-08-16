@@ -1,6 +1,7 @@
 package com.example.summerschoolapp.view.main.fragmentNews;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +13,12 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.utils.Tools;
+import com.example.summerschoolapp.view.CreateNewNewsActivity;
 import com.example.summerschoolapp.view.main.MainScreenViewModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,5 +56,12 @@ public class NewsFragment extends Fragment {
         } else {
             btnPublishNews.setVisibility(View.GONE);
         }
+    }
+
+    //TODO viewModel implementation
+    @OnClick(R.id.btn_publish_news)
+    public void publishNewNews() {
+        Intent i = new Intent(getActivity(), CreateNewNewsActivity.class);
+        startActivity(i);
     }
 }

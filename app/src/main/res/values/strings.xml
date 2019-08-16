@@ -63,6 +63,10 @@
     <string name="request_location">Lokacija:</string>
     <string name="request_enter_adress">Upišite adresu ovdje...</string>
     <string name="send_request">Pošalji zahtjev</string>
+    <string name="new_news">Nova vijest</string>
+    <string name="photo">Fotografije:</string>
+    <string name="text">Tekst:</string>
+    <string name="documents">Dokumenti:</string>
 
     <string-array name="testArray">
         <item>jedan</item>

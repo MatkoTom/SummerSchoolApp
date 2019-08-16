@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".view.CreateNewUserActivity"></activity>
+        <activity android:name=".view.CreateNewRequest"></activity>
+        <activity android:name=".view.CreateNewNewsActivity" />
+        <activity android:name=".view.CreateNewUserActivity" />
         <activity
             android:name=".view.onboarding.OnboardingActivity"
             android:screenOrientation="portrait">
