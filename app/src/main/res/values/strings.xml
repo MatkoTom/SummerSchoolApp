@@ -56,6 +56,13 @@
     <string name="new_password">Nova lozinka:</string>
     <string name="repaet_new_password">Ponovite novu lozinku:</string>
     <string name="change_password">Promijeni</string>
+    <string name="enter_info_request">Molimo vas upišite tražena podatke kako bismo mogli poslati zahtjev</string>
+    <string name="request_title">Naslov:</string>
+    <string name="request_type">Tip:</string>
+    <string name="request_message">Poruka:</string>
+    <string name="request_location">Lokacija:</string>
+    <string name="request_enter_adress">Upišite adresu ovdje...</string>
+    <string name="send_request">Pošalji zahtjev</string>
 
     <string-array name="testArray">
         <item>jedan</item>
