@@ -8,6 +8,7 @@ import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.common.BaseViewModel;
 import com.example.summerschoolapp.errors.SignupError;
 import com.example.summerschoolapp.repositories.MainScreenRepository;
+import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.Event;
 import com.example.summerschoolapp.utils.helpers.SingleLiveEvent;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
@@ -50,6 +51,7 @@ public class ProfileFragmentViewModel extends BaseViewModel {
                     public void onSuccess(Object s) {
                         stopProgress();
                         Timber.d("Successfully logged out!");
+                        Tools.getSharedPreferences(getApplication()).setRememberMeStatus(false);
                         getNavigation().setValue(ProfileFragmentViewModel.Navigation.LOGIN);
                         dispose();
                     }
