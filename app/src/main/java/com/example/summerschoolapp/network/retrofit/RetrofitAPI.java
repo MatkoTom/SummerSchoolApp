@@ -25,13 +25,16 @@ public interface RetrofitAPI {
     Single<ResponseSignup> register(@Body RequestSignup register);
 
     @POST(Const.Network.API_CREATE_NEW_USER)
-    Single<ResponseNewUser> createNew(@Header("token") String token,
+    Single<ResponseNewUser> createNew(@Header(Const.Network.API_TOKEN) String token,
                                       @Body RequestNewUser requestNew);
 
     @GET(Const.Network.API_FETCH_USER_LIST)
-    Single<ResponseUsersList> fetchUserList(@Header("token") String token);
+    Single<ResponseUsersList> fetchUserList(@Header(Const.Network.API_TOKEN) String token);
 
     @GET(Const.Network.API_SEARCH_USER_QUERY)
-    Single<ResponseUsersList> fetchSearchedUsers(@Header("token") String token,
-                                                @Path("query") String searchQuery);
+    Single<ResponseUsersList> fetchSearchedUsers(@Header(Const.Network.API_TOKEN) String token,
+                                                 @Path(Const.Network.API_QUERY) String searchQuery);
+
+    @POST(Const.Network.API_LOGOUT)
+    Single<Object> logout(@Header(Const.Network.API_TOKEN) String token);
 }

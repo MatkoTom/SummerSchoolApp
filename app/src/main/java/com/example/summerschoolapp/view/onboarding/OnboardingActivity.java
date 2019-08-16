@@ -1,5 +1,7 @@
 package com.example.summerschoolapp.view.onboarding;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.FragmentManager;
@@ -29,6 +31,11 @@ import static com.example.summerschoolapp.utils.Const.Fragments.FRAGMENT_TAG_LOG
 import static com.example.summerschoolapp.utils.Const.Fragments.FRAGMENT_TAG_SIGNUP;
 
 public class OnboardingActivity extends BaseActivity implements SignupFragment.OnSignupLogin, LoginFragment.OnFragmentLoginNextActivity, LoginFragment.OnFragmentLoginClickListener, SignupFragment.OnSignupFragmentClicListener, FirstLoginFragment.OnFirstLoginFragmentRegisterListener, FirstLoginFragment.OnFirstLoginFragmentLoginListener {
+
+    public static void StartActivity(Activity activity) {
+        activity.startActivity(new Intent(activity, OnboardingActivity.class));
+        activity.finish();
+    }
 
     private static final String TAG = "STASEDOGADJA";
     private FragmentManager manager;
@@ -61,9 +68,9 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
                 String message = getString(R.string.text_try_again);
                 if (value instanceof SignupError) {
                     message = getString(((SignupError.Error) value.getError()).getValue());
-                } else if(value instanceof LoginError) {
+                } else if (value instanceof LoginError) {
                     message = getString(((LoginError.Error) value.getError()).getValue());
-                }else {
+                } else {
                     message = String.format("%s \n --- \n %s", message, value.getExtraInfo());
                 }
                 ErrorDialog.CreateInstance(OnboardingActivity.this, getString(R.string.error), message, getString(R.string.ok), null, null);

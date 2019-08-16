@@ -12,6 +12,9 @@ public final class Const {
         public static final String API_CREATE_NEW_USER = "users/newUser";
         public static final String API_FETCH_USER_LIST = "users/allUsers";
         public static final String API_SEARCH_USER_QUERY = "users/allUsers/{query}";
+        public static final String API_TOKEN = "token";
+        public static final String API_QUERY = "query";
+        public static final String API_LOGOUT = "users/logout";
     }
 
     public static class Preferences {

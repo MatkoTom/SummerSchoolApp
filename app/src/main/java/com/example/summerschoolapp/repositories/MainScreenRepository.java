@@ -23,4 +23,10 @@ public class MainScreenRepository {
                 .fetchSearchedUsers(token, searchQuery)
                 .subscribeOn(Schedulers.io());
     }
+
+    public Single<Object> logout(String token) {
+        return RetrofitAdapter.getRetrofitClient()
+                .logout(token)
+                .subscribeOn(Schedulers.io());
+    }
 }
