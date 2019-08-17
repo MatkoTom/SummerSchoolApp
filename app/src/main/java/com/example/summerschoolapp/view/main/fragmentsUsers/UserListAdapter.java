@@ -1,5 +1,7 @@
 package com.example.summerschoolapp.view.main.fragmentsUsers;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,18 +9,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.model.User;
+import com.example.summerschoolapp.utils.Tools;
+import com.example.summerschoolapp.view.EditUserActivity;
+import com.example.summerschoolapp.view.newUser.CreateNewUserActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.CustomVievHolder> {
 
     private List<User> data = new ArrayList<>();
+    private Context context;
 
     public void setData(List<User> newData) {
         if (newData != null && !newData.isEmpty()) {
@@ -27,6 +36,10 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
             this.data.addAll(newData);
             notifyDataSetChanged();
         }
+    }
+
+    public UserListAdapter(Context context) {
+        this.context = context;
     }
 
     @NonNull
@@ -43,6 +56,16 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
         holder.tvUserFirstName.setText(item.getFirstName());
         holder.tvUserLastName.setText(item.getLastName());
         holder.tvUserEmail.setText(item.getEmail());
+
+        holder.rowParentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Tools.getSharedPreferences(view.getContext()).saveUserToEdit(data.get(position));
+                Timber.d("Saved user: %s", Tools.getSharedPreferences(view.getContext()).getUserToEdit().getEmail());
+                Intent i = new Intent(context.getApplicationContext(), EditUserActivity.class);
+                context.startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -56,6 +79,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
         TextView tvUserLastName;
         TextView tvUserEmail;
         ImageView ivUSerImg;
+        ConstraintLayout rowParentLayout;
 
         public CustomVievHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,6 +88,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
             tvUserLastName = itemView.findViewById(R.id.tv_user_lastname);
             tvUserEmail = itemView.findViewById(R.id.tv_user_email);
             ivUSerImg = itemView.findViewById(R.id.iv_user_img);
+            rowParentLayout = itemView.findViewById(R.id.row_parent_layout);
         }
     }
 }

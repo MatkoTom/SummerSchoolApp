@@ -1,5 +1,7 @@
 package com.example.summerschoolapp.network.retrofit;
 
+import com.example.summerschoolapp.model.editUser.RequestEditUser;
+import com.example.summerschoolapp.model.editUser.ResponseEditUser;
 import com.example.summerschoolapp.model.login.RequestLogin;
 import com.example.summerschoolapp.model.login.ResponseLogin;
 import com.example.summerschoolapp.model.newuser.RequestNewUser;
@@ -14,6 +16,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface RetrofitAPI {
@@ -24,7 +27,7 @@ public interface RetrofitAPI {
     @POST(Const.Network.API_SIGNUP)
     Single<ResponseSignup> register(@Body RequestSignup register);
 
-    @POST(Const.Network.API_CREATE_NEW_USER)
+    @POST(Const.Network.API_CREATE_NEW_USER_EDIT_USER)
     Single<ResponseNewUser> createNew(@Header(Const.Network.API_TOKEN) String token,
                                       @Body RequestNewUser requestNew);
 
@@ -37,4 +40,8 @@ public interface RetrofitAPI {
 
     @POST(Const.Network.API_LOGOUT)
     Single<Object> logout(@Header(Const.Network.API_TOKEN) String token);
+
+    @PUT(Const.Network.API_CREATE_NEW_USER_EDIT_USER)
+    Single<ResponseEditUser> editUser(@Header(Const.Network.API_TOKEN) String token,
+                                      @Body RequestEditUser requestEditUser);
 }

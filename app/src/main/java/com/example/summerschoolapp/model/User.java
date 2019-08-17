@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
 
+    @SerializedName("ID")
+    private String id;
+
     @SerializedName("oib")
     private String oib;
 
@@ -21,6 +24,25 @@ public class User {
 
     @SerializedName("personsRoleId")
     private String role;
+
+    @SerializedName("image")
+    private String photo;
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getJwt() {
         return jwt;

@@ -9,7 +9,7 @@ public final class Const {
         public static final String BASE_URL = "https://intern2019dev.clover.studio/";
         public static final String API_LOGIN = "users/login";
         public static final String API_SIGNUP = "users/register";
-        public static final String API_CREATE_NEW_USER = "users/newUser";
+        public static final String API_CREATE_NEW_USER_EDIT_USER = "users/newUser";
         public static final String API_FETCH_USER_LIST = "users/allUsers";
         public static final String API_SEARCH_USER_QUERY = "users/allUsers/{query}";
         public static final String API_TOKEN = "token";
@@ -21,6 +21,7 @@ public final class Const {
         public static final String BOOLEAN_SHARED_KEY = "BOOLEAN_SHARED_KEY";
         public static final String USER_SHARED_KEY = "USER_SHARED_KEY";
         public static final String BOOLEAN_REMEMBERME_SHARED_KEY = "BOOLEAN_REMEMBERME_SHARED_KEY";
+        public static final String EDIT_USER_KEY = "EDIT_USER_KEY";
 
     }
 

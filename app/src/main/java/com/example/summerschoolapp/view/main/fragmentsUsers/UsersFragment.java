@@ -51,7 +51,7 @@ public class UsersFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_users, container, false);
         ButterKnife.bind(this, rootView);
 
-        userListAdapter = new UserListAdapter();
+        userListAdapter = new UserListAdapter(getActivity());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvUserList.setLayoutManager(layoutManager);
         rvUserList.setAdapter(userListAdapter);

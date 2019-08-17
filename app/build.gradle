@@ -77,4 +77,11 @@ dependencies {
     runtimeOnly('io.jsonwebtoken:jjwt-orgjson:0.10.7') {
         exclude group: 'org.json', module: 'json' //provided by Android natively
     }
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.4.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
+
+    //circle imageview
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 }
