@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.utils.Tools;
-import com.example.summerschoolapp.view.CreateNewUserActivity;
+import com.example.summerschoolapp.view.newUser.CreateNewUserActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import butterknife.BindView;

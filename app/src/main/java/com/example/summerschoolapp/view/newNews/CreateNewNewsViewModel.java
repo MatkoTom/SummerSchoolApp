@@ -1,4 +1,4 @@
-package com.example.summerschoolapp.view;
+package com.example.summerschoolapp.view.newNews;
 
 import android.app.Application;
 

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.example.summerschoolapp.R;
-import com.example.summerschoolapp.view.CreateNewRequest;
+import com.example.summerschoolapp.view.newRequest.CreateNewRequest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import butterknife.BindView;

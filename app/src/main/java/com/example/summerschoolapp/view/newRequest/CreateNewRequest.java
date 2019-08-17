@@ -1,4 +1,4 @@
-package com.example.summerschoolapp.view;
+package com.example.summerschoolapp.view.newRequest;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;

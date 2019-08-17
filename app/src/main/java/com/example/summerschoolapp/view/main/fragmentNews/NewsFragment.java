@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.utils.Tools;
-import com.example.summerschoolapp.view.CreateNewNewsActivity;
 import com.example.summerschoolapp.view.main.MainScreenViewModel;
+import com.example.summerschoolapp.view.newNews.CreateNewNewsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

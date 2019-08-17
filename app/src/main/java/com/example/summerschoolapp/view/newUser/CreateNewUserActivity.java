@@ -1,4 +1,4 @@
-package com.example.summerschoolapp.view;
+package com.example.summerschoolapp.view.newUser;
 
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
