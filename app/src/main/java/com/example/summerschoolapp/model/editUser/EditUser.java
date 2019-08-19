@@ -2,9 +2,11 @@ package com.example.summerschoolapp.model.editUser;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.File;
+
 public class EditUser {
 
-    @SerializedName("ID")
+    @SerializedName("id")
     private String id;
 
     @SerializedName("oib")
@@ -23,7 +25,7 @@ public class EditUser {
     private String password;
 
     @SerializedName("photo")
-    private String photo;
+    private File photo;
 
     public String getId() {
         return id;
@@ -73,11 +75,11 @@ public class EditUser {
         this.password = password;
     }
 
-    public String getPhoto() {
+    public File getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(File photo) {
         this.photo = photo;
     }
 }

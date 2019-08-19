@@ -12,11 +12,16 @@ import com.example.summerschoolapp.model.userslist.ResponseUsersList;
 import com.example.summerschoolapp.utils.Const;
 
 import io.reactivex.Single;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface RetrofitAPI {
@@ -41,7 +46,16 @@ public interface RetrofitAPI {
     @POST(Const.Network.API_LOGOUT)
     Single<Object> logout(@Header(Const.Network.API_TOKEN) String token);
 
+////    @Multipart
+//    @PUT(Const.Network.API_CREATE_NEW_USER_EDIT_USER)
+//    Single<ResponseEditUser> editUser(@Header(Const.Network.API_TOKEN) String token,
+//                                      @Body RequestEditUser requestEditUse);
+////                                      @Part("photo") RequestBody file);
+
+    @Multipart
     @PUT(Const.Network.API_CREATE_NEW_USER_EDIT_USER)
     Single<ResponseEditUser> editUser(@Header(Const.Network.API_TOKEN) String token,
-                                      @Body RequestEditUser requestEditUser);
+                                      @Part("user") RequestEditUser requestEditUser,
+                                      @Part MultipartBody.Part file);
+
 }

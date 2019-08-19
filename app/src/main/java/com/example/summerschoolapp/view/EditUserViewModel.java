@@ -23,6 +23,8 @@ import java.net.SocketTimeoutException;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import timber.log.Timber;
 
@@ -45,9 +47,9 @@ public class EditUserViewModel extends BaseViewModel {
         return navigation;
     }
 
-    public void editUser(RequestEditUser editUser, String token) {
+    public void editUser(RequestEditUser editUser, String token, MultipartBody.Part photo) {
         startProgress();
-        editUserRepo.editUser(editUser, token)
+        editUserRepo.editUser(editUser, token, photo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<ResponseEditUser>() {

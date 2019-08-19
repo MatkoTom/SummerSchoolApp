@@ -58,7 +58,6 @@ public class NewsFragment extends Fragment {
         }
     }
 
-    //TODO viewModel implementation
     @OnClick(R.id.btn_publish_news)
     public void publishNewNews() {
         Intent i = new Intent(getActivity(), CreateNewNewsActivity.class);

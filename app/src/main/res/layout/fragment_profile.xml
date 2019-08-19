@@ -19,8 +19,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/ibtn_user_picture"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_user_image"
                 android:layout_width="168dp"
                 android:layout_height="168dp"
                 android:layout_marginStart="8dp"
@@ -44,7 +44,7 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ibtn_user_picture" />
+                app:layout_constraintTop_toBottomOf="@+id/civ_user_image" />
 
             <TextView
                 android:id="@+id/textView12"

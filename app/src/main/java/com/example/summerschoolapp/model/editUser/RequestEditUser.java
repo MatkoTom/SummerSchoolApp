@@ -7,7 +7,7 @@ import java.io.File;
 
 public class RequestEditUser extends BaseModel {
 
-    @SerializedName("ID")
+    @SerializedName("id")
     public String id;
 
     @SerializedName("firstName")

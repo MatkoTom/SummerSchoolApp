@@ -3,7 +3,10 @@ package com.example.summerschoolapp.view;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.widget.Button;
@@ -34,6 +37,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import timber.log.Timber;
 
 public class EditUserActivity extends BaseActivity {
@@ -63,6 +69,7 @@ public class EditUserActivity extends BaseActivity {
     private EditUserViewModel viewModel;
     private static final int PICK_FROM_GALLERY = 1;
     private File image;
+    private String filePath = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +107,7 @@ public class EditUserActivity extends BaseActivity {
         viewModel.getNavigation().observeEvent(this, navigation -> {
             switch (navigation) {
                 case MAIN:
-                    SuccessDialog.CreateInstance(this, getString(R.string.success), getString(R.string.user_successfully_created), getString(R.string.ok), null, new SuccessDialog.OnSuccessDialogInteraction() {
+                    SuccessDialog.CreateInstance(this, getString(R.string.success), getString(R.string.user_successfully_edited), getString(R.string.ok), null, new SuccessDialog.OnSuccessDialogInteraction() {
                         @Override
                         public void onPositiveInteraction() {
                             MainScreenActivity.StartActivity(EditUserActivity.this);
@@ -140,7 +147,7 @@ public class EditUserActivity extends BaseActivity {
 
     @OnClick(R.id.btn_create_new_user)
     public void editUser() {
-        viewModel.editUser(sendData(), Tools.getSharedPreferences(this).getSavedUserData().getJwt());
+        viewModel.editUser(sendData(), Tools.getSharedPreferences(this).getSavedUserData().getJwt(), uploadPicture(filePath));
     }
 
     @OnClick(R.id.iv_edit_user_picture)
@@ -155,6 +162,16 @@ public class EditUserActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @OnClick(R.id.ibtn_back)
+    public void goBack() {
+        finish();
+    }
+
+    @OnClick(R.id.tv_back)
+    public void tvGoBack() {
+        finish();
     }
 
     @Override
@@ -172,17 +189,30 @@ public class EditUserActivity extends BaseActivity {
         }
     }
 
-    //TODO FIX, add Multipart to call
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        image = new File(data.getDataString());
+        Uri selectedImage = data.getData();
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+        Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+        assert cursor != null;
+        cursor.moveToFirst();
+
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        String mediaPath = cursor.getString(columnIndex);
+        cursor.close();
+
+        filePath = mediaPath;
+
+        image = new File(filePath);
         Glide.with(this)
                 .asBitmap()
                 .load(data.getDataString())
                 .into(civEditUserPicture);
 
+        Timber.d("FILE PATH: %s", filePath);
         Timber.d("DATA:%s", image);
     }
 
@@ -194,9 +224,16 @@ public class EditUserActivity extends BaseActivity {
         String[] splitString = etCreateUserName.getText().toString().trim().split(" ");
         user.firstName = splitString[0];
         user.lastName = splitString[1];
-        user.oib = etCreateUserOib.getText().toString();
         user.password = Tools.md5(etCreateUserPassword.getText().toString());
-        user.photo = image;
+//        user.photo = image;
         return user;
+    }
+
+    public MultipartBody.Part uploadPicture(String filepath) {
+        File file = new File(filepath);
+
+        RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/*"));
+
+        return MultipartBody.Part.createFormData("photo", file.getName(), fileBody);
     }
 }

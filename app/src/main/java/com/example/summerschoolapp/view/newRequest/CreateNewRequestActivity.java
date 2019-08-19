@@ -12,7 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CreateNewRequest extends AppCompatActivity {
+public class CreateNewRequestActivity extends AppCompatActivity {
 
     @BindView(R.id.spinner_new_request_items)
     Spinner spinnerNewRequestItems;

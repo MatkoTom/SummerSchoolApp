@@ -67,9 +67,10 @@
     <string name="photo">Fotografije:</string>
     <string name="text">Tekst:</string>
     <string name="documents">Dokumenti:</string>
-    <string name="logout_success">Successfully logged out</string>
+    <string name="logout_success">Uspješno odjavljeni!</string>
     <string name="edit_user">Edit korisnika</string>
     <string name="edit_user_button">Promijeni korisnika</string>
+    <string name="user_successfully_edited">Korisnik je uspješno promijenjen!</string>
 
     <string-array name="testArray">
         <item>jedan</item>

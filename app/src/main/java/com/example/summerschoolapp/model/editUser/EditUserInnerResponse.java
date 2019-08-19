@@ -7,5 +7,5 @@ import com.google.gson.annotations.SerializedName;
 public class EditUserInnerResponse extends BaseModel {
     @SerializedName("user")
     @Expose
-    public EditUser editUser;
+    public String editUserResponse;
 }

@@ -115,7 +115,7 @@ public class CreateNewUserActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.ibtn_new_user_picture)
+    @OnClick(R.id.civ_new_user_picture)
     public void setNewUserPicture() {
 
     }

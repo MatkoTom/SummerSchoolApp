@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.example.summerschoolapp.R;
-import com.example.summerschoolapp.view.newRequest.CreateNewRequest;
+import com.example.summerschoolapp.view.newRequest.CreateNewRequestActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import butterknife.BindView;
@@ -40,10 +40,9 @@ public class RequestsFragment extends Fragment {
         return rootView;
     }
 
-    //TODO viewModel implementation
     @OnClick(R.id.btn_new_request)
     public void createNewRequest() {
-        Intent i = new Intent(getActivity(), CreateNewRequest.class);
+        Intent i = new Intent(getActivity(), CreateNewRequestActivity.class);
         startActivity(i);
     }
 
