@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.File;
 
+import okhttp3.MultipartBody;
+
 public class RequestEditUser extends BaseModel {
 
     @SerializedName("id")
@@ -26,5 +28,5 @@ public class RequestEditUser extends BaseModel {
     public String password;
 
     @SerializedName("photo")
-    public File photo;
+    public MultipartBody.Part photo;
 }

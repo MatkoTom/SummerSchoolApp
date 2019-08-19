@@ -15,6 +15,7 @@ public final class Const {
         public static final String API_TOKEN = "token";
         public static final String API_QUERY = "query";
         public static final String API_LOGOUT = "users/logout";
+        public static final String API_CREATE_NEW_REQUEST = "requests/new";
     }
 
     public static class Preferences {

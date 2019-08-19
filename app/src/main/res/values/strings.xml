@@ -71,6 +71,7 @@
     <string name="edit_user">Edit korisnika</string>
     <string name="edit_user_button">Promijeni korisnika</string>
     <string name="user_successfully_edited">Korisnik je uspješno promijenjen!</string>
+    <string name="request_created">Request created successfully!</string>
 
     <string-array name="testArray">
         <item>jedan</item>

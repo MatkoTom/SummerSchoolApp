@@ -225,7 +225,6 @@ public class EditUserActivity extends BaseActivity {
         user.firstName = splitString[0];
         user.lastName = splitString[1];
         user.password = Tools.md5(etCreateUserPassword.getText().toString());
-//        user.photo = image;
         return user;
     }
 

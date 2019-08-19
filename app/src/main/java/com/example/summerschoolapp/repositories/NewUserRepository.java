@@ -15,7 +15,7 @@ public class NewUserRepository {
 
     public Single<ResponseNewUser> postNewUser(RequestNewUser newUser, String token) {
         return RetrofitAdapter.getRetrofitClient()
-                .createNew(token, newUser)
+                .createNewUser(token, newUser)
                 .subscribeOn(Schedulers.io());
     }
 }
