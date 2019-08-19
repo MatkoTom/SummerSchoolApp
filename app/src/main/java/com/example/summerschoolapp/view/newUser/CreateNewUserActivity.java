@@ -1,5 +1,7 @@
 package com.example.summerschoolapp.view.newUser;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -26,6 +28,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class CreateNewUserActivity extends BaseActivity {
+
+    public static void StartActivity(Activity activity) {
+        activity.startActivity(new Intent(activity, CreateNewUserActivity.class));
+    }
 
     @BindView(R.id.btn_create_new_user)
     Button btnCreateNewUser;

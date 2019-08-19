@@ -1,6 +1,7 @@
 package com.example.summerschoolapp.view.editUser;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -42,6 +43,10 @@ import okhttp3.RequestBody;
 import timber.log.Timber;
 
 public class EditUserActivity extends BaseActivity {
+
+    public static void StartActivity(Activity activity) {
+        activity.startActivity(new Intent(activity, EditUserActivity.class));
+    }
 
     @BindView(R.id.ibtn_hide_show)
     ImageButton ibtnHideShow;

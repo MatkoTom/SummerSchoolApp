@@ -42,8 +42,7 @@ public class RequestsFragment extends Fragment {
 
     @OnClick(R.id.btn_new_request)
     public void createNewRequest() {
-        Intent i = new Intent(getActivity(), CreateNewRequestActivity.class);
-        startActivity(i);
+        CreateNewRequestActivity.StartActivity(getActivity());
     }
 
     @OnClick(R.id.fab_create_new_request)

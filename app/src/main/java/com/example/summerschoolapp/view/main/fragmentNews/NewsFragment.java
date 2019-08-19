@@ -61,7 +61,6 @@ public class NewsFragment extends Fragment {
 
     @OnClick(R.id.btn_publish_news)
     public void publishNewNews() {
-        Intent i = new Intent(getActivity(), CreateNewNewsActivity.class);
-        startActivity(i);
+       CreateNewNewsActivity.StartActivity(getActivity());
     }
 }

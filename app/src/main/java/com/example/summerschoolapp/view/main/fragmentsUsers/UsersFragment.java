@@ -85,8 +85,7 @@ public class UsersFragment extends Fragment {
 
     @OnClick(R.id.fab_create_new_user)
     public void startCreateUserActivity() {
-        Intent i = new Intent(getActivity(), CreateNewUserActivity.class);
-        startActivity(i);
+       CreateNewUserActivity.StartActivity(getActivity());
     }
 
     public void getUserList() {

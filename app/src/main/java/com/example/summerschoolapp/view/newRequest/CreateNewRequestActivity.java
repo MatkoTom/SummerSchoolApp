@@ -1,5 +1,7 @@
 package com.example.summerschoolapp.view.newRequest;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -23,6 +25,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class CreateNewRequestActivity extends BaseActivity {
+
+    public static void StartActivity(Activity activity) {
+        activity.startActivity(new Intent(activity, CreateNewRequestActivity.class));
+    }
 
     @BindView(R.id.spinner_new_request_items)
     Spinner spinnerNewRequestItems;
