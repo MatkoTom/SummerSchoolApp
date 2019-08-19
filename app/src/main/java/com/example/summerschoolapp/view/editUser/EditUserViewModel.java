@@ -1,4 +1,4 @@
-package com.example.summerschoolapp.view;
+package com.example.summerschoolapp.view.editUser;
 
 import android.app.Application;
 
@@ -8,10 +8,8 @@ import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.common.BaseViewModel;
 import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.errors.SignupError;
-import com.example.summerschoolapp.model.editUser.RequestEditUser;
 import com.example.summerschoolapp.model.editUser.ResponseEditUser;
 import com.example.summerschoolapp.repositories.EditUserRepository;
-import com.example.summerschoolapp.repositories.NewUserRepository;
 import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.helpers.Event;
 import com.example.summerschoolapp.utils.helpers.SingleLiveEvent;
@@ -24,7 +22,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import timber.log.Timber;
 
@@ -47,9 +44,9 @@ public class EditUserViewModel extends BaseViewModel {
         return navigation;
     }
 
-    public void editUser(String id, String firstName, String token, MultipartBody.Part photo) {
+    public void editUser(String id, String oib, String firstName, String lastName, String email, String password, String token, MultipartBody.Part photo) {
         startProgress();
-        editUserRepo.editUser(id, firstName, token, photo)
+        editUserRepo.editUser(id, oib, firstName, lastName, email, password, token, photo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<ResponseEditUser>() {

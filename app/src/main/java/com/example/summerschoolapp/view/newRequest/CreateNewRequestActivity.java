@@ -5,7 +5,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
@@ -14,12 +13,9 @@ import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.dialog.SuccessDialog;
 import com.example.summerschoolapp.errors.NewUserError;
-import com.example.summerschoolapp.model.newRequest.NewRequest;
 import com.example.summerschoolapp.model.newRequest.RequestNewRequest;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
-import com.example.summerschoolapp.view.EditUserActivity;
-import com.example.summerschoolapp.view.EditUserViewModel;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
 
 import butterknife.BindView;

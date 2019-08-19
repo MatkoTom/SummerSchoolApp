@@ -14,15 +14,9 @@ public class EditUserRepository {
     public EditUserRepository() {
     }
 
-//    public Single<ResponseEditUser> editUser(RequestEditUser editUser, String token) {
-//        return RetrofitAdapter.getRetrofitClient()
-//                .editUser(token, editUser)
-//                .subscribeOn(Schedulers.io());
-//    }
-
-    public Single<ResponseEditUser> editUser(String id, String firstName,  String token, MultipartBody.Part photo) {
+    public Single<ResponseEditUser> editUser(String id, String oib, String firstName, String lastName, String email, String password, String token, MultipartBody.Part photo) {
         return RetrofitAdapter.getRetrofitClient()
-                .editUser(token, id, firstName, photo)
+                .editUser(token, id, oib, firstName, lastName, email, password, photo)
                 .subscribeOn(Schedulers.io());
     }
 }

@@ -47,18 +47,17 @@ public interface RetrofitAPI {
     @POST(Const.Network.API_LOGOUT)
     Single<Object> logout(@Header(Const.Network.API_TOKEN) String token);
 
-    ////    @Multipart
-//    @PUT(Const.Network.API_CREATE_NEW_USER_EDIT_USER)
-//    Single<ResponseEditUser> editUser(@Header(Const.Network.API_TOKEN) String token,
-//                                      @Body RequestEditUser requestEditUse);
-////                                      @Part("photo") RequestBody file);
 //TODO create Part for each field
     @Multipart
     @Streaming
     @PUT(Const.Network.API_CREATE_NEW_USER_EDIT_USER)
     Single<ResponseEditUser> editUser(@Header(Const.Network.API_TOKEN) String token,
                                       @Part("id") String id,
+                                      @Part("oib") String oib,
                                       @Part("firstName") String firstName,
+                                      @Part("lastName") String lastName,
+                                      @Part("email") String email,
+                                      @Part("password") String password,
                                       @Part MultipartBody.Part file);
 
     @POST(Const.Network.API_CREATE_NEW_REQUEST)

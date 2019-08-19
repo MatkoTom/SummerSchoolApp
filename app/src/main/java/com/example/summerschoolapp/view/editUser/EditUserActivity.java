@@ -1,4 +1,4 @@
-package com.example.summerschoolapp.view;
+package com.example.summerschoolapp.view.editUser;
 
 import android.Manifest;
 import android.content.Intent;
@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -26,7 +25,6 @@ import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.dialog.SuccessDialog;
 import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.model.User;
-import com.example.summerschoolapp.model.editUser.RequestEditUser;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
@@ -44,25 +42,22 @@ import timber.log.Timber;
 
 public class EditUserActivity extends BaseActivity {
 
-    @BindView(R.id.btn_create_new_user)
-    Button btnCreateNewUser;
-
     @BindView(R.id.ibtn_hide_show)
     ImageButton ibtnHideShow;
 
-    @BindView(R.id.et_create_user_password)
-    EditText etCreateUserPassword;
+    @BindView(R.id.et_edit_user_password)
+    EditText etEditUserPassword;
 
-    @BindView(R.id.et_new_user_name)
-    EditText etCreateUserName;
+    @BindView(R.id.et_edit_user_name)
+    EditText etEditUserName;
 
-    @BindView(R.id.et_new_user_mail)
-    EditText etCreateUserEmail;
+    @BindView(R.id.et_edit_user_email)
+    EditText etEditUserEmail;
 
-    @BindView(R.id.et_new_user_oib)
-    EditText etCreateUserOib;
+    @BindView(R.id.et_edit_user_oib)
+    EditText etEditUserOib;
 
-    @BindView(R.id.iv_edit_user_picture)
+    @BindView(R.id.civ_edit_user_picture)
     CircleImageView civEditUserPicture;
 
     private boolean isVisible = false;
@@ -127,32 +122,41 @@ public class EditUserActivity extends BaseActivity {
 
     public void setField() {
         User user = Tools.getSharedPreferences(this).getUserToEdit();
-        etCreateUserName.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
-        etCreateUserEmail.setText(user.getEmail());
-        etCreateUserOib.setText(user.getOib());
+        etEditUserName.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
+        etEditUserEmail.setText(user.getEmail());
+        etEditUserOib.setText(user.getOib());
     }
 
     @OnClick(R.id.ibtn_hide_show)
     public void showHidePassword() {
         if (!isVisible) {
-            etCreateUserPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            etEditUserPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
             ibtnHideShow.setImageDrawable(getResources().getDrawable(R.drawable.log_in_lozinka_icon));
             isVisible = true;
         } else {
-            etCreateUserPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            etEditUserPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
             ibtnHideShow.setImageDrawable(getResources().getDrawable(R.drawable.log_in_lozinka_hiden_icon));
             isVisible = false;
         }
     }
 
-    @OnClick(R.id.btn_create_new_user)
+    @OnClick(R.id.btn_edit_user)
     public void editUser() {
-        String id = String.valueOf(65);
-        String firstName = etCreateUserName.getText().toString();
-        viewModel.editUser(id, firstName, Tools.getSharedPreferences(this).getSavedUserData().getJwt(), uploadPicture(filePath));
+
+        String[] splitString = etEditUserName.getText().toString().trim().split(" ");
+
+        User user = Tools.getSharedPreferences(this).getUserToEdit();
+        String id = user.getId();
+        String oib = etEditUserOib.getText().toString();
+        String firstName = splitString[0];
+        String lastName = splitString[1];
+        String email = etEditUserEmail.getText().toString();
+        String password = etEditUserPassword.getText().toString();
+
+        viewModel.editUser(id, oib, firstName, lastName, email, password, Tools.getSharedPreferences(this).getSavedUserData().getJwt(), uploadPicture(filePath));
     }
 
-    @OnClick(R.id.iv_edit_user_picture)
+    @OnClick(R.id.civ_edit_user_picture)
     public void choosePicture() {
         try {
             if (ActivityCompat.checkSelfPermission(EditUserActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -215,19 +219,6 @@ public class EditUserActivity extends BaseActivity {
                 .into(civEditUserPicture);
 
         Timber.d("FILE PATH: %s", filePath);
-        Timber.d("DATA:%s", image);
-    }
-
-    private RequestEditUser sendData() {
-        RequestEditUser user = new RequestEditUser();
-        user.id = Tools.getSharedPreferences(this).getUserToEdit().getId();
-        Timber.d("What is the id?%s", Tools.getSharedPreferences(this).getUserToEdit().getId());
-        user.email = etCreateUserEmail.getText().toString();
-        String[] splitString = etCreateUserName.getText().toString().trim().split(" ");
-        user.firstName = splitString[0];
-        user.lastName = splitString[1];
-        user.password = Tools.md5(etCreateUserPassword.getText().toString());
-        return user;
     }
 
     public MultipartBody.Part uploadPicture(String filepath) {
