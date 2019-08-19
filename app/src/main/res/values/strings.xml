@@ -80,4 +80,5 @@
         <item>četiri</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
+    <string name="failed_to_load">Failed to load picture</string>
 </resources>

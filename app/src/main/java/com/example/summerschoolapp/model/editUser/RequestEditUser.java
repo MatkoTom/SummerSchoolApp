@@ -3,8 +3,6 @@ package com.example.summerschoolapp.model.editUser;
 import com.example.summerschoolapp.common.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.File;
-
 import okhttp3.MultipartBody;
 
 public class RequestEditUser extends BaseModel {

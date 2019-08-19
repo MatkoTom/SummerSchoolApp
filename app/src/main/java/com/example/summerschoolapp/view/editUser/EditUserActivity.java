@@ -11,6 +11,7 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -144,8 +145,8 @@ public class EditUserActivity extends BaseActivity {
     public void editUser() {
 
         String[] splitString = etEditUserName.getText().toString().trim().split(" ");
-
         User user = Tools.getSharedPreferences(this).getUserToEdit();
+
         String id = user.getId();
         String oib = etEditUserOib.getText().toString();
         String firstName = splitString[0];
@@ -199,26 +200,30 @@ public class EditUserActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Uri selectedImage = data.getData();
-        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+        if (requestCode == PICK_FROM_GALLERY && resultCode == RESULT_OK) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-        Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-        assert cursor != null;
-        cursor.moveToFirst();
+            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+            assert cursor != null;
+            cursor.moveToFirst();
 
-        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-        String mediaPath = cursor.getString(columnIndex);
-        cursor.close();
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String mediaPath = cursor.getString(columnIndex);
+            cursor.close();
 
-        filePath = mediaPath;
+            filePath = mediaPath;
 
-        image = new File(filePath);
-        Glide.with(this)
-                .asBitmap()
-                .load(data.getDataString())
-                .into(civEditUserPicture);
+            image = new File(filePath);
+            Glide.with(this)
+                    .asBitmap()
+                    .load(data.getDataString())
+                    .into(civEditUserPicture);
 
-        Timber.d("FILE PATH: %s", filePath);
+            Timber.d("FILE PATH: %s", filePath);
+        } else {
+            Toast.makeText(this, getString(R.string.failed_to_load), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public MultipartBody.Part uploadPicture(String filepath) {
