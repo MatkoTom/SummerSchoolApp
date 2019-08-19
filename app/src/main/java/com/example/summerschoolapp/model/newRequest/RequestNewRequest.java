@@ -13,11 +13,15 @@ public class RequestNewRequest extends BaseModel {
     @SerializedName("Request_type")
     public String requestType;
 
+    @SerializedName("location_latitude")
     public String location_latitude;
 
+    @SerializedName("location_longitude")
     public String location_longitude;
 
+    @SerializedName("message")
     public String message;
 
+    @SerializedName("image")
     public File image;
 }

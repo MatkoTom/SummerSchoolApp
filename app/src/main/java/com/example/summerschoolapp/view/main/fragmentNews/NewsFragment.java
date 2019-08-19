@@ -15,6 +15,7 @@ import com.example.summerschoolapp.MapsActivity;
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.view.main.MainScreenViewModel;
+import com.example.summerschoolapp.view.newNews.CreateNewNewsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,7 +61,7 @@ public class NewsFragment extends Fragment {
 
     @OnClick(R.id.btn_publish_news)
     public void publishNewNews() {
-        Intent i = new Intent(getActivity(), MapsActivity.class);
+        Intent i = new Intent(getActivity(), CreateNewNewsActivity.class);
         startActivity(i);
     }
 }
