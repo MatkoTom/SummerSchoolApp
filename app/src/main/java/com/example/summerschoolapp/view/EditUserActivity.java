@@ -147,7 +147,9 @@ public class EditUserActivity extends BaseActivity {
 
     @OnClick(R.id.btn_create_new_user)
     public void editUser() {
-        viewModel.editUser(sendData(), Tools.getSharedPreferences(this).getSavedUserData().getJwt(), uploadPicture(filePath));
+        String id = String.valueOf(65);
+        String firstName = etCreateUserName.getText().toString();
+        viewModel.editUser(id, firstName, Tools.getSharedPreferences(this).getSavedUserData().getJwt(), uploadPicture(filePath));
     }
 
     @OnClick(R.id.iv_edit_user_picture)
@@ -235,4 +237,5 @@ public class EditUserActivity extends BaseActivity {
 
         return MultipartBody.Part.createFormData("photo", file.getName(), fileBody);
     }
+
 }

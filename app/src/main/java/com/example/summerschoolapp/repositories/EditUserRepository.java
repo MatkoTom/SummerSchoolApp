@@ -20,9 +20,9 @@ public class EditUserRepository {
 //                .subscribeOn(Schedulers.io());
 //    }
 
-    public Single<ResponseEditUser> editUser(RequestEditUser editUser, String token, MultipartBody.Part photo) {
+    public Single<ResponseEditUser> editUser(String id, String firstName,  String token, MultipartBody.Part photo) {
         return RetrofitAdapter.getRetrofitClient()
-                .editUser(token, editUser, photo)
+                .editUser(token, id, firstName, photo)
                 .subscribeOn(Schedulers.io());
     }
 }

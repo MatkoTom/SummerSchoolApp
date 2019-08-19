@@ -47,9 +47,9 @@ public class EditUserViewModel extends BaseViewModel {
         return navigation;
     }
 
-    public void editUser(RequestEditUser editUser, String token, MultipartBody.Part photo) {
+    public void editUser(String id, String firstName, String token, MultipartBody.Part photo) {
         startProgress();
-        editUserRepo.editUser(editUser, token, photo)
+        editUserRepo.editUser(id, firstName, token, photo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<ResponseEditUser>() {

@@ -57,14 +57,11 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
         holder.tvUserLastName.setText(item.getLastName());
         holder.tvUserEmail.setText(item.getEmail());
 
-        holder.rowParentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Tools.getSharedPreferences(view.getContext()).saveUserToEdit(data.get(position));
-                Timber.d("Saved user: %s", Tools.getSharedPreferences(view.getContext()).getUserToEdit().getEmail());
-                Intent i = new Intent(context.getApplicationContext(), EditUserActivity.class);
-                context.startActivity(i);
-            }
+        holder.rowParentLayout.setOnClickListener(view -> {
+            Tools.getSharedPreferences(view.getContext()).saveUserToEdit(data.get(position));
+            Timber.d("Saved user: %s", Tools.getSharedPreferences(view.getContext()).getUserToEdit().getEmail());
+            Intent i = new Intent(context.getApplicationContext(), EditUserActivity.class);
+            context.startActivity(i);
         });
     }
 

@@ -16,6 +16,7 @@ public final class Const {
         public static final String API_QUERY = "query";
         public static final String API_LOGOUT = "users/logout";
         public static final String API_CREATE_NEW_REQUEST = "requests/new";
+        public static final String API_KEY = "AIzaSyAVzl7Figc2ZOSD1v_mSaBHw8W9qoDfuME";
     }
 
     public static class Preferences {

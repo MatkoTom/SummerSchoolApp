@@ -15,9 +15,7 @@ import com.example.summerschoolapp.utils.Const;
 
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.http.Body;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -49,17 +47,18 @@ public interface RetrofitAPI {
     @POST(Const.Network.API_LOGOUT)
     Single<Object> logout(@Header(Const.Network.API_TOKEN) String token);
 
-////    @Multipart
+    ////    @Multipart
 //    @PUT(Const.Network.API_CREATE_NEW_USER_EDIT_USER)
 //    Single<ResponseEditUser> editUser(@Header(Const.Network.API_TOKEN) String token,
 //                                      @Body RequestEditUser requestEditUse);
 ////                                      @Part("photo") RequestBody file);
-
+//TODO create Part for each field
     @Multipart
     @Streaming
     @PUT(Const.Network.API_CREATE_NEW_USER_EDIT_USER)
     Single<ResponseEditUser> editUser(@Header(Const.Network.API_TOKEN) String token,
-                                      @Part("user") RequestEditUser requestEditUser,
+                                      @Part("id") String id,
+                                      @Part("firstName") String firstName,
                                       @Part MultipartBody.Part file);
 
     @POST(Const.Network.API_CREATE_NEW_REQUEST)
