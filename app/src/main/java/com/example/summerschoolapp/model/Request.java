@@ -1,15 +1,16 @@
-package com.example.summerschoolapp.model.newRequest;
+package com.example.summerschoolapp.model;
 
+import com.example.summerschoolapp.common.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
 import okhttp3.MultipartBody;
 
-public class NewRequest {
+public class Request extends BaseModel {
 
     @SerializedName("ID")
     private String ID;
 
-    @SerializedName("title")
+    @SerializedName("Title")
     private String title;
 
     @SerializedName("Request_type")
@@ -23,6 +24,9 @@ public class NewRequest {
 
     @SerializedName("message")
     private String message;
+
+    @SerializedName("address")
+    private String address;
 
     @SerializedName("image")
     private MultipartBody.Part image;
@@ -82,5 +86,12 @@ public class NewRequest {
     public void setImage(MultipartBody.Part image) {
         this.image = image;
     }
-}
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+}

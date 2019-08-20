@@ -45,7 +45,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
     @Override
     public CustomVievHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.recyclerview_row, parent, false);
+        View view = layoutInflater.inflate(R.layout.recyclerview_row_user_list, parent, false);
         return new CustomVievHolder(view);
     }
 

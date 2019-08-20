@@ -17,6 +17,7 @@ public final class Const {
         public static final String API_LOGOUT = "users/logout";
         public static final String API_CREATE_NEW_REQUEST = "requests/new";
         public static final String API_EDIT_NEW_REQUEST = "requests/edit";
+        public static final String API_FETCH_REQUEST_LIST = "requests/myRequests";
     }
 
     public static class Preferences {
