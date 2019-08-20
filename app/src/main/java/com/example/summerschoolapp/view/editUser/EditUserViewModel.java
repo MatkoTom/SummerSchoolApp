@@ -9,7 +9,7 @@ import com.example.summerschoolapp.common.BaseViewModel;
 import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.errors.SignupError;
 import com.example.summerschoolapp.model.editUser.ResponseEditUser;
-import com.example.summerschoolapp.repositories.EditUserRepository;
+import com.example.summerschoolapp.repositories.UserRepository;
 import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.helpers.Event;
 import com.example.summerschoolapp.utils.helpers.SingleLiveEvent;
@@ -33,11 +33,11 @@ public class EditUserViewModel extends BaseViewModel {
 
     private SingleLiveEvent<EditUserViewModel.Navigation> navigation = new SingleLiveEvent<>();
 
-    private EditUserRepository editUserRepo;
+    private UserRepository editUserRepo;
 
     public EditUserViewModel(@NonNull Application application) {
         super(application);
-        editUserRepo = new EditUserRepository();
+        editUserRepo = new UserRepository();
     }
 
     public SingleLiveEvent<Navigation> getNavigation() {

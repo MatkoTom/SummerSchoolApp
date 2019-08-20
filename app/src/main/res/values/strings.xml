@@ -73,11 +73,9 @@
     <string name="user_successfully_edited">Korisnik je uspješno promijenjen!</string>
     <string name="request_created">Request created successfully!</string>
 
-    <string-array name="testArray">
-        <item>jedan</item>
-        <item>dva</item>
-        <item>tri</item>
-        <item>četiri</item>
+    <string-array name="requestArray">
+        <item>Prijedlog</item>
+        <item>Kvar</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
     <string name="failed_to_load">Failed to load picture</string>

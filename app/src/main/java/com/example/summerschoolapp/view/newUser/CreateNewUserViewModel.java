@@ -10,7 +10,7 @@ import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.errors.SignupError;
 import com.example.summerschoolapp.model.newuser.RequestNewUser;
 import com.example.summerschoolapp.model.newuser.ResponseNewUser;
-import com.example.summerschoolapp.repositories.NewUserRepository;
+import com.example.summerschoolapp.repositories.UserRepository;
 import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.helpers.Event;
 import com.example.summerschoolapp.utils.helpers.SingleLiveEvent;
@@ -33,11 +33,11 @@ public class CreateNewUserViewModel extends BaseViewModel {
 
     private SingleLiveEvent<CreateNewUserViewModel.Navigation> navigation = new SingleLiveEvent<>();
 
-    private NewUserRepository newUserRepo;
+    private UserRepository newUserRepo;
 
     public CreateNewUserViewModel(@NonNull Application application) {
         super(application);
-        newUserRepo = new NewUserRepository();
+        newUserRepo = new UserRepository();
     }
 
     public SingleLiveEvent<CreateNewUserViewModel.Navigation> getNavigation() {

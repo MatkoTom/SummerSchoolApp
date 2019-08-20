@@ -7,7 +7,7 @@ import okhttp3.MultipartBody;
 
 public class RequestEditUser extends BaseModel {
 
-    @SerializedName("id")
+    @SerializedName("ID")
     public String id;
 
     @SerializedName("firstName")

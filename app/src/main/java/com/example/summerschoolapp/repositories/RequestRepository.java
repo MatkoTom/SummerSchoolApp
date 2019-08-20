@@ -7,14 +7,20 @@ import com.example.summerschoolapp.network.retrofit.RetrofitAdapter;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
-public class NewRequestRepository {
+public class RequestRepository {
 
-    public NewRequestRepository() {
+    public RequestRepository() {
     }
 
     public Single<ResponseNewRequest> createNewRequest(String token, RequestNewRequest requestNewRequest) {
         return RetrofitAdapter.getRetrofitClient()
                 .createNewRequest(token, requestNewRequest)
+                .subscribeOn(Schedulers.io());
+    }
+
+    public Single<ResponseNewRequest> editRequest(String token, RequestNewRequest requestNewRequest) {
+        return RetrofitAdapter.getRetrofitClient()
+                .editRequest(token, requestNewRequest)
                 .subscribeOn(Schedulers.io());
     }
 }

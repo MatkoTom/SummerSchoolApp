@@ -7,6 +7,9 @@ import java.io.File;
 
 public class RequestNewRequest extends BaseModel {
 
+    @SerializedName("ID")
+    public String ID;
+
     @SerializedName("title")
     public String title;
 
