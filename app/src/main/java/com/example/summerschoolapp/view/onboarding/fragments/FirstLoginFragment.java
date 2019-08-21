@@ -35,7 +35,7 @@ public class FirstLoginFragment extends Fragment {
     }
 
     public interface OnFirstLoginFragmentRegisterListener {
-        void onFirstLoginRegister();
+        void onFirstLoginSignup();
     }
 
     @Override
@@ -66,11 +66,11 @@ public class FirstLoginFragment extends Fragment {
     @OnClick(R.id.btn_continue)
     public void goToLoginFragment() {
         Tools.getSharedPreferences(getActivity()).setShouldShowFirstLogin(true);
-        registerListener.onFirstLoginRegister();
+        registerListener.onFirstLoginSignup();
     }
 
     private void checkIfFirstEntry() {
-        Boolean showFirstLogin = Tools.getSharedPreferences(getActivity()).shouldShowFirstLogin();
+        Boolean showFirstLogin = Tools.getSharedPreferences(getActivity()).getShouldShowFirstLogin();
         if (showFirstLogin) {
             loginListener.onFirstLoginItemClicked();
         }

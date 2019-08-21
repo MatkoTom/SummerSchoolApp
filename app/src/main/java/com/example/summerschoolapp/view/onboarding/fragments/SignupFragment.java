@@ -24,7 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
-import com.example.summerschoolapp.model.RequestRegister;
+import com.example.summerschoolapp.model.signup.RequestSignup;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.view.onboarding.OnboardingViewModel;
 
@@ -89,7 +89,7 @@ public class SignupFragment extends Fragment {
     }
 
     public interface OnSignupLogin {
-        void onSignupClicked(RequestRegister user);
+        void onSignupClicked(RequestSignup user);
     }
 
     public SignupFragment() {
@@ -234,7 +234,7 @@ public class SignupFragment extends Fragment {
                 if (etPassword.length() == 0) {
                     tvSignupPassword.setTextColor(Color.RED);
                     tvWrongPassword.setTextColor(Color.RED);
-                    tvWrongPassword.setText(R.string.wrong_password);
+                    tvWrongPassword.setText(getString(R.string.password_more_than_1_char));
                 } else {
                     tvSignupPassword.setTextColor(oldColor);
                     tvWrongPassword.setText("");
@@ -267,8 +267,8 @@ public class SignupFragment extends Fragment {
         }
     }
 
-    private RequestRegister sendData() {
-        RequestRegister user = new RequestRegister();
+    private RequestSignup sendData() {
+        RequestSignup user = new RequestSignup();
         user.oib = etOib.getText().toString();
         user.email = etEmail.getText().toString();
         user.password = Tools.md5(etPassword.getText().toString());

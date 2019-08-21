@@ -1,6 +1,6 @@
 package com.example.summerschoolapp.common;
 
-import com.example.summerschoolapp.model.Error;
+import com.example.summerschoolapp.model.error.Error;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

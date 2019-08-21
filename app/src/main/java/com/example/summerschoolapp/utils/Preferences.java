@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import com.example.summerschoolapp.model.User;
 import com.google.gson.Gson;
 
+import static com.example.summerschoolapp.utils.Const.Preferences.EDIT_USER_KEY;
 import static com.example.summerschoolapp.utils.Const.Preferences.USER_SHARED_KEY;
 
 public class Preferences {
@@ -16,7 +17,7 @@ public class Preferences {
         this.preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public Boolean shouldShowFirstLogin() {
+    public Boolean getShouldShowFirstLogin() {
         return preferences.getBoolean(Const.Preferences.BOOLEAN_SHARED_KEY, false);
     }
 
@@ -51,4 +52,18 @@ public class Preferences {
                 .apply();
     }
 
+    public User getUserToEdit() {
+        Gson gson = new Gson();
+        String json = preferences.getString(EDIT_USER_KEY, "");
+        return gson.fromJson(json, User.class);
+    }
+
+    public void saveUserToEdit(User user) {
+        Gson gson = new Gson();
+        String json = gson.toJson(user);
+
+        preferences.edit()
+                .putString(EDIT_USER_KEY, json)
+                .apply();
+    }
 }

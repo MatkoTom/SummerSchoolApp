@@ -38,7 +38,51 @@
     <string name="back">Nazad</string>
     <string name="ok">Ok</string>
     <string name="error">Error</string>
-    <string name="plsea_fill_out_all_fields">Please fill out all fields!</string>
+    <string name="plsea_fill_out_all_fields">Molimo popunite sva polja!</string>
     <string name="admin_email_test">ivici22i@gmail.com</string>
     <string name="email_in_use">Email se već koristi</string>
+    <string name="token">token</string>
+    <string name="wrong_email">Krivi email!</string>
+    <string name="success">Uspjeh!</string>
+    <string name="user_successfully_created">Korisnik je uspješno stvoren!</string>
+    <string name="password_more_than_1_char">Lozinka mora imati više od jednog znaka!</string>
+    <string name="no_news_published">Niti jedna vijest još\nnije objavljena!</string>
+    <string name="publish_news">Objavi vijest</string>
+    <string name="no_request_sent">Niti jedan zahtjev\njoš nije poslan!</string>
+    <string name="new_request">Novi zahtjev</string>
+    <string name="logout">Odjavi se</string>
+    <string name="forgotten_password_text">U slučaju da ste zaboravili lozinku, ovdje\n ju možete resetirati ili promijeniti.</string>
+    <string name="button_forgotten_password">Zaboravio/la sam lozinku</string>
+    <string name="new_password">Nova lozinka:</string>
+    <string name="repaet_new_password">Ponovite novu lozinku:</string>
+    <string name="change_password">Promijeni</string>
+    <string name="enter_info_request">Molimo vas upišite tražena podatke kako bismo mogli poslati zahtjev</string>
+    <string name="request_title">Naslov:</string>
+    <string name="request_type">Tip:</string>
+    <string name="request_message">Poruka:</string>
+    <string name="request_location">Lokacija:</string>
+    <string name="request_enter_adress">Upišite adresu ovdje...</string>
+    <string name="send_request">Pošalji zahtjev</string>
+    <string name="new_news">Nova vijest</string>
+    <string name="photo">Fotografije:</string>
+    <string name="text">Tekst:</string>
+    <string name="documents">Dokumenti:</string>
+    <string name="logout_success">Uspješno odjavljeni!</string>
+    <string name="edit_user">Edit korisnika</string>
+    <string name="edit_user_button">Promijeni korisnika</string>
+    <string name="user_successfully_edited">Korisnik je uspješno promijenjen!</string>
+    <string name="request_created">Request created successfully!</string>
+
+    <string-array name="requestArray">
+        <item>Prijedlog</item>
+        <item>Kvar</item>
+    </string-array>
+
+    <string-array name="requestFilter">
+        <item>Sve</item>
+        <item>Prijedlog</item>
+        <item>Kvar</item>
+    </string-array>
+    <string name="title_activity_maps">Map</string>
+    <string name="failed_to_load">Failed to load picture</string>
 </resources>

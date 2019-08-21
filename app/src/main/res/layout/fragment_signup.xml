@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/basic_white"
     tools:context=".view.onboarding.fragments.SignupFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -140,22 +140,21 @@
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
             android:background="@drawable/button_layout_enabled"
             android:fontFamily="@font/american_typewriter_bold"
             android:padding="16dp"
             android:paddingStart="40dp"
             android:paddingEnd="40dp"
             android:text="@string/button_register"
+            android:textAllCaps="false"
             android:textColor="@color/basic_white"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/guideline11"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_signup_password"
-            app:layout_constraintVertical_bias="0.679" />
+            app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline9"
@@ -189,12 +188,13 @@
             android:id="@+id/ibtn_hide_show"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
+            android:layout_marginEnd="8dp"
             android:background="@null"
             android:src="@drawable/log_in_lozinka_hiden_icon"
             app:layout_constraintBottom_toBottomOf="@+id/et_signup_password"
             app:layout_constraintEnd_toEndOf="@+id/et_signup_password"
             app:layout_constraintTop_toTopOf="@+id/et_signup_password"
-            app:layout_constraintVertical_bias="0.48" />
+            app:layout_constraintVertical_bias="0.3" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline11"
@@ -228,14 +228,13 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline11"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_signup"
-            app:layout_constraintVertical_bias="0.736" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_signup" />
 
         <TextView
             android:id="@+id/tv_oib_in_use"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline12" />
@@ -244,19 +243,19 @@
             android:id="@+id/tv_email_in_use"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_signup_oib" />
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/et_signup_email"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/tv_wrong_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline10" />
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/et_signup_password"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
             android:id="@+id/btn_remember_me"
@@ -273,9 +272,9 @@
             android:paddingStart="40dp"
             android:paddingEnd="40dp"
             android:text="@string/remember_me"
+            android:textAllCaps="false"
             android:textColor="@color/color_text"
             android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

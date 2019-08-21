@@ -24,7 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
-import com.example.summerschoolapp.model.RequestLogin;
+import com.example.summerschoolapp.model.login.RequestLogin;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.view.onboarding.OnboardingViewModel;
 
@@ -137,8 +137,8 @@ public class LoginFragment extends Fragment {
         }
     }
 
-    @OnClick(R.id.tv_register)
-    public void registerUser() {
+    @OnClick(R.id.tv_signup)
+    public void signUpUser() {
         listener.onLoginItemClicked();
     }
 
@@ -196,11 +196,6 @@ public class LoginFragment extends Fragment {
 
     private static boolean isValidEmail(CharSequence target) {  // Email validator, checks if field has correct input
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
-    }
-
-    //TODO fetch stored token for auto-login
-    private void fetchStoredUser() {
-
     }
 
     private void canUserLogIn() {

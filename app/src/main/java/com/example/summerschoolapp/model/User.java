@@ -4,11 +4,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
 
+    @SerializedName("ID")
+    private String id;
+
     @SerializedName("oib")
     private String oib;
 
     @SerializedName("firstName")
-    private String name;
+    private String firstName;
+
+    @SerializedName("lastName")
+    private String lastName;
 
     @SerializedName("jwt")
     private String jwt;
@@ -16,18 +22,26 @@ public class User {
     @SerializedName("email")
     private String email;
 
-    @SerializedName("password")
-    private String password;
-
     @SerializedName("personsRoleId")
     private String role;
 
-    public String getName() {
-        return name;
+    @SerializedName("image")
+    private String photo;
+
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getJwt() {
@@ -37,7 +51,6 @@ public class User {
     public void setJwt(String jwt) {
         this.jwt = jwt;
     }
-
 
     public String getRole() {
         return role;
@@ -63,11 +76,31 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "oib='" + oib + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", jwt='" + jwt + '\'' +
+                ", email='" + email + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

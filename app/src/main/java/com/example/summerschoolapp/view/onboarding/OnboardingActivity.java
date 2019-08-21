@@ -1,22 +1,22 @@
 package com.example.summerschoolapp.view.onboarding;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.common.BaseActivity;
 import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.dialog.ErrorDialog;
+import com.example.summerschoolapp.errors.LoginError;
 import com.example.summerschoolapp.errors.SignupError;
-import com.example.summerschoolapp.model.RequestLogin;
-import com.example.summerschoolapp.model.RequestRegister;
+import com.example.summerschoolapp.model.login.RequestLogin;
+import com.example.summerschoolapp.model.signup.RequestSignup;
 import com.example.summerschoolapp.utils.Tools;
-import com.example.summerschoolapp.utils.helpers.Event;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
 import com.example.summerschoolapp.view.onboarding.fragments.FirstLoginFragment;
@@ -28,9 +28,14 @@ import timber.log.Timber;
 
 import static com.example.summerschoolapp.utils.Const.Fragments.FRAGMENT_TAG_FIRST_LOGIN;
 import static com.example.summerschoolapp.utils.Const.Fragments.FRAGMENT_TAG_LOGIN;
-import static com.example.summerschoolapp.utils.Const.Fragments.FRAGMENT_TAG_REGISTER;
+import static com.example.summerschoolapp.utils.Const.Fragments.FRAGMENT_TAG_SIGNUP;
 
 public class OnboardingActivity extends BaseActivity implements SignupFragment.OnSignupLogin, LoginFragment.OnFragmentLoginNextActivity, LoginFragment.OnFragmentLoginClickListener, SignupFragment.OnSignupFragmentClicListener, FirstLoginFragment.OnFirstLoginFragmentRegisterListener, FirstLoginFragment.OnFirstLoginFragmentLoginListener {
+
+    public static void StartActivity(Activity activity) {
+        activity.startActivity(new Intent(activity, OnboardingActivity.class));
+        activity.finish();
+    }
 
     private static final String TAG = "STASEDOGADJA";
     private FragmentManager manager;
@@ -63,6 +68,8 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
                 String message = getString(R.string.text_try_again);
                 if (value instanceof SignupError) {
                     message = getString(((SignupError.Error) value.getError()).getValue());
+                } else if (value instanceof LoginError) {
+                    message = getString(((LoginError.Error) value.getError()).getValue());
                 } else {
                     message = String.format("%s \n --- \n %s", message, value.getExtraInfo());
                 }
@@ -79,7 +86,9 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
         });
 
         Timber.d("IsUserSaved: %s", Tools.getSharedPreferences(this).getRememberMeStatus());
+        Timber.d("ShowFirstLogin: %s", Tools.getSharedPreferences(this).getShouldShowFirstLogin());
         runFirstLoginFragment();
+        autoLogin();
     }
 
     public void runFirstLoginFragment() {
@@ -97,8 +106,8 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
         transaction = manager.beginTransaction();
         manager.popBackStack();
         transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-        transaction.replace(R.id.fragment_container, new SignupFragment(), FRAGMENT_TAG_REGISTER);
-        transaction.addToBackStack(FRAGMENT_TAG_REGISTER);
+        transaction.replace(R.id.fragment_container, new SignupFragment(), FRAGMENT_TAG_SIGNUP);
+        transaction.addToBackStack(FRAGMENT_TAG_SIGNUP);
         transaction.commit();
     }
 
@@ -123,44 +132,30 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
     }
 
     @Override
-    public void onFirstLoginRegister() {
+    public void onFirstLoginSignup() {
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
         manager.popBackStack();
         transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-        transaction.replace(R.id.fragment_container, new SignupFragment(), FRAGMENT_TAG_REGISTER);
-        transaction.addToBackStack(FRAGMENT_TAG_REGISTER);
+        transaction.replace(R.id.fragment_container, new SignupFragment(), FRAGMENT_TAG_SIGNUP);
+        transaction.addToBackStack(FRAGMENT_TAG_SIGNUP);
         transaction.commit();
     }
 
-    // TODO @Matko
-    // review in same way as signup
     @Override
     public void onLoginClicked(RequestLogin user) {
-        Timber.tag(TAG).d("onLoginClicked: " + user.password + " " + user.email);
-        try {
-            viewModel.makeLogin(user);
-            showProgress();
-            Intent i = new Intent(this, MainScreenActivity.class);
-            finish();
-            startActivity(i);
-        } catch (Exception e) {
-            ErrorDialog.CreateInstance(this, getString(R.string.error), e.toString(), getString(R.string.ok), null, new ErrorDialog.OnErrorDilogInteraction() {
-                @Override
-                public void onPositiveInteraction() {
+        viewModel.makeLogin(user);
 
-                }
-
-                @Override
-                public void onNegativeInteraction() {
-
-                }
-            });
-        }
     }
 
     @Override
-    public void onSignupClicked(RequestRegister user) {
+    public void onSignupClicked(RequestSignup user) {
         viewModel.registerUser(user);
+    }
+
+    public void autoLogin() {
+        if (Tools.getSharedPreferences(this).getRememberMeStatus()) {
+            viewModel.getNavigation().setValue(OnboardingViewModel.Navigation.MAIN);
+        }
     }
 }
