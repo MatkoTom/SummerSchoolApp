@@ -4,6 +4,8 @@
     android:id="@+id/request_row_parent_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/basic_white"
+    android:layout_marginBottom="16dp"
     android:orientation="vertical">
 
     <TextView
@@ -39,6 +41,7 @@
         android:fontFamily="@font/avenir_medium"
         android:text="@string/placeholder"
         android:textSize="16sp"
+        android:maxLines="3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_request_type" />
 
@@ -46,9 +49,13 @@
         android:id="@+id/iv_request_location"
         android:layout_width="match_parent"
         android:layout_height="120dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:src="@color/color_background"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_request_message"
-        android:src="@color/color_background"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_request_message" />
 
     <TextView
         android:id="@+id/tv_request_address"

@@ -95,7 +95,7 @@ public class RequestsFragment extends BaseFragment {
     }
 
     private void populateSpinner() {
-        ArrayAdapter<String> adapterGray = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_new_request, getResources().getStringArray(R.array.requestArray));
+        ArrayAdapter<String> adapterGray = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_new_request, getResources().getStringArray(R.array.requestFilter));
         spinnerRequestItems.setAdapter(adapterGray);
     }
 }

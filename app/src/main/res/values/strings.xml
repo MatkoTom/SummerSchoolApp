@@ -77,6 +77,12 @@
         <item>Prijedlog</item>
         <item>Kvar</item>
     </string-array>
+
+    <string-array name="requestFilter">
+        <item>Sve</item>
+        <item>Prijedlog</item>
+        <item>Kvar</item>
+    </string-array>
     <string name="title_activity_maps">Map</string>
     <string name="failed_to_load">Failed to load picture</string>
 </resources>

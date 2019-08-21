@@ -68,7 +68,6 @@
         android:id="@+id/request_list_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/basic_white"
         android:visibility="gone">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -89,6 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
+                android:layout_marginStart="8dp"
                 android:background="@android:color/transparent"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -115,21 +115,19 @@
             android:id="@+id/rv_requests"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+           android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spinner_layout"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_create_new_request"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="44dp"
+            android:src="@drawable/fab_layout_new_request"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/fab_create_new_request"
-    android:layout_width="wrap_content"
-    android:layout_height="0dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginBottom="44dp"
-    android:src="@drawable/fab_layout_new_request"
-    android:visibility="gone"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
