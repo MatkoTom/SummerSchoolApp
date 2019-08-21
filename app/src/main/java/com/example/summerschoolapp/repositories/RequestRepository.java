@@ -30,4 +30,10 @@ public class RequestRepository {
                 .fetchRequestList(token)
                 .subscribeOn(Schedulers.io());
     }
+
+    public Single<ResponseRequestList> getSearchedRequestList(String token, String searchQuerry) {
+        return RetrofitAdapter.getRetrofitClient()
+                .fetchFilteredRequest(token, searchQuerry)
+                .subscribeOn(Schedulers.io());
+    }
 }

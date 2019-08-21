@@ -30,6 +30,11 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
         }
     }
 
+    public void clearList(List<Request> data) {
+        this.data.clear();
+        notifyDataSetChanged();
+    }
+
     public RequestListAdapter(Context context) {
         this.context = context;
     }

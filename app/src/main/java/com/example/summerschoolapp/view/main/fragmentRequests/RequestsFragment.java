@@ -77,6 +77,9 @@ public class RequestsFragment extends BaseFragment {
                 requestListAdapter.setData(requests);
                 noRequestLayout.setVisibility(View.GONE);
                 requestListLayout.setVisibility(View.VISIBLE);
+            } else if (requests.size() == 0 && userRole == 1) {
+                noRequestLayout.setVisibility(View.VISIBLE);
+                requestListAdapter.clearList(requests);
             } else if (requests.size() > 0 && userRole == 2) {
                 requestListAdapter.setData(requests);
                 noRequestLayout.setVisibility(View.GONE);
@@ -120,6 +123,13 @@ public class RequestsFragment extends BaseFragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 Timber.d("ITEM SELECTED: " + adapterView.getItemAtPosition(position));
+                String token = Tools.getSharedPreferences(getActivity()).getSavedUserData().getJwt();
+                String query = adapterView.getItemAtPosition(position).toString();
+                if (query.equals(getString(R.string.all))) {
+                    viewModel.fetchRequestList(token);
+                } else {
+                    viewModel.fetchFilteredRequestList(token, query);
+                }
             }
 
             @Override

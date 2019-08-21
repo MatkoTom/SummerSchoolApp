@@ -1,5 +1,6 @@
 package com.example.summerschoolapp.repositories;
 
+import com.example.summerschoolapp.model.requestsList.ResponseRequestList;
 import com.example.summerschoolapp.model.userslist.ResponseUsersList;
 import com.example.summerschoolapp.network.retrofit.RetrofitAdapter;
 
