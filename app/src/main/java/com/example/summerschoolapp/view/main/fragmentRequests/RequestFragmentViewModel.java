@@ -8,6 +8,7 @@ import com.example.summerschoolapp.common.BaseViewModel;
 import com.example.summerschoolapp.model.Request;
 import com.example.summerschoolapp.model.requestsList.ResponseRequestList;
 import com.example.summerschoolapp.repositories.RequestRepository;
+import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.SingleLiveEvent;
 
 import java.util.List;
@@ -21,19 +22,15 @@ public class RequestFragmentViewModel extends BaseViewModel {
 
     private RequestRepository requestRepository;
 
-    // TODO @Matko
-    // sendList name is a bit unclear
-    private SingleLiveEvent<List<Request>> sendList = new SingleLiveEvent<>();
+    private SingleLiveEvent<List<Request>> sendRequestList = new SingleLiveEvent<>();
 
     public RequestFragmentViewModel(@NonNull Application application) {
         super(application);
         requestRepository = new RequestRepository();
     }
 
-    // TODO @Matko
-    // getRecyclerList is a bit unclear name, should be something like userList or searchResults
-    public SingleLiveEvent<List<Request>> getRecyclerList() {
-        return sendList;
+    public SingleLiveEvent<List<Request>> getRequestList() {
+        return sendRequestList;
     }
 
     public void fetchRequestList(String token) {
@@ -45,7 +42,7 @@ public class RequestFragmentViewModel extends BaseViewModel {
                     @Override
                     public void onSuccess(ResponseRequestList response) {
                         Timber.d("createdNewUser%s", response.data.requestList);
-                        getRecyclerList().setValue(response.data.requestList);
+                        getRequestList().setValue(response.data.requestList);
                         stopProgress();
                         dispose();
                     }
@@ -68,7 +65,7 @@ public class RequestFragmentViewModel extends BaseViewModel {
                     @Override
                     public void onSuccess(ResponseRequestList response) {
                         Timber.d("createdNewUser%s", response.data.requestList);
-                        getRecyclerList().setValue(response.data.requestList);
+                        getRequestList().setValue(response.data.requestList);
                         stopProgress();
                         dispose();
                     }
@@ -80,5 +77,10 @@ public class RequestFragmentViewModel extends BaseViewModel {
                         dispose();
                     }
                 });
+    }
+
+    public void printRequestList() {
+        String token = Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt();
+        fetchRequestList(token);
     }
 }

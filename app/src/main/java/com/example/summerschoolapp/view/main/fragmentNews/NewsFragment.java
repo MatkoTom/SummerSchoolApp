@@ -1,7 +1,6 @@
 package com.example.summerschoolapp.view.main.fragmentNews;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +10,8 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.summerschoolapp.MapsActivity;
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.view.main.MainScreenViewModel;
 import com.example.summerschoolapp.view.newNews.CreateNewNewsActivity;
@@ -52,11 +51,7 @@ public class NewsFragment extends Fragment {
     }
 
     public void checkUserRole() {
-        // TODO @Matko
-        // better to add this logic to fragments viewModel or host activity viewModel if necessary there, another option would be to add it to Tools
-        // better way to check this would be Method.isAdmin();
-        // 1 constant should be stored in Const as Const.ADMIN_ROLE
-        if (Integer.parseInt(Tools.getSharedPreferences(getActivity()).getSavedUserData().getRole()) == 1) {
+        if (newsFragmentViewModel.isAdmin()) {
             btnPublishNews.setVisibility(View.VISIBLE);
         } else {
             btnPublishNews.setVisibility(View.GONE);
@@ -65,6 +60,6 @@ public class NewsFragment extends Fragment {
 
     @OnClick(R.id.btn_publish_news)
     public void publishNewNews() {
-       CreateNewNewsActivity.StartActivity(getActivity());
+        CreateNewNewsActivity.StartActivity(getActivity());
     }
 }

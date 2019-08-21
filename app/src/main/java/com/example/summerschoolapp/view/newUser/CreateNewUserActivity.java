@@ -98,8 +98,6 @@ public class CreateNewUserActivity extends BaseActivity {
 
                         @Override
                         public void onNegativeInteraction() {
-                            // TODO @Matko
-                            // mark similar methods with a below comment if they are not used
                             // ignored
                         }
                     });

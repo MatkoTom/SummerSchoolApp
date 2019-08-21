@@ -20,13 +20,6 @@ import java.util.List;
 public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.CustomVievHolder> {
 
     private List<Request> data = new ArrayList<>();
-    // TODO @Matko
-    // already made a comment about context in UsersListAdapter
-    private Context context;
-
-    public RequestListAdapter(Context context) {
-        this.context = context;
-    }
 
     public void setData(List<Request> newData) {
         if (newData != null && !newData.isEmpty()) {

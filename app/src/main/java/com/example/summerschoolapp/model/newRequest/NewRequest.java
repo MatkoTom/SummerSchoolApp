@@ -9,7 +9,7 @@ public class NewRequest {
     @SerializedName("ID")
     private String ID;
 
-    @SerializedName("title")
+    @SerializedName("Title")
     private String title;
 
     @SerializedName("Request_type")

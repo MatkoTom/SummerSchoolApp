@@ -12,11 +12,7 @@ public class LoginError extends BaseError {
     public enum Error {
         ERROR_WHILE_LOGIN_WRONG_EMAIL(R.string.wrong_email),
         ERROR_WHILE_WHILE_LOGIN_WRONG_PASSWORD(R.string.wrong_password),
-        SOMETHING_WENT_WRONG(R.string.text_try_again),
-        // TODO @Matko
-        // UNAUTHORISED error should be in AuthError class
-        // user cannot be authorised since he is about to login making him unauthorised at the moment
-        UNATUHORISED(R.string.error_unauthorised);
+        SOMETHING_WENT_WRONG(R.string.text_try_again);
 
         private int value;
 

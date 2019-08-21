@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.common.BaseViewModel;
+import com.example.summerschoolapp.errors.AuthError;
 import com.example.summerschoolapp.errors.SignupError;
 import com.example.summerschoolapp.repositories.MainScreenRepository;
 import com.example.summerschoolapp.utils.Tools;
@@ -61,7 +62,7 @@ public class ProfileFragmentViewModel extends BaseViewModel {
                         BaseError error;
                         if (throwable instanceof HttpException) {
                             if (((HttpException) throwable).response().code() == 401) {
-                                error = SignupError.Create(SignupError.Error.UNATUHORISED);
+                                error = AuthError.Create(AuthError.Error.UNATUHORISED);
                             } else {
                                 ResponseBody responseBody = ((HttpException) throwable).response().errorBody();
                                 String extraInfo = responseBody.toString();
@@ -80,9 +81,13 @@ public class ProfileFragmentViewModel extends BaseViewModel {
                         stopProgress();
                         getBaseErrors().setValue(new Event<>(error));
                         Timber.d("Error: %s", error.toString());
-                        
+
                         dispose();
                     }
                 });
+    }
+
+    public void logoutUser() {
+        logout(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt());
     }
 }

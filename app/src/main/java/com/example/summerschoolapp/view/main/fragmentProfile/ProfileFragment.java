@@ -69,6 +69,7 @@ public class ProfileFragment extends BaseFragment {
                         @Override
                         public void onPositiveInteraction() {
                             Tools.getSharedPreferences(getActivity()).logoutUser();
+                            Tools.getSharedPreferences(getActivity()).setShouldShowFirstLogin(true);
                             OnboardingActivity.StartActivity(getActivity());
                         }
 
@@ -85,9 +86,7 @@ public class ProfileFragment extends BaseFragment {
 
     @OnClick(R.id.btn_logout)
     public void logout() {
-        // TODO @Matko
-        // nothing should be fetched in view, call method and do this in viewModel
-        viewModel.logout(Tools.getSharedPreferences(getActivity()).getSavedUserData().getJwt());
+        viewModel.logoutUser();
     }
 
 }

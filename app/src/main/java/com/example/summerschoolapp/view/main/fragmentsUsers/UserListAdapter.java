@@ -1,6 +1,5 @@
 package com.example.summerschoolapp.view.main.fragmentsUsers;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,14 +25,6 @@ import timber.log.Timber;
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.CustomVievHolder> {
 
     private List<User> data = new ArrayList<>();
-    // TODO @Matko
-    // context is generally not necessary as a global variable
-    // you can extract it from a view
-    private Context context;
-
-    public UserListAdapter(Context context) {
-        this.context = context;
-    }
 
     public void setData(List<User> newData) {
         if (newData != null && !newData.isEmpty()) {
@@ -60,12 +51,13 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
         holder.tvUserEmail.setText(item.getEmail());
 
         // TODO @Matko
+        // parcelable object in intent
         // there should be an interface here and not a direct navigation from adapter
         holder.rowParentLayout.setOnClickListener(view -> {
             Tools.getSharedPreferences(view.getContext()).saveUserToEdit(data.get(position));
             Timber.d("Saved user: %s", Tools.getSharedPreferences(view.getContext()).getUserToEdit().getEmail());
-            Intent i = new Intent(context.getApplicationContext(), EditUserActivity.class);
-            context.startActivity(i);
+            Intent i = new Intent(view.getContext().getApplicationContext(), EditUserActivity.class);
+            view.getContext().startActivity(i);
         });
     }
 

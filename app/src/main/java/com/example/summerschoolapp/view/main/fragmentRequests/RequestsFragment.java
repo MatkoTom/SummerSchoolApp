@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.common.BaseFragment;
+import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.view.newRequest.CreateNewRequestActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -52,9 +53,6 @@ public class RequestsFragment extends BaseFragment {
 
     private RequestListAdapter requestListAdapter;
     private RequestFragmentViewModel viewModel;
-    // TODO @Matko
-    // needs to be added in Const, already mentioned this in one of todo's
-    private int userRole = 2;
 
     public RequestsFragment() {
         // Required empty public constructor
@@ -67,32 +65,32 @@ public class RequestsFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_requests, container, false);
         ButterKnife.bind(this, rootView);
 
-        requestListAdapter = new RequestListAdapter(getActivity());
+        requestListAdapter = new RequestListAdapter();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvRequests.setLayoutManager(layoutManager);
         rvRequests.setAdapter(requestListAdapter);
 
         viewModel = ViewModelProviders.of(this).get(RequestFragmentViewModel.class);
 
-        viewModel.getRecyclerList().observeEvent(this, requests -> {
-            if (requests.size() > 0 && userRole == 1) {
+        viewModel.getRequestList().observeEvent(this, requests -> {
+            if (requests.size() > 0 && Integer.parseInt(Tools.getSharedPreferences(getActivity()).getSavedUserData().getRole()) == Const.Preferences.ADMIN_ROLE) {
                 requestListAdapter.setData(requests);
                 noRequestLayout.setVisibility(View.GONE);
                 requestListLayout.setVisibility(View.VISIBLE);
-            } else if (requests.size() == 0 && userRole == 1) {
+            } else if (requests.size() == 0 && Integer.parseInt(Tools.getSharedPreferences(getActivity()).getSavedUserData().getRole()) == Const.Preferences.ADMIN_ROLE) {
                 noRequestLayout.setVisibility(View.VISIBLE);
                 requestListAdapter.clearList(requests);
-            } else if (requests.size() > 0 && userRole == 2) {
+            } else if (requests.size() > 0 && Integer.parseInt(Tools.getSharedPreferences(getActivity()).getSavedUserData().getRole()) == Const.Preferences.USER_ROLE) {
                 requestListAdapter.setData(requests);
                 noRequestLayout.setVisibility(View.GONE);
                 requestListLayout.setVisibility(View.VISIBLE);
                 fabCreateNewRequest.setVisibility(View.VISIBLE);
-            } else if (requests.size() == 0 && userRole == 2) {
+            } else if (requests.size() == 0 && Integer.parseInt(Tools.getSharedPreferences(getActivity()).getSavedUserData().getRole()) == Const.Preferences.USER_ROLE) {
+
                 btnNewRequest.setVisibility(View.VISIBLE);
             }
         });
 
-        checkUserRole();
         getUserList();
         populateSpinner();
         filterRequests();
@@ -111,11 +109,7 @@ public class RequestsFragment extends BaseFragment {
     }
 
     public void getUserList() {
-        // TODO @Matko
-        // just call method and fetch token in viewModel method
-        // checkout ProfileFragment logout method comment
-        String token = Tools.getSharedPreferences(getActivity()).getSavedUserData().getJwt();
-        viewModel.fetchRequestList(token);
+        viewModel.printRequestList();
     }
 
     private void populateSpinner() {
@@ -139,12 +133,8 @@ public class RequestsFragment extends BaseFragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                //ignore
             }
         });
-    }
-
-    private void checkUserRole() {
-        userRole = Integer.parseInt(Tools.getSharedPreferences(getActivity()).getSavedUserData().getRole());
     }
 }

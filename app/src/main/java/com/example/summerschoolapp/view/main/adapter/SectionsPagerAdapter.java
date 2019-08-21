@@ -37,9 +37,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         } else if (position == 3) {
             return new UsersFragment();
         } else {
-            // TODO @Matko
-            // empty view fragment needs to be returned here or a default position
-            return null;
+            return new NewsFragment();
         }
     }
 

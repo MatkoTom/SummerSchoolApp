@@ -60,7 +60,7 @@ public class RetrofitAdapter {
             OkHttpClient okHttpClient = okHttpBuilder.build();
 
             Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
-                    .baseUrl(Const.Network.BASE_URL)
+                    .baseUrl(Const.Api.BASE_URL)
                     .client(okHttpClient)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(ScalarsConverterFactory.create())

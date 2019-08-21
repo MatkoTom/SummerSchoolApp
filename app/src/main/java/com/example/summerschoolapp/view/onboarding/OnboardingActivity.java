@@ -37,9 +37,7 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
         activity.finish();
     }
 
-    // TODO @Matko
-    // keep things professional even in logs
-    private static final String TAG = "STASEDOGADJA";
+    private static final String TAG = "OnboardingActivity:";
     private FragmentManager manager;
     private FragmentTransaction transaction;
     private OnboardingViewModel viewModel;
@@ -156,9 +154,7 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
     }
 
     public void autoLogin() {
-        // TODO @Matko
-        // we need to check if token and user are also stored 
-        if (Tools.getSharedPreferences(this).getRememberMeStatus()) {
+        if (Tools.getSharedPreferences(this).getRememberMeStatus() && Tools.getSharedPreferences(this).getSavedUserData() != null && Tools.getSharedPreferences(this).getSavedUserData().getJwt() != null) {
             viewModel.getNavigation().setValue(OnboardingViewModel.Navigation.MAIN);
         }
     }
