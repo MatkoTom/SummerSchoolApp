@@ -54,4 +54,27 @@ public class RequestFragmentViewModel extends BaseViewModel {
                     }
                 });
     }
+
+    public void fetchFilteredRequestList(String token, String searchQuerry) {
+        startProgress();
+        requestRepository.getSearchedRequestList(token, searchQuerry)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<ResponseRequestList>() {
+                    @Override
+                    public void onSuccess(ResponseRequestList response) {
+                        Timber.d("createdNewUser%s", response.data.requestList);
+                        getRecyclerList().setValue(response.data.requestList);
+                        stopProgress();
+                        dispose();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.d("Failed: %s", e.toString());
+                        stopProgress();
+                        dispose();
+                    }
+                });
+    }
 }

@@ -66,4 +66,9 @@ public class Preferences {
                 .putString(EDIT_USER_KEY, json)
                 .apply();
     }
+
+    public void logoutUser() {
+        preferences.edit().remove(USER_SHARED_KEY)
+                .apply();
+    }
 }

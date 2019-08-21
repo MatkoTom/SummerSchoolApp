@@ -22,6 +22,8 @@ public final class Const {
         public static final String API_CREATE_NEW_REQUEST = "requests/new";
         public static final String API_EDIT_NEW_REQUEST = "requests/edit";
         public static final String API_FETCH_REQUEST_LIST = "requests/myRequests";
+        public static final String API_FILTER_REQUEST = "requests/myRequests/{type}";
+        public static final String API_REQUEST_TYPE = "type";
     }
 
     public static class Preferences {

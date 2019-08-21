@@ -36,6 +36,11 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
         }
     }
 
+    public void clearList(List<Request> data) {
+        this.data.clear();
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public RequestListAdapter.CustomVievHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

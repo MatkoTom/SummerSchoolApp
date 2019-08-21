@@ -14,7 +14,6 @@ import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.common.BaseFragment;
 import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.dialog.SuccessDialog;
-import com.example.summerschoolapp.model.User;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
 import com.example.summerschoolapp.view.onboarding.OnboardingActivity;
@@ -69,7 +68,7 @@ public class ProfileFragment extends BaseFragment {
                     SuccessDialog.CreateInstance(getActivity(), getResources().getString(R.string.success), getString(R.string.logout_success), getResources().getString(R.string.ok), null, new SuccessDialog.OnSuccessDialogInteraction() {
                         @Override
                         public void onPositiveInteraction() {
-                            Tools.getSharedPreferences(getActivity()).saveUserToPreferences(new User());
+                            Tools.getSharedPreferences(getActivity()).logoutUser();
                             OnboardingActivity.StartActivity(getActivity());
                         }
 

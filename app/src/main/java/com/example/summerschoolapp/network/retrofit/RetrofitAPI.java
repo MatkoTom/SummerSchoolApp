@@ -69,4 +69,8 @@ public interface RetrofitAPI {
 
     @GET(Const.Network.API_FETCH_REQUEST_LIST)
     Single<ResponseRequestList> fetchRequestList(@Header(Const.Network.API_TOKEN) String token);
+
+    @GET(Const.Network.API_FILTER_REQUEST)
+    Single<ResponseRequestList> fetchFilteredRequest(@Header(Const.Network.API_TOKEN) String token,
+                                                     @Path(Const.Network.API_REQUEST_TYPE) String type);
 }
