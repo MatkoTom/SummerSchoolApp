@@ -6,14 +6,13 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.lifecycle.ViewModelProviders;
 
-import com.bumptech.glide.Glide;
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.common.BaseActivity;
 import com.example.summerschoolapp.common.BaseError;
@@ -24,7 +23,12 @@ import com.example.summerschoolapp.model.newRequest.RequestNewRequest;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,7 +38,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
 
-public class CreateNewRequestActivity extends BaseActivity {
+public class CreateNewRequestActivity extends BaseActivity implements OnMapReadyCallback {
 
     public static void StartActivity(Activity activity) {
         activity.startActivity(new Intent(activity, CreateNewRequestActivity.class));
@@ -52,10 +56,9 @@ public class CreateNewRequestActivity extends BaseActivity {
     @BindView(R.id.et_request_address)
     EditText etRequestAddress;
 
-    @BindView(R.id.ibtn_request_location)
-    ImageView ibtnRequestLocation;
-
     private CreateNewRequestViewModel viewModel;
+    private GoogleMap mMap;
+    private MapView mapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,8 +110,8 @@ public class CreateNewRequestActivity extends BaseActivity {
                     break;
             }
         });
-
-
+        mapView = findViewById(R.id.ibtn_request_location);
+        mapView.onCreate(savedInstanceState);
         populateSpinner();
     }
 
@@ -160,16 +163,19 @@ public class CreateNewRequestActivity extends BaseActivity {
         finish();
     }
 
-    @OnClick(R.id.ibtn_request_location)
-    public void requestLocation() {
-        //TODO fix this
-        //pending work
-        Glide.with(this)
-                .asBitmap()
-                .load("https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyD_S_EijHqDQvHbgkvSzPLz5KD-0dEKNTQ")
-                .into(ibtnRequestLocation);
-
-    }
+//    @OnClick(R.id.ibtn_request_location)
+//    public void requestLocation() {
+//        //TODO fix this
+//        //pending work
+//        String latitude = String.valueOf(getLocationFromAddress(this, etRequestAddress.getText().toString()).latitude);
+//        String longitude = String.valueOf(getLocationFromAddress(this, etRequestAddress.getText().toString()).longitude);
+//        Glide.with(this)
+//                .asBitmap()
+//                .load("https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=16&size=400x400&maptype=roadmap&markers=color:blue%7C" + latitude + "," + longitude + "&key=AIzaSyD_S_EijHqDQvHbgkvSzPLz5KD-0dEKNTQ")
+////                .load("https://maps.googleapis.com/maps/api/staticmap?center=" + String.valueOf(getLocationFromAddress(this, etRequestAddress.getText().toString()).latitude) + "&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyD_S_EijHqDQvHbgkvSzPLz5KD-0dEKNTQ")
+//                .into(ibtnRequestLocation);
+//
+//    }
 
     public RequestNewRequest sendData() {
         RequestNewRequest request = new RequestNewRequest();
@@ -182,5 +188,61 @@ public class CreateNewRequestActivity extends BaseActivity {
         request.location_latitude = String.valueOf(getLocationFromAddress(this, etRequestAddress.getText().toString()).latitude);
 
         return request;
+    }
+
+    //TODO on intercept touch event
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        LatLng centerOfMap = mMap.getCameraPosition().target;
+        // Add a marker in Sydney, Australia, and move the camera.
+        LatLng sydney = new LatLng(-34, 151);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(centerOfMap));
+
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        mapView.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
     }
 }

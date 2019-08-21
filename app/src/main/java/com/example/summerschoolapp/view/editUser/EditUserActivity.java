@@ -138,9 +138,6 @@ public class EditUserActivity extends BaseActivity {
     }
 
     public void setField() {
-        // TODO @Matko
-        // this is wrong
-//        User user = Tools.getSharedPreferences(this).getUserToEdit();
         etEditUserName.setText(String.format("%s %s", userForEditing.getFirstName(), userForEditing.getLastName()));
         etEditUserEmail.setText(userForEditing.getEmail());
         etEditUserOib.setText(userForEditing.getOib());

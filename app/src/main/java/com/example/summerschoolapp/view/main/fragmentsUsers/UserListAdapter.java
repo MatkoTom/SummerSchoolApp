@@ -1,7 +1,5 @@
 package com.example.summerschoolapp.view.main.fragmentsUsers;
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.model.User;
-import com.example.summerschoolapp.utils.Tools;
-import com.example.summerschoolapp.view.editUser.EditUserActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import timber.log.Timber;
 
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.CustomVievHolder> {
 
@@ -57,9 +51,6 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
         holder.tvUserLastName.setText(item.getLastName());
         holder.tvUserEmail.setText(item.getEmail());
 
-        // TODO @Matko
-        // there should be an interface here and not a direct navigation from adapter
-        // EditUserActivity.StartActivity(context.getApplicationContext(), item);
         holder.rowParentLayout.setOnClickListener(view -> {
             if (listener != null) {
                 listener.onUserClicked(item);

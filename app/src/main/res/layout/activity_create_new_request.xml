@@ -212,16 +212,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/et_request_message" />
 
-            <ImageView
+            <com.google.android.gms.maps.MapView
                 android:id="@+id/ibtn_request_location"
                 android:layout_width="match_parent"
                 android:layout_height="102dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/button_location_layout"
                 android:scaleType="center"
-                android:src="@drawable/location_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"

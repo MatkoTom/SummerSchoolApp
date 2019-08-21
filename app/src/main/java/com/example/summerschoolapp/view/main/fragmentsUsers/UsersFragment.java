@@ -53,9 +53,7 @@ public class UsersFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_users, container, false);
         ButterKnife.bind(this, rootView);
 
-        userListAdapter = new UserListAdapter(getActivity(), user -> {
-            // TODO @Matko
-            // implement
+        userListAdapter = new UserListAdapter(user -> {
             EditUserActivity.StartActivity(getContext(), user);
         });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
