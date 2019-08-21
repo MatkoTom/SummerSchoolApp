@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -23,6 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,8 +47,12 @@ public class RequestsFragment extends BaseFragment {
     @BindView(R.id.no_request_layout)
     ConstraintLayout noRequestLayout;
 
+    @BindView(R.id.btn_new_request)
+    Button btnNewRequest;
+
     private RequestListAdapter requestListAdapter;
     private RequestFragmentViewModel viewModel;
+    private int userRole = 2;
 
     public RequestsFragment() {
         // Required empty public constructor
@@ -66,15 +73,24 @@ public class RequestsFragment extends BaseFragment {
         viewModel = ViewModelProviders.of(this).get(RequestFragmentViewModel.class);
 
         viewModel.getRecyclerList().observeEvent(this, requests -> {
-            if (requests != null) {
+            if (requests.size() > 0 && userRole == 1) {
                 requestListAdapter.setData(requests);
                 noRequestLayout.setVisibility(View.GONE);
                 requestListLayout.setVisibility(View.VISIBLE);
+            } else if (requests.size() > 0 && userRole == 2) {
+                requestListAdapter.setData(requests);
+                noRequestLayout.setVisibility(View.GONE);
+                requestListLayout.setVisibility(View.VISIBLE);
+                fabCreateNewRequest.setVisibility(View.VISIBLE);
+            } else if (requests.size() == 0 && userRole == 2) {
+                btnNewRequest.setVisibility(View.VISIBLE);
             }
         });
 
+        checkUserRole();
         getUserList();
         populateSpinner();
+        filterRequests();
 
         return rootView;
     }
@@ -86,7 +102,7 @@ public class RequestsFragment extends BaseFragment {
 
     @OnClick(R.id.fab_create_new_request)
     public void fabCreateNewRequest() {
-
+        CreateNewRequestActivity.StartActivity(getActivity());
     }
 
     public void getUserList() {
@@ -97,5 +113,23 @@ public class RequestsFragment extends BaseFragment {
     private void populateSpinner() {
         ArrayAdapter<String> adapterGray = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_new_request, getResources().getStringArray(R.array.requestFilter));
         spinnerRequestItems.setAdapter(adapterGray);
+    }
+
+    private void filterRequests() {
+        spinnerRequestItems.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                Timber.d("ITEM SELECTED: " + adapterView.getItemAtPosition(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void checkUserRole() {
+        userRole = Integer.parseInt(Tools.getSharedPreferences(getActivity()).getSavedUserData().getRole());
     }
 }
