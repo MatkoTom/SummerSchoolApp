@@ -71,6 +71,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
+        android:id="@+id/scroll_view_request"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
@@ -212,18 +213,39 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/et_request_message" />
 
-            <com.google.android.gms.maps.MapView
-                android:id="@+id/ibtn_request_location"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/map_view__layout"
                 android:layout_width="match_parent"
-                android:layout_height="102dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:scaleType="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView18" />
+                app:layout_constraintTop_toBottomOf="@+id/textView18">
+
+                <com.google.android.gms.maps.MapView
+                    android:id="@+id/ibtn_request_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="102dp"
+                    android:scaleType="center"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/location_icon"
+                    app:layout_constraintBottom_toBottomOf="@+id/ibtn_request_location"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/ibtn_request_location" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <EditText
                 android:id="@+id/et_request_address"
@@ -238,7 +260,7 @@
                 android:inputType="textPostalAddress"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ibtn_request_location" />
+                app:layout_constraintTop_toBottomOf="@+id/map_view__layout" />
 
             <Button
                 android:id="@+id/btn_post_new_request"

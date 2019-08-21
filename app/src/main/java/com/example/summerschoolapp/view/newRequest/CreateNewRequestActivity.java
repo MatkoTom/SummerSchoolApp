@@ -7,8 +7,10 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.view.MotionEvent;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 
 import androidx.lifecycle.ViewModelProviders;
@@ -26,19 +28,19 @@ import com.example.summerschoolapp.view.main.MainScreenActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
 
-public class CreateNewRequestActivity extends BaseActivity implements OnMapReadyCallback {
+public class CreateNewRequestActivity extends BaseActivity {
 
     public static void StartActivity(Activity activity) {
         activity.startActivity(new Intent(activity, CreateNewRequestActivity.class));
@@ -55,6 +57,9 @@ public class CreateNewRequestActivity extends BaseActivity implements OnMapReady
 
     @BindView(R.id.et_request_address)
     EditText etRequestAddress;
+
+    @BindView(R.id.scroll_view_request)
+    ScrollView svRequest;
 
     private CreateNewRequestViewModel viewModel;
     private GoogleMap mMap;
@@ -112,6 +117,7 @@ public class CreateNewRequestActivity extends BaseActivity implements OnMapReady
         });
         mapView = findViewById(R.id.ibtn_request_location);
         mapView.onCreate(savedInstanceState);
+        mapChange();
         populateSpinner();
     }
 
@@ -148,6 +154,29 @@ public class CreateNewRequestActivity extends BaseActivity implements OnMapReady
         return latitude_longitude;
     }
 
+    //TODO Fix this
+    //TODO on intercept touch event
+    //in progress
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        int action = ev.getAction();
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                // Disallow ScrollView to intercept touch events.
+                svRequest.requestDisallowInterceptTouchEvent(true);
+                break;
+
+            case MotionEvent.ACTION_UP:
+                // Allow ScrollView to intercept touch events.
+                svRequest.requestDisallowInterceptTouchEvent(false);
+                break;
+        }
+
+        // Handle MapView's touch events.
+        super.onTouchEvent(ev);
+        return true;
+    }
+
     @OnClick(R.id.btn_post_new_request)
     public void postNewRequest() {
         viewModel.postNewRequest(Tools.getSharedPreferences(this).getSavedUserData().getJwt(), sendData());
@@ -163,20 +192,6 @@ public class CreateNewRequestActivity extends BaseActivity implements OnMapReady
         finish();
     }
 
-//    @OnClick(R.id.ibtn_request_location)
-//    public void requestLocation() {
-//        //TODO fix this
-//        //pending work
-//        String latitude = String.valueOf(getLocationFromAddress(this, etRequestAddress.getText().toString()).latitude);
-//        String longitude = String.valueOf(getLocationFromAddress(this, etRequestAddress.getText().toString()).longitude);
-//        Glide.with(this)
-//                .asBitmap()
-//                .load("https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=16&size=400x400&maptype=roadmap&markers=color:blue%7C" + latitude + "," + longitude + "&key=AIzaSyD_S_EijHqDQvHbgkvSzPLz5KD-0dEKNTQ")
-////                .load("https://maps.googleapis.com/maps/api/staticmap?center=" + String.valueOf(getLocationFromAddress(this, etRequestAddress.getText().toString()).latitude) + "&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyD_S_EijHqDQvHbgkvSzPLz5KD-0dEKNTQ")
-//                .into(ibtnRequestLocation);
-//
-//    }
-
     public RequestNewRequest sendData() {
         RequestNewRequest request = new RequestNewRequest();
         String latitude = getLocationFromAddress(this, etRequestAddress.getText().toString()).toString();
@@ -190,19 +205,39 @@ public class CreateNewRequestActivity extends BaseActivity implements OnMapReady
         return request;
     }
 
-    //TODO on intercept touch event
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+    public void mapChange() {
+        mapView.getMapAsync(googleMap -> {
+            mMap = googleMap;
+            LatLng location = new LatLng(45.8150, 15.9819);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
+            mMap.setOnCameraIdleListener(() -> {
+                LatLng centerOfMap = mMap.getCameraPosition().target;
 
-        LatLng centerOfMap = mMap.getCameraPosition().target;
-        // Add a marker in Sydney, Australia, and move the camera.
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(centerOfMap));
+                double latitude = centerOfMap.latitude;
+                double longitude = centerOfMap.longitude;
 
+                Timber.d("LATLNG:" + centerOfMap.latitude + " " + centerOfMap.longitude);
+
+                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+
+                List<Address> addresses = new ArrayList<>();
+                try {
+                    addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (addresses != null && addresses.size() > 0) {
+                    Address address = addresses.get(0);
+                    String[] street = address.getAddressLine(0).split(",");
+                    String streetName = street[0];
+                    Timber.d("ADRESS%s", streetName);
+                    etRequestAddress.setText(streetName);
+                }
+
+            });
+
+        });
     }
-
 
     @Override
     protected void onStart() {
