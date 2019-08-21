@@ -52,23 +52,8 @@ public class Preferences {
                 .apply();
     }
 
-    public User getUserToEdit() {
-        Gson gson = new Gson();
-        String json = preferences.getString(EDIT_USER_KEY, "");
-        return gson.fromJson(json, User.class);
-    }
-
-    public void saveUserToEdit(User user) {
-        Gson gson = new Gson();
-        String json = gson.toJson(user);
-
-        preferences.edit()
-                .putString(EDIT_USER_KEY, json)
-                .apply();
-    }
-
     public void logoutUser() {
-        preferences.edit().clear()
+        preferences.edit().remove(USER_SHARED_KEY)
                 .apply();
     }
 }

@@ -53,4 +53,8 @@ public final class Const {
         public static final int WRONG_PASSWORD = 1001;
         public static final int WRONG_EMAIL = 1000;
     }
+
+    public static class Intent {
+        public static final String USER_DATA = "UserData";
+    }
 }

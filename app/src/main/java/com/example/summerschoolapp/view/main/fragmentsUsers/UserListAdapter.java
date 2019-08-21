@@ -1,5 +1,6 @@
 package com.example.summerschoolapp.view.main.fragmentsUsers;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,12 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
 
     private List<User> data = new ArrayList<>();
 
+    private UserListInteraction listener;
+
+    public UserListAdapter(UserListInteraction listener) {
+        this.listener = listener;
+    }
+
     public void setData(List<User> newData) {
         if (newData != null && !newData.isEmpty()) {
             Collections.sort(newData, (user, t1) -> user.getEmail().compareTo(t1.getEmail()));
@@ -51,13 +58,12 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
         holder.tvUserEmail.setText(item.getEmail());
 
         // TODO @Matko
-        // parcelable object in intent
         // there should be an interface here and not a direct navigation from adapter
+        // EditUserActivity.StartActivity(context.getApplicationContext(), item);
         holder.rowParentLayout.setOnClickListener(view -> {
-            Tools.getSharedPreferences(view.getContext()).saveUserToEdit(data.get(position));
-            Timber.d("Saved user: %s", Tools.getSharedPreferences(view.getContext()).getUserToEdit().getEmail());
-            Intent i = new Intent(view.getContext().getApplicationContext(), EditUserActivity.class);
-            view.getContext().startActivity(i);
+            if (listener != null) {
+                listener.onUserClicked(item);
+            }
         });
     }
 
@@ -83,5 +89,9 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
             ivUSerImg = itemView.findViewById(R.id.iv_user_img);
             rowParentLayout = itemView.findViewById(R.id.row_parent_layout);
         }
+    }
+
+    interface UserListInteraction {
+        void onUserClicked(User user);
     }
 }
