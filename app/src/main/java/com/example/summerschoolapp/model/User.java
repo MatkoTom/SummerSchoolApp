@@ -1,8 +1,11 @@
 package com.example.summerschoolapp.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class User {
+public class User implements Parcelable {
 
     @SerializedName("ID")
     private String id;
@@ -103,4 +106,49 @@ public class User {
                 ", role='" + role + '\'' +
                 '}';
     }
+
+    // Parcelable
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.oib);
+        dest.writeString(this.firstName);
+        dest.writeString(this.lastName);
+        dest.writeString(this.jwt);
+        dest.writeString(this.email);
+        dest.writeString(this.role);
+        dest.writeString(this.photo);
+    }
+
+    public User() {
+    }
+
+    protected User(Parcel in) {
+        this.id = in.readString();
+        this.oib = in.readString();
+        this.firstName = in.readString();
+        this.lastName = in.readString();
+        this.jwt = in.readString();
+        this.email = in.readString();
+        this.role = in.readString();
+        this.photo = in.readString();
+    }
+
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

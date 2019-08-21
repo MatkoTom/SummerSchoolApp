@@ -52,21 +52,6 @@ public class Preferences {
                 .apply();
     }
 
-    public User getUserToEdit() {
-        Gson gson = new Gson();
-        String json = preferences.getString(EDIT_USER_KEY, "");
-        return gson.fromJson(json, User.class);
-    }
-
-    public void saveUserToEdit(User user) {
-        Gson gson = new Gson();
-        String json = gson.toJson(user);
-
-        preferences.edit()
-                .putString(EDIT_USER_KEY, json)
-                .apply();
-    }
-
     // TODO @Matko
     // whole shared preferences need to be removed
     // token, user, remember me - but not one by one

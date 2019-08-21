@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.model.User;
 import com.example.summerschoolapp.utils.Tools;
+import com.example.summerschoolapp.view.editUser.EditUserActivity;
 import com.example.summerschoolapp.view.newUser.CreateNewUserActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -51,7 +53,11 @@ public class UsersFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_users, container, false);
         ButterKnife.bind(this, rootView);
 
-        userListAdapter = new UserListAdapter(getActivity());
+        userListAdapter = new UserListAdapter(getActivity(), user -> {
+            // TODO @Matko
+            // implement
+            EditUserActivity.StartActivity(getContext(), user);
+        });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvUserList.setLayoutManager(layoutManager);
         rvUserList.setAdapter(userListAdapter);
@@ -85,7 +91,7 @@ public class UsersFragment extends Fragment {
 
     @OnClick(R.id.fab_create_new_user)
     public void startCreateUserActivity() {
-       CreateNewUserActivity.StartActivity(getActivity());
+        CreateNewUserActivity.StartActivity(getActivity());
     }
 
     public void getUserList() {

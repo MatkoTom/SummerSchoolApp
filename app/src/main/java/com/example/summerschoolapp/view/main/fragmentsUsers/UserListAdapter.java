@@ -31,8 +31,11 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
     // you can extract it from a view
     private Context context;
 
-    public UserListAdapter(Context context) {
+    private UserListInteraction listener;
+
+    public UserListAdapter(Context context, UserListInteraction listener) {
         this.context = context;
+        this.listener = listener;
     }
 
     public void setData(List<User> newData) {
@@ -61,11 +64,11 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
 
         // TODO @Matko
         // there should be an interface here and not a direct navigation from adapter
+        // EditUserActivity.StartActivity(context.getApplicationContext(), item);
         holder.rowParentLayout.setOnClickListener(view -> {
-            Tools.getSharedPreferences(view.getContext()).saveUserToEdit(data.get(position));
-            Timber.d("Saved user: %s", Tools.getSharedPreferences(view.getContext()).getUserToEdit().getEmail());
-            Intent i = new Intent(context.getApplicationContext(), EditUserActivity.class);
-            context.startActivity(i);
+            if (listener != null) {
+                listener.onUserClicked(item);
+            }
         });
     }
 
@@ -91,5 +94,9 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
             ivUSerImg = itemView.findViewById(R.id.iv_user_img);
             rowParentLayout = itemView.findViewById(R.id.row_parent_layout);
         }
+    }
+
+    interface UserListInteraction {
+        void onUserClicked(User user);
     }
 }

@@ -2,6 +2,7 @@ package com.example.summerschoolapp.view.editUser;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -27,6 +28,7 @@ import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.dialog.SuccessDialog;
 import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.model.User;
+import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
@@ -44,8 +46,11 @@ import timber.log.Timber;
 
 public class EditUserActivity extends BaseActivity {
 
-    public static void StartActivity(Activity activity) {
-        activity.startActivity(new Intent(activity, EditUserActivity.class));
+    public static void StartActivity(Context context, User userForEditing) {
+
+        Intent intent = new Intent(context, EditUserActivity.class);
+        intent.putExtra(Const.Intent.USER_DATA, userForEditing);
+        context.startActivity(intent);
     }
 
     @BindView(R.id.ibtn_hide_show)
@@ -72,11 +77,17 @@ public class EditUserActivity extends BaseActivity {
     private File image;
     private String filePath = "";
 
+    User userForEditing;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user);
         ButterKnife.bind(this);
+
+        if (getIntent() != null && getIntent().getExtras() != null) {
+            userForEditing = getIntent().getParcelableExtra(Const.Intent.USER_DATA);
+        }
 
         viewModel = ViewModelProviders.of(this).get(EditUserViewModel.class);
 
@@ -130,10 +141,12 @@ public class EditUserActivity extends BaseActivity {
     }
 
     public void setField() {
-        User user = Tools.getSharedPreferences(this).getUserToEdit();
-        etEditUserName.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
-        etEditUserEmail.setText(user.getEmail());
-        etEditUserOib.setText(user.getOib());
+        // TODO @Matko
+        // this is wrong
+//        User user = Tools.getSharedPreferences(this).getUserToEdit();
+        etEditUserName.setText(String.format("%s %s", userForEditing.getFirstName(), userForEditing.getLastName()));
+        etEditUserEmail.setText(userForEditing.getEmail());
+        etEditUserOib.setText(userForEditing.getOib());
     }
 
     @OnClick(R.id.ibtn_hide_show)
@@ -153,9 +166,8 @@ public class EditUserActivity extends BaseActivity {
     public void editUser() {
 
         String[] splitString = etEditUserName.getText().toString().trim().split(" ");
-        User user = Tools.getSharedPreferences(this).getUserToEdit();
 
-        String id = user.getId();
+        String id = userForEditing.getId();
         String oib = etEditUserOib.getText().toString();
         String firstName = splitString[0];
         String lastName = splitString[1];
