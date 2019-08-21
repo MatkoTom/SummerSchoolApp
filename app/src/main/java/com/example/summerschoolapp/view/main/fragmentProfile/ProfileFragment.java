@@ -75,7 +75,7 @@ public class ProfileFragment extends BaseFragment {
 
                         @Override
                         public void onNegativeInteraction() {
-
+                            // ignored
                         }
                     });
             }
@@ -86,6 +86,8 @@ public class ProfileFragment extends BaseFragment {
 
     @OnClick(R.id.btn_logout)
     public void logout() {
+        // TODO @Matko
+        // nothing should be fetched in view, call method and do this in viewModel
         viewModel.logout(Tools.getSharedPreferences(getActivity()).getSavedUserData().getJwt());
     }
 

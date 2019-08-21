@@ -116,7 +116,10 @@ public class EditUserActivity extends BaseActivity {
 
                         @Override
                         public void onNegativeInteraction() {
-
+                            // TODO @Matko
+                            // already made a comment about this
+                            // add comment ignored if not used
+                            // ignored
                         }
                     });
                     break;

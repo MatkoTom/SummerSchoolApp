@@ -1,6 +1,5 @@
 package com.example.summerschoolapp.network.retrofit;
 
-import com.example.summerschoolapp.model.editUser.RequestEditUser;
 import com.example.summerschoolapp.model.editUser.ResponseEditUser;
 import com.example.summerschoolapp.model.login.RequestLogin;
 import com.example.summerschoolapp.model.login.ResponseLogin;

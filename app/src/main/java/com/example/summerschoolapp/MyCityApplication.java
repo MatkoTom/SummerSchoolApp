@@ -13,8 +13,6 @@ import org.jetbrains.annotations.Nullable;
 
 import timber.log.Timber;
 
-// TODO @Matko
-// I added application class for general lib initialisation
 public class MyCityApplication extends Application implements LifecycleObserver {
 
     @Override

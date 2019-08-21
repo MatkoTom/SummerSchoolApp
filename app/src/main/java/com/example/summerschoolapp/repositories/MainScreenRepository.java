@@ -9,7 +9,6 @@ import io.reactivex.schedulers.Schedulers;
 public class MainScreenRepository {
 
     public MainScreenRepository() {
-
     }
 
     public Single<ResponseUsersList> getUserList(String token) {

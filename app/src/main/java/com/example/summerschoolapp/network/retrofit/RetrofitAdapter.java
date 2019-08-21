@@ -37,6 +37,10 @@ public class RetrofitAdapter {
                 okHttpBuilder.addInterceptor(interceptor);
             }
 
+            // TODO @Matko
+            // use below code/logic for adding things to header in every or some requests
+            // do not send token in each api call
+
             // add global auth header adding
 //            httpClient.addInterceptor(chain -> {
 //                Request original = chain.request();

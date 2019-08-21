@@ -12,7 +12,6 @@ import okhttp3.MultipartBody;
 public class UserRepository {
 
     public UserRepository() {
-
     }
 
     public Single<ResponseNewUser> postNewUser(RequestNewUser newUser, String token) {

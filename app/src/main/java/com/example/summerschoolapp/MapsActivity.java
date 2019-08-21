@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.summerschoolapp.view.main.MainScreenActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -14,6 +13,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+// TODO @Matko
+// is this a test activity, if yes then mark it as such, also place in debug or test package
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     public static void StartActivity(Activity activity) {

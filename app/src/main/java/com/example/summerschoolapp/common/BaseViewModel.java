@@ -46,6 +46,8 @@ public class BaseViewModel extends AndroidViewModel {
         return baseErrors;
     }
 
+    // TODO @Matko
+    // let's better use this method for reporting errors because it is thread safe
     public void reportError(Event<BaseError> error) {
         if (Looper.getMainLooper().getThread() == Thread.currentThread()) {
             baseErrors.setValue(error);

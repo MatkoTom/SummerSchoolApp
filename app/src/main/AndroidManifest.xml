@@ -12,6 +12,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!-- TODO @Matko -->
+    <!-- activities and other segments need to be organised hierarchically, meaning from top to bottom in order of appearance -->
+    <!-- another example maps api key should be under the activity that uses it -->
     <application
 
         android:name=".MyCityApplication"

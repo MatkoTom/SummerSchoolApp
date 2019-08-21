@@ -8,6 +8,8 @@ import androidx.lifecycle.Observer;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import timber.log.Timber;
+
 /**
  * A lifecycle-aware observable that sends only new updates after subscription, used for events like
  * navigation and Snackbar messages.
@@ -26,8 +28,7 @@ public class SingleLiveEvent<T> extends MutableLiveData<T> {
     public void observeEvent(LifecycleOwner owner, final Observer<T> observer) {
 
         if (hasActiveObservers()) {
-            // TODO @Matko
-//            Timber.w("Multiple observers registered but only one will be notified of changes.");
+            Timber.w("Multiple observers registered but only one will be notified of changes.");
         }
 
         // Observe the internal MutableLiveData

@@ -52,6 +52,10 @@ public class NewsFragment extends Fragment {
     }
 
     public void checkUserRole() {
+        // TODO @Matko
+        // better to add this logic to fragments viewModel or host activity viewModel if necessary there, another option would be to add it to Tools
+        // better way to check this would be Method.isAdmin();
+        // 1 constant should be stored in Const as Const.ADMIN_ROLE
         if (Integer.parseInt(Tools.getSharedPreferences(getActivity()).getSavedUserData().getRole()) == 1) {
             btnPublishNews.setVisibility(View.VISIBLE);
         } else {

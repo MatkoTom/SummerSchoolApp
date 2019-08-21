@@ -13,6 +13,8 @@ public class SignupError extends BaseError {
         ERROR_WHILE_SIGNUP_OIB_IN_USE(R.string.oib_already_in_use),
         ERROR_WHILE_SIGNUP_EMAIL_IN_USE(R.string.email_in_use),
         SOMETHING_WENT_WRONG(R.string.text_try_again),
+        // TODO @Matko
+        // same thing as in LoginError class
         UNATUHORISED(R.string.error_unauthorised);
 
         private int value;

@@ -90,6 +90,9 @@ public class RequestsFragment extends BaseFragment {
     }
 
     public void getUserList() {
+        // TODO @Matko
+        // just call method and fetch token in viewModel method
+        // checkout ProfileFragment logout method comment
         String token = Tools.getSharedPreferences(getActivity()).getSavedUserData().getJwt();
         viewModel.fetchRequestList(token);
     }

@@ -26,7 +26,14 @@ import timber.log.Timber;
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.CustomVievHolder> {
 
     private List<User> data = new ArrayList<>();
+    // TODO @Matko
+    // context is generally not necessary as a global variable
+    // you can extract it from a view
     private Context context;
+
+    public UserListAdapter(Context context) {
+        this.context = context;
+    }
 
     public void setData(List<User> newData) {
         if (newData != null && !newData.isEmpty()) {
@@ -35,10 +42,6 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
             this.data.addAll(newData);
             notifyDataSetChanged();
         }
-    }
-
-    public UserListAdapter(Context context) {
-        this.context = context;
     }
 
     @NonNull
@@ -56,6 +59,8 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
         holder.tvUserLastName.setText(item.getLastName());
         holder.tvUserEmail.setText(item.getEmail());
 
+        // TODO @Matko
+        // there should be an interface here and not a direct navigation from adapter
         holder.rowParentLayout.setOnClickListener(view -> {
             Tools.getSharedPreferences(view.getContext()).saveUserToEdit(data.get(position));
             Timber.d("Saved user: %s", Tools.getSharedPreferences(view.getContext()).getUserToEdit().getEmail());

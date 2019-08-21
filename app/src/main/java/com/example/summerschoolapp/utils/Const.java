@@ -5,8 +5,12 @@ public final class Const {
     private Const() {
     }
 
+    // TODO @Matko
+    // only api paths should be in this static class, other variables should be moved to other classes even if they are connected to network semantically
+    // maybe Network should be renamed to Api
     public static class Network {
         public static final String BASE_URL = "https://intern2019dev.clover.studio/";
+
         public static final String API_LOGIN = "users/login";
         public static final String API_SIGNUP = "users/register";
         public static final String API_CREATE_NEW_USER_EDIT_USER = "users/newUser";
