@@ -52,6 +52,8 @@ public class RequestsFragment extends BaseFragment {
 
     private RequestListAdapter requestListAdapter;
     private RequestFragmentViewModel viewModel;
+    // TODO @Matko
+    // needs to be added in Const, already mentioned this in one of todo's
     private int userRole = 2;
 
     public RequestsFragment() {

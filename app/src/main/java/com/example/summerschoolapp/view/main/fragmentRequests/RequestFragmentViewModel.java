@@ -21,6 +21,8 @@ public class RequestFragmentViewModel extends BaseViewModel {
 
     private RequestRepository requestRepository;
 
+    // TODO @Matko
+    // sendList name is a bit unclear
     private SingleLiveEvent<List<Request>> sendList = new SingleLiveEvent<>();
 
     public RequestFragmentViewModel(@NonNull Application application) {
@@ -28,6 +30,8 @@ public class RequestFragmentViewModel extends BaseViewModel {
         requestRepository = new RequestRepository();
     }
 
+    // TODO @Matko
+    // getRecyclerList is a bit unclear name, should be something like userList or searchResults
     public SingleLiveEvent<List<Request>> getRecyclerList() {
         return sendList;
     }

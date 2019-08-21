@@ -67,6 +67,9 @@ public class Preferences {
                 .apply();
     }
 
+    // TODO @Matko
+    // whole shared preferences need to be removed
+    // token, user, remember me - but not one by one
     public void logoutUser() {
         preferences.edit().remove(USER_SHARED_KEY)
                 .apply();
