@@ -35,6 +35,8 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import timber.log.Timber;
 
 public class CreateNewRequestActivity extends BaseActivity {
@@ -159,8 +161,19 @@ public class CreateNewRequestActivity extends BaseActivity {
         String latitude = String.valueOf(getLocationFromAddress(this, etRequestAddress.getText().toString()).latitude);
         String longitude = String.valueOf(getLocationFromAddress(this, etRequestAddress.getText().toString()).longitude);
         String address = etRequestAddress.getText().toString();
-        Timber.d("ADDRESS:" + address);
-        viewModel.postNewRequest(Tools.getSharedPreferences(this).getSavedUserData().getJwt(), title, type, message, longitude, latitude, address);
+
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("Title", title)
+                .addFormDataPart("Request_type", type)
+                .addFormDataPart("message", message)
+                .addFormDataPart("location_latitude", latitude)
+                .addFormDataPart("location_longitude", longitude)
+                .addFormDataPart("Address",address)
+                .build();
+
+        viewModel.postNewRequest(Tools.getSharedPreferences(this).getSavedUserData().getJwt(), requestBody);
+
     }
 
     @OnClick(R.id.ibtn_back)

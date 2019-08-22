@@ -22,6 +22,7 @@ import java.net.SocketTimeoutException;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import timber.log.Timber;
 
@@ -44,9 +45,9 @@ public class CreateNewRequestViewModel extends BaseViewModel {
         return navigation;
     }
 
-    public void postNewRequest(String token, String title, String type, String message, String longitude, String latitude, String address) {
+    public void postNewRequest(String token, RequestBody requestBody) {
         startProgress();
-        requestRepository.createNewRequest(token, title, type, message, longitude, latitude, address)
+        requestRepository.createNewRequest(token, requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<ResponseNewRequest>() {

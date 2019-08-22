@@ -13,7 +13,7 @@ import com.example.summerschoolapp.model.userslist.ResponseUsersList;
 import com.example.summerschoolapp.utils.Const;
 
 import io.reactivex.Single;
-import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -26,24 +26,19 @@ import retrofit2.http.Streaming;
 
 public interface RetrofitAPI {
 
-    //TODO if sending picture, change to multipart
-
     @POST(Const.Api.API_LOGIN)
     Single<ResponseLogin> login(@Body RequestLogin user);
 
     @POST(Const.Api.API_SIGNUP)
     Single<ResponseSignup> register(@Body RequestSignup register);
 
-    @Multipart
-    @Streaming
     @POST(Const.Api.API_CREATE_NEW_USER_EDIT_USER)
     Single<ResponseNewUser> createNewUser(@Header(Const.NetworkQuery.API_TOKEN) String token,
-                                          @Part("oib") String oib,
-                                          @Part("firstName") String firstName,
-                                          @Part("lastName") String lastName,
-                                          @Part("email") String email,
-                                          @Part("password") String password,
-                                          @Part MultipartBody.Part photo);
+                                          @Body RequestBody body);
+
+    @PUT(Const.Api.API_CREATE_NEW_USER_EDIT_USER)
+    Single<ResponseEditUser> editUser(@Header(Const.NetworkQuery.API_TOKEN) String token,
+                                      @Body RequestBody body);
 
     @GET(Const.Api.API_FETCH_USER_LIST)
     Single<ResponseUsersList> fetchUserList(@Header(Const.NetworkQuery.API_TOKEN) String token);
@@ -55,28 +50,9 @@ public interface RetrofitAPI {
     @POST(Const.Api.API_LOGOUT)
     Single<Object> logout(@Header(Const.NetworkQuery.API_TOKEN) String token);
 
-    @Multipart
-    @Streaming
-    @PUT(Const.Api.API_CREATE_NEW_USER_EDIT_USER)
-    Single<ResponseEditUser> editUser(@Header(Const.NetworkQuery.API_TOKEN) String token,
-                                      @Part("ID") String id,
-                                      @Part("oib") String oib,
-                                      @Part("firstName") String firstName,
-                                      @Part("lastName") String lastName,
-                                      @Part("email") String email,
-                                      @Part("password") String password,
-                                      @Part MultipartBody.Part file);
-
-    @Multipart
     @POST(Const.Api.API_CREATE_NEW_REQUEST)
     Single<ResponseNewRequest> createNewRequest(@Header(Const.NetworkQuery.API_TOKEN) String token,
-                                                @Part("Title") String title,
-                                                @Part("Request_type") String type,
-                                                @Part("message") String message,
-                                                @Part("location_longitude") String longitude,
-                                                @Part("location_latitude") String latitude,
-                                                @Part("Address") String address);
-
+                                               @Body RequestBody body);
 
     @PUT(Const.Api.API_EDIT_NEW_REQUEST)
     Single<ResponseNewRequest> editRequest(@Header(Const.NetworkQuery.API_TOKEN) String token,

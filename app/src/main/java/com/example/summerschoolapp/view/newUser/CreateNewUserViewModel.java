@@ -24,6 +24,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import timber.log.Timber;
 
@@ -46,10 +47,10 @@ public class CreateNewUserViewModel extends BaseViewModel {
         return navigation;
     }
 
-    public void createNewUser(String token, String oib, String firstName, String lastName, String email, String password, MultipartBody.Part photo) {
+    public void createNewUser(String token, RequestBody body) {
 
         startProgress();
-        newUserRepo.postNewUser(token, oib, firstName, lastName, email, password, photo)
+        newUserRepo.postNewUser(token, body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<ResponseNewUser>() {

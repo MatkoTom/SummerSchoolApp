@@ -1,5 +1,7 @@
 package com.example.summerschoolapp.network.retrofit;
 
+import android.text.TextUtils;
+
 import com.example.summerschoolapp.BuildConfig;
 import com.example.summerschoolapp.utils.Const;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -7,6 +9,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -42,20 +45,24 @@ public class RetrofitAdapter {
             // do not send token in each api call
 
             // add global auth header adding
-//            httpClient.addInterceptor(chain -> {
-//                Request original = chain.request();
-//                Request.Builder requestBuilder = original.newBuilder()
-//                        .addHeader("Accept", "application/json");
-//
-//                // Adding Authorization token (API Key)
-//                // Requests will be denied without API key
+            okHttpBuilder.addInterceptor(chain -> {
+                Request original = chain.request();
+                Request.Builder requestBuilder = original.newBuilder()
+                        .addHeader("Accept", "application/json");
+
+                if (original.body() != null){
+                    requestBuilder.addHeader("Content-Length", Long.toString(original.body().contentLength()));
+                }
+
+                // Adding Authorization token (API Key)
+                // Requests will be denied without API key
 //                if (!TextUtils.isEmpty(Preferences.getInstance(context).getCustomString(Const.Preferences.AUTH_TOKEN))) {
 //                    requestBuilder.addHeader("Authorization", "JWT " + Preferences.getInstance(context).getCustomString(Const.Preferences.AUTH_TOKEN));
 //                }
-//
-//                Request request = requestBuilder.build();
-//                return chain.proceed(request);
-//            });
+
+                Request request = requestBuilder.build();
+                return chain.proceed(request);
+            });
 
             OkHttpClient okHttpClient = okHttpBuilder.build();
 

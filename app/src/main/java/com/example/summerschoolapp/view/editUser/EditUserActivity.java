@@ -6,11 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Base64;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -33,6 +36,7 @@ import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import butterknife.BindView;
@@ -41,8 +45,11 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.Request;
 import okhttp3.RequestBody;
 import timber.log.Timber;
+
+import static com.example.summerschoolapp.utils.Const.Api.BASE_URL;
 
 public class EditUserActivity extends BaseActivity {
 
@@ -166,9 +173,19 @@ public class EditUserActivity extends BaseActivity {
         String firstName = splitString[0];
         String lastName = splitString[1];
         String email = etEditUserEmail.getText().toString();
-        String password = etEditUserPassword.getText().toString();
+        String password = Tools.md5(etEditUserPassword.getText().toString());
 
-        viewModel.editUser(id, oib, firstName, lastName, email, password, Tools.getSharedPreferences(this).getSavedUserData().getJwt(), uploadPicture(filePath));
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("ID", id)
+                .addFormDataPart("oib", oib)
+                .addFormDataPart("firstName", firstName)
+                .addFormDataPart("lastName", lastName)
+                .addFormDataPart("email", email)
+                .addFormDataPart("password", password)
+                .build();
+
+        viewModel.editUser(Tools.getSharedPreferences(this).getSavedUserData().getJwt(), requestBody);
     }
 
     @OnClick(R.id.civ_edit_user_picture)
@@ -240,11 +257,13 @@ public class EditUserActivity extends BaseActivity {
         }
     }
 
-    public MultipartBody.Part uploadPicture(String filepath) {
-        File file = new File(filepath);
-
-        RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/*"));
-
-        return MultipartBody.Part.createFormData("photo", file.getName(), fileBody);
-    }
+    //TODO needs to be fixed
+    // ignore
+//    public RequestBody uploadPicture(String filepath) {
+//        File file = new File(filepath);
+//
+//        RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/*"));
+//
+//        return fileBody;
+//    }
 }

@@ -199,6 +199,7 @@ public class CreateNewUserActivity extends BaseActivity {
         }
     }
 
+    // TODO Why doesn't this work like New Request or EditUser?
     @OnClick(R.id.btn_create_new_user)
     public void createNewUser() {
         if (!(etCreateUserEmail.getText().toString().length() == 0 ||
@@ -211,7 +212,17 @@ public class CreateNewUserActivity extends BaseActivity {
             String lastName = splitString[1];
             String oib = etCreateUserOib.getText().toString();
             String password = Tools.md5(etCreateUserPassword.getText().toString());
-            viewModel.createNewUser(Tools.getSharedPreferences(this).getSavedUserData().getJwt(), oib, firstName, lastName, email, password, uploadPicture(filePath));
+
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("oib", oib)
+                    .addFormDataPart("firstName", firstName)
+                    .addFormDataPart("lastName", lastName)
+                    .addFormDataPart("email", email)
+                    .addFormDataPart("password", password)
+                    .build();
+
+            viewModel.createNewUser(Tools.getSharedPreferences(this).getSavedUserData().getJwt(), requestBody);
         } else {
             Toast.makeText(this, getString(R.string.plsea_fill_out_all_fields), Toast.LENGTH_LONG).show();
         }
@@ -219,27 +230,29 @@ public class CreateNewUserActivity extends BaseActivity {
     }
 
     //TODO do I need this still?
-    private RequestNewUser sendData() {
-        RequestNewUser user = new RequestNewUser();
-        user.email = etCreateUserEmail.getText().toString();
-        String[] splitString = etCreateUserName.getText().toString().trim().split(" ");
-        user.firstName = splitString[0];
-        user.lastName = splitString[1];
-        user.oib = etCreateUserOib.getText().toString();
-        user.password = Tools.md5(etCreateUserPassword.getText().toString());
-        return user;
-    }
+//    private RequestNewUser sendData() {
+//        RequestNewUser user = new RequestNewUser();
+//        user.email = etCreateUserEmail.getText().toString();
+//        String[] splitString = etCreateUserName.getText().toString().trim().split(" ");
+//        user.firstName = splitString[0];
+//        user.lastName = splitString[1];
+//        user.oib = etCreateUserOib.getText().toString();
+//        user.password = Tools.md5(etCreateUserPassword.getText().toString());
+//        return user;
+//    }
 
-    public MultipartBody.Part uploadPicture(String filepath) {
-        File file = new File(filepath);
-
-        if (filepath != null) {
-            RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/*"));
-
-            return MultipartBody.Part.createFormData("photo", file.getName(), fileBody);
-        }
-        return null;
-    }
+    //TODO need to be fixed
+    //ignore
+//    public MultipartBody.Part uploadPicture(String filepath) {
+//        File file = new File(filepath);
+//
+//        if (filepath != null) {
+//            RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/*"));
+//
+//            return MultipartBody.Part.createFormData("photo", file.getName(), fileBody);
+//        }
+//        return null;
+//    }
 
     @OnClick(R.id.ibtn_back)
     public void imageButtonBack() {

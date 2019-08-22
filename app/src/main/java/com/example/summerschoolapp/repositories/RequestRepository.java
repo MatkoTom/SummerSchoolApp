@@ -7,15 +7,16 @@ import com.example.summerschoolapp.network.retrofit.RetrofitAdapter;
 
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.RequestBody;
 
 public class RequestRepository {
 
     public RequestRepository() {
     }
 
-    public Single<ResponseNewRequest> createNewRequest(String token, String title, String type, String message, String longitude, String latitude, String address) {
+    public Single<ResponseNewRequest> createNewRequest(String token, RequestBody requestBody) {
         return RetrofitAdapter.getRetrofitClient()
-                .createNewRequest(token, title, type, message, longitude, latitude, address)
+                .createNewRequest(token, requestBody)
                 .subscribeOn(Schedulers.io());
     }
 
