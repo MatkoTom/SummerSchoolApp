@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
 
-public class NewRequestScrollAdapter extends ScrollView {
+public class RequestScrollAdapter extends ScrollView {
 
     private boolean enableScrolling = true;
 
@@ -17,15 +17,15 @@ public class NewRequestScrollAdapter extends ScrollView {
         this.enableScrolling = enableScrolling;
     }
 
-    public NewRequestScrollAdapter(Context context, AttributeSet attrs, int defStyle) {
+    public RequestScrollAdapter(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
-    public NewRequestScrollAdapter(Context context, AttributeSet attrs) {
+    public RequestScrollAdapter(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public NewRequestScrollAdapter(Context context) {
+    public RequestScrollAdapter(Context context) {
         super(context);
     }
 

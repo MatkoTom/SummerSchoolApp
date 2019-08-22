@@ -18,8 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.common.BaseFragment;
+import com.example.summerschoolapp.model.Request;
 import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.Tools;
+import com.example.summerschoolapp.view.editRequest.EditRequestActivity;
 import com.example.summerschoolapp.view.newRequest.CreateNewRequestActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -65,7 +67,12 @@ public class RequestsFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_requests, container, false);
         ButterKnife.bind(this, rootView);
 
-        requestListAdapter = new RequestListAdapter();
+        requestListAdapter = new RequestListAdapter(new RequestListAdapter.RequestListInteraction() {
+            @Override
+            public void onRequestClicked(Request request) {
+                EditRequestActivity.StartActivity(getContext(), request);
+            }
+        });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvRequests.setLayoutManager(layoutManager);
         rvRequests.setAdapter(requestListAdapter);

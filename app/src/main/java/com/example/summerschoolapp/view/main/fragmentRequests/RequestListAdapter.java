@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.model.Request;
-import com.google.android.gms.maps.MapView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +22,11 @@ import timber.log.Timber;
 public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.CustomVievHolder> {
 
     private List<Request> data = new ArrayList<>();
+    private RequestListInteraction listener;
+
+    public RequestListAdapter(RequestListInteraction listener) {
+        this.listener = listener;
+    }
 
     public void setData(List<Request> newData) {
         if (newData != null && !newData.isEmpty()) {
@@ -49,12 +53,7 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
     public void onBindViewHolder(@NonNull RequestListAdapter.CustomVievHolder holder, int position) {
         Request item = data.get(position);
 
-        if (item.getTitle() != null) {
-            holder.tvRequestTitle.setText(item.getTitle());
-        } else {
-            holder.tvRequestTitle.setText("");
-        }
-
+        holder.tvRequestTitle.setText(item.getTitle());
         String latitude = String.valueOf(item.getLocation_latitude());
         Timber.d("TEMCOORDS" + item.getLocation_latitude() + " " + item.getLocation_longitude());
         String longitude = String.valueOf(item.getLocation_longitude());
@@ -62,9 +61,16 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
         Glide.with(holder.ivRequestLocation.getContext())
                 .load(url)
                 .into(holder.ivRequestLocation);
+
         holder.tvRequestType.setText(item.getRequestType());
         holder.tvRequestMessage.setText(item.getMessage());
         holder.tvRequestAddress.setText(item.getAddress());
+
+        holder.rowParentLayout.setOnClickListener(view -> {
+            if (listener != null) {
+                listener.onRequestClicked(item);
+            }
+        });
     }
 
     @Override
@@ -91,5 +97,9 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
             ivRequestLocation = itemView.findViewById(R.id.iv_request_location);
             rowParentLayout = itemView.findViewById(R.id.request_row_parent_layout);
         }
+    }
+
+    interface RequestListInteraction {
+        void onRequestClicked(Request request);
     }
 }

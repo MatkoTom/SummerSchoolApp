@@ -1,11 +1,11 @@
 package com.example.summerschoolapp.model;
 
-import com.example.summerschoolapp.common.BaseModel;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-import okhttp3.MultipartBody;
-
-public class Request extends BaseModel {
+public class Request implements Parcelable {
 
     @SerializedName("ID")
     private String ID;
@@ -29,7 +29,7 @@ public class Request extends BaseModel {
     private String address;
 
     @SerializedName("image")
-    private MultipartBody.Part image;
+    private String image;
 
     public String getID() {
         return ID;
@@ -79,11 +79,11 @@ public class Request extends BaseModel {
         this.message = message;
     }
 
-    public MultipartBody.Part getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(MultipartBody.Part image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -94,4 +94,47 @@ public class Request extends BaseModel {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.ID);
+        dest.writeString(this.title);
+        dest.writeString(this.requestType);
+        dest.writeString(this.location_latitude);
+        dest.writeString(this.location_longitude);
+        dest.writeString(this.message);
+        dest.writeString(this.address);
+        dest.writeString(this.image);
+    }
+
+    public Request() {
+    }
+
+    protected Request(Parcel in) {
+        this.ID = in.readString();
+        this.title = in.readString();
+        this.requestType = in.readString();
+        this.location_latitude = in.readString();
+        this.location_longitude = in.readString();
+        this.message = in.readString();
+        this.address = in.readString();
+        this.image = in.readString();
+    }
+
+    public static final Parcelable.Creator<Request> CREATOR = new Parcelable.Creator<Request>() {
+        @Override
+        public Request createFromParcel(Parcel source) {
+            return new Request(source);
+        }
+
+        @Override
+        public Request[] newArray(int size) {
+            return new Request[size];
+        }
+    };
 }

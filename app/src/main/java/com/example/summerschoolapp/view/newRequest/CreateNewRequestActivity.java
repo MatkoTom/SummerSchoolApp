@@ -58,7 +58,7 @@ public class CreateNewRequestActivity extends BaseActivity {
     EditText etRequestAddress;
 
     @BindView(R.id.scroll_view_request)
-    NewRequestScrollAdapter svRequest;
+    RequestScrollAdapter svRequest;
 
     private CreateNewRequestViewModel viewModel;
     private GoogleMap mMap;
@@ -108,7 +108,7 @@ public class CreateNewRequestActivity extends BaseActivity {
 
                         @Override
                         public void onNegativeInteraction() {
-
+                            //ignore
                         }
                     });
                     break;
@@ -169,7 +169,7 @@ public class CreateNewRequestActivity extends BaseActivity {
                 .addFormDataPart("message", message)
                 .addFormDataPart("location_latitude", latitude)
                 .addFormDataPart("location_longitude", longitude)
-                .addFormDataPart("Address",address)
+                .addFormDataPart("Address", address)
                 .build();
 
         viewModel.postNewRequest(Tools.getSharedPreferences(this).getSavedUserData().getJwt(), requestBody);

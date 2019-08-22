@@ -56,7 +56,7 @@ public interface RetrofitAPI {
 
     @PUT(Const.Api.API_EDIT_NEW_REQUEST)
     Single<ResponseNewRequest> editRequest(@Header(Const.NetworkQuery.API_TOKEN) String token,
-                                           @Body RequestNewRequest requestNewRequest);
+                                           @Body RequestBody body);
 
     @GET(Const.Api.API_FETCH_REQUEST_LIST)
     Single<ResponseRequestList> fetchRequestList(@Header(Const.NetworkQuery.API_TOKEN) String token);

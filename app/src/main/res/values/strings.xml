@@ -86,4 +86,7 @@
     <string name="title_activity_maps">Map</string>
     <string name="failed_to_load">Failed to load picture</string>
     <string name="all">Sve</string>
+    <string name="edit_request">Uredi zahtjev</string>
+    <string name="save_request_edit">Spremi izmjene</string>
+    <string name="request_edit_success">Zahtjev uspješno izmijenjen!</string>
 </resources>

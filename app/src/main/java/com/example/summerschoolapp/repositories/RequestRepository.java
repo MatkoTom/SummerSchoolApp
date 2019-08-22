@@ -20,9 +20,9 @@ public class RequestRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Single<ResponseNewRequest> editRequest(String token, RequestNewRequest requestNewRequest) {
+    public Single<ResponseNewRequest> editRequest(String token, RequestBody body) {
         return RetrofitAdapter.getRetrofitClient()
-                .editRequest(token, requestNewRequest)
+                .editRequest(token, body)
                 .subscribeOn(Schedulers.io());
     }
 
