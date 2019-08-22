@@ -25,7 +25,7 @@ public class Request extends BaseModel {
     @SerializedName("message")
     private String message;
 
-    @SerializedName("address")
+    @SerializedName("Address")
     private String address;
 
     @SerializedName("image")

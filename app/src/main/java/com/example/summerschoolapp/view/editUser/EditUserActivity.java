@@ -79,6 +79,7 @@ public class EditUserActivity extends BaseActivity {
 
     User userForEditing;
 
+    //TODO something is not working, route no being called?
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,7 +123,7 @@ public class EditUserActivity extends BaseActivity {
                     SuccessDialog.CreateInstance(this, getString(R.string.success), getString(R.string.user_successfully_edited), getString(R.string.ok), null, new SuccessDialog.OnSuccessDialogInteraction() {
                         @Override
                         public void onPositiveInteraction() {
-                            MainScreenActivity.StartActivity(EditUserActivity.this);
+                           finish();
                         }
 
                         @Override
@@ -133,7 +134,6 @@ public class EditUserActivity extends BaseActivity {
                     break;
             }
         });
-
         setField();
     }
 
@@ -247,5 +247,4 @@ public class EditUserActivity extends BaseActivity {
 
         return MultipartBody.Part.createFormData("photo", file.getName(), fileBody);
     }
-
 }

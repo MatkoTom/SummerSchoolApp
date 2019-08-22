@@ -5,7 +5,6 @@ import com.example.summerschoolapp.model.login.RequestLogin;
 import com.example.summerschoolapp.model.login.ResponseLogin;
 import com.example.summerschoolapp.model.newRequest.RequestNewRequest;
 import com.example.summerschoolapp.model.newRequest.ResponseNewRequest;
-import com.example.summerschoolapp.model.newuser.RequestNewUser;
 import com.example.summerschoolapp.model.newuser.ResponseNewUser;
 import com.example.summerschoolapp.model.requestsList.ResponseRequestList;
 import com.example.summerschoolapp.model.signup.RequestSignup;
@@ -35,9 +34,16 @@ public interface RetrofitAPI {
     @POST(Const.Api.API_SIGNUP)
     Single<ResponseSignup> register(@Body RequestSignup register);
 
+    @Multipart
+    @Streaming
     @POST(Const.Api.API_CREATE_NEW_USER_EDIT_USER)
     Single<ResponseNewUser> createNewUser(@Header(Const.NetworkQuery.API_TOKEN) String token,
-                                          @Body RequestNewUser requestNew);
+                                          @Part("oib") String oib,
+                                          @Part("firstName") String firstName,
+                                          @Part("lastName") String lastName,
+                                          @Part("email") String email,
+                                          @Part("password") String password,
+                                          @Part MultipartBody.Part photo);
 
     @GET(Const.Api.API_FETCH_USER_LIST)
     Single<ResponseUsersList> fetchUserList(@Header(Const.NetworkQuery.API_TOKEN) String token);
@@ -61,13 +67,19 @@ public interface RetrofitAPI {
                                       @Part("password") String password,
                                       @Part MultipartBody.Part file);
 
+    @Multipart
     @POST(Const.Api.API_CREATE_NEW_REQUEST)
     Single<ResponseNewRequest> createNewRequest(@Header(Const.NetworkQuery.API_TOKEN) String token,
-                                                @Body RequestNewRequest requestNewRequest);
+                                                @Part("Title") String title,
+                                                @Part("Request_type") String type,
+                                                @Part("message") String message,
+                                                @Part("location_longitude") String longitude,
+                                                @Part("location_latitude") String latitude,
+                                                @Part("Address") String address);
 
     @PUT(Const.Api.API_EDIT_NEW_REQUEST)
     Single<ResponseNewRequest> editRequest(@Header(Const.NetworkQuery.API_TOKEN) String token,
-                                                @Body RequestNewRequest requestNewRequest);
+                                           @Body RequestNewRequest requestNewRequest);
 
     @GET(Const.Api.API_FETCH_REQUEST_LIST)
     Single<ResponseRequestList> fetchRequestList(@Header(Const.NetworkQuery.API_TOKEN) String token);

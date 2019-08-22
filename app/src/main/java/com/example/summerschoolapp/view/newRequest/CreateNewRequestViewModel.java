@@ -44,9 +44,9 @@ public class CreateNewRequestViewModel extends BaseViewModel {
         return navigation;
     }
 
-    public void postNewRequest(String token, RequestNewRequest requestNewRequest) {
+    public void postNewRequest(String token, String title, String type, String message, String longitude, String latitude) {
         startProgress();
-        requestRepository.createNewRequest(token, requestNewRequest)
+        requestRepository.createNewRequest(token, title, type, message, longitude, latitude)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<ResponseNewRequest>() {

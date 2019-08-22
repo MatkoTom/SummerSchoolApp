@@ -13,9 +13,9 @@ public class RequestRepository {
     public RequestRepository() {
     }
 
-    public Single<ResponseNewRequest> createNewRequest(String token, RequestNewRequest requestNewRequest) {
+    public Single<ResponseNewRequest> createNewRequest(String token, String title, String type, String message, String longitude, String latitude) {
         return RetrofitAdapter.getRetrofitClient()
-                .createNewRequest(token, requestNewRequest)
+                .createNewRequest(token, title, type, message, longitude, latitude)
                 .subscribeOn(Schedulers.io());
     }
 

@@ -8,9 +8,9 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 
 import androidx.lifecycle.ViewModelProviders;
@@ -59,7 +59,7 @@ public class CreateNewRequestActivity extends BaseActivity {
     EditText etRequestAddress;
 
     @BindView(R.id.scroll_view_request)
-    ScrollView svRequest;
+    NewRequestScrollAdapter svRequest;
 
     private CreateNewRequestViewModel viewModel;
     private GoogleMap mMap;
@@ -104,7 +104,7 @@ public class CreateNewRequestActivity extends BaseActivity {
                     SuccessDialog.CreateInstance(this, getString(R.string.success), getString(R.string.request_created), getString(R.string.ok), null, new SuccessDialog.OnSuccessDialogInteraction() {
                         @Override
                         public void onPositiveInteraction() {
-                            MainScreenActivity.StartActivity(CreateNewRequestActivity.this);
+                            finish();
                         }
 
                         @Override
@@ -154,32 +154,14 @@ public class CreateNewRequestActivity extends BaseActivity {
         return latitude_longitude;
     }
 
-    //TODO Fix this
-    //TODO on intercept touch event
-    //in progress
-    @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        int action = ev.getAction();
-        switch (action) {
-            case MotionEvent.ACTION_DOWN:
-                // Disallow ScrollView to intercept touch events.
-                svRequest.requestDisallowInterceptTouchEvent(true);
-                break;
-
-            case MotionEvent.ACTION_UP:
-                // Allow ScrollView to intercept touch events.
-                svRequest.requestDisallowInterceptTouchEvent(false);
-                break;
-        }
-
-        // Handle MapView's touch events.
-        super.onTouchEvent(ev);
-        return true;
-    }
-
     @OnClick(R.id.btn_post_new_request)
     public void postNewRequest() {
-        viewModel.postNewRequest(Tools.getSharedPreferences(this).getSavedUserData().getJwt(), sendData());
+        String title = etRequestName.getText().toString();
+        String type = spinnerNewRequestItems.getSelectedItem().toString();
+        String message = etRequestMessage.getText().toString();
+        String latitude = String.valueOf(getLocationFromAddress(this, etRequestAddress.getText().toString()).latitude);
+        String longitude = String.valueOf(getLocationFromAddress(this, etRequestAddress.getText().toString()).longitude);
+        viewModel.postNewRequest(Tools.getSharedPreferences(this).getSavedUserData().getJwt(), title, type, message, latitude, longitude);
     }
 
     @OnClick(R.id.ibtn_back)
@@ -192,6 +174,8 @@ public class CreateNewRequestActivity extends BaseActivity {
         finish();
     }
 
+    //TODO maybe delete now?
+    // in progress
     public RequestNewRequest sendData() {
         RequestNewRequest request = new RequestNewRequest();
         String latitude = getLocationFromAddress(this, etRequestAddress.getText().toString()).toString();
@@ -212,6 +196,7 @@ public class CreateNewRequestActivity extends BaseActivity {
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
             mMap.setOnCameraIdleListener(() -> {
                 LatLng centerOfMap = mMap.getCameraPosition().target;
+                svRequest.setEnableScrolling(true);
 
                 double latitude = centerOfMap.latitude;
                 double longitude = centerOfMap.longitude;
@@ -235,7 +220,12 @@ public class CreateNewRequestActivity extends BaseActivity {
                 }
 
             });
-
+            mMap.setOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
+                @Override
+                public void onCameraMoveStarted(int i) {
+                    svRequest.setEnableScrolling(false);
+                }
+            });
         });
     }
 

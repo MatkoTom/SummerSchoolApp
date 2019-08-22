@@ -23,6 +23,7 @@ import java.net.SocketTimeoutException;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import timber.log.Timber;
 
@@ -45,10 +46,10 @@ public class CreateNewUserViewModel extends BaseViewModel {
         return navigation;
     }
 
-    public void createNewUser(RequestNewUser newUser, String token) {
+    public void createNewUser(String token, String oib, String firstName, String lastName, String email, String password, MultipartBody.Part photo) {
 
         startProgress();
-        newUserRepo.postNewUser(newUser, token)
+        newUserRepo.postNewUser(token, oib, firstName, lastName, email, password, photo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<ResponseNewUser>() {
