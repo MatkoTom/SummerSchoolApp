@@ -226,7 +226,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView18">
 
                 <com.google.android.gms.maps.MapView
-                    android:id="@+id/ibtn_request_location"
+                    android:id="@+id/mv_request_location"
                     android:layout_width="match_parent"
                     android:layout_height="102dp"
                     android:scaleType="center"
@@ -241,10 +241,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:src="@drawable/location_icon"
-                    app:layout_constraintBottom_toBottomOf="@+id/ibtn_request_location"
+                    app:layout_constraintBottom_toBottomOf="@+id/mv_request_location"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/ibtn_request_location" />
+                    app:layout_constraintTop_toTopOf="@+id/mv_request_location" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <EditText

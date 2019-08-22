@@ -44,16 +44,16 @@ public class CreateNewRequestViewModel extends BaseViewModel {
         return navigation;
     }
 
-    public void postNewRequest(String token, String title, String type, String message, String longitude, String latitude) {
+    public void postNewRequest(String token, String title, String type, String message, String longitude, String latitude, String address) {
         startProgress();
-        requestRepository.createNewRequest(token, title, type, message, longitude, latitude)
+        requestRepository.createNewRequest(token, title, type, message, longitude, latitude, address)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<ResponseNewRequest>() {
                     @Override
                     public void onSuccess(ResponseNewRequest responseNewRequest) {
                         stopProgress();
-                        if (responseNewRequest.data.error == null) {
+                        if (responseNewRequest.getOk().equals(responseNewRequest.ok)) {
                             Timber.d("createdNewUser");
                             getNavigation().setValue(CreateNewRequestViewModel.Navigation.MAIN);
                         } else {
@@ -105,7 +105,7 @@ public class CreateNewRequestViewModel extends BaseViewModel {
                     @Override
                     public void onSuccess(ResponseNewRequest responseNewRequest) {
                         stopProgress();
-                        if (responseNewRequest.data.error == null) {
+                        if (responseNewRequest.equals(responseNewRequest.ok)) {
                             Timber.d("createdNewUser");
                             getNavigation().setValue(CreateNewRequestViewModel.Navigation.MAIN);
                         } else {

@@ -1,6 +1,5 @@
 package com.example.summerschoolapp.view.main.fragmentRequests;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.model.Request;
+import com.google.android.gms.maps.MapView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import timber.log.Timber;
 
 public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.CustomVievHolder> {
 
@@ -51,6 +54,14 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
         } else {
             holder.tvRequestTitle.setText("");
         }
+
+        String latitude = String.valueOf(item.getLocation_latitude());
+        Timber.d("TEMCOORDS" + item.getLocation_latitude() + " " + item.getLocation_longitude());
+        String longitude = String.valueOf(item.getLocation_longitude());
+        String url = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=15&size=400x400&key=AIzaSyD_S_EijHqDQvHbgkvSzPLz5KD-0dEKNTQ";
+        Glide.with(holder.ivRequestLocation.getContext())
+                .load(url)
+                .into(holder.ivRequestLocation);
         holder.tvRequestType.setText(item.getRequestType());
         holder.tvRequestMessage.setText(item.getMessage());
         holder.tvRequestAddress.setText(item.getAddress());

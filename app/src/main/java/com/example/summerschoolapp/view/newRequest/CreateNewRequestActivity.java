@@ -7,8 +7,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -24,7 +22,6 @@ import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.model.newRequest.RequestNewRequest;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
-import com.example.summerschoolapp.view.main.MainScreenActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -115,7 +112,7 @@ public class CreateNewRequestActivity extends BaseActivity {
                     break;
             }
         });
-        mapView = findViewById(R.id.ibtn_request_location);
+        mapView = findViewById(R.id.mv_request_location);
         mapView.onCreate(savedInstanceState);
         mapChange();
         populateSpinner();
@@ -161,7 +158,9 @@ public class CreateNewRequestActivity extends BaseActivity {
         String message = etRequestMessage.getText().toString();
         String latitude = String.valueOf(getLocationFromAddress(this, etRequestAddress.getText().toString()).latitude);
         String longitude = String.valueOf(getLocationFromAddress(this, etRequestAddress.getText().toString()).longitude);
-        viewModel.postNewRequest(Tools.getSharedPreferences(this).getSavedUserData().getJwt(), title, type, message, latitude, longitude);
+        String address = etRequestAddress.getText().toString();
+        Timber.d("ADDRESS:" + address);
+        viewModel.postNewRequest(Tools.getSharedPreferences(this).getSavedUserData().getJwt(), title, type, message, longitude, latitude, address);
     }
 
     @OnClick(R.id.ibtn_back)

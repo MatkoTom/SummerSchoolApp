@@ -77,6 +77,7 @@ public interface RetrofitAPI {
                                                 @Part("location_latitude") String latitude,
                                                 @Part("Address") String address);
 
+
     @PUT(Const.Api.API_EDIT_NEW_REQUEST)
     Single<ResponseNewRequest> editRequest(@Header(Const.NetworkQuery.API_TOKEN) String token,
                                            @Body RequestNewRequest requestNewRequest);

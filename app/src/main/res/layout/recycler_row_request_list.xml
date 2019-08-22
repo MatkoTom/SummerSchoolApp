@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/request_row_parent_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/basic_white"
     android:layout_marginBottom="16dp"
+    android:background="@color/basic_white"
     android:orientation="vertical">
 
     <TextView
@@ -39,25 +40,47 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/avenir_medium"
+        android:maxLines="3"
         android:text="@string/placeholder"
         android:textSize="16sp"
-        android:maxLines="3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_request_type" />
 
-    <ImageView
-        android:id="@+id/iv_request_location"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/request_row_image_layout"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:background="@color/color_background"
-        android:src="@drawable/location_icon"
-        android:scaleType="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_request_message" />
+        app:layout_constraintTop_toBottomOf="@id/tv_request_message">
+
+        <ImageView
+            android:id="@+id/iv_request_location"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/color_background"
+            android:scaleType="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="center"
+            android:src="@drawable/location_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/iv_request_location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_request_location" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <TextView
         android:id="@+id/tv_request_address"
@@ -69,6 +92,6 @@
         android:text="@string/placeholder"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_request_location" />
+        app:layout_constraintTop_toBottomOf="@id/request_row_image_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
