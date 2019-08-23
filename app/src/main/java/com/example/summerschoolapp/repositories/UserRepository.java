@@ -1,13 +1,11 @@
 package com.example.summerschoolapp.repositories;
 
 import com.example.summerschoolapp.model.editUser.ResponseEditUser;
-import com.example.summerschoolapp.model.newuser.RequestNewUser;
 import com.example.summerschoolapp.model.newuser.ResponseNewUser;
 import com.example.summerschoolapp.network.retrofit.RetrofitAdapter;
 
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class UserRepository {

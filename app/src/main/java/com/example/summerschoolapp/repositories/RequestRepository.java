@@ -1,6 +1,6 @@
 package com.example.summerschoolapp.repositories;
 
-import com.example.summerschoolapp.model.newRequest.RequestNewRequest;
+import com.example.summerschoolapp.model.editRequest.ResponseEditRequest;
 import com.example.summerschoolapp.model.newRequest.ResponseNewRequest;
 import com.example.summerschoolapp.model.requestsList.ResponseRequestList;
 import com.example.summerschoolapp.network.retrofit.RetrofitAdapter;
@@ -20,7 +20,7 @@ public class RequestRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Single<ResponseNewRequest> editRequest(String token, RequestBody body) {
+    public Single<ResponseEditRequest> editRequest(String token, RequestBody body) {
         return RetrofitAdapter.getRetrofitClient()
                 .editRequest(token, body)
                 .subscribeOn(Schedulers.io());

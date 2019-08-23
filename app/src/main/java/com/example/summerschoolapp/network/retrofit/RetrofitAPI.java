@@ -1,9 +1,9 @@
 package com.example.summerschoolapp.network.retrofit;
 
+import com.example.summerschoolapp.model.editRequest.ResponseEditRequest;
 import com.example.summerschoolapp.model.editUser.ResponseEditUser;
 import com.example.summerschoolapp.model.login.RequestLogin;
 import com.example.summerschoolapp.model.login.ResponseLogin;
-import com.example.summerschoolapp.model.newRequest.RequestNewRequest;
 import com.example.summerschoolapp.model.newRequest.ResponseNewRequest;
 import com.example.summerschoolapp.model.newuser.ResponseNewUser;
 import com.example.summerschoolapp.model.requestsList.ResponseRequestList;
@@ -17,12 +17,9 @@ import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Part;
 import retrofit2.http.Path;
-import retrofit2.http.Streaming;
 
 public interface RetrofitAPI {
 
@@ -52,11 +49,11 @@ public interface RetrofitAPI {
 
     @POST(Const.Api.API_CREATE_NEW_REQUEST)
     Single<ResponseNewRequest> createNewRequest(@Header(Const.NetworkQuery.API_TOKEN) String token,
-                                               @Body RequestBody body);
+                                                @Body RequestBody body);
 
     @PUT(Const.Api.API_EDIT_NEW_REQUEST)
-    Single<ResponseNewRequest> editRequest(@Header(Const.NetworkQuery.API_TOKEN) String token,
-                                           @Body RequestBody body);
+    Single<ResponseEditRequest> editRequest(@Header(Const.NetworkQuery.API_TOKEN) String token,
+                                            @Body RequestBody body);
 
     @GET(Const.Api.API_FETCH_REQUEST_LIST)
     Single<ResponseRequestList> fetchRequestList(@Header(Const.NetworkQuery.API_TOKEN) String token);

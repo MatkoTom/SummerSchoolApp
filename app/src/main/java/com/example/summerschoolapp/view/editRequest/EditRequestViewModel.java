@@ -9,12 +9,10 @@ import com.example.summerschoolapp.common.BaseViewModel;
 import com.example.summerschoolapp.errors.AuthError;
 import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.errors.SignupError;
-import com.example.summerschoolapp.model.newRequest.RequestNewRequest;
-import com.example.summerschoolapp.model.newRequest.ResponseNewRequest;
+import com.example.summerschoolapp.model.editRequest.ResponseEditRequest;
 import com.example.summerschoolapp.repositories.RequestRepository;
 import com.example.summerschoolapp.utils.helpers.Event;
 import com.example.summerschoolapp.utils.helpers.SingleLiveEvent;
-import com.example.summerschoolapp.view.newRequest.CreateNewRequestViewModel;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 
 import java.io.IOException;
@@ -50,11 +48,11 @@ public class EditRequestViewModel extends BaseViewModel {
         requestRepository.editRequest(token, body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<ResponseNewRequest>() {
+                .subscribe(new DisposableSingleObserver<ResponseEditRequest>() {
                     @Override
-                    public void onSuccess(ResponseNewRequest responseNewRequest) {
+                    public void onSuccess(ResponseEditRequest responseEditRequest) {
                         stopProgress();
-                        if (responseNewRequest.equals(responseNewRequest.ok)) {
+                        if (responseEditRequest.equals(responseEditRequest.ok)) {
                             Timber.d("createdNewUser");
                             getNavigation().setValue(EditRequestViewModel.Navigation.MAIN);
                         } else {

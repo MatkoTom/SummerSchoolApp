@@ -19,7 +19,6 @@ import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.dialog.SuccessDialog;
 import com.example.summerschoolapp.errors.NewUserError;
-import com.example.summerschoolapp.model.newRequest.RequestNewRequest;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -184,21 +183,6 @@ public class CreateNewRequestActivity extends BaseActivity {
     @OnClick(R.id.tv_back)
     public void textViewBack() {
         finish();
-    }
-
-    //TODO maybe delete now?
-    // in progress
-    public RequestNewRequest sendData() {
-        RequestNewRequest request = new RequestNewRequest();
-        String latitude = getLocationFromAddress(this, etRequestAddress.getText().toString()).toString();
-        Timber.d("ADRESS: %s", latitude);
-        request.title = etRequestName.getText().toString();
-        request.message = etRequestMessage.getText().toString();
-        request.requestType = spinnerNewRequestItems.getSelectedItem().toString();
-        request.location_longitude = String.valueOf(getLocationFromAddress(this, etRequestAddress.getText().toString()).longitude);
-        request.location_latitude = String.valueOf(getLocationFromAddress(this, etRequestAddress.getText().toString()).latitude);
-
-        return request;
     }
 
     public void mapChange() {

@@ -27,7 +27,6 @@ import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.dialog.SuccessDialog;
 import com.example.summerschoolapp.errors.NewUserError;
-import com.example.summerschoolapp.model.newuser.RequestNewUser;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
 
@@ -37,7 +36,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import timber.log.Timber;
@@ -228,18 +226,6 @@ public class CreateNewUserActivity extends BaseActivity {
         }
 
     }
-
-    //TODO do I need this still?
-//    private RequestNewUser sendData() {
-//        RequestNewUser user = new RequestNewUser();
-//        user.email = etCreateUserEmail.getText().toString();
-//        String[] splitString = etCreateUserName.getText().toString().trim().split(" ");
-//        user.firstName = splitString[0];
-//        user.lastName = splitString[1];
-//        user.oib = etCreateUserOib.getText().toString();
-//        user.password = Tools.md5(etCreateUserPassword.getText().toString());
-//        return user;
-//    }
 
     //TODO need to be fixed
     //ignore
