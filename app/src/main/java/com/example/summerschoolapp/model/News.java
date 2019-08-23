@@ -1,10 +1,19 @@
 package com.example.summerschoolapp.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.File;
 
-public class News {
+public class News implements Parcelable {
+
+    @SerializedName("firstName")
+    private String firstName;
+
+    @SerializedName("lastName")
+    private String lastName;
 
     @SerializedName("Title")
     private String title;
@@ -22,7 +31,34 @@ public class News {
     private String address;
 
     @SerializedName("Files")
-    private File files;
+    private String files;
+
+    @SerializedName("Author")
+    private String author;
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     public String getTitle() {
         return title;
@@ -64,11 +100,48 @@ public class News {
         this.address = address;
     }
 
-    public File getFiles() {
+    public String getFiles() {
         return files;
     }
 
-    public void setFiles(File files) {
+    public void setFiles(String files) {
         this.files = files;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.title);
+        dest.writeString(this.message);
+        dest.writeString(this.location_latitude);
+        dest.writeString(this.location_longitude);
+        dest.writeString(this.address);
+    }
+
+    public News() {
+    }
+
+    protected News(Parcel in) {
+        this.title = in.readString();
+        this.message = in.readString();
+        this.location_latitude = in.readString();
+        this.location_longitude = in.readString();
+        this.address = in.readString();
+    }
+
+    public static final Parcelable.Creator<News> CREATOR = new Parcelable.Creator<News>() {
+        @Override
+        public News createFromParcel(Parcel source) {
+            return new News(source);
+        }
+
+        @Override
+        public News[] newArray(int size) {
+            return new News[size];
+        }
+    };
 }

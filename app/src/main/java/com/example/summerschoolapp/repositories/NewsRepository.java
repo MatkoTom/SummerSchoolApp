@@ -1,6 +1,7 @@
 package com.example.summerschoolapp.repositories;
 
 import com.example.summerschoolapp.model.newNews.ResponseNewNews;
+import com.example.summerschoolapp.model.newsList.ResponseNewsList;
 import com.example.summerschoolapp.network.retrofit.RetrofitAdapter;
 
 import io.reactivex.Single;
@@ -14,6 +15,12 @@ public class NewsRepository {
     public Single<ResponseNewNews> createNewNews(String token, RequestBody body) {
         return RetrofitAdapter.getRetrofitClient()
                 .createNewNews(token, body)
+                .subscribeOn(Schedulers.io());
+    }
+
+    public Single<ResponseNewsList> fetchNewsList(String token) {
+        return RetrofitAdapter.getRetrofitClient()
+                .fetchNewsList(token)
                 .subscribeOn(Schedulers.io());
     }
 }

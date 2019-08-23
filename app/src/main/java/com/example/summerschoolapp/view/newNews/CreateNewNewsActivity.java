@@ -211,6 +211,7 @@ public class CreateNewNewsActivity extends BaseActivity {
                 .addFormDataPart("Address", address)
                 .build();
 
+        //TODO send to viewModel, do in other activities
         viewModel.createNewNews(Tools.getSharedPreferences(this).getSavedUserData().getJwt(), requestBody);
     }
 

@@ -19,7 +19,7 @@ public final class Const {
         public static final String API_FETCH_REQUEST_LIST = "requests/myRequests";
         public static final String API_FILTER_REQUEST = "requests/myRequests/{type}";
         public static final String API_NEW_NEWS = "news/new";
-        public static final String API_EDIT_NEWS = "news/edit";
+        public static final String API_EDIT_NEWS = "news/edit/{id}";
         public static final String API_ALL_NEWS = "news/all";
     }
 
@@ -27,6 +27,7 @@ public final class Const {
         public static final String API_TOKEN = "token";
         public static final String API_QUERY = "query";
         public static final String API_REQUEST_TYPE = "type";
+        public static final String API_NEWS_ID = "id";
     }
 
     public static class Preferences {

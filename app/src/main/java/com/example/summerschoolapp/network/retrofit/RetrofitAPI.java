@@ -6,6 +6,7 @@ import com.example.summerschoolapp.model.login.RequestLogin;
 import com.example.summerschoolapp.model.login.ResponseLogin;
 import com.example.summerschoolapp.model.newNews.ResponseNewNews;
 import com.example.summerschoolapp.model.newRequest.ResponseNewRequest;
+import com.example.summerschoolapp.model.newsList.ResponseNewsList;
 import com.example.summerschoolapp.model.newuser.ResponseNewUser;
 import com.example.summerschoolapp.model.requestsList.ResponseRequestList;
 import com.example.summerschoolapp.model.signup.RequestSignup;
@@ -66,4 +67,7 @@ public interface RetrofitAPI {
     @POST(Const.Api.API_NEW_NEWS)
     Single<ResponseNewNews> createNewNews(@Header(Const.NetworkQuery.API_TOKEN) String token,
                                           @Body RequestBody body);
+
+    @GET(Const.Api.API_ALL_NEWS)
+    Single<ResponseNewsList> fetchNewsList(@Header(Const.NetworkQuery.API_TOKEN) String token);
 }
