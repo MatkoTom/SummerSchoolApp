@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".view.editRequest.EditRequestActivity"></activity>
+        <activity android:name=".view.editNews.EditNewsActivity"></activity>
+        <activity android:name=".view.editRequest.EditRequestActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -49,7 +50,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.newRequest.CreateNewRequestActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.newUser.CreateNewUserActivity"
             android:screenOrientation="portrait" />

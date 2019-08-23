@@ -90,4 +90,6 @@
     <string name="save_request_edit">Spremi izmjene</string>
     <string name="request_edit_success">Zahtjev uspješno izmijenjen!</string>
     <string name="news_created">Vijest uspješno objavljena!</string>
+    <string name="news_edited_success">Vijest uspješno izmijenjena!</string>
+    <string name="edit_news">Izmjena vijesti</string>
 </resources>

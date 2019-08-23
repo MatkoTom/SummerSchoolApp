@@ -9,6 +9,9 @@ import java.io.File;
 
 public class News implements Parcelable {
 
+    @SerializedName("ID")
+    private int id;
+
     @SerializedName("firstName")
     private String firstName;
 
@@ -35,6 +38,14 @@ public class News implements Parcelable {
 
     @SerializedName("Author")
     private String author;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getAuthor() {
         return author;
@@ -115,6 +126,7 @@ public class News implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
         dest.writeString(this.title);
         dest.writeString(this.message);
         dest.writeString(this.location_latitude);
@@ -126,6 +138,7 @@ public class News implements Parcelable {
     }
 
     protected News(Parcel in) {
+        this.id = in.readInt();
         this.title = in.readString();
         this.message = in.readString();
         this.location_latitude = in.readString();

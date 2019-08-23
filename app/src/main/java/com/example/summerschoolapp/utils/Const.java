@@ -61,5 +61,6 @@ public final class Const {
     public static class Intent {
         public static final String USER_DATA = "UserData";
         public static final String REQUEST_DATA = "REQUEST_DATA";
+        public static final String NEWS_DATA = "NEWS_DATA";
     }
 }

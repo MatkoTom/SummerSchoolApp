@@ -1,5 +1,6 @@
 package com.example.summerschoolapp.repositories;
 
+import com.example.summerschoolapp.model.editNews.ResponseEditNews;
 import com.example.summerschoolapp.model.newNews.ResponseNewNews;
 import com.example.summerschoolapp.model.newsList.ResponseNewsList;
 import com.example.summerschoolapp.network.retrofit.RetrofitAdapter;
@@ -21,6 +22,12 @@ public class NewsRepository {
     public Single<ResponseNewsList> fetchNewsList(String token) {
         return RetrofitAdapter.getRetrofitClient()
                 .fetchNewsList(token)
+                .subscribeOn(Schedulers.io());
+    }
+
+    public Single<ResponseEditNews> editNews(String token, int id, RequestBody body) {
+        return RetrofitAdapter.getRetrofitClient()
+                .editNews(token, body, id)
                 .subscribeOn(Schedulers.io());
     }
 }

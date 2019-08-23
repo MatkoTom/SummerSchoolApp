@@ -17,6 +17,7 @@ import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.model.News;
 import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.Tools;
+import com.example.summerschoolapp.view.editNews.EditNewsActivity;
 import com.example.summerschoolapp.view.main.MainScreenViewModel;
 import com.example.summerschoolapp.view.newNews.CreateNewNewsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,6 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,7 +65,7 @@ public class NewsFragment extends Fragment {
         newsListAdapter = new NewsListAdapter(new NewsListAdapter.NewsListInteraction() {
             @Override
             public void onNewsClicked(News news) {
-                //TODO go to EditNewsActivity
+                EditNewsActivity.StartActivity(getContext(), news);
             }
         });
 

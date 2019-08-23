@@ -1,4 +1,4 @@
-package com.example.summerschoolapp.view.editRequest;
+package com.example.summerschoolapp.view.editNews;
 
 import android.app.Application;
 
@@ -9,10 +9,12 @@ import com.example.summerschoolapp.common.BaseViewModel;
 import com.example.summerschoolapp.errors.AuthError;
 import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.errors.SignupError;
-import com.example.summerschoolapp.model.editRequest.ResponseEditRequest;
-import com.example.summerschoolapp.repositories.RequestRepository;
+import com.example.summerschoolapp.model.Request;
+import com.example.summerschoolapp.model.editNews.ResponseEditNews;
+import com.example.summerschoolapp.repositories.NewsRepository;
 import com.example.summerschoolapp.utils.helpers.Event;
 import com.example.summerschoolapp.utils.helpers.SingleLiveEvent;
+import com.example.summerschoolapp.view.editRequest.EditRequestViewModel;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 
 import java.io.IOException;
@@ -25,37 +27,37 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import timber.log.Timber;
 
-public class EditRequestViewModel extends BaseViewModel {
+public class EditNewsViewModel extends BaseViewModel {
 
     public enum Navigation {
         MAIN
     }
 
-    private SingleLiveEvent<EditRequestViewModel.Navigation> navigation = new SingleLiveEvent<>();
+    private SingleLiveEvent<EditNewsViewModel.Navigation> navigation = new SingleLiveEvent<>();
 
-    private RequestRepository requestRepository;
+    private NewsRepository newsRepository;
 
-    public EditRequestViewModel(@NonNull Application application) {
+    public EditNewsViewModel(@NonNull Application application) {
         super(application);
-        requestRepository = new RequestRepository();
+        newsRepository = new NewsRepository();
     }
 
-    public SingleLiveEvent<EditRequestViewModel.Navigation> getNavigation() {
+    public SingleLiveEvent<Navigation> getNavigation() {
         return navigation;
     }
 
-    public void editRequest(String token, RequestBody body) {
+    public void editNews(String token, int id, RequestBody body) {
         startProgress();
-        requestRepository.editRequest(token, body)
+        newsRepository.editNews(token, id, body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<ResponseEditRequest>() {
+                .subscribe(new DisposableSingleObserver<ResponseEditNews>() {
                     @Override
-                    public void onSuccess(ResponseEditRequest responseEditRequest) {
+                    public void onSuccess(ResponseEditNews responseEditNews) {
                         stopProgress();
-                        if (responseEditRequest.data.getOk().equals(responseEditRequest.data.ok)) {
+                        if (responseEditNews.data.getMessage().equals(responseEditNews.data.message)) {
                             Timber.d("createdNewUser");
-                            getNavigation().setValue(EditRequestViewModel.Navigation.MAIN);
+                            getNavigation().setValue(EditNewsViewModel.Navigation.MAIN);
                         } else {
                             getBaseErrors().setValue(new Event<>(NewUserError.Create(NewUserError.Error.SOMETHING_WENT_WRONG)));
 
@@ -95,4 +97,3 @@ public class EditRequestViewModel extends BaseViewModel {
                 });
     }
 }
-

@@ -55,7 +55,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.Custom
         holder.ivNewsPicture.setImageDrawable(null);
         holder.tvNewsTitle.setText(item.getTitle());
 
-        Timber.d("DAT: " + item.getTitle());
+        Timber.d("DAT: " + item.getTitle() + " " + item.getId());
 
         //TODO implement in edit
 //        String latitude = String.valueOf(item.getLocation_latitude());
