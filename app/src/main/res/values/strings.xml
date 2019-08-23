@@ -89,4 +89,5 @@
     <string name="edit_request">Uredi zahtjev</string>
     <string name="save_request_edit">Spremi izmjene</string>
     <string name="request_edit_success">Zahtjev uspješno izmijenjen!</string>
+    <string name="news_created">Vijest uspješno objavljena!</string>
 </resources>

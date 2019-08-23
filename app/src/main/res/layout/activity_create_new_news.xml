@@ -69,8 +69,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <ScrollView
-        android:id="@+id/scrollView2"
+    <com.example.summerschoolapp.view.newRequest.RequestScrollAdapter
+        android:id="@+id/sv_news_item"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
@@ -169,18 +169,39 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/et_news_text" />
 
-            <ImageButton
-                android:id="@+id/ibtn_news_location"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/map_view__layout"
                 android:layout_width="match_parent"
-                android:layout_height="102dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/button_location_layout"
-                android:src="@drawable/location_icon"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+                app:layout_constraintTop_toBottomOf="@+id/textView22">
+
+                <com.google.android.gms.maps.MapView
+                    android:id="@+id/mv_news_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="102dp"
+                    android:scaleType="center"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/location_icon"
+                    app:layout_constraintBottom_toBottomOf="@+id/mv_news_location"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/mv_news_location" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <EditText
                 android:id="@+id/et_news_address"
@@ -195,7 +216,7 @@
                 android:inputType="textMultiLine|text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ibtn_news_location" />
+                app:layout_constraintTop_toBottomOf="@+id/map_view__layout" />
 
             <TextView
                 android:id="@+id/textView23"
@@ -242,6 +263,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/ibtn_upload_document" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </com.example.summerschoolapp.view.newRequest.RequestScrollAdapter>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -59,11 +59,11 @@ public class OnboardingViewModel extends BaseViewModel {
                     public void onSuccess(ResponseLogin newResponse) {
                         stopProgress();
                         if (newResponse.data.error == null) {
-                            Timber.d("Big response: %s", newResponse.data.user.getJwt());
+                            Timber.d("Big ok: %s", newResponse.data.user.getJwt());
                             Tools.getSharedPreferences(getApplication()).saveUserToPreferences(newResponse.data.user);
                             getNavigation().setValue(OnboardingViewModel.Navigation.MAIN);
                         } else {
-                            Timber.d("Big response: %s", newResponse.data.error.getError_code() + " " + newResponse.data.error.getError_description());
+                            Timber.d("Big ok: %s", newResponse.data.error.getError_code() + " " + newResponse.data.error.getError_description());
                             if (Const.Errors.WRONG_EMAIL == Integer.parseInt(newResponse.data.error.getError_code())) {
                                 getBaseErrors().setValue(new Event<>(LoginError.Create(LoginError.Error.ERROR_WHILE_LOGIN_WRONG_EMAIL)));
                             } else if (Const.Errors.WRONG_PASSWORD == Integer.parseInt(newResponse.data.error.getError_code())) {
@@ -117,11 +117,11 @@ public class OnboardingViewModel extends BaseViewModel {
                     public void onSuccess(ResponseSignup newResponse) {
                         stopProgress();
                         if (newResponse.data.error == null) {
-                            Timber.d("Big response: %s", newResponse.data.user.getJwt());
+                            Timber.d("Big ok: %s", newResponse.data.user.getJwt());
                             Tools.getSharedPreferences(getApplication()).saveUserToPreferences(newResponse.data.user);
                             getNavigation().setValue(OnboardingViewModel.Navigation.MAIN);
                         } else {
-                            Timber.d("Big response: %s", newResponse.data.error.getError_code() + " " + newResponse.data.error.getError_description());
+                            Timber.d("Big ok: %s", newResponse.data.error.getError_code() + " " + newResponse.data.error.getError_description());
                             if (Const.Errors.EMAIL_IN_USE == Integer.parseInt(newResponse.data.error.getError_code())) {
                                 getBaseErrors().setValue(new Event<>(SignupError.Create(SignupError.Error.ERROR_WHILE_SIGNUP_EMAIL_IN_USE)));
                             } else if (Const.Errors.OIB_IN_USE == Integer.parseInt(newResponse.data.error.getError_code())) {

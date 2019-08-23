@@ -53,7 +53,7 @@ public class CreateNewRequestViewModel extends BaseViewModel {
                     @Override
                     public void onSuccess(ResponseNewRequest responseNewRequest) {
                         stopProgress();
-                        if (responseNewRequest.getOk().equals(responseNewRequest.ok)) {
+                        if (responseNewRequest.data.getOk().equals(responseNewRequest.data.ok)) {
                             Timber.d("createdNewUser");
                             getNavigation().setValue(CreateNewRequestViewModel.Navigation.MAIN);
                         } else {

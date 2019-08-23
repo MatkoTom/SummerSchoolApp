@@ -59,9 +59,11 @@ public class CreateNewRequestActivity extends BaseActivity {
     @BindView(R.id.scroll_view_request)
     RequestScrollAdapter svRequest;
 
+    @BindView(R.id.mv_request_location)
+    MapView mapView;
+
     private CreateNewRequestViewModel viewModel;
     private GoogleMap mMap;
-    private MapView mapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +115,6 @@ public class CreateNewRequestActivity extends BaseActivity {
                     break;
             }
         });
-        mapView = findViewById(R.id.mv_request_location);
         mapView.onCreate(savedInstanceState);
         mapChange();
         populateSpinner();

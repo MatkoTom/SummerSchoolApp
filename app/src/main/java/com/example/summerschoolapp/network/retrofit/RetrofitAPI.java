@@ -4,6 +4,7 @@ import com.example.summerschoolapp.model.editRequest.ResponseEditRequest;
 import com.example.summerschoolapp.model.editUser.ResponseEditUser;
 import com.example.summerschoolapp.model.login.RequestLogin;
 import com.example.summerschoolapp.model.login.ResponseLogin;
+import com.example.summerschoolapp.model.newNews.ResponseNewNews;
 import com.example.summerschoolapp.model.newRequest.ResponseNewRequest;
 import com.example.summerschoolapp.model.newuser.ResponseNewUser;
 import com.example.summerschoolapp.model.requestsList.ResponseRequestList;
@@ -61,4 +62,8 @@ public interface RetrofitAPI {
     @GET(Const.Api.API_FILTER_REQUEST)
     Single<ResponseRequestList> fetchFilteredRequest(@Header(Const.NetworkQuery.API_TOKEN) String token,
                                                      @Path(Const.NetworkQuery.API_REQUEST_TYPE) String type);
+
+    @POST(Const.Api.API_NEW_NEWS)
+    Single<ResponseNewNews> createNewNews(@Header(Const.NetworkQuery.API_TOKEN) String token,
+                                          @Body RequestBody body);
 }

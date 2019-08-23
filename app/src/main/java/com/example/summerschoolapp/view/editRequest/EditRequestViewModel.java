@@ -52,7 +52,7 @@ public class EditRequestViewModel extends BaseViewModel {
                     @Override
                     public void onSuccess(ResponseEditRequest responseEditRequest) {
                         stopProgress();
-                        if (responseEditRequest.equals(responseEditRequest.ok)) {
+                        if (responseEditRequest.data.getOk().equals(responseEditRequest.data.ok)) {
                             Timber.d("createdNewUser");
                             getNavigation().setValue(EditRequestViewModel.Navigation.MAIN);
                         } else {

@@ -59,7 +59,7 @@ public class EditUserViewModel extends BaseViewModel {
                             Timber.d("createdNewUser");
                             getNavigation().setValue(EditUserViewModel.Navigation.MAIN);
                         } else {
-                            Timber.d("Big response: %s", responseEditUser.data.error.getError_code() + " " + responseEditUser.data.error.getError_description());
+                            Timber.d("Big ok: %s", responseEditUser.data.error.getError_code() + " " + responseEditUser.data.error.getError_description());
                             if (Const.Errors.EMAIL_IN_USE == Integer.parseInt(responseEditUser.data.error.getError_code())) {
                                 getBaseErrors().setValue(new Event<>(NewUserError.Create(NewUserError.Error.ERROR_WHILE_REGISTERING_EMAIL_IN_USE)));
                             } else if (Const.Errors.OIB_IN_USE == Integer.parseInt(responseEditUser.data.error.getError_code())) {
