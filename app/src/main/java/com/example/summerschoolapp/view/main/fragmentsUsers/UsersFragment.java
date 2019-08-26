@@ -1,7 +1,6 @@
 package com.example.summerschoolapp.view.main.fragmentsUsers;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.summerschoolapp.R;
-import com.example.summerschoolapp.model.User;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.view.editUser.EditUserActivity;
 import com.example.summerschoolapp.view.newUser.CreateNewUserActivity;

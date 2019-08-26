@@ -20,9 +20,6 @@ import com.example.summerschoolapp.dialog.SuccessDialog;
 import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
-import com.example.summerschoolapp.view.main.MainScreenActivity;
-import com.example.summerschoolapp.view.newRequest.CreateNewRequestActivity;
-import com.example.summerschoolapp.view.newRequest.CreateNewRequestViewModel;
 import com.example.summerschoolapp.view.newRequest.RequestScrollAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -137,8 +134,6 @@ public class CreateNewNewsActivity extends BaseActivity {
                 double latitude = centerOfMap.latitude;
                 double longitude = centerOfMap.longitude;
 
-                Timber.d("LATLNG:" + centerOfMap.latitude + " " + centerOfMap.longitude);
-
                 Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
 
                 List<Address> addresses = new ArrayList<>();
@@ -151,17 +146,11 @@ public class CreateNewNewsActivity extends BaseActivity {
                     Address address = addresses.get(0);
                     String[] street = address.getAddressLine(0).split(",");
                     String streetName = street[0];
-                    Timber.d("ADRESS%s", streetName);
                     etNewsAddress.setText(streetName);
                 }
 
             });
-            mMap.setOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
-                @Override
-                public void onCameraMoveStarted(int i) {
-                    svNewsItem.setEnableScrolling(false);
-                }
-            });
+            mMap.setOnCameraMoveStartedListener(i -> svNewsItem.setEnableScrolling(false));
         });
     }
 
@@ -172,7 +161,6 @@ public class CreateNewNewsActivity extends BaseActivity {
         LatLng latitude_longitude = null;
 
         try {
-            // May throw an IOException
             address = coder.getFromLocationName(strAddress, 5);
             if (address == null) {
                 return null;

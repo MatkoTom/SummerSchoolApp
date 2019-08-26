@@ -8,6 +8,7 @@ import com.example.summerschoolapp.common.BaseViewModel;
 import com.example.summerschoolapp.model.Request;
 import com.example.summerschoolapp.model.requestsList.ResponseRequestList;
 import com.example.summerschoolapp.repositories.RequestRepository;
+import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.SingleLiveEvent;
 
@@ -56,6 +57,29 @@ public class RequestFragmentViewModel extends BaseViewModel {
                 });
     }
 
+    public void fetchAdminRequestList(String token) {
+        startProgress();
+        requestRepository.fetchAdminList(token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<ResponseRequestList>() {
+                    @Override
+                    public void onSuccess(ResponseRequestList response) {
+                        Timber.d("createdNewUser%s", response.data.requestList);
+                        getRequestList().setValue(response.data.requestList);
+                        stopProgress();
+                        dispose();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.d("Failed: %s", e.toString());
+                        stopProgress();
+                        dispose();
+                    }
+                });
+    }
+
     public void fetchFilteredRequestList(String token, String searchQuerry) {
         startProgress();
         requestRepository.getSearchedRequestList(token, searchQuerry)
@@ -79,8 +103,36 @@ public class RequestFragmentViewModel extends BaseViewModel {
                 });
     }
 
+    public void fetchFilteredRequestListAdmin(String token, String searchQuerry) {
+        startProgress();
+        requestRepository.getSearchedRequestListAdmin(token, searchQuerry)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<ResponseRequestList>() {
+                    @Override
+                    public void onSuccess(ResponseRequestList response) {
+                        Timber.d("createdNewUser%s", response.data.requestList);
+                        getRequestList().setValue(response.data.requestList);
+                        stopProgress();
+                        dispose();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.d("Failed: %s", e.toString());
+                        stopProgress();
+                        dispose();
+                    }
+                });
+    }
+
     public void printRequestList() {
         String token = Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt();
-        fetchRequestList(token);
+
+        if (Integer.parseInt(Tools.getSharedPreferences(getApplication()).getSavedUserData().getRole()) == Const.Preferences.USER_ROLE) {
+            fetchRequestList(token);
+        } else {
+            fetchAdminRequestList(token);
+        }
     }
 }

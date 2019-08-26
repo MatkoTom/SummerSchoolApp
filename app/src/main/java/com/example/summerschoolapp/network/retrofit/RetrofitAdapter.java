@@ -1,7 +1,5 @@
 package com.example.summerschoolapp.network.retrofit;
 
-import android.text.TextUtils;
-
 import com.example.summerschoolapp.BuildConfig;
 import com.example.summerschoolapp.utils.Const;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;

@@ -55,7 +55,6 @@ public class NewsFragment extends Fragment {
     private NewsFragmentViewModel newsFragmentViewModel;
     private NewsListAdapter newsListAdapter;
 
-    //TODO implement logic for user and admin for news
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

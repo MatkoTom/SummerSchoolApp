@@ -98,7 +98,7 @@ public class RequestsFragment extends BaseFragment {
             }
         });
 
-        getUserList();
+        getRequestList();
         populateSpinner();
         filterRequests();
 
@@ -115,7 +115,7 @@ public class RequestsFragment extends BaseFragment {
         CreateNewRequestActivity.StartActivity(getActivity());
     }
 
-    public void getUserList() {
+    public void getRequestList() {
         viewModel.printRequestList();
     }
 
@@ -125,23 +125,44 @@ public class RequestsFragment extends BaseFragment {
     }
 
     private void filterRequests() {
-        spinnerRequestItems.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                Timber.d("ITEM SELECTED: " + adapterView.getItemAtPosition(position));
-                String token = Tools.getSharedPreferences(getActivity()).getSavedUserData().getJwt();
-                String query = adapterView.getItemAtPosition(position).toString();
-                if (query.equals(getString(R.string.all))) {
-                    viewModel.fetchRequestList(token);
-                } else {
-                    viewModel.fetchFilteredRequestList(token, query);
+        if (Integer.parseInt(Tools.getSharedPreferences(getActivity()).getSavedUserData().getRole()) == Const.Preferences.USER_ROLE) {
+            spinnerRequestItems.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                    Timber.d("ITEM SELECTED: " + adapterView.getItemAtPosition(position));
+                    String token = Tools.getSharedPreferences(getActivity()).getSavedUserData().getJwt();
+                    String query = adapterView.getItemAtPosition(position).toString();
+                    if (query.equals(getString(R.string.all))) {
+                        viewModel.fetchRequestList(token);
+                    } else {
+                        viewModel.fetchFilteredRequestList(token, query);
+                    }
                 }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                //ignore
-            }
-        });
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                    //ignore
+                }
+            });
+        } else {
+            spinnerRequestItems.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                    Timber.d("ITEM SELECTED: " + adapterView.getItemAtPosition(position));
+                    String token = Tools.getSharedPreferences(getActivity()).getSavedUserData().getJwt();
+                    String query = adapterView.getItemAtPosition(position).toString();
+                    if (query.equals(getString(R.string.all))) {
+                        viewModel.fetchAdminRequestList(token);
+                    } else {
+                        viewModel.fetchFilteredRequestListAdmin(token, query);
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                    //ignore
+                }
+            });
+        }
     }
 }

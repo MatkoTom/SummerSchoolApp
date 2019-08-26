@@ -154,10 +154,6 @@ public class EditNewsActivity extends BaseActivity {
 
             ex.printStackTrace();
         }
-
-        String latitude = String.valueOf(latitude_longitude.latitude);
-        String longitude = String.valueOf(latitude_longitude.longitude);
-
         return latitude_longitude;
     }
 

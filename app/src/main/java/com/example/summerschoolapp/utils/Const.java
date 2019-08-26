@@ -16,8 +16,10 @@ public final class Const {
         public static final String API_LOGOUT = "users/logout";
         public static final String API_CREATE_NEW_REQUEST = "requests/new";
         public static final String API_EDIT_NEW_REQUEST = "requests/edit";
-        public static final String API_FETCH_REQUEST_LIST = "requests/myRequests";
+        public static final String API_FETCH_USER_REQUEST_LIST = "requests/myRequests";
+        public static final String API_FETCH_ADMIN_REQUEST_LIST = "requests/all";
         public static final String API_FILTER_REQUEST = "requests/myRequests/{type}";
+        public static final String API_FILTER_REQUEST_ADMIN = "requests/all/{type}";
         public static final String API_NEW_NEWS = "news/new";
         public static final String API_EDIT_NEWS = "news/edit/{id}";
         public static final String API_ALL_NEWS = "news/all";

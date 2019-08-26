@@ -58,11 +58,18 @@ public interface RetrofitAPI {
     Single<ResponseEditRequest> editRequest(@Header(Const.NetworkQuery.API_TOKEN) String token,
                                             @Body RequestBody body);
 
-    @GET(Const.Api.API_FETCH_REQUEST_LIST)
+    @GET(Const.Api.API_FETCH_USER_REQUEST_LIST)
     Single<ResponseRequestList> fetchRequestList(@Header(Const.NetworkQuery.API_TOKEN) String token);
+
+    @GET(Const.Api.API_FETCH_ADMIN_REQUEST_LIST)
+    Single<ResponseRequestList> fetchRequestListAdmin(@Header(Const.NetworkQuery.API_TOKEN) String token);
 
     @GET(Const.Api.API_FILTER_REQUEST)
     Single<ResponseRequestList> fetchFilteredRequest(@Header(Const.NetworkQuery.API_TOKEN) String token,
+                                                     @Path(Const.NetworkQuery.API_REQUEST_TYPE) String type);
+
+ @GET(Const.Api.API_FILTER_REQUEST_ADMIN)
+    Single<ResponseRequestList> fetchFilteredRequestAdmin(@Header(Const.NetworkQuery.API_TOKEN) String token,
                                                      @Path(Const.NetworkQuery.API_REQUEST_TYPE) String type);
 
     @POST(Const.Api.API_NEW_NEWS)

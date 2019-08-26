@@ -37,4 +37,16 @@ public class RequestRepository {
                 .fetchFilteredRequest(token, searchQuerry)
                 .subscribeOn(Schedulers.io());
     }
+
+    public Single<ResponseRequestList> getSearchedRequestListAdmin(String token, String searchQuerry) {
+        return RetrofitAdapter.getRetrofitClient()
+                .fetchFilteredRequestAdmin(token, searchQuerry)
+                .subscribeOn(Schedulers.io());
+    }
+
+    public Single<ResponseRequestList> fetchAdminList(String token) {
+        return RetrofitAdapter.getRetrofitClient()
+                .fetchRequestListAdmin(token)
+                .subscribeOn(Schedulers.io());
+    }
 }
