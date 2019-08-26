@@ -53,6 +53,11 @@ public final class Const {
         STOP_PROGRESS
     }
 
+    public static class Location {
+        public static final double ZAGREB_LATITUDE = 45.8150;
+        public static final double ZAGREB_LONGITUDE = 15.9819;
+    }
+
     public static class Errors {
         public static final int EMAIL_IN_USE = 1003;
         public static final int OIB_IN_USE = 1002;

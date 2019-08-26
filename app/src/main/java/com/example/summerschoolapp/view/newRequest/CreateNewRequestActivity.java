@@ -19,6 +19,7 @@ import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.dialog.SuccessDialog;
 import com.example.summerschoolapp.errors.NewUserError;
+import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
 import com.example.summerschoolapp.utils.helpers.ScrollAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -183,7 +184,7 @@ public class CreateNewRequestActivity extends BaseActivity {
     public void mapChange() {
         mapView.getMapAsync(googleMap -> {
             mMap = googleMap;
-            LatLng location = new LatLng(45.8150, 15.9819);
+            LatLng location = new LatLng(Const.Location.ZAGREB_LATITUDE, Const.Location.ZAGREB_LONGITUDE);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
             mMap.setOnCameraIdleListener(() -> {
                 LatLng centerOfMap = mMap.getCameraPosition().target;
