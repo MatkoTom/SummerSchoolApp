@@ -54,8 +54,9 @@ public interface RetrofitAPI {
     Single<ResponseNewRequest> createNewRequest(@Header(Const.NetworkQuery.API_TOKEN) String token,
                                                 @Body RequestBody body);
 
-    @PUT(Const.Api.API_EDIT_NEW_REQUEST)
+    @PUT(Const.Api.API_EDIT_REQUEST)
     Single<ResponseEditRequest> editRequest(@Header(Const.NetworkQuery.API_TOKEN) String token,
+                                            @Path(Const.NetworkQuery.API_ID) String id,
                                             @Body RequestBody body);
 
     @GET(Const.Api.API_FETCH_USER_REQUEST_LIST)
@@ -82,5 +83,5 @@ public interface RetrofitAPI {
     @PUT(Const.Api.API_EDIT_NEWS)
     Single<ResponseEditNews> editNews(@Header(Const.NetworkQuery.API_TOKEN) String token,
                                       @Body RequestBody body,
-                                      @Path(Const.NetworkQuery.API_NEWS_ID) int id);
+                                      @Path(Const.NetworkQuery.API_ID) int id);
 }

@@ -15,7 +15,7 @@ public final class Const {
         public static final String API_SEARCH_USER_QUERY = "users/allUsers/{query}";
         public static final String API_LOGOUT = "users/logout";
         public static final String API_CREATE_NEW_REQUEST = "requests/new";
-        public static final String API_EDIT_NEW_REQUEST = "requests/edit";
+        public static final String API_EDIT_REQUEST = "requests/edit/{id}";
         public static final String API_FETCH_USER_REQUEST_LIST = "requests/myRequests";
         public static final String API_FETCH_ADMIN_REQUEST_LIST = "requests/all";
         public static final String API_FILTER_REQUEST = "requests/myRequests/{type}";
@@ -29,7 +29,7 @@ public final class Const {
         public static final String API_TOKEN = "token";
         public static final String API_QUERY = "query";
         public static final String API_REQUEST_TYPE = "type";
-        public static final String API_NEWS_ID = "id";
+        public static final String API_ID = "id";
     }
 
     public static class Preferences {

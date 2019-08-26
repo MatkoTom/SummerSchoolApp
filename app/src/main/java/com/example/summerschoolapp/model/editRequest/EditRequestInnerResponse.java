@@ -4,21 +4,21 @@ import com.example.summerschoolapp.common.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
 public class EditRequestInnerResponse extends BaseModel {
-    @SerializedName("ok")
-    public String ok;
+    @SerializedName("message")
+    public String message;
 
-    public String getOk() {
-        return ok;
+    public String getMessage() {
+        return message;
     }
 
-    public void setOk(String ok) {
-        this.ok = ok;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     @Override
     public String toString() {
         return "ResponseNewRequest{" +
-                "ok='" + ok + '\'' +
+                "message='" + message + '\'' +
                 '}';
     }
 }

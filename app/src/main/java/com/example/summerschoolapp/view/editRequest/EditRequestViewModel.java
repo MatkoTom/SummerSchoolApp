@@ -45,16 +45,16 @@ public class EditRequestViewModel extends BaseViewModel {
         return navigation;
     }
 
-    public void editRequest(String token, RequestBody body) {
+    public void editRequest(String token, String id, RequestBody body) {
         startProgress();
-        requestRepository.editRequest(token, body)
+        requestRepository.editRequest(token, id, body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<ResponseEditRequest>() {
                     @Override
                     public void onSuccess(ResponseEditRequest responseEditRequest) {
                         stopProgress();
-                        if (responseEditRequest.data.getOk().equals(responseEditRequest.data.ok)) {
+                        if (responseEditRequest.data.getMessage().equals(responseEditRequest.data.message)) {
                             Timber.d("createdNewUser");
                             getNavigation().setValue(EditRequestViewModel.Navigation.MAIN);
                         } else {
@@ -96,8 +96,8 @@ public class EditRequestViewModel extends BaseViewModel {
                 });
     }
 
-    public void postEditRequest(RequestBody body) {
-        editRequest(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt(), body);
+    public void postEditRequest(String id, RequestBody body) {
+        editRequest(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt(), id, body);
     }
 }
 

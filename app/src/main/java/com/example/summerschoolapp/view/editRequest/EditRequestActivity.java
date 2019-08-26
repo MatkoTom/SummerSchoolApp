@@ -177,7 +177,6 @@ public class EditRequestActivity extends BaseActivity {
 
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("ID", id)
                 .addFormDataPart("Title", title)
                 .addFormDataPart("Request_type", type)
                 .addFormDataPart("message", message)
@@ -186,7 +185,7 @@ public class EditRequestActivity extends BaseActivity {
                 .addFormDataPart("Address", address)
                 .build();
 
-        viewModel.postEditRequest(requestBody);
+        viewModel.postEditRequest(id, requestBody);
 
     }
 
