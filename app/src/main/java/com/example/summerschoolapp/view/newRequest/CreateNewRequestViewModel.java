@@ -11,6 +11,7 @@ import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.errors.SignupError;
 import com.example.summerschoolapp.model.newRequest.ResponseNewRequest;
 import com.example.summerschoolapp.repositories.RequestRepository;
+import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.Event;
 import com.example.summerschoolapp.utils.helpers.SingleLiveEvent;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
@@ -44,7 +45,7 @@ public class CreateNewRequestViewModel extends BaseViewModel {
         return navigation;
     }
 
-    public void postNewRequest(String token, RequestBody requestBody) {
+    public void createNewRequest(String token, RequestBody requestBody) {
         startProgress();
         requestRepository.createNewRequest(token, requestBody)
                 .subscribeOn(Schedulers.io())
@@ -93,5 +94,9 @@ public class CreateNewRequestViewModel extends BaseViewModel {
                         dispose();
                     }
                 });
+    }
+
+    public void postNewRequest(RequestBody body) {
+        createNewRequest(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt(), body);
     }
 }

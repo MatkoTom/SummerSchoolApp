@@ -19,9 +19,8 @@ import com.example.summerschoolapp.dialog.SuccessDialog;
 import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.model.News;
 import com.example.summerschoolapp.utils.Const;
-import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
-import com.example.summerschoolapp.view.newRequest.RequestScrollAdapter;
+import com.example.summerschoolapp.utils.helpers.ScrollAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -64,7 +63,7 @@ public class EditNewsActivity extends BaseActivity {
     ImageButton ibtnUploadPhoto;
 
     @BindView(R.id.sv_news_item)
-    RequestScrollAdapter svNewsItem;
+    ScrollAdapter svNewsItem;
 
     @BindView(R.id.mv_news_location)
     MapView mapView;
@@ -79,7 +78,7 @@ public class EditNewsActivity extends BaseActivity {
         setContentView(R.layout.activity_edit_news);
         ButterKnife.bind(this);
 
-            //TODO What happened to ID?
+        //TODO What happened to ID?
         if (getIntent() != null && getIntent().getExtras() != null) {
             newsForEditing = getIntent().getParcelableExtra(Const.Intent.NEWS_DATA);
         }
@@ -181,7 +180,7 @@ public class EditNewsActivity extends BaseActivity {
                 .addFormDataPart("Address", address)
                 .build();
 
-        viewModel.editNews(Tools.getSharedPreferences(this).getSavedUserData().getJwt(), newsForEditing.getId(), requestBody);
+        viewModel.postEditNews(newsForEditing.getId(), requestBody);
 
     }
 
@@ -226,12 +225,7 @@ public class EditNewsActivity extends BaseActivity {
                 }
 
             });
-            mMap.setOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
-                @Override
-                public void onCameraMoveStarted(int i) {
-                    svNewsItem.setEnableScrolling(false);
-                }
-            });
+            mMap.setOnCameraMoveStartedListener(i -> svNewsItem.setEnableScrolling(false));
         });
     }
 

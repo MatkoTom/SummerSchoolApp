@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.common.BaseFragment;
-import com.example.summerschoolapp.model.Request;
 import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.view.editRequest.EditRequestActivity;
@@ -28,7 +27,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,22 +55,15 @@ public class RequestsFragment extends BaseFragment {
     private RequestFragmentViewModel viewModel;
 
     public RequestsFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_requests, container, false);
         ButterKnife.bind(this, rootView);
 
-        requestListAdapter = new RequestListAdapter(new RequestListAdapter.RequestListInteraction() {
-            @Override
-            public void onRequestClicked(Request request) {
-                EditRequestActivity.StartActivity(getContext(), request);
-            }
-        });
+        requestListAdapter = new RequestListAdapter(request -> EditRequestActivity.StartActivity(getContext(), request));
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvRequests.setLayoutManager(layoutManager);
         rvRequests.setAdapter(requestListAdapter);
@@ -80,20 +71,19 @@ public class RequestsFragment extends BaseFragment {
         viewModel = ViewModelProviders.of(this).get(RequestFragmentViewModel.class);
 
         viewModel.getRequestList().observeEvent(this, requests -> {
-            if (requests.size() > 0 && Integer.parseInt(Tools.getSharedPreferences(getActivity()).getSavedUserData().getRole()) == Const.Preferences.ADMIN_ROLE) {
+            if (requests.size() > 0 && viewModel.isAdmin()) {
                 requestListAdapter.setData(requests);
                 noRequestLayout.setVisibility(View.GONE);
                 requestListLayout.setVisibility(View.VISIBLE);
-            } else if (requests.size() == 0 && Integer.parseInt(Tools.getSharedPreferences(getActivity()).getSavedUserData().getRole()) == Const.Preferences.ADMIN_ROLE) {
+            } else if (requests.size() == 0 && viewModel.isAdmin()) {
                 noRequestLayout.setVisibility(View.VISIBLE);
                 requestListAdapter.clearList(requests);
-            } else if (requests.size() > 0 && Integer.parseInt(Tools.getSharedPreferences(getActivity()).getSavedUserData().getRole()) == Const.Preferences.USER_ROLE) {
+            } else if (requests.size() > 0 && !viewModel.isAdmin()) {
                 requestListAdapter.setData(requests);
                 noRequestLayout.setVisibility(View.GONE);
                 requestListLayout.setVisibility(View.VISIBLE);
                 fabCreateNewRequest.setVisibility(View.VISIBLE);
-            } else if (requests.size() == 0 && Integer.parseInt(Tools.getSharedPreferences(getActivity()).getSavedUserData().getRole()) == Const.Preferences.USER_ROLE) {
-
+            } else if (requests.size() == 0 && !viewModel.isAdmin()) {
                 btnNewRequest.setVisibility(View.VISIBLE);
             }
         });
@@ -129,13 +119,11 @@ public class RequestsFragment extends BaseFragment {
             spinnerRequestItems.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                    Timber.d("ITEM SELECTED: " + adapterView.getItemAtPosition(position));
-                    String token = Tools.getSharedPreferences(getActivity()).getSavedUserData().getJwt();
                     String query = adapterView.getItemAtPosition(position).toString();
                     if (query.equals(getString(R.string.all))) {
-                        viewModel.fetchRequestList(token);
+                        viewModel.printRequestList();
                     } else {
-                        viewModel.fetchFilteredRequestList(token, query);
+                        viewModel.printFilteredRequestList(query);
                     }
                 }
 
@@ -148,13 +136,11 @@ public class RequestsFragment extends BaseFragment {
             spinnerRequestItems.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                    Timber.d("ITEM SELECTED: " + adapterView.getItemAtPosition(position));
-                    String token = Tools.getSharedPreferences(getActivity()).getSavedUserData().getJwt();
                     String query = adapterView.getItemAtPosition(position).toString();
                     if (query.equals(getString(R.string.all))) {
-                        viewModel.fetchAdminRequestList(token);
+                        viewModel.printRequestList();
                     } else {
-                        viewModel.fetchFilteredRequestListAdmin(token, query);
+                        viewModel.printFilteredRequestList(query);
                     }
                 }
 

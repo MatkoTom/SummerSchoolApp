@@ -69,7 +69,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <com.example.summerschoolapp.view.newRequest.RequestScrollAdapter
+    <com.example.summerschoolapp.utils.helpers.ScrollAdapter
         android:id="@+id/sv_news_item"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -263,6 +263,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/ibtn_upload_document" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.example.summerschoolapp.view.newRequest.RequestScrollAdapter>
+    </com.example.summerschoolapp.utils.helpers.ScrollAdapter>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -164,4 +164,16 @@ public class OnboardingViewModel extends BaseViewModel {
                     }
                 });
     }
+
+    public boolean isUserRemembered() {
+        return Tools.getSharedPreferences(getApplication()).getRememberMeStatus();
+    }
+
+    public boolean isUserSaved() {
+        return Tools.getSharedPreferences(getApplication()).getSavedUserData() != null;
+    }
+
+    public boolean isTokenSaved() {
+        return Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt() != null;
+    }
 }

@@ -14,9 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.summerschoolapp.R;
-import com.example.summerschoolapp.model.News;
-import com.example.summerschoolapp.utils.Const;
-import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.view.editNews.EditNewsActivity;
 import com.example.summerschoolapp.view.main.MainScreenViewModel;
 import com.example.summerschoolapp.view.newNews.CreateNewNewsActivity;
@@ -25,7 +22,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,7 +44,6 @@ public class NewsFragment extends Fragment {
     RecyclerView rvNews;
 
     public NewsFragment() {
-        // Required empty public constructor
     }
 
     private MainScreenViewModel mainScreenActivityViewModel;
@@ -61,12 +56,7 @@ public class NewsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_news, container, false);
         ButterKnife.bind(this, rootView);
 
-        newsListAdapter = new NewsListAdapter(new NewsListAdapter.NewsListInteraction() {
-            @Override
-            public void onNewsClicked(News news) {
-                EditNewsActivity.StartActivity(getContext(), news);
-            }
-        });
+        newsListAdapter = new NewsListAdapter(news -> EditNewsActivity.StartActivity(getContext(), news));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvNews.setLayoutManager(layoutManager);
@@ -76,15 +66,15 @@ public class NewsFragment extends Fragment {
         newsFragmentViewModel = ViewModelProviders.of(this).get(NewsFragmentViewModel.class);
 
         newsFragmentViewModel.getNewsList().observeEvent(this, news -> {
-            if (news.size() > 0 && Integer.parseInt(Tools.getSharedPreferences(getActivity()).getSavedUserData().getRole()) == Const.Preferences.ADMIN_ROLE) {
+            if (news.size() > 0 && newsFragmentViewModel.isAdmin()) {
                 newsListAdapter.setData(news);
                 noNewsLayout.setVisibility(View.GONE);
                 newsListLayout.setVisibility(View.VISIBLE);
                 fabCreateNewNews.setVisibility(View.VISIBLE);
-            } else if (news.size() == 0 && Integer.parseInt(Tools.getSharedPreferences(getActivity()).getSavedUserData().getRole()) == Const.Preferences.ADMIN_ROLE) {
+            } else if (news.size() == 0 && newsFragmentViewModel.isAdmin()) {
                 noNewsLayout.setVisibility(View.VISIBLE);
                 newsListAdapter.clearList(news);
-            } else if (news.size() > 0 && Integer.parseInt(Tools.getSharedPreferences(getActivity()).getSavedUserData().getRole()) == Const.Preferences.USER_ROLE) {
+            } else if (news.size() > 0 && !newsFragmentViewModel.isAdmin()) {
                 newsListAdapter.setData(news);
                 noNewsLayout.setVisibility(View.GONE);
                 newsListLayout.setVisibility(View.VISIBLE);
@@ -93,12 +83,11 @@ public class NewsFragment extends Fragment {
 
         checkUserRole();
         getNewsList();
-        // Inflate the layout for this fragment
         return rootView;
     }
 
     private void getNewsList() {
-        newsFragmentViewModel.fetchNewsList(Tools.getSharedPreferences(getActivity()).getSavedUserData().getJwt());
+        newsFragmentViewModel.printNewsItem();
     }
 
     public void checkUserRole() {

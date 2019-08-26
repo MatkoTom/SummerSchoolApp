@@ -19,8 +19,8 @@ import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.dialog.SuccessDialog;
 import com.example.summerschoolapp.errors.NewUserError;
-import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
+import com.example.summerschoolapp.utils.helpers.ScrollAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -57,7 +57,7 @@ public class CreateNewRequestActivity extends BaseActivity {
     EditText etRequestAddress;
 
     @BindView(R.id.scroll_view_request)
-    RequestScrollAdapter svRequest;
+    ScrollAdapter svRequest;
 
     @BindView(R.id.mv_request_location)
     MapView mapView;
@@ -132,7 +132,6 @@ public class CreateNewRequestActivity extends BaseActivity {
         LatLng latitude_longitude = null;
 
         try {
-            // May throw an IOException
             address = coder.getFromLocationName(strAddress, 5);
             if (address == null) {
                 return null;
@@ -145,11 +144,6 @@ public class CreateNewRequestActivity extends BaseActivity {
 
             ex.printStackTrace();
         }
-
-        String latitude = String.valueOf(latitude_longitude.latitude);
-        String longitude = String.valueOf(latitude_longitude.longitude);
-        Timber.d("LATLNG:" + latitude + " " + longitude);
-
         return latitude_longitude;
     }
 
@@ -172,7 +166,7 @@ public class CreateNewRequestActivity extends BaseActivity {
                 .addFormDataPart("Address", address)
                 .build();
 
-        viewModel.postNewRequest(Tools.getSharedPreferences(this).getSavedUserData().getJwt(), requestBody);
+        viewModel.postNewRequest(requestBody);
 
     }
 
@@ -217,12 +211,7 @@ public class CreateNewRequestActivity extends BaseActivity {
                 }
 
             });
-            mMap.setOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
-                @Override
-                public void onCameraMoveStarted(int i) {
-                    svRequest.setEnableScrolling(false);
-                }
-            });
+            mMap.setOnCameraMoveStartedListener(i -> svRequest.setEnableScrolling(false));
         });
     }
 

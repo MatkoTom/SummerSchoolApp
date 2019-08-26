@@ -9,12 +9,11 @@ import com.example.summerschoolapp.common.BaseViewModel;
 import com.example.summerschoolapp.errors.AuthError;
 import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.errors.SignupError;
-import com.example.summerschoolapp.model.Request;
 import com.example.summerschoolapp.model.editNews.ResponseEditNews;
 import com.example.summerschoolapp.repositories.NewsRepository;
+import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.Event;
 import com.example.summerschoolapp.utils.helpers.SingleLiveEvent;
-import com.example.summerschoolapp.view.editRequest.EditRequestViewModel;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 
 import java.io.IOException;
@@ -95,5 +94,9 @@ public class EditNewsViewModel extends BaseViewModel {
                         dispose();
                     }
                 });
+    }
+
+    public void postEditNews(int id, RequestBody body) {
+        editNews(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt(), id, body);
     }
 }

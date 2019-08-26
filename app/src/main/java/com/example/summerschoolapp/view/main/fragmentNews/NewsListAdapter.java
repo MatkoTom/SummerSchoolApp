@@ -35,6 +35,8 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.Custom
         }
     }
 
+    //TODO do I need this?
+    //ignore
     public void clearList(List<News> data) {
         this.data.clear();
         notifyDataSetChanged();
@@ -56,12 +58,6 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.Custom
         holder.tvNewsTitle.setText(item.getTitle());
 
         Timber.d("DAT: " + item.getTitle() + " " + item.getId());
-
-        //TODO implement in edit
-//        String latitude = String.valueOf(item.getLocation_latitude());
-//        Timber.d("TEMCOORDS" + item.getLocation_latitude() + " " + item.getLocation_longitude());
-//        String longitude = String.valueOf(item.getLocation_longitude());
-//        String url = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=15&size=400x400&key=AIzaSyD_S_EijHqDQvHbgkvSzPLz5KD-0dEKNTQ";
 
         holder.tvNewsMessage.setText(item.getMessage());
         holder.tvNewsAuthor.setText(String.format("%s %s", item.getFirstName(), item.getLastName()));

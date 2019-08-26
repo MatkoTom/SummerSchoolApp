@@ -8,6 +8,7 @@ import com.example.summerschoolapp.common.BaseViewModel;
 import com.example.summerschoolapp.model.User;
 import com.example.summerschoolapp.model.userslist.ResponseUsersList;
 import com.example.summerschoolapp.repositories.MainScreenRepository;
+import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.SingleLiveEvent;
 
 import java.util.List;
@@ -77,5 +78,13 @@ public class UsersFragmentViewModel extends BaseViewModel {
                         dispose();
                     }
                 });
+    }
+
+    public void printUsers() {
+        getUserList(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt());
+    }
+
+    public void printUsersSearched(String query) {
+        getSearchedUsersList(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt(), query);
     }
 }

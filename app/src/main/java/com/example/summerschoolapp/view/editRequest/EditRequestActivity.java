@@ -20,9 +20,8 @@ import com.example.summerschoolapp.dialog.SuccessDialog;
 import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.model.Request;
 import com.example.summerschoolapp.utils.Const;
-import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
-import com.example.summerschoolapp.view.newRequest.RequestScrollAdapter;
+import com.example.summerschoolapp.utils.helpers.ScrollAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -49,7 +48,6 @@ public class EditRequestActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-
     @BindView(R.id.spinner_new_request_items)
     Spinner spinnerNewRequestItems;
 
@@ -63,7 +61,7 @@ public class EditRequestActivity extends BaseActivity {
     EditText etRequestAddress;
 
     @BindView(R.id.scroll_view_request)
-    RequestScrollAdapter svRequest;
+    ScrollAdapter svRequest;
 
     private EditRequestViewModel viewModel;
     private GoogleMap mMap;
@@ -124,6 +122,7 @@ public class EditRequestActivity extends BaseActivity {
                     break;
             }
         });
+
         mapView = findViewById(R.id.mv_request_location);
         mapView.onCreate(savedInstanceState);
         setField();
@@ -144,7 +143,6 @@ public class EditRequestActivity extends BaseActivity {
         LatLng latitude_longitude = null;
 
         try {
-            // May throw an IOException
             address = coder.getFromLocationName(strAddress, 5);
             if (address == null) {
                 return null;
@@ -157,10 +155,6 @@ public class EditRequestActivity extends BaseActivity {
 
             ex.printStackTrace();
         }
-
-        String latitude = String.valueOf(latitude_longitude.latitude);
-        String longitude = String.valueOf(latitude_longitude.longitude);
-
         return latitude_longitude;
     }
 
@@ -192,7 +186,7 @@ public class EditRequestActivity extends BaseActivity {
                 .addFormDataPart("Address", address)
                 .build();
 
-        viewModel.editRequest(Tools.getSharedPreferences(this).getSavedUserData().getJwt(), requestBody);
+        viewModel.postEditRequest(requestBody);
 
     }
 
@@ -237,12 +231,7 @@ public class EditRequestActivity extends BaseActivity {
                 }
 
             });
-            mMap.setOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
-                @Override
-                public void onCameraMoveStarted(int i) {
-                    svRequest.setEnableScrolling(false);
-                }
-            });
+            mMap.setOnCameraMoveStartedListener(i -> svRequest.setEnableScrolling(false));
         });
     }
 

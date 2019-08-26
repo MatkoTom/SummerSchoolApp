@@ -63,4 +63,8 @@ public class NewsFragmentViewModel extends BaseViewModel {
     public boolean isAdmin() {
         return Integer.parseInt(Tools.getSharedPreferences(getApplication()).getSavedUserData().getRole()) == Const.Preferences.ADMIN_ROLE;
     }
+
+    public void printNewsItem() {
+        fetchNewsList(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt());
+    }
 }

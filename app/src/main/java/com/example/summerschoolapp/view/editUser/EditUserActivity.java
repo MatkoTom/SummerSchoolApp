@@ -1,19 +1,15 @@
 package com.example.summerschoolapp.view.editUser;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Base64;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -34,22 +30,16 @@ import com.example.summerschoolapp.model.User;
 import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
-import com.example.summerschoolapp.view.main.MainScreenActivity;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 import timber.log.Timber;
-
-import static com.example.summerschoolapp.utils.Const.Api.BASE_URL;
 
 public class EditUserActivity extends BaseActivity {
 
@@ -130,7 +120,7 @@ public class EditUserActivity extends BaseActivity {
                     SuccessDialog.CreateInstance(this, getString(R.string.success), getString(R.string.user_successfully_edited), getString(R.string.ok), null, new SuccessDialog.OnSuccessDialogInteraction() {
                         @Override
                         public void onPositiveInteraction() {
-                           finish();
+                            finish();
                         }
 
                         @Override
@@ -185,7 +175,7 @@ public class EditUserActivity extends BaseActivity {
                 .addFormDataPart("password", password)
                 .build();
 
-        viewModel.editUser(Tools.getSharedPreferences(this).getSavedUserData().getJwt(), requestBody);
+        viewModel.postEditUser(requestBody);
     }
 
     @OnClick(R.id.civ_edit_user_picture)
@@ -216,7 +206,6 @@ public class EditUserActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case PICK_FROM_GALLERY:
-                // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(galleryIntent, PICK_FROM_GALLERY);

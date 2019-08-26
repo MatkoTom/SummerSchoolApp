@@ -55,7 +55,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     }
 
     public View getTabView(int position) {
-        // Given you have a custom layout in `res/layout/custom_tab.xml` with a TextView and ImageView
         String[] tabTitles = new String[]{context.getString(R.string.news),
                 context.getString(R.string.requests),
                 context.getString(R.string.profile), context.getString(R.string.users)};

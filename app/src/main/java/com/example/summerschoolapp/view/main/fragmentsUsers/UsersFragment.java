@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.summerschoolapp.R;
-import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.view.editUser.EditUserActivity;
 import com.example.summerschoolapp.view.newUser.CreateNewUserActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -40,14 +39,13 @@ public class UsersFragment extends Fragment {
     private UsersFragmentViewModel viewModel;
 
     public UsersFragment() {
-        // Required empty public constructor
+
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_users, container, false);
         ButterKnife.bind(this, rootView);
 
@@ -78,8 +76,7 @@ public class UsersFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                String token = Tools.getSharedPreferences(getActivity()).getSavedUserData().getJwt();
-                viewModel.getSearchedUsersList(token, newText);
+                viewModel.printUsersSearched(newText);
                 return false;
             }
         });
@@ -91,7 +88,6 @@ public class UsersFragment extends Fragment {
     }
 
     public void getUserList() {
-        String token = Tools.getSharedPreferences(getActivity()).getSavedUserData().getJwt();
-        viewModel.getUserList(token);
+        viewModel.printUsers();
     }
 }

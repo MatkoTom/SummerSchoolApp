@@ -1,11 +1,11 @@
-package com.example.summerschoolapp.view.newRequest;
+package com.example.summerschoolapp.utils.helpers;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
 
-public class RequestScrollAdapter extends ScrollView {
+public class ScrollAdapter extends ScrollView {
 
     private boolean enableScrolling = true;
 
@@ -17,15 +17,15 @@ public class RequestScrollAdapter extends ScrollView {
         this.enableScrolling = enableScrolling;
     }
 
-    public RequestScrollAdapter(Context context, AttributeSet attrs, int defStyle) {
+    public ScrollAdapter(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
-    public RequestScrollAdapter(Context context, AttributeSet attrs) {
+    public ScrollAdapter(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public RequestScrollAdapter(Context context) {
+    public ScrollAdapter(Context context) {
         super(context);
     }
 

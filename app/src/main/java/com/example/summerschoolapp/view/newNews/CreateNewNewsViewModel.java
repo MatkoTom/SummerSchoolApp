@@ -12,6 +12,7 @@ import com.example.summerschoolapp.errors.SignupError;
 import com.example.summerschoolapp.model.newNews.ResponseNewNews;
 import com.example.summerschoolapp.repositories.NewsRepository;
 import com.example.summerschoolapp.repositories.RequestRepository;
+import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.Event;
 import com.example.summerschoolapp.utils.helpers.SingleLiveEvent;
 import com.example.summerschoolapp.view.newRequest.CreateNewRequestViewModel;
@@ -95,5 +96,9 @@ public class CreateNewNewsViewModel extends BaseViewModel {
                         dispose();
                     }
                 });
+    }
+
+    public void postNewNews(RequestBody body) {
+        createNewNews(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt(), body);
     }
 }

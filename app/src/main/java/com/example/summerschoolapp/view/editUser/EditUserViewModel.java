@@ -12,6 +12,7 @@ import com.example.summerschoolapp.errors.SignupError;
 import com.example.summerschoolapp.model.editUser.ResponseEditUser;
 import com.example.summerschoolapp.repositories.UserRepository;
 import com.example.summerschoolapp.utils.Const;
+import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.Event;
 import com.example.summerschoolapp.utils.helpers.SingleLiveEvent;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
@@ -101,5 +102,9 @@ public class EditUserViewModel extends BaseViewModel {
                         dispose();
                     }
                 });
+    }
+
+    public void postEditUser(RequestBody body) {
+        editUser(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt(), body);
     }
 }

@@ -126,13 +126,23 @@ public class RequestFragmentViewModel extends BaseViewModel {
                 });
     }
 
-    public void printRequestList() {
-        String token = Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt();
+    public boolean isAdmin() {
+        return Integer.parseInt(Tools.getSharedPreferences(getApplication()).getSavedUserData().getRole()) == Const.Preferences.ADMIN_ROLE;
+    }
 
+    public void printRequestList() {
         if (Integer.parseInt(Tools.getSharedPreferences(getApplication()).getSavedUserData().getRole()) == Const.Preferences.USER_ROLE) {
-            fetchRequestList(token);
+            fetchRequestList(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt());
         } else {
-            fetchAdminRequestList(token);
+            fetchAdminRequestList(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt());
+        }
+    }
+
+    public void printFilteredRequestList(String query) {
+        if (Integer.parseInt(Tools.getSharedPreferences(getApplication()).getSavedUserData().getRole()) == Const.Preferences.USER_ROLE) {
+            fetchFilteredRequestList(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt(), query);
+        } else {
+            fetchFilteredRequestListAdmin(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt(), query);
         }
     }
 }

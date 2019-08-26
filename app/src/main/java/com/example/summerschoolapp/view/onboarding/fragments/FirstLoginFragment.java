@@ -27,7 +27,6 @@ public class FirstLoginFragment extends Fragment {
     private OnFirstLoginFragmentRegisterListener registerListener;
 
     public FirstLoginFragment() {
-        // Required empty public constructor
     }
 
     public interface OnFirstLoginFragmentLoginListener {
@@ -41,7 +40,6 @@ public class FirstLoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_first_login, container, false);
         ButterKnife.bind(this, rootView);
 

@@ -18,9 +18,8 @@ import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.dialog.SuccessDialog;
 import com.example.summerschoolapp.errors.NewUserError;
-import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
-import com.example.summerschoolapp.view.newRequest.RequestScrollAdapter;
+import com.example.summerschoolapp.utils.helpers.ScrollAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -36,7 +35,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import timber.log.Timber;
 
 public class CreateNewNewsActivity extends BaseActivity {
 
@@ -60,7 +58,7 @@ public class CreateNewNewsActivity extends BaseActivity {
     ImageButton ibtnUploadPhoto;
 
     @BindView(R.id.sv_news_item)
-    RequestScrollAdapter svNewsItem;
+    ScrollAdapter svNewsItem;
 
     @BindView(R.id.mv_news_location)
     MapView mapView;
@@ -118,6 +116,7 @@ public class CreateNewNewsActivity extends BaseActivity {
                     break;
             }
         });
+
         mapView.onCreate(savedInstanceState);
         mapChange();
     }
@@ -173,11 +172,6 @@ public class CreateNewNewsActivity extends BaseActivity {
 
             ex.printStackTrace();
         }
-
-        String latitude = String.valueOf(latitude_longitude.latitude);
-        String longitude = String.valueOf(latitude_longitude.longitude);
-        Timber.d("LATLNG:" + latitude + " " + longitude);
-
         return latitude_longitude;
     }
 
@@ -199,8 +193,7 @@ public class CreateNewNewsActivity extends BaseActivity {
                 .addFormDataPart("Address", address)
                 .build();
 
-        //TODO send to viewModel, do in other activities
-        viewModel.createNewNews(Tools.getSharedPreferences(this).getSavedUserData().getJwt(), requestBody);
+        viewModel.postNewNews(requestBody);
     }
 
     @OnClick(R.id.ibtn_back)

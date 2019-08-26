@@ -85,8 +85,6 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
             }
         });
 
-        Timber.d("IsUserSaved: %s", Tools.getSharedPreferences(this).getRememberMeStatus());
-        Timber.d("ShowFirstLogin: %s", Tools.getSharedPreferences(this).getShouldShowFirstLogin());
         runFirstLoginFragment();
         autoLogin();
     }
@@ -154,7 +152,7 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
     }
 
     public void autoLogin() {
-        if (Tools.getSharedPreferences(this).getRememberMeStatus() && Tools.getSharedPreferences(this).getSavedUserData() != null && Tools.getSharedPreferences(this).getSavedUserData().getJwt() != null) {
+        if (viewModel.isUserRemembered() && viewModel.isUserSaved() && viewModel.isTokenSaved()) {
             viewModel.getNavigation().setValue(OnboardingViewModel.Navigation.MAIN);
         }
     }
