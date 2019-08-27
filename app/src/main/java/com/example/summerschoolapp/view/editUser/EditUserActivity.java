@@ -37,6 +37,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import timber.log.Timber;
@@ -167,15 +168,15 @@ public class EditUserActivity extends BaseActivity {
 
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("ID", id)
                 .addFormDataPart("oib", oib)
                 .addFormDataPart("firstName", firstName)
                 .addFormDataPart("lastName", lastName)
                 .addFormDataPart("email", email)
                 .addFormDataPart("password", password)
+                .addFormDataPart("photo", "image.png", uploadPicture(filePath))
                 .build();
 
-        viewModel.postEditUser(requestBody);
+        viewModel.postEditUser(requestBody, id);
     }
 
     @OnClick(R.id.civ_edit_user_picture)
@@ -248,11 +249,11 @@ public class EditUserActivity extends BaseActivity {
 
     //TODO needs to be fixed
     // ignore
-//    public RequestBody uploadPicture(String filepath) {
-//        File file = new File(filepath);
-//
-//        RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/*"));
-//
-//        return fileBody;
-//    }
+    public RequestBody uploadPicture(String filepath) {
+        File file = new File(filepath);
+
+        RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/png"));
+
+        return fileBody;
+    }
 }

@@ -7,6 +7,7 @@ import com.example.summerschoolapp.network.retrofit.RetrofitAdapter;
 
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class NewsRepository {
@@ -25,7 +26,7 @@ public class NewsRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Single<ResponseEditNews> editNews(String token, int id, RequestBody body) {
+    public Single<ResponseEditNews> editNews(String token, int id, MultipartBody.Part body) {
         return RetrofitAdapter.getRetrofitClient()
                 .editNews(token, body, id)
                 .subscribeOn(Schedulers.io());

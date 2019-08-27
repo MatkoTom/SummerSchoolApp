@@ -19,9 +19,9 @@ public class UserRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Single<ResponseEditUser> editUser(String token, RequestBody body) {
+    public Single<ResponseEditUser> editUser(String token, RequestBody body, String id) {
         return RetrofitAdapter.getRetrofitClient()
-                .editUser(token, body)
+                .editUser(token, body, id)
                 .subscribeOn(Schedulers.io());
     }
 }

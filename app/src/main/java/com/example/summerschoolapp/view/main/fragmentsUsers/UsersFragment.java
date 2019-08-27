@@ -62,7 +62,7 @@ public class UsersFragment extends Fragment {
             userListAdapter.setData(users);
         });
 
-//        getUserList();
+        getUserList();
         searchUsers();
         return rootView;
     }

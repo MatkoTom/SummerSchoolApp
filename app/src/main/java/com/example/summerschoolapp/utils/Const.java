@@ -10,7 +10,8 @@ public final class Const {
         public static final String BASE_URL = "https://intern2019dev.clover.studio/";
         public static final String API_LOGIN = "users/login";
         public static final String API_SIGNUP = "users/register";
-        public static final String API_CREATE_NEW_USER_EDIT_USER = "users/newUser";
+        public static final String API_CREATE_NEW_USER = "users/newUser";
+        public static final String API_EDIT_USER = "users/newUser/{id}";
         public static final String API_FETCH_USER_LIST = "users/allUsers";
         public static final String API_SEARCH_USER_QUERY = "users/allUsers/{query}";
         public static final String API_LOGOUT = "users/logout";

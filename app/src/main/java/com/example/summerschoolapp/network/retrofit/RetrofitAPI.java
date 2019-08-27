@@ -17,12 +17,15 @@ import com.example.summerschoolapp.model.userslist.ResponseUsersList;
 import com.example.summerschoolapp.utils.Const;
 
 import io.reactivex.Single;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface RetrofitAPI {
@@ -33,13 +36,14 @@ public interface RetrofitAPI {
     @POST(Const.Api.API_SIGNUP)
     Single<ResponseSignup> register(@Body RequestSignup register);
 
-    @POST(Const.Api.API_CREATE_NEW_USER_EDIT_USER)
+    @POST(Const.Api.API_CREATE_NEW_USER)
     Single<ResponseNewUser> createNewUser(@Header(Const.NetworkQuery.API_TOKEN) String token,
                                           @Body RequestBody body);
 
-    @PUT(Const.Api.API_CREATE_NEW_USER_EDIT_USER)
+    @PUT(Const.Api.API_EDIT_USER)
     Single<ResponseEditUser> editUser(@Header(Const.NetworkQuery.API_TOKEN) String token,
-                                      @Body RequestBody body);
+                                      @Body RequestBody body,
+                                      @Path(Const.NetworkQuery.API_ID) String id);
 
     @GET(Const.Api.API_FETCH_USER_LIST)
     Single<ResponseUsersList> fetchUserList(@Header(Const.NetworkQuery.API_TOKEN) String token);
@@ -70,9 +74,9 @@ public interface RetrofitAPI {
     Single<ResponseRequestList> fetchFilteredRequest(@Header(Const.NetworkQuery.API_TOKEN) String token,
                                                      @Path(Const.NetworkQuery.API_REQUEST_TYPE) String type);
 
- @GET(Const.Api.API_FILTER_REQUEST_ADMIN)
+    @GET(Const.Api.API_FILTER_REQUEST_ADMIN)
     Single<ResponseRequestList> fetchFilteredRequestAdmin(@Header(Const.NetworkQuery.API_TOKEN) String token,
-                                                     @Path(Const.NetworkQuery.API_REQUEST_TYPE) String type);
+                                                          @Path(Const.NetworkQuery.API_REQUEST_TYPE) String type);
 
     @POST(Const.Api.API_NEW_NEWS)
     Single<ResponseNewNews> createNewNews(@Header(Const.NetworkQuery.API_TOKEN) String token,
@@ -81,10 +85,15 @@ public interface RetrofitAPI {
     @GET(Const.Api.API_ALL_NEWS)
     Single<ResponseNewsList> fetchNewsList(@Header(Const.NetworkQuery.API_TOKEN) String token);
 
+    @Multipart
     @PUT(Const.Api.API_EDIT_NEWS)
     Single<ResponseEditNews> editNews(@Header(Const.NetworkQuery.API_TOKEN) String token,
-                                      @Body RequestBody body,
+                                      @Part MultipartBody.Part file,
                                       @Path(Const.NetworkQuery.API_ID) int id);
+//    @PUT(Const.Api.API_EDIT_NEWS)
+//    Single<ResponseEditNews> editNews(@Header(Const.NetworkQuery.API_TOKEN) String token,
+//                                      @Body RequestBody body,
+//                                      @Path(Const.NetworkQuery.API_ID) int id);
 
     @PUT(Const.Api.API_EDIT_PROFILE)
     Single<ResponseEditProfile> editProfile(@Header(Const.NetworkQuery.API_TOKEN) String token,

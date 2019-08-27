@@ -47,9 +47,9 @@ public class EditUserViewModel extends BaseViewModel {
         return navigation;
     }
 
-    public void editUser(String token, RequestBody body) {
+    public void editUser(String token, RequestBody body, String id) {
         startProgress();
-        editUserRepo.editUser(token, body)
+        editUserRepo.editUser(token, body, id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<ResponseEditUser>() {
@@ -104,7 +104,7 @@ public class EditUserViewModel extends BaseViewModel {
                 });
     }
 
-    public void postEditUser(RequestBody body) {
-        editUser(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt(), body);
+    public void postEditUser(RequestBody body, String id) {
+        editUser(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt(), body, id);
     }
 }
