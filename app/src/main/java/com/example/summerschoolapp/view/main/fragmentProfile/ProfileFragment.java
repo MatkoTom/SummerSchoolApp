@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -57,8 +58,15 @@ public class ProfileFragment extends BaseFragment {
     @BindView(R.id.ibtn_hide_show)
     ImageButton ibtnHideSHow;
 
+    @BindView(R.id.layout_forgotten_password)
+    ConstraintLayout layoutForgottenPassword;
+
     private ProfileFragmentViewModel viewModel;
     private boolean isVisible = false;
+    private String firstName = "";
+    private String lastName = "";
+    private String mail = "";
+    private String oib = "";
 
     public ProfileFragment() {
     }
@@ -120,6 +128,18 @@ public class ProfileFragment extends BaseFragment {
                             etChangePassword.setText("");
                             etNewPassword.setText("");
                             etRepeatNewPassword.setText("");
+
+                            if (firstName.length() > 0 && lastName.length() > 0)  {
+                                tvProfileName.setText(String.format("%s %s", firstName, lastName));
+                            }
+
+                            if (oib.length() > 0) {
+                                tvProfileOib.setText(oib);
+                            }
+
+                            if (mail.length() > 0)  {
+                                tvProfileMail.setText(mail);
+                            }
                         }
 
                         @Override
@@ -168,8 +188,8 @@ public class ProfileFragment extends BaseFragment {
     public void changeProfileName() {
         InsertTextDialog.CreateInstance(getActivity(), getString(R.string.ok), getString(R.string.cancel), text -> {
             String[] name = text.split(" ");
-            String firstName = name[0];
-            String lastName = name[1];
+            firstName = name[0];
+            lastName = name[1];
 
             RequestBody body = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
@@ -178,15 +198,13 @@ public class ProfileFragment extends BaseFragment {
                     .build();
 
             viewModel.editUserProfile(body);
-
-            tvProfileName.setText(String.format("%s %s", firstName, lastName));
         });
     }
 
     @OnClick(R.id.tv_profile_oib)
     public void changeProfileOib() {
         InsertTextDialog.CreateInstance(getActivity(), getString(R.string.ok), getString(R.string.cancel), text -> {
-            String oib = String.valueOf(text);
+            oib = String.valueOf(text);
 
             RequestBody body = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
@@ -194,15 +212,13 @@ public class ProfileFragment extends BaseFragment {
                     .build();
 
             viewModel.editUserProfile(body);
-
-            tvProfileOib.setText(oib);
         });
     }
 
     @OnClick(R.id.tv_profile_mail)
     public void changeProfileMail() {
         InsertTextDialog.CreateInstance(getActivity(), getString(R.string.ok), getString(R.string.cancel), text -> {
-            String mail = text;
+            mail = text;
 
             RequestBody body = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
@@ -210,8 +226,6 @@ public class ProfileFragment extends BaseFragment {
                     .build();
 
             viewModel.editUserProfile(body);
-
-            tvProfileMail.setText(mail);
         });
     }
 
@@ -225,6 +239,15 @@ public class ProfileFragment extends BaseFragment {
             etChangePassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
             ibtnHideSHow.setImageDrawable(getResources().getDrawable(R.drawable.log_in_lozinka_hiden_icon));
             isVisible = false;
+        }
+    }
+
+    @OnClick(R.id.btn_forgotten_password)
+    public void changePassword() {
+        if (layoutForgottenPassword.getVisibility() == View.GONE) {
+            layoutForgottenPassword.setVisibility(View.VISIBLE);
+        } else {
+            layoutForgottenPassword.setVisibility(View.GONE);
         }
     }
 }
