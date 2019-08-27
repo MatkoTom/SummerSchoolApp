@@ -1,6 +1,7 @@
 package com.example.summerschoolapp.network.retrofit;
 
 import com.example.summerschoolapp.model.editNews.ResponseEditNews;
+import com.example.summerschoolapp.model.editProfile.ResponseEditProfile;
 import com.example.summerschoolapp.model.editRequest.ResponseEditRequest;
 import com.example.summerschoolapp.model.editUser.ResponseEditUser;
 import com.example.summerschoolapp.model.login.RequestLogin;
@@ -84,4 +85,8 @@ public interface RetrofitAPI {
     Single<ResponseEditNews> editNews(@Header(Const.NetworkQuery.API_TOKEN) String token,
                                       @Body RequestBody body,
                                       @Path(Const.NetworkQuery.API_ID) int id);
+
+    @PUT(Const.Api.API_EDIT_PROFILE)
+    Single<ResponseEditProfile> editProfile(@Header(Const.NetworkQuery.API_TOKEN) String token,
+                                            @Body RequestBody body);
 }

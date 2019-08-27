@@ -23,6 +23,7 @@ public final class Const {
         public static final String API_NEW_NEWS = "news/new";
         public static final String API_EDIT_NEWS = "news/edit/{id}";
         public static final String API_ALL_NEWS = "news/all";
+        public static final String API_EDIT_PROFILE = "users/myProfile";
     }
 
     public static class NetworkQuery {

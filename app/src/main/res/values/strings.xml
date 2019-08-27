@@ -92,4 +92,7 @@
     <string name="news_created">Vijest uspješno objavljena!</string>
     <string name="news_edited_success">Vijest uspješno izmijenjena!</string>
     <string name="edit_news">Izmjena vijesti</string>
+    <string name="edit_profile_success">Korisnik je uspješno izmijenjen!</string>
+    <string name="input_to_change">Input data to change...</string>
+    <string name="cancel">Cancel</string>
 </resources>

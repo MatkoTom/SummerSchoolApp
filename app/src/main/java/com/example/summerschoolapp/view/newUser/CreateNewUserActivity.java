@@ -36,6 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import timber.log.Timber;
@@ -226,13 +227,13 @@ public class CreateNewUserActivity extends BaseActivity {
 
     }
 
-    //TODO need to be fixed
-    //ignore
+//    //TODO need to be fixed
+//    //ignore
 //    public MultipartBody.Part uploadPicture(String filepath) {
 //        File file = new File(filepath);
 //
 //        if (filepath != null) {
-//            RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/*"));
+//            RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/jpeg"));
 //
 //            return MultipartBody.Part.createFormData("photo", file.getName(), fileBody);
 //        }
