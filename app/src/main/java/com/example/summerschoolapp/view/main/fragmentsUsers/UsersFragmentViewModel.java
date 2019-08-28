@@ -58,9 +58,9 @@ public class UsersFragmentViewModel extends BaseViewModel {
                 });
     }
 
-    public void getSearchedUsersList(String token, RequestBody body) {
+    public void getSearchedUsersList(String token, String query) {
         startProgress();
-        mainRepo.getSearchedUsersList(token, body)
+        mainRepo.getSearchedUsersList(token, query)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<ResponseUsersList>() {
@@ -85,7 +85,7 @@ public class UsersFragmentViewModel extends BaseViewModel {
         getUserList(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt());
     }
 
-    public void printUsersSearched(RequestBody body) {
-        getSearchedUsersList(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt(), body);
+    public void printUsersSearched(String query) {
+        getSearchedUsersList(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt(), query);
     }
 }

@@ -27,6 +27,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface RetrofitAPI {
 
@@ -48,10 +49,9 @@ public interface RetrofitAPI {
     @GET(Const.Api.API_FETCH_USER_LIST)
     Single<ResponseUsersList> fetchUserList(@Header(Const.NetworkQuery.API_TOKEN) String token);
 
-    //TODO add query when ready
     @GET(Const.Api.API_SEARCH_USER_QUERY)
     Single<ResponseUsersList> fetchSearchedUsers(@Header(Const.NetworkQuery.API_TOKEN) String token,
-                                                 @Body RequestBody body);
+                                                 @Query(Const.NetworkQuery.QUERY_FIND_BY) String query);
 
     @POST(Const.Api.API_LOGOUT)
     Single<Object> logout(@Header(Const.NetworkQuery.API_TOKEN) String token);
@@ -73,11 +73,11 @@ public interface RetrofitAPI {
 
     @GET(Const.Api.API_FILTER_REQUEST)
     Single<ResponseRequestList> fetchFilteredRequest(@Header(Const.NetworkQuery.API_TOKEN) String token,
-                                                     @Path(Const.NetworkQuery.API_REQUEST_TYPE) String type);
+                                                     @Query(Const.NetworkQuery.QUERY_FIND_BY) String query);
 
     @GET(Const.Api.API_FILTER_REQUEST_ADMIN)
     Single<ResponseRequestList> fetchFilteredRequestAdmin(@Header(Const.NetworkQuery.API_TOKEN) String token,
-                                                          @Path(Const.NetworkQuery.API_REQUEST_TYPE) String type);
+                                                          @Query(Const.NetworkQuery.QUERY_FIND_BY) String query);
 
     @POST(Const.Api.API_NEW_NEWS)
     Single<ResponseNewNews> createNewNews(@Header(Const.NetworkQuery.API_TOKEN) String token,

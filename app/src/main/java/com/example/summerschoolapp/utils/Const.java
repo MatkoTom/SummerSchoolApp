@@ -19,8 +19,8 @@ public final class Const {
         public static final String API_EDIT_REQUEST = "requests/edit/{id}";
         public static final String API_FETCH_USER_REQUEST_LIST = "requests/myRequests";
         public static final String API_FETCH_ADMIN_REQUEST_LIST = "requests/all";
-        public static final String API_FILTER_REQUEST = "requests/myRequests/{type}";
-        public static final String API_FILTER_REQUEST_ADMIN = "requests/all/{type}";
+        public static final String API_FILTER_REQUEST = "requests/myRequests";
+        public static final String API_FILTER_REQUEST_ADMIN = "requests/all";
         public static final String API_NEW_NEWS = "news/new";
         public static final String API_EDIT_NEWS = "news/edit/{id}";
         public static final String API_ALL_NEWS = "news/all";
@@ -29,8 +29,7 @@ public final class Const {
 
     public static class NetworkQuery {
         public static final String API_TOKEN = "token";
-        public static final String API_QUERY = "query";
-        public static final String API_REQUEST_TYPE = "type";
+        public static final String QUERY_FIND_BY = "findBy";
         public static final String API_ID = "id";
     }
 

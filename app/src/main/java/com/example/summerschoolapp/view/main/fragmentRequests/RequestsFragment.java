@@ -85,6 +85,7 @@ public class RequestsFragment extends BaseFragment {
                 fabCreateNewRequest.setVisibility(View.VISIBLE);
             } else if (requests.size() == 0 && !viewModel.isAdmin()) {
                 btnNewRequest.setVisibility(View.VISIBLE);
+                requestListAdapter.clearList(requests);
             }
         });
 

@@ -65,30 +65,24 @@ public class UsersFragment extends Fragment {
         });
 
         getUserList();
-//        searchUsers();
+        searchUsers();
         return rootView;
     }
 
-    //TODO add query when ready
-//    private void searchUsers() {
-//        svUserSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                RequestBody requestBody = new MultipartBody.Builder()
-//                        .setType(MultipartBody.FORM)
-//                        .addFormDataPart("findBy", newText)
-//                        .build();
-//
-//                viewModel.printUsersSearched(requestBody);
-//                return false;
-//            }
-//        });
-//    }
+    private void searchUsers() {
+        svUserSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                viewModel.printUsersSearched(newText);
+                return false;
+            }
+        });
+    }
 
     @OnClick(R.id.fab_create_new_user)
     public void startCreateUserActivity() {

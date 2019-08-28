@@ -24,6 +24,8 @@ public class NewsRepository {
     private NewsTableDao tableDao;
     private LiveData<List<NewsArticle>> newsList;
 
+    public NewsRepository() {}
+
     public NewsRepository(Application application) {
         RoomDb database = RoomDb.getInstance(application);
         tableDao = database.newsTableDao();
