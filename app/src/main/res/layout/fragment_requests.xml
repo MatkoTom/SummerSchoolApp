@@ -87,9 +87,9 @@
                 android:id="@+id/spinner_request_items"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:layout_marginStart="8dp"
                 android:background="@android:color/transparent"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -116,10 +116,10 @@
             android:id="@+id/rv_requests"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-           android:layout_marginTop="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline17"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spinner_layout"
-            app:layout_constraintBottom_toTopOf="@+id/guideline17"/>
+            app:layout_constraintTop_toBottomOf="@id/spinner_layout" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline17"
@@ -127,7 +127,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="20dp"
-            app:layout_constraintGuide_percent="1.0"/>
+            app:layout_constraintGuide_percent="1.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -136,8 +136,8 @@
         android:layout_height="0dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="44dp"
-        android:visibility="gone"
         android:src="@drawable/fab_layout_new_request"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
