@@ -183,7 +183,23 @@ public class ProfileFragment extends BaseFragment {
         viewModel.editUserProfile(body);
     }
 
-    //TODO in progress
+    @OnClick(R.id.ibtn_change_name)
+    public void btnChangeProfileName() {
+        InsertTextDialog.CreateInstance(getActivity(), getString(R.string.name_surname), getString(R.string.ok), getString(R.string.cancel), text -> {
+            String[] name = text.split(" ");
+            firstName = name[0];
+            lastName = name[1];
+
+            RequestBody body = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("firstName", firstName)
+                    .addFormDataPart("lastName", lastName)
+                    .build();
+
+            viewModel.editUserProfile(body);
+        });
+    }
+
     @OnClick(R.id.tv_profile_name)
     public void changeProfileName() {
         InsertTextDialog.CreateInstance(getActivity(), getString(R.string.name_surname), getString(R.string.ok), getString(R.string.cancel), text -> {
@@ -215,8 +231,36 @@ public class ProfileFragment extends BaseFragment {
         });
     }
 
+    @OnClick(R.id.ibtn_change_oib)
+    public void btnChangeProfileOib() {
+        InsertTextDialog.CreateInstance(getActivity(), getString(R.string.oib), getString(R.string.ok), getString(R.string.cancel), text -> {
+            oib = String.valueOf(text);
+
+            RequestBody body = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("oib", oib)
+                    .build();
+
+            viewModel.editUserProfile(body);
+        });
+    }
+
     @OnClick(R.id.tv_profile_mail)
     public void changeProfileMail() {
+        InsertTextDialog.CreateInstance(getActivity(), getString(R.string.email), getString(R.string.ok), getString(R.string.cancel), text -> {
+            mail = text;
+
+            RequestBody body = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("email", mail)
+                    .build();
+
+            viewModel.editUserProfile(body);
+        });
+    }
+
+    @OnClick(R.id.ibtn_change_mail)
+    public void btnChangeProfileMail() {
         InsertTextDialog.CreateInstance(getActivity(), getString(R.string.email), getString(R.string.ok), getString(R.string.cancel), text -> {
             mail = text;
 

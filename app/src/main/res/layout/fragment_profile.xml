@@ -46,6 +46,40 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/civ_user_image" />
 
+            <ImageButton
+                android:id="@+id/ibtn_change_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@null"
+                android:src="@drawable/ic_edit"
+                app:layout_constraintBottom_toTopOf="@+id/tv_profile_oib"
+                app:layout_constraintStart_toEndOf="@id/tv_profile_name" />
+
+            <ImageButton
+                android:id="@+id/ibtn_change_oib"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@null"
+                android:src="@drawable/ic_edit"
+                app:layout_constraintBottom_toTopOf="@+id/tv_profile_mail"
+                app:layout_constraintStart_toEndOf="@id/tv_profile_oib" />
+
+            <ImageButton
+                android:id="@+id/ibtn_change_mail"
+                android:layout_width="23dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@null"
+                android:src="@drawable/ic_edit"
+                android:scaleType="centerInside"
+                app:layout_constraintBottom_toTopOf="@+id/btn_logout"
+                app:layout_constraintStart_toEndOf="@id/tv_profile_mail" />
+
             <TextView
                 android:id="@+id/tv_profile_oib"
                 android:layout_width="wrap_content"
@@ -140,7 +174,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_forgotten_password"
                 app:layout_constraintEnd_toEndOf="parent">
