@@ -88,7 +88,7 @@ public interface RetrofitAPI {
     @Multipart
     @PUT(Const.Api.API_EDIT_NEWS)
     Single<ResponseEditNews> editNews(@Header(Const.NetworkQuery.API_TOKEN) String token,
-                                      @Part MultipartBody.Part file,
+                                      @Part RequestBody body,
                                       @Path(Const.NetworkQuery.API_ID) int id);
 //    @PUT(Const.Api.API_EDIT_NEWS)
 //    Single<ResponseEditNews> editNews(@Header(Const.NetworkQuery.API_TOKEN) String token,

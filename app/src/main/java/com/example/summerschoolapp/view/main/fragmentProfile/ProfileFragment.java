@@ -129,7 +129,7 @@ public class ProfileFragment extends BaseFragment {
                             etNewPassword.setText("");
                             etRepeatNewPassword.setText("");
 
-                            if (firstName.length() > 0 && lastName.length() > 0)  {
+                            if (firstName.length() > 0 && lastName.length() > 0) {
                                 tvProfileName.setText(String.format("%s %s", firstName, lastName));
                             }
 
@@ -137,7 +137,7 @@ public class ProfileFragment extends BaseFragment {
                                 tvProfileOib.setText(oib);
                             }
 
-                            if (mail.length() > 0)  {
+                            if (mail.length() > 0) {
                                 tvProfileMail.setText(mail);
                             }
                         }
@@ -186,7 +186,7 @@ public class ProfileFragment extends BaseFragment {
     //TODO in progress
     @OnClick(R.id.tv_profile_name)
     public void changeProfileName() {
-        InsertTextDialog.CreateInstance(getActivity(), getString(R.string.ok), getString(R.string.cancel), text -> {
+        InsertTextDialog.CreateInstance(getActivity(), getString(R.string.name_surname), getString(R.string.ok), getString(R.string.cancel), text -> {
             String[] name = text.split(" ");
             firstName = name[0];
             lastName = name[1];
@@ -203,7 +203,7 @@ public class ProfileFragment extends BaseFragment {
 
     @OnClick(R.id.tv_profile_oib)
     public void changeProfileOib() {
-        InsertTextDialog.CreateInstance(getActivity(), getString(R.string.ok), getString(R.string.cancel), text -> {
+        InsertTextDialog.CreateInstance(getActivity(), getString(R.string.oib), getString(R.string.ok), getString(R.string.cancel), text -> {
             oib = String.valueOf(text);
 
             RequestBody body = new MultipartBody.Builder()
@@ -217,7 +217,7 @@ public class ProfileFragment extends BaseFragment {
 
     @OnClick(R.id.tv_profile_mail)
     public void changeProfileMail() {
-        InsertTextDialog.CreateInstance(getActivity(), getString(R.string.ok), getString(R.string.cancel), text -> {
+        InsertTextDialog.CreateInstance(getActivity(), getString(R.string.email), getString(R.string.ok), getString(R.string.cancel), text -> {
             mail = text;
 
             RequestBody body = new MultipartBody.Builder()

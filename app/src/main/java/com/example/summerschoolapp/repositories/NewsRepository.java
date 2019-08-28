@@ -26,7 +26,7 @@ public class NewsRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Single<ResponseEditNews> editNews(String token, int id, MultipartBody.Part body) {
+    public Single<ResponseEditNews> editNews(String token, int id, RequestBody body) {
         return RetrofitAdapter.getRetrofitClient()
                 .editNews(token, body, id)
                 .subscribeOn(Schedulers.io());

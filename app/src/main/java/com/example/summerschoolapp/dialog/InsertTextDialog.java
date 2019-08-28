@@ -20,13 +20,14 @@ public class InsertTextDialog extends DialogFragment {
       this.dialogCallback = setDialogCallback;
     }
 
-    public static void CreateInstance(Activity activity, @NonNull String positiveButton, @NonNull String negativeButton, InsertTextDialog.DialogCallback callback) {
+    public static void CreateInstance(Activity activity, String title, @NonNull String positiveButton, @NonNull String negativeButton, InsertTextDialog.DialogCallback callback) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
         View v = inflater.inflate(R.layout.text_dialog, null);
         EditText etChangeData = v.findViewById(R.id.et_change_data);
         builder.setView(v);
+        builder.setTitle(title);
         builder.setPositiveButton(positiveButton, (dialogInterface, i) -> {
                 callback.onDialogCallbackFinished(etChangeData.getText().toString());
         });

@@ -46,7 +46,7 @@ public class EditNewsViewModel extends BaseViewModel {
         return navigation;
     }
 
-    public void editNews(String token, int id, MultipartBody.Part body) {
+    public void editNews(String token, int id, RequestBody body) {
         startProgress();
         newsRepository.editNews(token, id, body)
                 .subscribeOn(Schedulers.io())
@@ -97,7 +97,7 @@ public class EditNewsViewModel extends BaseViewModel {
                 });
     }
 
-    public void postEditNews(int id, MultipartBody.Part body) {
+    public void postEditNews(int id, RequestBody body) {
         editNews(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt(), id, body);
     }
 }

@@ -31,7 +31,6 @@ import com.example.summerschoolapp.model.News;
 import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
 import com.example.summerschoolapp.utils.helpers.ScrollAdapter;
-import com.example.summerschoolapp.view.newUser.CreateNewUserActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -194,9 +193,10 @@ public class EditNewsActivity extends BaseActivity {
                 .addFormDataPart("location_latitude", latitude)
                 .addFormDataPart("location_longitude", longitude)
                 .addFormDataPart("Address", address)
+                .addFormDataPart("photo", "image.png", uploadPicture(filePath))
                 .build();
 
-        viewModel.postEditNews(newsForEditing.getId(), uploadPicture(filePath));
+        viewModel.postEditNews(newsForEditing.getId(), requestBody);
 
     }
 
@@ -303,13 +303,13 @@ public class EditNewsActivity extends BaseActivity {
         }
     }
 
-    public MultipartBody.Part uploadPicture(String filepath) {
+    public RequestBody uploadPicture(String filepath) {
         File file = new File(filepath);
 
         if (filepath != null) {
             RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/png"));
 
-            return MultipartBody.Part.createFormData("photo", file.getName(), fileBody);
+            return fileBody;
         }
         return null;
     }
