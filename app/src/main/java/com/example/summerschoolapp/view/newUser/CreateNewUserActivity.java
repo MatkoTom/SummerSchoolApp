@@ -197,7 +197,6 @@ public class CreateNewUserActivity extends BaseActivity {
         }
     }
 
-    // TODO Why doesn't this work like New Request or EditUser?
     @OnClick(R.id.btn_create_new_user)
     public void createNewUser() {
         if (!(etCreateUserEmail.getText().toString().length() == 0 ||
@@ -218,6 +217,7 @@ public class CreateNewUserActivity extends BaseActivity {
                     .addFormDataPart("lastName", lastName)
                     .addFormDataPart("email", email)
                     .addFormDataPart("password", password)
+                    .addFormDataPart("photo", "image", uploadPicture(filePath))
                     .build();
 
             viewModel.postNewUser(requestBody);
@@ -227,18 +227,16 @@ public class CreateNewUserActivity extends BaseActivity {
 
     }
 
-//    //TODO need to be fixed
-//    //ignore
-//    public MultipartBody.Part uploadPicture(String filepath) {
-//        File file = new File(filepath);
-//
-//        if (filepath != null) {
-//            RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/jpeg"));
-//
-//            return MultipartBody.Part.createFormData("photo", file.getName(), fileBody);
-//        }
-//        return null;
-//    }
+    public RequestBody uploadPicture(String filepath) {
+        File file = new File(filepath);
+
+        if (filepath != null) {
+            RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/png"));
+
+            return fileBody;
+        }
+        return null;
+    }
 
     @OnClick(R.id.ibtn_back)
     public void imageButtonBack() {

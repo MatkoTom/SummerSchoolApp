@@ -266,20 +266,21 @@ public class CreateNewNewsActivity extends BaseActivity {
                 .addFormDataPart("Location_latitude", latitude)
                 .addFormDataPart("Location_longitude", longitude)
                 .addFormDataPart("Address", address)
-                //doesn't work, ignore
-//                .addFormDataPart("photo", "picture", uploadPicture(filePath))
+                .addFormDataPart("photo", "picture", uploadPicture(filePath))
                 .build();
 
         viewModel.postNewNews(requestBody);
     }
 
-    //ignore
     public RequestBody uploadPicture(String filepath) {
         File file = new File(filepath);
 
-        RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/*"));
+        if (filepath != null) {
+            RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/png"));
 
-        return fileBody;
+            return fileBody;
+        }
+        return null;
     }
 
     @OnClick(R.id.ibtn_back)

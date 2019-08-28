@@ -57,10 +57,8 @@ public class CreateNewUserViewModel extends BaseViewModel {
                     public void onSuccess(ResponseNewUser newResponse) {
                         stopProgress();
                         if (newResponse.data.error == null) {
-                            Timber.d("createdNewUser");
                             getNavigation().setValue(Navigation.MAIN);
                         } else {
-                            Timber.d("Big ok: %s", newResponse.data.error.getError_code() + " " + newResponse.data.error.getError_description());
                             if (Const.Errors.EMAIL_IN_USE == Integer.parseInt(newResponse.data.error.getError_code())) {
                                 getBaseErrors().setValue(new Event<>(NewUserError.Create(NewUserError.Error.ERROR_WHILE_REGISTERING_EMAIL_IN_USE)));
                             } else if (Const.Errors.OIB_IN_USE == Integer.parseInt(newResponse.data.error.getError_code())) {

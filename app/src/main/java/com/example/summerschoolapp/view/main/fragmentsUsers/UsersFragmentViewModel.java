@@ -16,6 +16,7 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.RequestBody;
 import timber.log.Timber;
 
 public class UsersFragmentViewModel extends BaseViewModel {
@@ -57,9 +58,9 @@ public class UsersFragmentViewModel extends BaseViewModel {
                 });
     }
 
-    public void getSearchedUsersList(String token, String searchQuery) {
+    public void getSearchedUsersList(String token, RequestBody body) {
         startProgress();
-        mainRepo.getSearchedUsersList(token, searchQuery)
+        mainRepo.getSearchedUsersList(token, body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<ResponseUsersList>() {
@@ -84,7 +85,7 @@ public class UsersFragmentViewModel extends BaseViewModel {
         getUserList(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt());
     }
 
-    public void printUsersSearched(String query) {
-        getSearchedUsersList(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt(), query);
+    public void printUsersSearched(RequestBody body) {
+        getSearchedUsersList(Tools.getSharedPreferences(getApplication()).getSavedUserData().getJwt(), body);
     }
 }

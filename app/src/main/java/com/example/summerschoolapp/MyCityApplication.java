@@ -5,7 +5,9 @@ import android.app.Application;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import androidx.room.Room;
 
+import com.example.summerschoolapp.database.RoomDb;
 import com.example.summerschoolapp.utils.helpers.ReleaseTree;
 
 import org.jetbrains.annotations.NotNull;
@@ -14,6 +16,8 @@ import org.jetbrains.annotations.Nullable;
 import timber.log.Timber;
 
 public class MyCityApplication extends Application implements LifecycleObserver {
+
+    public static RoomDb database;
 
     @Override
     public void onCreate() {
@@ -29,6 +33,9 @@ public class MyCityApplication extends Application implements LifecycleObserver 
         } else {
             Timber.plant(new ReleaseTree());
         }
+
+        database = Room.databaseBuilder(getApplicationContext(), RoomDb.class, "RoomDb")
+                .build();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)

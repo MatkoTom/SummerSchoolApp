@@ -13,7 +13,7 @@ public final class Const {
         public static final String API_CREATE_NEW_USER = "users/newUser";
         public static final String API_EDIT_USER = "users/newUser/{id}";
         public static final String API_FETCH_USER_LIST = "users/allUsers";
-        public static final String API_SEARCH_USER_QUERY = "users/allUsers/{query}";
+        public static final String API_SEARCH_USER_QUERY = "users/allUsers";
         public static final String API_LOGOUT = "users/logout";
         public static final String API_CREATE_NEW_REQUEST = "requests/new";
         public static final String API_EDIT_REQUEST = "requests/edit/{id}";

@@ -48,9 +48,10 @@ public interface RetrofitAPI {
     @GET(Const.Api.API_FETCH_USER_LIST)
     Single<ResponseUsersList> fetchUserList(@Header(Const.NetworkQuery.API_TOKEN) String token);
 
+    //TODO add query when ready
     @GET(Const.Api.API_SEARCH_USER_QUERY)
     Single<ResponseUsersList> fetchSearchedUsers(@Header(Const.NetworkQuery.API_TOKEN) String token,
-                                                 @Path(Const.NetworkQuery.API_QUERY) String searchQuery);
+                                                 @Body RequestBody body);
 
     @POST(Const.Api.API_LOGOUT)
     Single<Object> logout(@Header(Const.NetworkQuery.API_TOKEN) String token);

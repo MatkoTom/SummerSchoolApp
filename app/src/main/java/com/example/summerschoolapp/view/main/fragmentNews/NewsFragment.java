@@ -9,15 +9,19 @@ import android.widget.Button;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.model.News;
 import com.example.summerschoolapp.view.editNews.EditNewsActivity;
 import com.example.summerschoolapp.view.main.MainScreenViewModel;
 import com.example.summerschoolapp.view.newNews.CreateNewNewsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,6 +82,13 @@ public class NewsFragment extends Fragment {
                 newsListAdapter.setData(news);
                 noNewsLayout.setVisibility(View.GONE);
                 newsListLayout.setVisibility(View.VISIBLE);
+            }
+        });
+
+        newsFragmentViewModel.getNewsList().observeEvent(this, new Observer<List<News>>() {
+            @Override
+            public void onChanged(List<News> news) {
+                newsListAdapter.setData(news);
             }
         });
 

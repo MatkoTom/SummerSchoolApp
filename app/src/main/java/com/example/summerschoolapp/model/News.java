@@ -5,8 +5,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.File;
-
 public class News implements Parcelable {
 
     @SerializedName("ID")
@@ -38,6 +36,39 @@ public class News implements Parcelable {
 
     @SerializedName("Author")
     private String author;
+
+    @SerializedName("CreatedAt")
+    private String createdAt;
+
+    @SerializedName("UpdatedAt")
+    private String updatedAt;
+
+    @SerializedName("Images")
+    private String images;
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
+    }
 
     public int getId() {
         return id;

@@ -1,5 +1,6 @@
 package com.example.summerschoolapp.database.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -14,7 +15,7 @@ import java.util.List;
 public interface NewsTableDao {
 
     @Query("SELECT * FROM NewsArticle ORDER BY article_id DESC")
-    List<NewsArticle> selectAllNews();
+    LiveData<List<NewsArticle>> selectAllNews();
 
     @Insert
     void insert (NewsArticle article);

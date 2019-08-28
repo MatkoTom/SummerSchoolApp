@@ -20,9 +20,9 @@ public class MainScreenRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Single<ResponseUsersList> getSearchedUsersList(String token, String searchQuery) {
+    public Single<ResponseUsersList> getSearchedUsersList(String token, RequestBody body) {
         return RetrofitAdapter.getRetrofitClient()
-                .fetchSearchedUsers(token, searchQuery)
+                .fetchSearchedUsers(token, body)
                 .subscribeOn(Schedulers.io());
     }
 
