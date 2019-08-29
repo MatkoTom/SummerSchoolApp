@@ -69,7 +69,7 @@ public class NewsFragment extends Fragment {
         mainScreenActivityViewModel = ViewModelProviders.of(this).get(MainScreenViewModel.class);
         newsFragmentViewModel = ViewModelProviders.of(this).get(NewsFragmentViewModel.class);
 
-        newsFragmentViewModel.getNewsList().observeEvent(this, news -> {
+        newsFragmentViewModel.getAllNews().observe(this, news -> {
             if (news.size() > 0 && newsFragmentViewModel.isAdmin()) {
                 newsListAdapter.setData(news);
                 noNewsLayout.setVisibility(View.GONE);
@@ -85,12 +85,12 @@ public class NewsFragment extends Fragment {
             }
         });
 
-        newsFragmentViewModel.getNewsList().observeEvent(this, new Observer<List<News>>() {
-            @Override
-            public void onChanged(List<News> news) {
-                newsListAdapter.setData(news);
-            }
-        });
+//        newsFragmentViewModel.getNewsList().observeEvent(this, new Observer<List<News>>() {
+//            @Override
+//            public void onChanged(List<News> news) {
+//                newsListAdapter.setData(news);
+//            }
+//        });
 
         checkUserRole();
         getNewsList();

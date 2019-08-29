@@ -34,8 +34,7 @@ public class MyCityApplication extends Application implements LifecycleObserver 
             Timber.plant(new ReleaseTree());
         }
 
-        database = Room.databaseBuilder(getApplicationContext(), RoomDb.class, "RoomDb")
-                .build();
+        RoomDb.create(this);
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)

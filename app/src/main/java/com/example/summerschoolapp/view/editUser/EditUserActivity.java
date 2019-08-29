@@ -248,11 +248,15 @@ public class EditUserActivity extends BaseActivity {
     }
 
     public RequestBody uploadPicture(String filepath) {
-        File file = new File(filepath);
-
         if (filepath != null) {
-            RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/png"));
-            return fileBody;
+            File file = new File(filepath);
+
+            if (filepath != null) {
+                RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/png"));
+                return fileBody;
+            } else {
+                return null;
+            }
         } else {
             return null;
         }

@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.database.entity.NewsArticle;
 import com.example.summerschoolapp.model.News;
 
 import java.util.ArrayList;
@@ -20,14 +21,14 @@ import timber.log.Timber;
 
 public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.CustomVievHolder> {
 
-    private List<News> data = new ArrayList<>();
+    private List<NewsArticle> data = new ArrayList<>();
     private NewsListInteraction listener;
 
     public NewsListAdapter(NewsListAdapter.NewsListInteraction listener) {
         this.listener = listener;
     }
 
-    public void setData(List<News> newData) {
+    public void setData(List<NewsArticle> newData) {
         if (newData != null && !newData.isEmpty()) {
             this.data.clear();
             this.data.addAll(newData);
@@ -37,7 +38,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.Custom
 
     //TODO do I need this?
     //ignore
-    public void clearList(List<News> data) {
+    public void clearList(List<NewsArticle> data) {
         this.data.clear();
         notifyDataSetChanged();
     }
@@ -52,15 +53,15 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.Custom
 
     @Override
     public void onBindViewHolder(@NonNull NewsListAdapter.CustomVievHolder holder, int position) {
-        News item = data.get(position);
+        NewsArticle item = data.get(position);
 
         holder.ivNewsPicture.setImageDrawable(null);
-        holder.tvNewsTitle.setText(item.getTitle());
+        holder.tvNewsTitle.setText(item.getTitle_log());
 
-        Timber.d("DAT: " + item.getTitle() + " " + item.getId());
+//        Timber.d("DAT: " + item.getTitle() + " " + item.getId());
 
-        holder.tvNewsMessage.setText(item.getMessage());
-        holder.tvNewsAuthor.setText(String.format("%s %s", item.getFirstName(), item.getLastName()));
+        holder.tvNewsMessage.setText(item.getMessage_log());
+        holder.tvNewsAuthor.setText(String.format("%s %s", item.getFirst_name(), item.getLast_name()));
 
         holder.rowParentLayout.setOnClickListener(view -> {
             if (listener != null) {
@@ -94,6 +95,6 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.Custom
     }
 
     interface NewsListInteraction {
-        void onNewsClicked(News news);
+        void onNewsClicked(NewsArticle news);
     }
 }

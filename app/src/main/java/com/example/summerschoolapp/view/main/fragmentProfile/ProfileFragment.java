@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.bumptech.glide.Glide;
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.common.BaseFragment;
@@ -22,6 +23,7 @@ import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.dialog.InsertTextDialog;
 import com.example.summerschoolapp.dialog.SuccessDialog;
 import com.example.summerschoolapp.model.User;
+import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
 import com.example.summerschoolapp.view.onboarding.OnboardingActivity;
@@ -29,6 +31,7 @@ import com.example.summerschoolapp.view.onboarding.OnboardingActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -60,6 +63,9 @@ public class ProfileFragment extends BaseFragment {
 
     @BindView(R.id.layout_forgotten_password)
     ConstraintLayout layoutForgottenPassword;
+
+    @BindView(R.id.civ_user_image)
+    CircleImageView civUserimage;
 
     private ProfileFragmentViewModel viewModel;
     private boolean isVisible = false;
@@ -159,6 +165,11 @@ public class ProfileFragment extends BaseFragment {
         tvProfileName.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
         tvProfileMail.setText(user.getEmail());
         tvProfileOib.setText(user.getOib());
+
+        Glide.with(getActivity())
+                .asBitmap()
+                .load(Const.Api.API_GET_IMAGE + user.getPhoto())
+                .into(civUserimage);
     }
 
     @OnClick(R.id.btn_logout)

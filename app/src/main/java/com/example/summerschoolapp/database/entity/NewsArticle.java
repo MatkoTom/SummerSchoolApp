@@ -1,15 +1,21 @@
 package com.example.summerschoolapp.database.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.example.summerschoolapp.model.News;
+
 @Entity
-public class NewsArticle {
+public class NewsArticle implements Parcelable {
 
     @PrimaryKey
     @ColumnInfo(name = "article_id")
-    private int article_id = 0;
+    private int article_id;
 
     @ColumnInfo(name = "title_log")
     private String title_log;
@@ -44,6 +50,10 @@ public class NewsArticle {
     @ColumnInfo(name = "files")
     private String files;
 
+    @Ignore
+    public NewsArticle() {
+    }
+
     public NewsArticle(int article_id, String title_log, String message_log, String first_name, String last_name, String location_latitude, String location_longitude, String address, String created_at, String updated_at, String images, String files) {
         this.article_id = article_id;
         this.title_log = title_log;
@@ -57,6 +67,24 @@ public class NewsArticle {
         this.updated_at = updated_at;
         this.images = images;
         this.files = files;
+    }
+
+    public static NewsArticle convertToNewsArticle(News news) {
+
+        NewsArticle article = new NewsArticle();
+        article.setAddress(news.getAddress());
+        article.setArticle_id(news.getId());
+        article.setCreated_at(news.getCreatedAt());
+        article.setFiles(news.getFiles());
+        article.setFirst_name(news.getFirstName());
+        article.setLast_name(news.getLastName());
+        article.setImages(news.getImages());
+        article.setLocation_latitude(news.getLocation_latitude());
+        article.setLocation_longitude(news.getLocation_longitude());
+        article.setMessage_log(news.getMessage());
+        article.setTitle_log(news.getTitle());
+        article.setUpdated_at(news.getUpdatedAt());
+        return article;
     }
 
     public String getFirst_name() {
@@ -162,4 +190,52 @@ public class NewsArticle {
                 ", newsContent='" + message_log + '\'' +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.article_id);
+        dest.writeString(this.title_log);
+        dest.writeString(this.message_log);
+        dest.writeString(this.location_latitude);
+        dest.writeString(this.location_longitude);
+        dest.writeString(this.address);
+        dest.writeString(this.first_name);
+        dest.writeString(this.last_name);
+        dest.writeString(this.created_at);
+        dest.writeString(this.updated_at);
+        dest.writeString(this.images);
+        dest.writeString(this.files);
+    }
+
+    protected NewsArticle(Parcel in) {
+        this.article_id = in.readInt();
+        this.title_log = in.readString();
+        this.message_log = in.readString();
+        this.location_latitude = in.readString();
+        this.location_longitude = in.readString();
+        this.address = in.readString();
+        this.first_name = in.readString();
+        this.last_name = in.readString();
+        this.created_at = in.readString();
+        this.updated_at = in.readString();
+        this.images = in.readString();
+        this.files = in.readString();
+    }
+
+    public static final Parcelable.Creator<NewsArticle> CREATOR = new Parcelable.Creator<NewsArticle>() {
+        @Override
+        public NewsArticle createFromParcel(Parcel source) {
+            return new NewsArticle(source);
+        }
+
+        @Override
+        public NewsArticle[] newArray(int size) {
+            return new NewsArticle[size];
+        }
+    };
 }

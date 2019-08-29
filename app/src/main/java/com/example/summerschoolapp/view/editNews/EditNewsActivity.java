@@ -24,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.common.BaseActivity;
 import com.example.summerschoolapp.common.BaseError;
+import com.example.summerschoolapp.database.entity.NewsArticle;
 import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.dialog.SuccessDialog;
 import com.example.summerschoolapp.errors.NewUserError;
@@ -52,7 +53,7 @@ import timber.log.Timber;
 
 public class EditNewsActivity extends BaseActivity {
 
-    public static void StartActivity(Context context, News newsForEditing) {
+    public static void StartActivity(Context context, NewsArticle newsForEditing) {
 
         Intent intent = new Intent(context, EditNewsActivity.class);
         intent.putExtra(Const.Intent.NEWS_DATA, newsForEditing);
@@ -82,7 +83,7 @@ public class EditNewsActivity extends BaseActivity {
 
     private EditNewsViewModel viewModel;
     private GoogleMap mMap;
-    News newsForEditing;
+    NewsArticle newsForEditing;
     private static final int PICK_FROM_GALLERY = 1;
     private File image;
     private String filePath = "";
@@ -142,7 +143,7 @@ public class EditNewsActivity extends BaseActivity {
                     break;
             }
         });
-        Timber.d(String.valueOf(newsForEditing.getId()));
+        Timber.d(String.valueOf(newsForEditing.getArticle_id()));
         mapView.onCreate(savedInstanceState);
         setField();
         mapChange();
@@ -172,13 +173,13 @@ public class EditNewsActivity extends BaseActivity {
     }
 
     public void setField() {
-        etNewsTitle.setText(newsForEditing.getTitle());
-        etNewsText.setText(newsForEditing.getMessage());
+        etNewsTitle.setText(newsForEditing.getTitle_log());
+        etNewsText.setText(newsForEditing.getMessage_log());
         etNewsAddress.setText(newsForEditing.getAddress());
     }
 
     @OnClick(R.id.btn_edit_news)
-    public void postNewRequest() {
+    public void postEditNews() {
 
         String title = etNewsTitle.getText().toString();
         String message = etNewsText.getText().toString();
@@ -196,7 +197,7 @@ public class EditNewsActivity extends BaseActivity {
                 .addFormDataPart("photo", "image.png", uploadPicture(filePath))
                 .build();
 
-        viewModel.postEditNews(newsForEditing.getId(), requestBody);
+        viewModel.postEditNews(newsForEditing.getArticle_id(), requestBody);
 
     }
 

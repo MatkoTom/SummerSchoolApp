@@ -25,6 +25,7 @@ public final class Const {
         public static final String API_EDIT_NEWS = "news/edit/{id}";
         public static final String API_ALL_NEWS = "news/all";
         public static final String API_EDIT_PROFILE = "users/myProfile";
+        public static final String API_GET_IMAGE = "https://intern2019dev.clover.studio/uploads/files/";
     }
 
     public static class NetworkQuery {

@@ -10,8 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.model.User;
+import com.example.summerschoolapp.utils.Const;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,6 +53,14 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
         holder.tvUserFirstName.setText(item.getFirstName());
         holder.tvUserLastName.setText(item.getLastName());
         holder.tvUserEmail.setText(item.getEmail());
+
+        if (item.getPhoto() != null) {
+            Glide.with(holder.ivUSerImg.getContext())
+                    .asBitmap()
+                    .fitCenter()
+                    .load(Const.Api.API_GET_IMAGE + item.getPhoto())
+                    .into(holder.ivUSerImg);
+        }
 
         holder.rowParentLayout.setOnClickListener(view -> {
             if (listener != null) {

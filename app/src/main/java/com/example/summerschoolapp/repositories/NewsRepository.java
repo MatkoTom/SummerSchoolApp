@@ -8,11 +8,12 @@ import androidx.lifecycle.LiveData;
 import com.example.summerschoolapp.database.RoomDb;
 import com.example.summerschoolapp.database.dao.NewsTableDao;
 import com.example.summerschoolapp.database.entity.NewsArticle;
+import com.example.summerschoolapp.model.News;
 import com.example.summerschoolapp.model.editNews.ResponseEditNews;
 import com.example.summerschoolapp.model.newNews.ResponseNewNews;
-import com.example.summerschoolapp.model.newsList.ResponseNewsList;
 import com.example.summerschoolapp.network.retrofit.RetrofitAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Single;
@@ -22,21 +23,21 @@ import okhttp3.RequestBody;
 public class NewsRepository {
 
     private NewsTableDao tableDao;
-    private LiveData<List<NewsArticle>> newsList;
+    private RoomDb dbInstance;
 
-    public NewsRepository() {}
+    public NewsRepository() {
+    }
 
     public NewsRepository(Application application) {
-        RoomDb database = RoomDb.getInstance(application);
-        tableDao = database.newsTableDao();
-        newsList = tableDao.selectAllNews();
+        dbInstance = RoomDb.getInstance(application);
+        tableDao = dbInstance.newsTableDao();
     }
 
     public LiveData<List<NewsArticle>> getNewsList() {
-        return newsList;
+        return tableDao.selectAllNews();
     }
 
-    public void insert (NewsArticle article) {
+    public void insert(NewsArticle article) {
         new InsertAsyncTask(tableDao).execute(article);
     }
 
@@ -61,10 +62,23 @@ public class NewsRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Single<ResponseNewsList> fetchNewsList(String token) {
+    public Single<Integer> fetchNewsList(String token) {
         return RetrofitAdapter.getRetrofitClient()
                 .fetchNewsList(token)
-                .subscribeOn(Schedulers.io());
+                .subscribeOn(Schedulers.io())
+                .flatMap(responseNewsList -> {
+                    if (responseNewsList == null || responseNewsList.data == null || responseNewsList.data.newsList == null) {
+                        return Single.error(new Throwable("e prazno je"));
+                    } else {
+                        List<NewsArticle> list = new ArrayList<>();
+                        for (News news : responseNewsList.data.newsList) {
+                            list.add(NewsArticle.convertToNewsArticle(news));
+                        }
+                        tableDao.insertList(list);
+                        return Single.just(1);
+                    }
+
+                });
     }
 
     public Single<ResponseEditNews> editNews(String token, int id, RequestBody body) {

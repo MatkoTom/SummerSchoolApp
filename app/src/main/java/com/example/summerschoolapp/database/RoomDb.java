@@ -29,4 +29,9 @@ public abstract class RoomDb extends RoomDatabase {
         }
         return instance;
     }
+
+    public static RoomDatabase create(Context context) {
+        return Room.databaseBuilder(context, RoomDb.class, "RoomDb")
+                .build();
+    }
 }

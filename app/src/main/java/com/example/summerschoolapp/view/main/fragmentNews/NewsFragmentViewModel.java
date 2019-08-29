@@ -25,46 +25,34 @@ public class NewsFragmentViewModel extends BaseViewModel {
 
     private NewsRepository newsRepository;
 
-    private LiveData<List<NewsArticle>> newsList;
-
     private SingleLiveEvent<List<News>> sendNewsList = new SingleLiveEvent<>();
 
     public NewsFragmentViewModel(@NonNull Application application) {
         super(application);
         newsRepository = new NewsRepository(application);
-        newsList = newsRepository.getNewsList();
-
     }
 
     public LiveData<List<NewsArticle>> getAllNews() {
-        return newsList;
+        return newsRepository.getNewsList();
     }
 
-    public void insert(NewsArticle article) {
-        newsRepository.insert(article);
-    }
-
-    public SingleLiveEvent<List<News>> getNewsList() {
-        return sendNewsList;
-    }
+//    public void insert(NewsArticle article) {
+//        newsRepository.insert(article);
+//    }
+//
+//    public SingleLiveEvent<List<News>> getNewsList() {
+//        return sendNewsList;
+//    }
 
     public void fetchNewsList(String token) {
         startProgress();
         newsRepository.fetchNewsList(token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<ResponseNewsList>() {
+                .subscribe(new DisposableSingleObserver<Integer>() {
                     @Override
-                    public void onSuccess(ResponseNewsList responseNewsList) {
-                        Timber.d("createdNewUser%s", responseNewsList.data.newsList);
-                        getNewsList().setValue(responseNewsList.data.newsList);
-
-                        //TODO check this with someone
-//                        for (News news : responseNewsList.data.newsList) {
-//                            insert(new NewsArticle(news.getId(), news.getTitle(), news.getMessage(), news.getFirstName(),
-//                                    news.getLastName(), news.getLocation_latitude(), news.getLocation_longitude(), news.getAddress(),
-//                                    news.getCreatedAt(), news.getUpdatedAt(), news.getImages(), news.getFiles()));
-//                        }
+                    public void onSuccess(Integer responseNewsList) {
+                        Timber.d("createdNewUser%s", responseNewsList);
                         stopProgress();
                         dispose();
                     }
