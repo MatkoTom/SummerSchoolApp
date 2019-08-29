@@ -9,19 +9,16 @@ import android.widget.Button;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.summerschoolapp.R;
-import com.example.summerschoolapp.model.News;
 import com.example.summerschoolapp.view.editNews.EditNewsActivity;
 import com.example.summerschoolapp.view.main.MainScreenViewModel;
 import com.example.summerschoolapp.view.newNews.CreateNewNewsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,6 +44,9 @@ public class NewsFragment extends Fragment {
     @BindView(R.id.rv_news)
     RecyclerView rvNews;
 
+    @BindView(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
+
     public NewsFragment() {
     }
 
@@ -70,10 +70,14 @@ public class NewsFragment extends Fragment {
         newsFragmentViewModel = ViewModelProviders.of(this).get(NewsFragmentViewModel.class);
 
         newsFragmentViewModel.getAllNews().observe(this, news -> {
+            if (swipeRefreshLayout.isRefreshing()) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+
             if (news.size() > 0 && newsFragmentViewModel.isAdmin()) {
                 newsListAdapter.setData(news);
                 noNewsLayout.setVisibility(View.GONE);
-                newsListLayout.setVisibility(View.VISIBLE);
+                swipeRefreshLayout.setVisibility(View.VISIBLE);
                 fabCreateNewNews.setVisibility(View.VISIBLE);
             } else if (news.size() == 0 && newsFragmentViewModel.isAdmin()) {
                 noNewsLayout.setVisibility(View.VISIBLE);
@@ -81,20 +85,18 @@ public class NewsFragment extends Fragment {
             } else if (news.size() > 0 && !newsFragmentViewModel.isAdmin()) {
                 newsListAdapter.setData(news);
                 noNewsLayout.setVisibility(View.GONE);
-                newsListLayout.setVisibility(View.VISIBLE);
+                swipeRefreshLayout.setVisibility(View.VISIBLE);
             }
         });
 
-//        newsFragmentViewModel.getNewsList().observeEvent(this, new Observer<List<News>>() {
-//            @Override
-//            public void onChanged(List<News> news) {
-//                newsListAdapter.setData(news);
-//            }
-//        });
-
         checkUserRole();
         getNewsList();
+        swipeRefresh();
         return rootView;
+    }
+
+    public void swipeRefresh() {
+        swipeRefreshLayout.setOnRefreshListener(() -> getNewsList());
     }
 
     private void getNewsList() {
@@ -117,5 +119,11 @@ public class NewsFragment extends Fragment {
     @OnClick(R.id.btn_publish_news)
     public void publishNewNews() {
         CreateNewNewsActivity.StartActivity(getActivity());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getNewsList();
     }
 }

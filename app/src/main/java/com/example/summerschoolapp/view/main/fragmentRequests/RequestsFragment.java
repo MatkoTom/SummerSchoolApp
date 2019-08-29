@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.common.BaseFragment;
@@ -51,6 +52,9 @@ public class RequestsFragment extends BaseFragment {
     @BindView(R.id.btn_new_request)
     Button btnNewRequest;
 
+    @BindView(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
+
     private RequestListAdapter requestListAdapter;
     private RequestFragmentViewModel viewModel;
 
@@ -71,17 +75,21 @@ public class RequestsFragment extends BaseFragment {
         viewModel = ViewModelProviders.of(this).get(RequestFragmentViewModel.class);
 
         viewModel.getRequestList().observeEvent(this, requests -> {
+            if (swipeRefreshLayout.isRefreshing()) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+
             if (requests.size() > 0 && viewModel.isAdmin()) {
                 requestListAdapter.setData(requests);
                 noRequestLayout.setVisibility(View.GONE);
-                requestListLayout.setVisibility(View.VISIBLE);
+                swipeRefreshLayout.setVisibility(View.VISIBLE);
             } else if (requests.size() == 0 && viewModel.isAdmin()) {
                 noRequestLayout.setVisibility(View.VISIBLE);
                 requestListAdapter.clearList(requests);
             } else if (requests.size() > 0 && !viewModel.isAdmin()) {
                 requestListAdapter.setData(requests);
                 noRequestLayout.setVisibility(View.GONE);
-                requestListLayout.setVisibility(View.VISIBLE);
+                swipeRefreshLayout.setVisibility(View.VISIBLE);
                 fabCreateNewRequest.setVisibility(View.VISIBLE);
             } else if (requests.size() == 0 && !viewModel.isAdmin()) {
                 btnNewRequest.setVisibility(View.VISIBLE);
@@ -92,8 +100,13 @@ public class RequestsFragment extends BaseFragment {
         getRequestList();
         populateSpinner();
         filterRequests();
+        swipeRefresh();
 
         return rootView;
+    }
+
+    public void swipeRefresh() {
+        swipeRefreshLayout.setOnRefreshListener(() -> getRequestList());
     }
 
     @OnClick(R.id.btn_new_request)
@@ -151,5 +164,11 @@ public class RequestsFragment extends BaseFragment {
                 }
             });
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getRequestList();
     }
 }

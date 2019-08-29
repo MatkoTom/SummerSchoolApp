@@ -25,8 +25,6 @@ public class NewsFragmentViewModel extends BaseViewModel {
 
     private NewsRepository newsRepository;
 
-    private SingleLiveEvent<List<News>> sendNewsList = new SingleLiveEvent<>();
-
     public NewsFragmentViewModel(@NonNull Application application) {
         super(application);
         newsRepository = new NewsRepository(application);
@@ -35,14 +33,6 @@ public class NewsFragmentViewModel extends BaseViewModel {
     public LiveData<List<NewsArticle>> getAllNews() {
         return newsRepository.getNewsList();
     }
-
-//    public void insert(NewsArticle article) {
-//        newsRepository.insert(article);
-//    }
-//
-//    public SingleLiveEvent<List<News>> getNewsList() {
-//        return sendNewsList;
-//    }
 
     public void fetchNewsList(String token) {
         startProgress();

@@ -95,4 +95,5 @@
     <string name="edit_profile_success">Korisnik je uspješno izmijenjen!</string>
     <string name="input_to_change">Input data to change...</string>
     <string name="cancel">Cancel</string>
+    <string name="set_name">Postavite ime</string>
 </resources>

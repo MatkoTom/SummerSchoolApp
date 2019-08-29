@@ -92,4 +92,10 @@ public class UsersFragment extends Fragment {
     public void getUserList() {
         viewModel.printUsers();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getUserList();
+    }
 }

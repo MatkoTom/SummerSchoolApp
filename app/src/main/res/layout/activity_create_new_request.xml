@@ -228,7 +228,7 @@
                 <com.google.android.gms.maps.MapView
                     android:id="@+id/mv_request_location"
                     android:layout_width="match_parent"
-                    android:layout_height="102dp"
+                    android:layout_height="150dp"
                     android:scaleType="center"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
