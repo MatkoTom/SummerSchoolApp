@@ -65,6 +65,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         Button btnTab = customTabView.findViewById(R.id.btn_tab_icon);
         btnTab.setCompoundDrawablesWithIntrinsicBounds(null, image, null, null);
         btnTab.setText(tabTitles[position]);
+        btnTab.setClickable(false);
+        btnTab.setFocusable(false);
         return customTabView;
     }
 }

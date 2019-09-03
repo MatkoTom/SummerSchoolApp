@@ -28,7 +28,6 @@ import com.example.summerschoolapp.database.entity.NewsArticle;
 import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.dialog.SuccessDialog;
 import com.example.summerschoolapp.errors.NewUserError;
-import com.example.summerschoolapp.model.News;
 import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
 import com.example.summerschoolapp.utils.helpers.ScrollAdapter;
@@ -213,8 +212,13 @@ public class EditNewsActivity extends BaseActivity {
     public void mapChange() {
         mapView.getMapAsync(googleMap -> {
             mMap = googleMap;
-            LatLng location = new LatLng(Double.parseDouble(newsForEditing.getLocation_latitude()), Double.parseDouble(newsForEditing.getLocation_longitude()));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
+            if (newsForEditing.getLocation_latitude() != null && newsForEditing.getLocation_longitude() != null) {
+                LatLng location = new LatLng(Double.parseDouble(newsForEditing.getLocation_latitude()), Double.parseDouble(newsForEditing.getLocation_longitude()));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
+            } else {
+                LatLng location = new LatLng(Const.Location.ZAGREB_LATITUDE, Const.Location.ZAGREB_LONGITUDE);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
+            }
             mMap.setOnCameraIdleListener(() -> {
                 LatLng centerOfMap = mMap.getCameraPosition().target;
                 svNewsItem.setEnableScrolling(true);

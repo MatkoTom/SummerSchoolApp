@@ -204,8 +204,13 @@ public class EditRequestActivity extends BaseActivity {
     public void mapChange() {
         mapView.getMapAsync(googleMap -> {
             mMap = googleMap;
-            LatLng location = new LatLng(Double.parseDouble(requestForEditing.getLocation_latitude()), Double.parseDouble(requestForEditing.getLocation_longitude()));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
+            if (requestForEditing.getLocation_latitude() != null && requestForEditing.getLocation_longitude() != null) {
+                LatLng location = new LatLng(Double.parseDouble(requestForEditing.getLocation_latitude()), Double.parseDouble(requestForEditing.getLocation_longitude()));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
+            } else {
+                LatLng location = new LatLng(Const.Location.ZAGREB_LATITUDE, Const.Location.ZAGREB_LONGITUDE);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
+            }
             mMap.setOnCameraIdleListener(() -> {
                 LatLng centerOfMap = mMap.getCameraPosition().target;
                 svRequest.setEnableScrolling(true);

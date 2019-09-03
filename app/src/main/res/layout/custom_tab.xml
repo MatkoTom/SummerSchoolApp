@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="false"
+    android:focusable="false"
     android:gravity="center"
     android:orientation="vertical">
 
     <Button
         android:id="@+id/btn_tab_icon"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@null"
         android:drawableTop="@drawable/nav_news_icon"
         android:text="@string/placeholder"
         android:textColor="@drawable/button_text_color_states"
         android:fontFamily="@font/american_typewriter_bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:textSize="11sp" />
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
