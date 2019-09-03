@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.database.entity.NewsArticle;
 import com.example.summerschoolapp.model.News;
+import com.example.summerschoolapp.model.Request;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +37,6 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.Custom
         }
     }
 
-    //TODO do I need this?
-    //ignore
     public void clearList(List<NewsArticle> data) {
         this.data.clear();
         notifyDataSetChanged();
@@ -58,8 +57,6 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.Custom
         holder.ivNewsPicture.setImageDrawable(null);
         holder.tvNewsTitle.setText(item.getTitle_log());
 
-//        Timber.d("DAT: " + item.getTitle() + " " + item.getId());
-
         holder.tvNewsMessage.setText(item.getMessage_log());
         holder.tvNewsAuthor.setText(String.format("%s %s", item.getFirst_name(), item.getLast_name()));
 
@@ -67,6 +64,13 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.Custom
             if (listener != null) {
                 listener.onNewsClicked(item);
             }
+        });
+
+        holder.rowParentLayout.setOnLongClickListener(v -> {
+            if (listener != null) {
+                listener.onNewsLongClicked(item);
+            }
+            return true;
         });
     }
 
@@ -96,5 +100,6 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.Custom
 
     interface NewsListInteraction {
         void onNewsClicked(NewsArticle news);
+        void onNewsLongClicked(NewsArticle news);
     }
 }

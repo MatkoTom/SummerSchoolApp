@@ -15,9 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.summerschoolapp.R;
+import com.example.summerschoolapp.database.entity.NewsArticle;
+import com.example.summerschoolapp.utils.Const;
+import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.view.editNews.EditNewsActivity;
 import com.example.summerschoolapp.view.main.MainScreenViewModel;
 import com.example.summerschoolapp.view.newNews.CreateNewNewsActivity;
+import com.example.summerschoolapp.view.readNews.ReadNewsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import butterknife.BindView;
@@ -60,7 +64,31 @@ public class NewsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_news, container, false);
         ButterKnife.bind(this, rootView);
 
-        newsListAdapter = new NewsListAdapter(news -> EditNewsActivity.StartActivity(getContext(), news));
+        if (Integer.parseInt(Tools.getSharedPreferences(getActivity()).getSavedUserData().getRole()) == Const.Preferences.ADMIN_ROLE) {
+            newsListAdapter = new NewsListAdapter(new NewsListAdapter.NewsListInteraction() {
+                @Override
+                public void onNewsClicked(NewsArticle news) {
+                    ReadNewsActivity.StartActivity(getContext(), news);
+                }
+
+                @Override
+                public void onNewsLongClicked(NewsArticle news) {
+                    EditNewsActivity.StartActivity(getContext(), news);
+                }
+            });
+        } else {
+            newsListAdapter = new NewsListAdapter(new NewsListAdapter.NewsListInteraction() {
+                @Override
+                public void onNewsClicked(NewsArticle news) {
+                    ReadNewsActivity.StartActivity(getContext(), news);
+                }
+
+                @Override
+                public void onNewsLongClicked(NewsArticle news) {
+                    //ignore
+                }
+            });
+        }
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvNews.setLayoutManager(layoutManager);

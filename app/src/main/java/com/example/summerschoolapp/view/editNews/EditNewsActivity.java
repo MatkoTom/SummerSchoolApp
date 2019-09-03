@@ -94,7 +94,6 @@ public class EditNewsActivity extends BaseActivity {
         setContentView(R.layout.activity_edit_news);
         ButterKnife.bind(this);
 
-        //TODO What happened to ID?
         if (getIntent() != null && getIntent().getExtras() != null) {
             newsForEditing = getIntent().getParcelableExtra(Const.Intent.NEWS_DATA);
         }

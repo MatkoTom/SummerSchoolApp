@@ -159,7 +159,9 @@ public class EditRequestActivity extends BaseActivity {
     }
 
     public void setField() {
-        etRequestName.setText(requestForEditing.getTitle());
+        if (requestForEditing.getTitle() != null) {
+            etRequestName.setText(requestForEditing.getTitle());
+        }
         etRequestMessage.setText(requestForEditing.getMessage());
         etRequestAddress.setText(requestForEditing.getAddress());
     }

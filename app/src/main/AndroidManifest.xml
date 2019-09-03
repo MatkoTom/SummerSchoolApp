@@ -20,7 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.editNews.EditNewsActivity"></activity>
+        <activity android:name=".view.readNews.ReadNewsActivity"></activity>
+        <activity android:name=".view.editNews.EditNewsActivity" />
         <activity android:name=".view.editRequest.EditRequestActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
