@@ -97,16 +97,35 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/ibtn_upload_photo"
-                android:layout_width="80dp"
-                android:layout_height="70dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/button_location_layout"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rv_photos_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView19"
-                app:srcCompat="@drawable/upload_photo_icon" />
+                app:layout_constraintTop_toBottomOf="@id/textView19">
+
+                <ImageButton
+                    android:id="@+id/ibtn_upload_photo"
+                    android:layout_width="80dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/button_location_layout"
+                    app:layout_constraintStart_toStartOf="@id/rv_news_photos"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:srcCompat="@drawable/upload_photo_icon" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_news_photos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/ibtn_upload_photo"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/textView20"
@@ -117,7 +136,7 @@
                 android:fontFamily="@font/avenir_medium"
                 android:text="@string/request_title"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ibtn_upload_photo" />
+                app:layout_constraintTop_toBottomOf="@+id/rv_photos_layout" />
 
             <EditText
                 android:id="@+id/et_news_title"

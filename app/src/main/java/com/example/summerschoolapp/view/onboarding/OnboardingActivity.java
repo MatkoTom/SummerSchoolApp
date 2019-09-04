@@ -1,9 +1,12 @@
 package com.example.summerschoolapp.view.onboarding;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -19,6 +22,7 @@ import com.example.summerschoolapp.model.signup.RequestSignup;
 import com.example.summerschoolapp.utils.Tools;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
 import com.example.summerschoolapp.view.main.MainScreenActivity;
+import com.example.summerschoolapp.view.newNews.CreateNewNewsActivity;
 import com.example.summerschoolapp.view.onboarding.fragments.FirstLoginFragment;
 import com.example.summerschoolapp.view.onboarding.fragments.LoginFragment;
 import com.example.summerschoolapp.view.onboarding.fragments.SignupFragment;
@@ -85,6 +89,7 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
             }
         });
 
+        locationPermission();
         runFirstLoginFragment();
         autoLogin();
     }
@@ -96,6 +101,15 @@ public class OnboardingActivity extends BaseActivity implements SignupFragment.O
         transaction.add(R.id.fragment_container, new FirstLoginFragment(), FRAGMENT_TAG_FIRST_LOGIN);
         transaction.addToBackStack(FRAGMENT_TAG_FIRST_LOGIN);
         transaction.commit();
+    }
+
+    public void locationPermission() {
+        if (ActivityCompat.checkSelfPermission(OnboardingActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(OnboardingActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(OnboardingActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            return;
+        }else{
+            // Write you code here if permission already given.
+        }
     }
 
     @Override

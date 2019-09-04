@@ -11,7 +11,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.Target;
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.model.User;
 import com.example.summerschoolapp.utils.Const;
@@ -32,7 +31,14 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
 
     public void setData(List<User> newData) {
         if (newData != null && !newData.isEmpty()) {
-            Collections.sort(newData, (user, t1) -> user.getEmail().compareTo(t1.getEmail()));
+            Collections.sort(newData, (user, t1) -> {
+                if (user.getEmail() != null) {
+                   return user.getEmail().compareTo(t1.getEmail());
+                } else {
+                    return 0;
+                }
+            });
+
             this.data.clear();
             this.data.addAll(newData);
             notifyDataSetChanged();
@@ -59,6 +65,12 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
                     .asBitmap()
                     .fitCenter()
                     .load(Const.Api.API_GET_IMAGE + item.getPhoto())
+                    .into(holder.ivUSerImg);
+        } else {
+            Glide.with(holder.ivUSerImg.getContext())
+                    .asBitmap()
+                    .fitCenter()
+                    .load(holder.ivUSerImg.getResources().getDrawable(R.drawable.nav_users_icon))
                     .into(holder.ivUSerImg);
         }
 

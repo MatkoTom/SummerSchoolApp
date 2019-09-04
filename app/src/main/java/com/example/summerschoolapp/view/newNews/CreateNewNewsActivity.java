@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -20,6 +21,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.summerschoolapp.R;
@@ -28,15 +31,18 @@ import com.example.summerschoolapp.common.BaseError;
 import com.example.summerschoolapp.dialog.ErrorDialog;
 import com.example.summerschoolapp.dialog.SuccessDialog;
 import com.example.summerschoolapp.errors.NewUserError;
+import com.example.summerschoolapp.model.Photo;
 import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
 import com.example.summerschoolapp.utils.helpers.ScrollAdapter;
+import com.google.android.gms.common.internal.Constants;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnFailureListener;
 
 import java.io.File;
 import java.io.IOException;
@@ -79,12 +85,17 @@ public class CreateNewNewsActivity extends BaseActivity {
     @BindView(R.id.mv_news_location)
     MapView mapView;
 
+    @BindView(R.id.rv_news_photos)
+    RecyclerView rvNewsPhotos;
+
     private CreateNewNewsViewModel viewModel;
     private GoogleMap mMap;
     private static final int PICK_FROM_GALLERY = 1;
     private File image;
     private String filePath = "";
     private FusedLocationProviderClient fusedLocationProviderClient;
+    private NewNewsListAdapter adapter;
+    private List<Photo> photosList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +104,13 @@ public class CreateNewNewsActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         viewModel = ViewModelProviders.of(this).get(CreateNewNewsViewModel.class);
+
+        adapter = new NewNewsListAdapter();
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rvNewsPhotos.setLayoutManager(layoutManager);
+        rvNewsPhotos.setAdapter(adapter);
+
 
         viewModel.getProgressStatus().observe(this, progressStatus -> {
             switch (progressStatus) {
@@ -136,6 +154,7 @@ public class CreateNewNewsActivity extends BaseActivity {
                     break;
             }
         });
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         mapView.onCreate(savedInstanceState);
         mapChange();
@@ -188,12 +207,17 @@ public class CreateNewNewsActivity extends BaseActivity {
             filePath = mediaPath;
 
             image = new File(filePath);
-            Glide.with(this)
-                    .asBitmap()
-                    .load(data.getDataString())
-                    .into(ibtnUploadPhoto);
 
-            Timber.d("FILE PATH: %s", filePath);
+            //TODO rv horiznontal with images
+            //in progress
+////            Glide.with(this)
+////                    .asBitmap()
+////                    .load(data.getDataString())
+////                    .into(ibtnUploadPhoto);
+//
+//
+//            photosList.add(new Photo(data.getDataString()));
+//            adapter.setData(photosList);
         } else {
             Toast.makeText(this, getString(R.string.failed_to_load), Toast.LENGTH_SHORT).show();
         }
@@ -202,14 +226,14 @@ public class CreateNewNewsActivity extends BaseActivity {
     public void mapChange() {
         mapView.getMapAsync(googleMap -> {
             mMap = googleMap;
-            Timber.d("LOCATION: OUTSIDE");
-            //TODO get user location
-            // in progress
+
             fusedLocationProviderClient.getLastLocation()
+                    .addOnFailureListener(this, e -> {
+                        LatLng coordinates = new LatLng(Const.Location.ZAGREB_LATITUDE, Const.Location.ZAGREB_LONGITUDE);
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinates, 15));
+                    })
                     .addOnSuccessListener(this, location -> {
                         // Got last known location. In some rare situations this can be null.
-                        Timber.d("LOCATION: INSIDE");
-                        Timber.d("LOCATION:" + location.toString());
                         if (location != null) {
                             // Logic to handle location object
                             LatLng coordinates = new LatLng(location.getLatitude(), location.getLongitude());
@@ -217,8 +241,6 @@ public class CreateNewNewsActivity extends BaseActivity {
                         }
                     });
 
-            LatLng location = new LatLng(Const.Location.ZAGREB_LATITUDE, Const.Location.ZAGREB_LONGITUDE);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
             mMap.setOnCameraIdleListener(() -> {
                 LatLng centerOfMap = mMap.getCameraPosition().target;
                 svNewsItem.setEnableScrolling(true);
@@ -294,7 +316,7 @@ public class CreateNewNewsActivity extends BaseActivity {
         File file = new File(filepath);
 
         if (filepath != null) {
-            RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/png"));
+            RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/*"));
 
             return fileBody;
         }

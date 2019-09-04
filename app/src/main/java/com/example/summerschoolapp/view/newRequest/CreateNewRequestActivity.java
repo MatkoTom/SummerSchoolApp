@@ -22,6 +22,8 @@ import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
 import com.example.summerschoolapp.utils.helpers.ScrollAdapter;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -37,7 +39,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import timber.log.Timber;
 
 public class CreateNewRequestActivity extends BaseActivity {
 
@@ -65,6 +66,7 @@ public class CreateNewRequestActivity extends BaseActivity {
 
     private CreateNewRequestViewModel viewModel;
     private GoogleMap mMap;
+    private FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +118,8 @@ public class CreateNewRequestActivity extends BaseActivity {
                     break;
             }
         });
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         mapView.onCreate(savedInstanceState);
         mapChange();
         populateSpinner();
@@ -184,16 +188,27 @@ public class CreateNewRequestActivity extends BaseActivity {
     public void mapChange() {
         mapView.getMapAsync(googleMap -> {
             mMap = googleMap;
-            LatLng location = new LatLng(Const.Location.ZAGREB_LATITUDE, Const.Location.ZAGREB_LONGITUDE);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
+
+            fusedLocationProviderClient.getLastLocation()
+                    .addOnFailureListener(this, e -> {
+                        LatLng coordinates = new LatLng(Const.Location.ZAGREB_LATITUDE, Const.Location.ZAGREB_LONGITUDE);
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinates, 15));
+                    })
+                    .addOnSuccessListener(this, location -> {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
+                            LatLng coordinates = new LatLng(location.getLatitude(), location.getLongitude());
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinates, 15));
+                        }
+                    });
+
             mMap.setOnCameraIdleListener(() -> {
                 LatLng centerOfMap = mMap.getCameraPosition().target;
                 svRequest.setEnableScrolling(true);
 
                 double latitude = centerOfMap.latitude;
                 double longitude = centerOfMap.longitude;
-
-                Timber.d("LATLNG:" + centerOfMap.latitude + " " + centerOfMap.longitude);
 
                 Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
 
@@ -207,7 +222,6 @@ public class CreateNewRequestActivity extends BaseActivity {
                     Address address = addresses.get(0);
                     String[] street = address.getAddressLine(0).split(",");
                     String streetName = street[0];
-                    Timber.d("ADRESS%s", streetName);
                     etRequestAddress.setText(streetName);
                 }
 
