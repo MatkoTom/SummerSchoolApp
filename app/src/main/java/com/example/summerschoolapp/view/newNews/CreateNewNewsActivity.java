@@ -31,6 +31,8 @@ import com.example.summerschoolapp.errors.NewUserError;
 import com.example.summerschoolapp.utils.Const;
 import com.example.summerschoolapp.utils.helpers.EventObserver;
 import com.example.summerschoolapp.utils.helpers.ScrollAdapter;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -82,6 +84,7 @@ public class CreateNewNewsActivity extends BaseActivity {
     private static final int PICK_FROM_GALLERY = 1;
     private File image;
     private String filePath = "";
+    private FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +136,7 @@ public class CreateNewNewsActivity extends BaseActivity {
                     break;
             }
         });
-
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         mapView.onCreate(savedInstanceState);
         mapChange();
     }
@@ -199,6 +202,21 @@ public class CreateNewNewsActivity extends BaseActivity {
     public void mapChange() {
         mapView.getMapAsync(googleMap -> {
             mMap = googleMap;
+            Timber.d("LOCATION: OUTSIDE");
+            //TODO get user location
+            // in progress
+            fusedLocationProviderClient.getLastLocation()
+                    .addOnSuccessListener(this, location -> {
+                        // Got last known location. In some rare situations this can be null.
+                        Timber.d("LOCATION: INSIDE");
+                        Timber.d("LOCATION:" + location.toString());
+                        if (location != null) {
+                            // Logic to handle location object
+                            LatLng coordinates = new LatLng(location.getLatitude(), location.getLongitude());
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinates, 15));
+                        }
+                    });
+
             LatLng location = new LatLng(Const.Location.ZAGREB_LATITUDE, Const.Location.ZAGREB_LONGITUDE);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
             mMap.setOnCameraIdleListener(() -> {
