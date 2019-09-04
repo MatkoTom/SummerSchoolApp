@@ -209,23 +209,32 @@ public class CreateNewUserActivity extends BaseActivity {
                 etCreateUserName.getText().toString().length() == 0 ||
                 etCreateUserOib.getText().toString().length() == 0)) {
             String email = etCreateUserEmail.getText().toString();
-            String[] splitString = etCreateUserName.getText().toString().trim().split(" ");
-            String firstName = splitString[0];
-            String lastName = splitString[1];
+            String name = etCreateUserName.getText().toString();
             String oib = etCreateUserOib.getText().toString();
             String password = Tools.md5(etCreateUserPassword.getText().toString());
 
-            RequestBody requestBody = new MultipartBody.Builder()
-                    .setType(MultipartBody.FORM)
-                    .addFormDataPart("oib", oib)
-                    .addFormDataPart("firstName", firstName)
-                    .addFormDataPart("lastName", lastName)
-                    .addFormDataPart("email", email)
-                    .addFormDataPart("password", password)
-                    .addFormDataPart("photo", "image", uploadPicture(filePath))
-                    .build();
+            if (filePath.equals("")) {
+                RequestBody requestBody = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("oib", oib)
+                        .addFormDataPart("name", name)
+                        .addFormDataPart("email", email)
+                        .addFormDataPart("password", password)
+                        .build();
 
-            viewModel.postNewUser(requestBody);
+                viewModel.postNewUser(requestBody);
+            } else {
+                RequestBody requestBody = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("oib", oib)
+                        .addFormDataPart("name", name)
+                        .addFormDataPart("email", email)
+                        .addFormDataPart("password", password)
+                        .addFormDataPart("photo", "image", uploadPicture(filePath))
+                        .build();
+
+                viewModel.postNewUser(requestBody);
+            }
         } else {
             Toast.makeText(this, getString(R.string.plsea_fill_out_all_fields), Toast.LENGTH_LONG).show();
         }
@@ -236,7 +245,7 @@ public class CreateNewUserActivity extends BaseActivity {
         File file = new File(filepath);
 
         if (filepath != null) {
-            RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/png"));
+            RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/*"));
 
             return fileBody;
         }

@@ -42,7 +42,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import timber.log.Timber;
 
 public class EditUserActivity extends BaseActivity {
 
@@ -82,7 +81,6 @@ public class EditUserActivity extends BaseActivity {
 
     User userForEditing;
 
-    //TODO something is not working, route no being called?
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,7 +139,20 @@ public class EditUserActivity extends BaseActivity {
     }
 
     public void setField() {
-        etEditUserName.setText(String.format("%s %s", userForEditing.getFirstName(), userForEditing.getLastName()));
+        if (userForEditing.getName() == null) {
+            etEditUserName.setText(String.format("%s %s", userForEditing.getFirstName(), userForEditing.getLastName()));
+        } else {
+            etEditUserName.setText(userForEditing.getName());
+        }
+
+        if (userForEditing.getPhoto() != null) {
+            Glide.with(this)
+                    .asBitmap()
+                    .fitCenter()
+                    .load(Const.Api.API_GET_IMAGE + userForEditing.getPhoto())
+                    .into(civEditUserPicture);
+            ivUserPictureIcon.setVisibility(View.GONE);
+        }
         etEditUserEmail.setText(userForEditing.getEmail());
         etEditUserOib.setText(userForEditing.getOib());
     }
@@ -162,26 +173,34 @@ public class EditUserActivity extends BaseActivity {
     @OnClick(R.id.btn_edit_user)
     public void editUser() {
 
-        String[] splitString = etEditUserName.getText().toString().trim().split(" ");
-
         String id = userForEditing.getId();
         String oib = etEditUserOib.getText().toString();
-        String firstName = splitString[0];
-        String lastName = splitString[1];
+        String name = etEditUserName.getText().toString();
         String email = etEditUserEmail.getText().toString();
         String password = Tools.md5(etEditUserPassword.getText().toString());
 
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("oib", oib)
-                .addFormDataPart("firstName", firstName)
-                .addFormDataPart("lastName", lastName)
-                .addFormDataPart("email", email)
-                .addFormDataPart("password", password)
-                .addFormDataPart("photo", "image.png", uploadPicture(filePath))
-                .build();
+        if (filePath.equals("")) {
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("oib", oib)
+                    .addFormDataPart("name", name)
+                    .addFormDataPart("email", email)
+                    .addFormDataPart("password", password)
+                    .build();
 
-        viewModel.postEditUser(requestBody, id);
+            viewModel.postEditUser(requestBody, id);
+        } else {
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("oib", oib)
+                    .addFormDataPart("name", name)
+                    .addFormDataPart("email", email)
+                    .addFormDataPart("password", password)
+                    .addFormDataPart("photo", "image", uploadPicture(filePath))
+                    .build();
+
+            viewModel.postEditUser(requestBody, id);
+        }
     }
 
     @OnClick(R.id.civ_edit_user_picture)
@@ -253,15 +272,11 @@ public class EditUserActivity extends BaseActivity {
     }
 
     public RequestBody uploadPicture(String filepath) {
-        if (filepath != null) {
+        if (!filepath.equals("")) {
             File file = new File(filepath);
 
-            if (filepath != null) {
-                RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/png"));
-                return fileBody;
-            } else {
-                return null;
-            }
+            RequestBody fileBody = RequestBody.create(file, MediaType.parse("image/*"));
+            return fileBody;
         } else {
             return null;
         }

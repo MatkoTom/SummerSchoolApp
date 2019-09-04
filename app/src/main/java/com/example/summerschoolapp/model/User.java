@@ -31,6 +31,17 @@ public class User implements Parcelable {
     @SerializedName("image")
     private String photo;
 
+    @SerializedName("name")
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPhoto() {
         return photo;
     }
@@ -124,6 +135,7 @@ public class User implements Parcelable {
         dest.writeString(this.email);
         dest.writeString(this.role);
         dest.writeString(this.photo);
+        dest.writeString(this.name);
     }
 
     public User() {
@@ -138,6 +150,7 @@ public class User implements Parcelable {
         this.email = in.readString();
         this.role = in.readString();
         this.photo = in.readString();
+        this.name = in.readString();
     }
 
     public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {

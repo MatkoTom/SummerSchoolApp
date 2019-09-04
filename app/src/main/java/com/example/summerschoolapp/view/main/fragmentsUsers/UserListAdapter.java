@@ -33,7 +33,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
         if (newData != null && !newData.isEmpty()) {
             Collections.sort(newData, (user, t1) -> {
                 if (user.getEmail() != null) {
-                   return user.getEmail().compareTo(t1.getEmail());
+                    return user.getEmail().compareTo(t1.getEmail());
                 } else {
                     return 0;
                 }
@@ -56,8 +56,14 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
     @Override
     public void onBindViewHolder(@NonNull CustomVievHolder holder, int position) {
         User item = data.get(position);
-        holder.tvUserFirstName.setText(item.getFirstName());
-        holder.tvUserLastName.setText(item.getLastName());
+
+        if (item.getName() == null) {
+            holder.tvUserFirstName.setText(item.getFirstName());
+            holder.tvUserLastName.setText(item.getLastName());
+        } else {
+            holder.tvUserFirstName.setText(item.getName());
+        }
+
         holder.tvUserEmail.setText(item.getEmail());
 
         if (item.getPhoto() != null) {
