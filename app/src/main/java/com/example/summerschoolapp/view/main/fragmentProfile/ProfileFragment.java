@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,6 +80,9 @@ public class ProfileFragment extends BaseFragment {
 
     @BindView(R.id.layout_forgotten_password)
     ConstraintLayout layoutForgottenPassword;
+
+    @BindView(R.id.iv_user_picture_icon)
+    ImageView ivUserPictureIcon;
 
     @BindView(R.id.civ_user_image)
     CircleImageView civUserimage;
@@ -194,6 +198,8 @@ public class ProfileFragment extends BaseFragment {
                     .asBitmap()
                     .load(Const.Api.API_GET_IMAGE + user.getPhoto())
                     .into(civUserimage);
+
+            ivUserPictureIcon.setVisibility(View.GONE);
         }
     }
 
@@ -390,7 +396,7 @@ public class ProfileFragment extends BaseFragment {
 
             viewModel.editUserProfile(body);
 
-            Timber.d("FILE PATH: %s", filePath);
+            ivUserPictureIcon.setVisibility(View.GONE);
         } else {
             Toast.makeText(getActivity(), getString(R.string.failed_to_load), Toast.LENGTH_SHORT).show();
         }

@@ -19,18 +19,36 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/civ_user_image"
-                android:layout_width="168dp"
-                android:layout_height="168dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/circular_button_layout"
-                android:src="@drawable/new_user_profile_icon"
-                app:layout_constraintEnd_toEndOf="parent"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_user_picture_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/civ_user_image"
+                    android:layout_width="168dp"
+                    android:layout_height="168dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/circular_button_layout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_user_picture_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/new_user_profile_icon"
+                    app:layout_constraintBottom_toTopOf="@id/civ_user_image"
+                    app:layout_constraintEnd_toEndOf="@id/civ_user_image"
+                    app:layout_constraintStart_toStartOf="@id/civ_user_image"
+                    app:layout_constraintTop_toBottomOf="@id/civ_user_image" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tv_profile_name"
@@ -44,7 +62,7 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/civ_user_image" />
+                app:layout_constraintTop_toBottomOf="@+id/cl_user_picture_layout" />
 
             <ImageButton
                 android:id="@+id/ibtn_change_name"

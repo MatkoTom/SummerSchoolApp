@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -64,6 +66,9 @@ public class CreateNewUserActivity extends BaseActivity {
 
     @BindView(R.id.et_new_user_oib)
     EditText etCreateUserOib;
+
+    @BindView(R.id.iv_user_picture_icon)
+    ImageView ivUserPictureIcon;
 
     @BindView((R.id.civ_new_user_picture))
     CircleImageView civNewUserPicture;
@@ -191,7 +196,7 @@ public class CreateNewUserActivity extends BaseActivity {
                     .load(data.getDataString())
                     .into(civNewUserPicture);
 
-            Timber.d("FILE PATH: %s", filePath);
+            ivUserPictureIcon.setVisibility(View.GONE);
         } else {
             Toast.makeText(this, getString(R.string.failed_to_load), Toast.LENGTH_SHORT).show();
         }
