@@ -10,10 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.summerschoolapp.R;
 import com.example.summerschoolapp.database.entity.NewsArticle;
-import com.example.summerschoolapp.model.News;
-import com.example.summerschoolapp.model.Request;
+import com.example.summerschoolapp.utils.Const;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +54,16 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.Custom
     public void onBindViewHolder(@NonNull NewsListAdapter.CustomVievHolder holder, int position) {
         NewsArticle item = data.get(position);
 
-        holder.ivNewsPicture.setImageDrawable(null);
+        if (item.getImages() != null) {
+            String image = item.getImages().substring(item.getImages().indexOf("[")+1,item.getImages().indexOf("]"));
+            image = image.replace("\"", "");
+            Timber.d("STRING VALUE:%s", image);
+            Glide.with(holder.ivNewsPicture.getContext())
+                    .asBitmap()
+                    .load(Const.Api.API_GET_IMAGE + image)
+                    .into(holder.ivNewsPicture);
+        }
+
         holder.tvNewsTitle.setText(item.getTitle_log());
 
         holder.tvNewsMessage.setText(item.getMessage_log());
@@ -100,6 +109,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.Custom
 
     interface NewsListInteraction {
         void onNewsClicked(NewsArticle news);
+
         void onNewsLongClicked(NewsArticle news);
     }
 }

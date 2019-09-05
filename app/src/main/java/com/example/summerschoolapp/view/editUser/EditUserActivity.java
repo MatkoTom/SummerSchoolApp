@@ -179,7 +179,7 @@ public class EditUserActivity extends BaseActivity {
         String email = etEditUserEmail.getText().toString();
         String password = Tools.md5(etEditUserPassword.getText().toString());
 
-        if (filePath.equals("")) {
+        if (filePath.equals("") && requiredFieldsFull()) {
             RequestBody requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
                     .addFormDataPart("oib", oib)
@@ -189,7 +189,7 @@ public class EditUserActivity extends BaseActivity {
                     .build();
 
             viewModel.postEditUser(requestBody, id);
-        } else {
+        } else if (!filePath.equals("") && requiredFieldsFull()) {
             RequestBody requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
                     .addFormDataPart("oib", oib)
@@ -200,7 +200,13 @@ public class EditUserActivity extends BaseActivity {
                     .build();
 
             viewModel.postEditUser(requestBody, id);
+        } else {
+            Toast.makeText(this, getString(R.string.enter_required_fields), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public boolean requiredFieldsFull() {
+        return etEditUserName.length() != 0 && etEditUserEmail.length() != 0 && etEditUserOib.length() != 0 && etEditUserPassword.length() != 0;
     }
 
     @OnClick(R.id.civ_edit_user_picture)

@@ -9,6 +9,7 @@ import android.os.PersistableBundle;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -177,18 +178,26 @@ public class EditRequestActivity extends BaseActivity {
         String longitude = String.valueOf(getLocationFromAddress(this, etRequestAddress.getText().toString()).longitude);
         String address = etRequestAddress.getText().toString();
 
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("Title", title)
-                .addFormDataPart("Request_type", type)
-                .addFormDataPart("message", message)
-                .addFormDataPart("location_latitude", latitude)
-                .addFormDataPart("location_longitude", longitude)
-                .addFormDataPart("Address", address)
-                .build();
+        if (requiredFieldsFull()) {
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("Title", title)
+                    .addFormDataPart("Request_type", type)
+                    .addFormDataPart("message", message)
+                    .addFormDataPart("location_latitude", latitude)
+                    .addFormDataPart("location_longitude", longitude)
+                    .addFormDataPart("Address", address)
+                    .build();
 
-        viewModel.postEditRequest(id, requestBody);
+            viewModel.postEditRequest(id, requestBody);
+        } else {
+            Toast.makeText(this, getString(R.string.enter_required_fields), Toast.LENGTH_SHORT).show();
+        }
 
+    }
+
+    private boolean requiredFieldsFull() {
+        return etRequestAddress.length() != 0 && etRequestMessage.length() != 0 && etRequestName.length() != 0;
     }
 
     @OnClick(R.id.ibtn_back)

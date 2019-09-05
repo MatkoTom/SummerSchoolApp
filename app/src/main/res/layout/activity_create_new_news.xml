@@ -112,7 +112,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/button_location_layout"
-                    app:layout_constraintStart_toStartOf="@id/rv_news_photos"
+                    app:layout_constraintStart_toEndOf="@id/rv_news_photos"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:srcCompat="@drawable/upload_photo_icon" />
 

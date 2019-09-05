@@ -185,18 +185,37 @@ public class EditNewsActivity extends BaseActivity {
         String longitude = String.valueOf(getLocationFromAddress(this, etNewsAddress.getText().toString()).longitude);
         String address = etNewsAddress.getText().toString();
 
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("Title", title)
-                .addFormDataPart("message", message)
-                .addFormDataPart("location_latitude", latitude)
-                .addFormDataPart("location_longitude", longitude)
-                .addFormDataPart("Address", address)
-                .addFormDataPart("photo", "image.png", uploadPicture(filePath))
-                .build();
+        if (filePath.equals("") && requiredFieldsFull()) {
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("Title", title)
+                    .addFormDataPart("message", message)
+                    .addFormDataPart("location_latitude", latitude)
+                    .addFormDataPart("location_longitude", longitude)
+                    .addFormDataPart("Address", address)
+                    .build();
 
-        viewModel.postEditNews(newsForEditing.getArticle_id(), requestBody);
+            viewModel.postEditNews(newsForEditing.getArticle_id(), requestBody);
+        } else if (!filePath.equals("") && requiredFieldsFull()) {
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("Title", title)
+                    .addFormDataPart("message", message)
+                    .addFormDataPart("location_latitude", latitude)
+                    .addFormDataPart("location_longitude", longitude)
+                    .addFormDataPart("Address", address)
+                    .addFormDataPart("photo", "image.png", uploadPicture(filePath))
+                    .build();
 
+            viewModel.postEditNews(newsForEditing.getArticle_id(), requestBody);
+        } else {
+            Toast.makeText(this, getString(R.string.enter_required_fields), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private boolean requiredFieldsFull() {
+        return etNewsAddress.length() != 0 && etNewsText.length() != 0 && etNewsTitle.length() != 0;
     }
 
     @OnClick(R.id.ibtn_back)
