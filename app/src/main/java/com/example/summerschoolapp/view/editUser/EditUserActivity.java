@@ -4,16 +4,24 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -73,11 +81,27 @@ public class EditUserActivity extends BaseActivity {
     @BindView(R.id.civ_edit_user_picture)
     CircleImageView civEditUserPicture;
 
+    @BindView(R.id.tv_edit_user_email)
+    TextView tvEditUserEmail;
+
+    @BindView(R.id.tv_edit_user_oib)
+    TextView tvEditUserOib;
+
+    @BindView(R.id.tv_edit_user_not_email)
+    TextView tvNotEmail;
+
+    @BindView(R.id.tv_edit_user_oib_11)
+    TextView tvWrongOib;
+
+    @BindView(R.id.btn_edit_user)
+    Button btnEditUser;
+
     private boolean isVisible = false;
     private EditUserViewModel viewModel;
     private static final int PICK_FROM_GALLERY = 1;
     private File image;
     private String filePath = "";
+    private ColorStateList oldColor;
 
     User userForEditing;
 
@@ -136,6 +160,9 @@ public class EditUserActivity extends BaseActivity {
             }
         });
         setField();
+        textChangedListener();
+        canUserBeCreated();
+        oldColor = tvEditUserOib.getTextColors();
     }
 
     public void setField() {
@@ -244,6 +271,107 @@ public class EditUserActivity extends BaseActivity {
                     //do something like displaying a message that he didn`t allow the app to access gallery and you wont be able to let him select from gallery
                 }
                 break;
+        }
+    }
+
+    private void textChangedListener() {
+        etEditUserOib.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                canUserBeCreated();
+                if (etEditUserOib.length() == 0 || etEditUserOib.length() > 11 || etEditUserOib.length() < 11) {
+                    tvWrongOib.setTextColor(Color.RED);
+                    tvWrongOib.setText(R.string.oib_error_11_characters);
+                    tvEditUserOib.setTextColor(Color.RED);
+                } else {
+                    tvEditUserOib.setTextColor(oldColor);
+                    tvWrongOib.setText("");
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        etEditUserEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                canUserBeCreated();
+                if (!isValidEmail(etEditUserEmail.getText().toString().trim())) {
+                    tvNotEmail.setTextColor(Color.RED);
+                    tvNotEmail.setText(R.string.not_an_email);
+                    tvEditUserEmail.setTextColor(Color.RED);
+                } else {
+                    tvEditUserEmail.setTextColor(oldColor);
+                    tvNotEmail.setText("");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        etEditUserName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                canUserBeCreated();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        etEditUserPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                canUserBeCreated();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    private static boolean isValidEmail(CharSequence target) {  // Email validator, checks if field has correct input
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
+
+    private void canUserBeCreated() {
+        if (!isValidEmail(etEditUserEmail.getText().toString().trim()) || etEditUserPassword.length() == 0 || etEditUserOib.length() < 11 || etEditUserOib.length() > 11) {
+            btnEditUser.setEnabled(false);
+            btnEditUser.setAlpha(0.5f);
+        } else {
+            btnEditUser.setEnabled(true);
+            btnEditUser.setAlpha(1.0f);
         }
     }
 

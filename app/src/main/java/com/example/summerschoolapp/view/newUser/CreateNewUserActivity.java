@@ -4,17 +4,24 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,7 +48,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import timber.log.Timber;
 
 public class CreateNewUserActivity extends BaseActivity {
 
@@ -70,6 +76,18 @@ public class CreateNewUserActivity extends BaseActivity {
     @BindView(R.id.iv_user_picture_icon)
     ImageView ivUserPictureIcon;
 
+    @BindView(R.id.tv_oib_in_use)
+    TextView tvOibInUse;
+
+    @BindView(R.id.tv_oib)
+    TextView tvOib;
+
+    @BindView(R.id.tv_create_uer_email)
+    TextView tvEmail;
+
+    @BindView(R.id.tv_create_user_wring_email)
+    TextView tvWrongEmail;
+
     @BindView((R.id.civ_new_user_picture))
     CircleImageView civNewUserPicture;
 
@@ -77,6 +95,7 @@ public class CreateNewUserActivity extends BaseActivity {
     private CreateNewUserViewModel viewModel;
     private static final int PICK_FROM_GALLERY = 1;
     private File image;
+    private ColorStateList oldColor;
     private String filePath = "";
 
     @Override
@@ -129,6 +148,10 @@ public class CreateNewUserActivity extends BaseActivity {
                     break;
             }
         });
+
+        canUserBeCreated();
+        textChangedListener();
+        oldColor = tvOib.getTextColors();
     }
 
     @OnClick(R.id.ibtn_hide_show)
@@ -241,6 +264,93 @@ public class CreateNewUserActivity extends BaseActivity {
 
     }
 
+    private void textChangedListener() {
+        etCreateUserOib.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                canUserBeCreated();
+                if (etCreateUserOib.length() == 0 || etCreateUserOib.length() > 11 || etCreateUserOib.length() < 11) {
+                    tvOibInUse.setTextColor(Color.RED);
+                    tvOibInUse.setText(R.string.oib_error_11_characters);
+                    tvOib.setTextColor(Color.RED);
+                } else {
+                    tvOib.setTextColor(oldColor);
+                    tvOibInUse.setText("");
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        etCreateUserEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                canUserBeCreated();
+                if (!isValidEmail(etCreateUserEmail.getText().toString().trim())) {
+                    tvWrongEmail.setTextColor(Color.RED);
+                    tvWrongEmail.setText(R.string.not_an_email);
+                    tvEmail.setTextColor(Color.RED);
+                } else {
+                    tvEmail.setTextColor(oldColor);
+                    tvWrongEmail.setText("");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        etCreateUserName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                canUserBeCreated();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        etCreateUserPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                canUserBeCreated();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
     public RequestBody uploadPicture(String filepath) {
         File file = new File(filepath);
 
@@ -250,6 +360,20 @@ public class CreateNewUserActivity extends BaseActivity {
             return fileBody;
         }
         return null;
+    }
+
+    private static boolean isValidEmail(CharSequence target) {  // Email validator, checks if field has correct input
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
+
+    private void canUserBeCreated() {
+        if (!isValidEmail(etCreateUserEmail.getText().toString().trim()) || etCreateUserPassword.length() == 0 || etCreateUserOib.length() < 11 || etCreateUserOib.length() > 11) {
+            btnCreateNewUser.setEnabled(false);
+            btnCreateNewUser.setAlpha(0.5f);
+        } else {
+            btnCreateNewUser.setEnabled(true);
+            btnCreateNewUser.setAlpha(1.0f);
+        }
     }
 
     @OnClick(R.id.ibtn_back)
