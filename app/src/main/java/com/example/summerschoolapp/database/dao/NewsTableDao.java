@@ -18,11 +18,11 @@ public interface NewsTableDao {
     @Query("SELECT * FROM NewsArticle ORDER BY article_id DESC")
     LiveData<List<NewsArticle>> selectAllNews();
 
-    @Insert
-    void insert (NewsArticle article);
-
     @Insert (onConflict = OnConflictStrategy.REPLACE)
     long[] insertList(List<NewsArticle> articleList);
+
+    @Insert
+    void insert (NewsArticle article);
 
     @Delete
     void delete (NewsArticle article);

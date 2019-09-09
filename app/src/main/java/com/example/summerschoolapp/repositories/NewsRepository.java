@@ -37,24 +37,26 @@ public class NewsRepository {
         return tableDao.selectAllNews();
     }
 
-    public void insert(NewsArticle article) {
-        new InsertAsyncTask(tableDao).execute(article);
-    }
-
-    private static class InsertAsyncTask extends AsyncTask<NewsArticle, Void, Void> {
-
-        private NewsTableDao mAsyncTaskDao;
-
-        InsertAsyncTask(NewsTableDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final NewsArticle... params) {
-            mAsyncTaskDao.insert(params[0]);
-            return null;
-        }
-    }
+    // TODO Do I need this?
+    // ignore
+//    public void insert(NewsArticle article) {
+//        new InsertAsyncTask(tableDao).execute(article);
+//    }
+//
+//    private static class InsertAsyncTask extends AsyncTask<NewsArticle, Void, Void> {
+//
+//        private NewsTableDao mAsyncTaskDao;
+//
+//        InsertAsyncTask(NewsTableDao dao) {
+//            mAsyncTaskDao = dao;
+//        }
+//
+//        @Override
+//        protected Void doInBackground(final NewsArticle... params) {
+//            mAsyncTaskDao.insert(params[0]);
+//            return null;
+//        }
+//    }
 
     public Single<ResponseNewNews> createNewNews(String token, RequestBody body) {
         return RetrofitAdapter.getRetrofitClient()

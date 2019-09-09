@@ -124,7 +124,7 @@ public class NewsFragment extends Fragment {
     }
 
     public void swipeRefresh() {
-        swipeRefreshLayout.setOnRefreshListener(() -> getNewsList());
+        swipeRefreshLayout.setOnRefreshListener(this::getNewsList);
     }
 
     private void getNewsList() {
